@@ -1,5 +1,6 @@
 import React from 'react';
 import PlayerStats from "./PlayerStats";
+import CurrentGames from "./CurrentGames";
 
 
 const Dashboard = (props) => {
@@ -11,7 +12,7 @@ const Dashboard = (props) => {
                     <PlayerStats/>
                 </div>
                 <div className="dashboard-item col s12 m12">
-                    Current Games
+                    <CurrentGames/>
                 </div>
             </div>
         </div>
