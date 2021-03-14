@@ -1,6 +1,8 @@
 import Navbar from "./components/layout/NavBar";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
+//Test
+
 function App() {
   return (
       <BrowserRouter>
