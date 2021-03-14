@@ -12,13 +12,29 @@ code {
     monospace;
 }
 
-.dashboard-item{
+.dashboard-item {
   border: 1px solid;
   margin: 10px 0px;
 }
 
-.dashboard{
+.dashboard {
   border: 1px solid;
   margin-top: 40px;
   padding: 20px 20px;
+}
+
+.gameitem-container {
+  margin: 10px 0px;
+  border : 1px solid;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.gameitem-col {
+  width : 50%;
+}
+
+.dashboard-item-container {
+  margin: 0;
 }
