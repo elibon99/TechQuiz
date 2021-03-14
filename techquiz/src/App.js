@@ -1,13 +1,17 @@
 import Navbar from "./components/layout/NavBar";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Dashboard from "./components/dashboard/Dashboard";
 
-//Test
+
 
 function App() {
   return (
       <BrowserRouter>
         <div className="App">
           <Navbar />
+          <Switch>
+              <Route exact path = '/' component={Dashboard}></Route>
+          </Switch>
         </div>
       </BrowserRouter>
   );
