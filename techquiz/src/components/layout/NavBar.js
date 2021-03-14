@@ -9,7 +9,6 @@ const Navbar = (props) => {
         <nav className="wrapper grey darken-3">
             <div className="container">
                 <Link to='/' className="brand-logo">TechQuiz</Link>
-                
                 <LoggedInLinks />
                 <LoggedOutLinks/>
             </div>
