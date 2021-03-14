@@ -38,3 +38,7 @@ code {
 .dashboard-item-container {
   margin: 0;
 }
+
+.game-status-title{
+  font-weight: bold;
+}
