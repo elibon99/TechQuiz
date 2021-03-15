@@ -65,3 +65,17 @@ ol{
   border: 1px solid;
   padding: 10px 10px;
 }
+
+.card {
+  margin-top: 50px;
+}
+
+.quick-match-title {
+  text-align: center;
+}
+
+.find-game-margin {
+  margin-top: 60px;
+  border: solid 1px;
+  padding: 20px 20px;
+}
