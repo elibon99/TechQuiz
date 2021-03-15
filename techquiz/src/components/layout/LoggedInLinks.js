@@ -6,8 +6,6 @@ const LoggedInLinks = (props) => {
     return(
         <>
             <li><NavLink to='/findgame'>Find a game</NavLink></li>
-            <li><NavLink to='/'>Leaderboards</NavLink></li>
-            <li><NavLink to='/'>Find a game</NavLink></li>
             <li><NavLink to='/leaderboard'>Leaderboards</NavLink></li>
             <li><NavLink to='/'>Log out</NavLink></li>
             <li><NavLink to='/' className='btn btn-floating blue lighten-1'>AS</NavLink></li>
