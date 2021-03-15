@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from "react-router-dom";
 
 const GameItemYourTurn = () => {
     return(
@@ -7,7 +8,7 @@ const GameItemYourTurn = () => {
                    Per
                 </div>
                 <div className="gameitem-col">
-                    <button className="right btn waves-effect waves-light #64b5f6 blue lighten-2">Play</button>
+                    <Link to='/game-landing'><button className="right btn waves-effect waves-light #64b5f6 blue lighten-2">Play</button></Link>
                 </div>
         </div>
     )
