@@ -42,3 +42,7 @@ code {
 .game-status-title{
   font-weight: bold;
 }
+
+.container{
+  overflow: hidden;
+}
