@@ -4,8 +4,7 @@ import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/authentication/SignUp";
 import SignIn from "./components/authentication/SignIn";
 import FindGame from "./components/game/FindGame";
-
-
+import Leaderboard from "./components/leaderboard/Leaderboard";
 
 function App() {
   return (
@@ -17,6 +16,7 @@ function App() {
               <Route path = '/signup' component={SignUp}></Route>
               <Route path = '/signin' component={SignIn}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
+              <Route path = '/leaderboard' component={Leaderboard}></Route>
           </Switch>
         </div>
       </BrowserRouter>

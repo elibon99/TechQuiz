@@ -46,3 +46,22 @@ code {
 .container{
   overflow: hidden;
 }
+
+.brand-logo{
+  font-size: 32px!important;
+}
+
+.logo{
+  height: 64px;
+  width: 64px;
+}
+
+ol{
+  padding-left: 0px;
+  list-style: inside decimal;
+}
+
+.ranking-container{
+  border: 1px solid;
+  padding: 10px 10px;
+}
