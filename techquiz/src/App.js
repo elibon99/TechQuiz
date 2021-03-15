@@ -3,8 +3,9 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/authentication/SignUp";
 import SignIn from "./components/authentication/SignIn";
-import FindGame from "./components/game/FindGame";
+import FindGame from "./components/gameSetup/FindGame";
 import Leaderboard from "./components/leaderboard/Leaderboard";
+import GameLanding from "./components/game/GameLanding";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
               <Route path = '/signin' component={SignIn}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
               <Route path = '/leaderboard' component={Leaderboard}></Route>
+              <Route path = '/game-landing' component={GameLanding}></Route>
+
           </Switch>
         </div>
       </BrowserRouter>
