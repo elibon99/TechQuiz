@@ -9,7 +9,10 @@ const categories = [
     {name: "PHP", id: 4}
 ]
 
+
+
 const GameCategory = (props) =>  {
+
     return (
         <div className="container">
             <div className="card game-landing-container">

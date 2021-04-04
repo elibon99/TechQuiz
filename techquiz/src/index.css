@@ -108,6 +108,8 @@ ol{
 
 .play-button{
   width: 100%;
+  font-size: 24px;
+  text-transform: none;
 }
 
 .category-title{
@@ -168,5 +170,7 @@ ol{
 .game-finished-btn{
   margin-top: 20px;
 }
+
+
 
 
