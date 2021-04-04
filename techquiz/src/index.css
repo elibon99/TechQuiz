@@ -109,3 +109,8 @@ ol{
 .play-button{
   width: 100%;
 }
+
+.category-title{
+  text-align: center;
+  font-size: 30px;
+}
