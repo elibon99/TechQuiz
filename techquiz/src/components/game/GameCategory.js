@@ -1,5 +1,6 @@
 import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
+import {Link} from "react-router-dom";
 
 const categories = [
     {name: "Linux", id: 1},
@@ -28,7 +29,9 @@ const GameCategory = (props) =>  {
 
                 <div className="row">
                         <div className="col s12 m12">
-                            <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
+                            <Link to='/quiz-landing'>
+                                <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
+                            </Link>
                         </div>
                 </div>
             </div>
