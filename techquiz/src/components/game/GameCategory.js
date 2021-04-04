@@ -17,8 +17,10 @@ const GameCategory = (props) =>  {
                     {categories.map((category => {
                         return (
                             <div key={category.id} className="col s12 m6">
-                                <div className="card category-title">
-                                    {category.name}
+                                <div className="card category-title-container">
+                                    <div className="category-title">
+                                        {category.name}
+                                    </div>
                                 </div>
                             </div>)
                     }))}

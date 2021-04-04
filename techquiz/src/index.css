@@ -118,3 +118,16 @@ ol{
 .category-selection-title{
   text-align: center;
 }
+
+.category-title-container{
+  display: flex;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  background-color: #C4C4C4;
+}
+
+.category-title-container:hover{
+  background-color: #42A5F5;
+  color: #FFFF;
+}
