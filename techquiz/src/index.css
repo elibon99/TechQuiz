@@ -169,4 +169,39 @@ ol{
   margin-top: 20px;
 }
 
+.sticky-nav{
+  position: fixed;
+  top:0;
+}
 
+.homepage-container{
+  background-image: url("./img/background-logo.jpg");
+  background-color: white;
+  height: 300px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  backdrop-filter: brightness(90%);
+}
+
+.homepage-title-1{
+  font-size: 38px;
+  color: white;
+  white-space: normal;
+}
+.homepage-title-2{
+  font-size: 38px;
+  font-weight: bold;
+  color: white;
+}
+.homepage-title-3{
+  font-size: 22px;
+  font-weight: 300;
+  color:white;
+}
