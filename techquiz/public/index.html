@@ -38,6 +38,18 @@
         $('.sidenav').sidenav();
       });
     </script>
+
+    <!-- The below function allowing for a sticky nav is taken from
+    https://stackoverflow.com/questions/45383875/creating-a-sticky-navbar-in-materialize-->
+    <script>
+      $(document).ready(function() {
+        $(window).scroll(function () {
+          if ($(window).scrollTop() > 150) {
+            $('nav').addClass('sticky-nav');
+          }
+        })
+      })
+    </script>
     <title>React App</title>
   </head>
   <body>
