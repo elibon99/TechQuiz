@@ -11,12 +11,13 @@ import QuizLanding from "./components/game/QuizLanding";
 import QuizQuestions from "./components/game/QuizQuestions";
 import CurrentGameStats from "./components/game/CurrentGameStats";
 import GameFinished from "./components/game/GameFinished";
+import Landing from "./components/home/Landing";
 
 function App() {
   return (
       <BrowserRouter>
         <div className="App">
-          <Navbar />
+          <Navbar/>
           <Switch>
               <Route exact path = '/' component={Dashboard}></Route>
               <Route path = '/signup' component={SignUp}></Route>
@@ -29,6 +30,7 @@ function App() {
               <Route path = '/quiz-question' component={QuizQuestions}></Route>
               <Route path = '/current-game-stats' component={CurrentGameStats}></Route>
               <Route path = '/game-finished' component={GameFinished}></Route>
+              <Route path = '/home' component={Landing}></Route>
 
           </Switch>
         </div>
