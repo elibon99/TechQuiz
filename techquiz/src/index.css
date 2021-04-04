@@ -112,7 +112,7 @@ ol{
 
 .category-title{
   text-align: center;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 .category-selection-title{
@@ -130,4 +130,20 @@ ol{
 .category-title-container:hover{
   background-color: #42A5F5;
   color: #FFFF;
+}
+.category-display-container{
+  display: flex;
+  margin: 20px 0px;
+  height: 250px;
+  align-items: center;
+  justify-content: center;
+  background-color: #C4C4C4;
+}
+
+.answer-display-container{
+  margin: 20px 0px;
+  height: 250px;
+  background-color: white;
+  border: 1px solid;
+  font-size: 30px;
 }
