@@ -147,3 +147,26 @@ ol{
   border: 1px solid;
   font-size: 30px;
 }
+
+.square-container{
+  margin: 4px 8px;
+  width: 40px;
+  height: 40px;
+  display: inline-block;
+  vertical-align: middle;
+  border: 1px solid;
+  text-align: center;
+  font-size: 16px;
+}
+
+.game-finished-container{
+  margin-top: 20px;
+  padding-bottom: 40px;
+  border: 1px solid;
+}
+
+.game-finished-btn{
+  margin-top: 20px;
+}
+
+
