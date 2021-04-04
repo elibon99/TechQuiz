@@ -6,6 +6,7 @@ import SignIn from "./components/authentication/SignIn";
 import FindGame from "./components/gameSetup/FindGame";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import GameLanding from "./components/game/GameLanding";
+import GameCategory from "./components/game/GameCategory";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
               <Route path = '/findgame' component={FindGame}></Route>
               <Route path = '/leaderboard' component={Leaderboard}></Route>
               <Route path = '/game-landing' component={GameLanding}></Route>
+              <Route path = '/choose-category' component={GameCategory}></Route>
 
           </Switch>
         </div>
