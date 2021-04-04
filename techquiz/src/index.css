@@ -108,6 +108,10 @@ ol{
 
 .play-button{
   width: 100%;
+  font-size: 24px;
+  text-transform: none;
+  font-size: 24px;
+  text-transform: none;
 }
 
 .category-title{
@@ -190,6 +194,7 @@ ol{
   backdrop-filter: brightness(90%);
 }
 
+<<<<<<< HEAD
 .homepage-title-1{
   font-size: 38px;
   color: white;
@@ -205,3 +210,7 @@ ol{
   font-weight: 300;
   color:white;
 }
+=======
+
+
+>>>>>>> 315126301cab0390a5b96f4783cb0ea9a91b8c1f
