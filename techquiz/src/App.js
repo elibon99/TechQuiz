@@ -7,6 +7,8 @@ import FindGame from "./components/gameSetup/FindGame";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import GameLanding from "./components/game/GameLanding";
 import GameCategory from "./components/game/GameCategory";
+import QuizLanding from "./components/game/QuizLanding";
+import QuizQuestions from "./components/game/QuizQuestions";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
               <Route path = '/leaderboard' component={Leaderboard}></Route>
               <Route path = '/game-landing' component={GameLanding}></Route>
               <Route path = '/choose-category' component={GameCategory}></Route>
+              <Route path = '/quiz-landing' component={QuizLanding}></Route>
+              <Route path = '/quiz-question' component={QuizQuestions}></Route>
 
           </Switch>
         </div>
