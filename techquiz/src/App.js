@@ -9,6 +9,8 @@ import GameLanding from "./components/game/GameLanding";
 import GameCategory from "./components/game/GameCategory";
 import QuizLanding from "./components/game/QuizLanding";
 import QuizQuestions from "./components/game/QuizQuestions";
+import CurrentGameStats from "./components/game/CurrentGameStats";
+import GameFinished from "./components/game/GameFinished";
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
               <Route path = '/choose-category' component={GameCategory}></Route>
               <Route path = '/quiz-landing' component={QuizLanding}></Route>
               <Route path = '/quiz-question' component={QuizQuestions}></Route>
+              <Route path = '/current-game-stats' component={CurrentGameStats}></Route>
+              <Route path = '/game-finished' component={GameFinished}></Route>
 
           </Switch>
         </div>
