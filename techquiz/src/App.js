@@ -1,6 +1,5 @@
 import Navbar from "./components/layout/NavBar";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import Dashboard from "./components/dashboard/Dashboard";
 import SignUp from "./components/authentication/SignUp";
 import SignIn from "./components/authentication/SignIn";
 import FindGame from "./components/gameSetup/FindGame";
@@ -12,6 +11,7 @@ import QuizQuestions from "./components/game/QuizQuestions";
 import CurrentGameStats from "./components/game/CurrentGameStats";
 import GameFinished from "./components/game/GameFinished";
 import Landing from "./components/home/Landing";
+import DashboardPresenter from "./containers/DashboardPresenter";
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
         <div className="App">
           <Navbar/>
           <Switch>
-              <Route exact path = '/' component={Dashboard}></Route>
+              <Route exact path = '/' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUp}></Route>
               <Route path = '/signin' component={SignIn}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
