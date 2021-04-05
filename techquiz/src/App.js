@@ -1,7 +1,5 @@
-import Navbar from "./components/layout/NavBar";
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import SignUp from "./components/authentication/SignUp";
-import SignIn from "./components/authentication/SignIn";
 import FindGame from "./components/gameSetup/FindGame";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import GameLanding from "./components/game/GameLanding";
@@ -12,16 +10,18 @@ import CurrentGameStats from "./components/game/CurrentGameStats";
 import GameFinished from "./components/game/GameFinished";
 import Landing from "./components/home/Landing";
 import DashboardPresenter from "./containers/DashboardPresenter";
+import NavBarPresenter from "./containers/NavBarPresenter";
+import SignInPresenter from "./containers/SignInPresenter";
 
 function App() {
   return (
       <BrowserRouter>
         <div className="App">
-          <Navbar/>
+          <NavBarPresenter/>
           <Switch>
               <Route exact path = '/' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUp}></Route>
-              <Route path = '/signin' component={SignIn}></Route>
+              <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
               <Route path = '/leaderboard' component={Leaderboard}></Route>
               <Route path = '/game-landing' component={GameLanding}></Route>

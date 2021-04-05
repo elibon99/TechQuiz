@@ -5,7 +5,6 @@ import FinishedGames from "./FinishedGames";
 
 
 const Dashboard = ({stats}) => {
-    console.log(stats.wins);
     return (
         <div className="dashboard container">
             <h1>Adam Svensson</h1>
