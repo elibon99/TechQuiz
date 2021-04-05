@@ -15,7 +15,7 @@ const Navbar = (props) => {
 
                 <ul className="right hide-on-med-and-down">
                     <LoggedOutLinks/>
-                    <LoggedInLinks/>
+                    <LoggedInLinks signOut={props.signOut}/>
                 </ul>
                 <ul className="sidenav" id="mobile-nav">
                     <LoggedOutLinks/>
