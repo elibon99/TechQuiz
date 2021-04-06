@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {signOut} from "../store/actions/authActions";
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return{
         auth: state.firebase.auth,
     }
