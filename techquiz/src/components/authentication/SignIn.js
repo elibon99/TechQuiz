@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Redirect} from 'react-router-dom'
 const SignIn = (props) => {
     const [credentials, setCredentials] = React.useState({
         email: '',
@@ -8,6 +8,7 @@ const SignIn = (props) => {
     const changeHandler = e => {
         setCredentials({...credentials, [e.target.name]: e.target.value})
     }
+    if(props.auth.uid) return <Redirect to='/profile' />
     return(
         <div className="container">
             <form className="white"
