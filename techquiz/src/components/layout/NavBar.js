@@ -9,7 +9,7 @@ const Navbar = (props) => {
     return (
         <nav className="wrapper grey darken-3">
             <div className="nav-wrapper container">
-                <Link to='/' className="brand-logo">TechQuiz</Link>
+                <Link to='/profile' className="brand-logo">TechQuiz</Link>
                 <a href="/" className="sidenav-trigger" data-target="mobile-nav">
                     <i className="material-icons">menu</i>
                 </a>
