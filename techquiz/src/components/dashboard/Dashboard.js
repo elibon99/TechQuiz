@@ -6,8 +6,6 @@ import {Redirect} from "react-router-dom";
 
 
 const Dashboard = ({stats, auth}) => {
-    console.log('wanna go to dashboard');
-    console.log(auth);
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
