@@ -1,6 +1,6 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import SignUp from "./components/authentication/SignUp";
-import FindGame from "./components/gameSetup/FindGame";
+import FindGamePresenter from "./containers/FindGamePresenter";
 import Leaderboard from "./components/leaderboard/Leaderboard";
 import GameLanding from "./components/game/GameLanding";
 import GameCategory from "./components/game/GameCategory";
@@ -23,7 +23,7 @@ function App() {
               <Route path = '/profile' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUp}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
-              <Route path = '/findgame' component={FindGame}></Route>
+              <Route path = '/findgame' component={FindGamePresenter}></Route>
               <Route path = '/leaderboard' component={Leaderboard}></Route>
               <Route path = '/game-landing' component={GameLanding}></Route>
               <Route path = '/choose-category' component={GameCategory}></Route>
