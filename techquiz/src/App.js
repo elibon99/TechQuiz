@@ -19,7 +19,7 @@ function App() {
         <div className="App">
           <NavBarPresenter/>
           <Switch>
-              <Route exact path = '/' component={DashboardPresenter}></Route>
+              <Route exact path = '/profile' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUp}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
