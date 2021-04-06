@@ -1,6 +1,11 @@
 import React from 'react'
+import {Redirect} from "react-router-dom";
 
-const Landing = () => {
+const Landing = ({auth}) => {
+    console.log(auth, 'inside landing');
+    if(auth.uid) {
+        return <Redirect to="/profile"/>
+    }
     return (
         <div className="homepage-container">
             <p>
