@@ -5,6 +5,7 @@ import LoggedOutLinks from './LoggedOutLinks'
 
 
 const Navbar = (props) => {
+    const links = props.auth.uid ? <LoggedInLinks signOut={props.signOut}/> : <LoggedOutLinks />;
     return (
         <nav className="wrapper grey darken-3">
             <div className="nav-wrapper container">
@@ -14,12 +15,10 @@ const Navbar = (props) => {
                 </a>
 
                 <ul className="right hide-on-med-and-down">
-                    <LoggedOutLinks/>
-                    <LoggedInLinks signOut={props.signOut}/>
+                    {links}
                 </ul>
                 <ul className="sidenav" id="mobile-nav">
-                    <LoggedOutLinks/>
-                    <LoggedInLinks/>
+                    {links}
                 </ul>
             </div>
         </nav>
