@@ -1,7 +1,11 @@
 import React from 'react'
 import QuickMatch from "./QuickMatch";
+import {Redirect} from "react-router-dom";
 
-const FindGame = () => {
+const FindGame = ({auth}) => {
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return(
             <div className="container find-game-margin">
                 <input placeholder ="Search for player" type="text" id="searchForPlayer"/>
