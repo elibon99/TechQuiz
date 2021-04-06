@@ -8,10 +8,10 @@ import QuizLanding from "./components/game/QuizLanding";
 import QuizQuestions from "./components/game/QuizQuestions";
 import CurrentGameStats from "./components/game/CurrentGameStats";
 import GameFinished from "./components/game/GameFinished";
-import Landing from "./components/home/Landing";
 import DashboardPresenter from "./containers/DashboardPresenter";
 import NavBarPresenter from "./containers/NavBarPresenter";
 import SignInPresenter from "./containers/SignInPresenter";
+import LandingPresenter from "./containers/LandingPresenter";
 
 function App() {
   return (
@@ -19,7 +19,8 @@ function App() {
         <div className="App">
           <NavBarPresenter/>
           <Switch>
-              <Route exact path = '/profile' component={DashboardPresenter}></Route>
+              <Route exact path = '/' component={LandingPresenter}></Route>
+              <Route path = '/profile' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUp}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGame}></Route>
@@ -30,7 +31,7 @@ function App() {
               <Route path = '/quiz-question' component={QuizQuestions}></Route>
               <Route path = '/current-game-stats' component={CurrentGameStats}></Route>
               <Route path = '/game-finished' component={GameFinished}></Route>
-              <Route path = '/home' component={Landing}></Route>
+              <Route path = '/home' component={LandingPresenter}></Route>
 
           </Switch>
         </div>
