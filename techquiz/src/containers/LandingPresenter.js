@@ -2,7 +2,6 @@ import {connect} from "react-redux";
 import Landing from "../components/home/Landing";
 
 const mapStateToProps = (state) => {
-    console.log(state, ' that was the state');
     return{
         auth: state.firebase.auth
     }
