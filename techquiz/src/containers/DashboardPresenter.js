@@ -3,7 +3,8 @@ import Dashboard from "../components/dashboard/Dashboard";
 
 const mapStateToProps = (state) => {
     return{
-        stats: state.profileStats.stats
+        stats: state.profileStats.stats,
+        auth: state.firebase.auth
     }
 }
 

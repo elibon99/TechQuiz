@@ -2,9 +2,15 @@ import React from 'react';
 import PlayerStats from "./PlayerStats";
 import CurrentGames from "./CurrentGames";
 import FinishedGames from "./FinishedGames";
+import {Redirect} from "react-router-dom";
 
 
-const Dashboard = ({stats}) => {
+const Dashboard = ({stats, auth}) => {
+    console.log('wanna go to dashboard');
+    console.log(auth);
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return (
         <div className="dashboard container">
             <h1>Adam Svensson</h1>
