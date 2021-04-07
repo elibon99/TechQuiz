@@ -1,6 +1,6 @@
 import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
 const categories = [
     {name: "Linux", id: 1},
@@ -11,8 +11,10 @@ const categories = [
 
 
 
-const GameCategory = (props) =>  {
-
+const GameCategory = ({auth}) =>  {
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return (
         <div className="container">
             <div className="card game-landing-container">
