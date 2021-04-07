@@ -5,10 +5,13 @@ import {compose} from "redux";
 
 const mapStateToProps = (state) => {
     console.log(state)
+    const uid = state.firebase.auth.uid;
+    const userStats = state.firestore.data.userStats;
+    const userStat = userStats ? userStats[uid] : null;
     return{
-        stats: state.profileStats.stats,
         auth: state.firebase.auth,
-        stats2: state.firestore.data.userStats
+        userStat: userStat,
+        profile: state.firebase.profile
     }
 }
 
