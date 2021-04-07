@@ -42,7 +42,8 @@ export const signUp = (newUser) => {
                     wins: 0,
                     losses: 0,
                     mlRating: 100,
-                    slScore: 0
+                    slScore: 0,
+                    wlRatio: "NaN"
                 })
             )
         }).then(() => {
