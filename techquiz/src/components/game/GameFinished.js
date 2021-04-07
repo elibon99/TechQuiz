@@ -1,7 +1,10 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
-const GameFinished = () => {
+const GameFinished = ({auth}) => {
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return (
         <div className="container game-finished-container">
             <h3 className="center">Game Finished</h3>
