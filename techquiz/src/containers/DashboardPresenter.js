@@ -19,7 +19,8 @@ const DashboardPresenter = compose(
     connect(mapStateToProps),
     firestoreConnect([
         {collection: 'users'},
-        {collection: 'userStats'}
+        {collection: 'userStats'},
+        {collection: 'multiplayerRating'}
     ])
     )(Dashboard);
 
