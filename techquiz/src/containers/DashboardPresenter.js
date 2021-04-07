@@ -14,7 +14,8 @@ const mapStateToProps = (state) => {
 const DashboardPresenter = compose(
     connect(mapStateToProps),
     firestoreConnect([
-        {collection: 'users'}
+        {collection: 'users'},
+        {collection: 'userStats'}
     ])
     )(Dashboard);
 
