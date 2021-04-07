@@ -47,7 +47,7 @@ export const signUp = (newUser) => {
                 }),
                     firestore.collection('multiplayerRating').doc(resp.user.uid).set({
                         username: newUser.userName,
-                        rating: 60,
+                        rating: 100,
                         ranking: 1
                     })
             )
