@@ -7,7 +7,8 @@ const mapStateToProps = (state) => {
     console.log(state)
     return{
         stats: state.profileStats.stats,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
+        stats2: state.firestore.data.userStats
     }
 }
 
