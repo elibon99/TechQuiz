@@ -1,9 +1,12 @@
 import React from 'react';
 import CurrentGameSetItem from "./CurrentGameSetItem";
 import GameVsInfo from "./GameVsInfo";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
-const CurrentGameStats = (props) => {
+const CurrentGameStats = ({auth}) => {
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return(
         <div className="container">
             <div className="card game-landing-container">

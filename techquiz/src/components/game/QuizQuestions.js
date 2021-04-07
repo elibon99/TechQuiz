@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from "react-router-dom";
 
 const answers = [
     {name: "ls", id: 1},
@@ -7,7 +8,10 @@ const answers = [
     {name: "rmdir", id: 4},
 ]
 
-const QuizQuestions = () => {
+const QuizQuestions = ({auth}) => {
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
     return(
         <div className="container">
             <div className="card-content">
