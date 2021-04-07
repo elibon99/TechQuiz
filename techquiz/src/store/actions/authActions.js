@@ -44,7 +44,12 @@ export const signUp = (newUser) => {
                     mlRating: 100,
                     slScore: 0,
                     wlRatio: "NaN"
-                })
+                }),
+                    firestore.collection('multiplayerRating').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        rating: 60,
+                        ranking: 1
+                    })
             )
         }).then(() => {
             dispatch({type: 'SIGNUP_SUCCESS'});
