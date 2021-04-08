@@ -39,3 +39,9 @@ exports.mlRatingCreated = functions.firestore
   .onCreate((snap,context) => {
       return refactorMlRating();
   });
+
+exports.mlRatingUpdated = functions.firestore
+    .document('multiplayerRating/{userId}')
+    .onUpdate((snap,context) => {
+        return refactorMlRating();
+    });
