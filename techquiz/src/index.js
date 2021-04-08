@@ -15,7 +15,7 @@ const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument({
 
 function AuthIsLoaded({children}){
     const auth = useSelector(state => state.firebase.auth)
-    if(!isLoaded(auth)) return <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+    if(!isLoaded(auth)) return <div></div>
 
     return children;
 }
