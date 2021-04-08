@@ -1,7 +1,7 @@
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import SignUpPresenter from "./containers/SignUpPresenter";
 import FindGamePresenter from "./containers/FindGamePresenter";
-import Leaderboard from "./components/leaderboard/Leaderboard";
+import LeaderboardPresenter from "./containers/LeaderboardPresenter";
 import GameLandingPresenter from "./containers/GameLandingPresenter";
 import GameCategoryPresenter from "./containers/GameCategoryPresenter";
 import QuizLandingPresenter from "./containers/QuizLandingPresenter";
@@ -24,7 +24,7 @@ function App() {
               <Route path = '/signup' component={SignUpPresenter}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGamePresenter}></Route>
-              <Route path = '/leaderboard' component={Leaderboard}></Route>
+              <Route path = '/leaderboard' component={LeaderboardPresenter}></Route>
               <Route path = '/game-landing' component={GameLandingPresenter}></Route>
               <Route path = '/choose-category' component={GameCategoryPresenter}></Route>
               <Route path = '/quiz-landing' component={QuizLandingPresenter}></Route>
