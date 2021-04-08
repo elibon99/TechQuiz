@@ -2,13 +2,13 @@ import React from 'react';
 import Ranking from "./Ranking";
 import CategoryScore from "./CategoryScore";
 
-const Leaderboard = (props) => {
+const Leaderboard = ({mlRating}) => {
     return(
         <div className="container">
             <h5>Leaderboard</h5>
             <div className="row">
                 <div className="col s12 m3">
-                    <Ranking title={"Multiplayer rating"}/>
+                    <Ranking title={"Multiplayer rating"} ratings={mlRating}/>
                     <Ranking title={"Singleplayer rating"}/>
                 </div>
                 <div className="col s12 m9">

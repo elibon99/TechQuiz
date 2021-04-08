@@ -1,15 +1,19 @@
 import React from 'react';
 
-const Ranking = (props) => {
+const Ranking = ({ratings, title}) => {
     return(
         <div className="card">
             <div className="card-content">
-            <h5>{props.title}</h5>
+            <h5>{title}</h5>
+            {ratings ?
             <ol>
-                <li>Adam    256</li>
-                <li>Per     240</li>
-                <li>Elias   230</li>
-            </ol>
+                {ratings && ratings.map((rating) => {
+                    return (
+                        <li key={rating.id}>{rating.username}  {rating.rating}</li>
+                    )
+                })}
+            </ol> :
+            <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
             </div>
         </div>
     )
