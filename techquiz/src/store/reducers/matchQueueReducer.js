@@ -2,7 +2,7 @@ const initState = {
     matchMakingError: null
 }
 
-const matchMakingReducer = (state = initState, action) => {
+const matchQueueReducer = (state = initState, action) => {
     switch (action.type){
         case 'ADDED_TO_MATCH_QUEUE_SUCCESS':
             console.log('added to match queue success')
@@ -21,4 +21,4 @@ const matchMakingReducer = (state = initState, action) => {
     }
 }
 
-export default matchMakingReducer;
+export default matchQueueReducer;
