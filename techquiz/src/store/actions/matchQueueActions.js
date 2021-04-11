@@ -1,11 +1,10 @@
-export const matchmaking = (rating) => {
-    return (dispatch, getState, {getFirebase, getFireStore}) => {
+export const addToMatchQueue = (rating) => {
+    return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firebase = getFirebase();
-        const fireStore = getFireStore();
+        const firestore = getFirestore();
         const uid = firebase.auth.uid;
 
-        fireStore.collection('matchqueue').doc().set({
-            userID: uid,
+        firestore.collection('matchqueue').doc(uid).set({
             rating: rating,
         })
             .then(() => {
