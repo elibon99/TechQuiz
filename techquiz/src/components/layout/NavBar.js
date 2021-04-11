@@ -29,7 +29,7 @@ const Navbar = (props) => {
                 <ul className="right hide-on-med-and-down">
                     {links}
                 </ul>
-                <ul className="sidenav" id="mobile-demo">
+                <ul className="sidenav sidenav-close" id="mobile-demo">
                     {links}
                 </ul>
             </div>

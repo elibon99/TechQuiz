@@ -1,15 +1,15 @@
 import React from 'react';
 
-const Ranking = ({ratings, title}) => {
+const Ranking = ({ratings, title, type, users}) => {
     return(
         <div className="card">
             <div className="card-content">
             <h5>{title}</h5>
-            {ratings ?
+            {(ratings && users) ?
             <ol>
                 {ratings && ratings.map((rating) => {
                     return (
-                        <li key={rating.id}>{rating.username}  {rating.rating}</li>
+                        <li key={rating.id}>{(type === "slScore" && users[rating.id]) ? users[rating.id].userName : rating.username}  {type === "slScore" ? rating.slScore : rating.rating}</li>
                     )
                 })}
             </ol> :

@@ -54,7 +54,64 @@ export const signUp = (newUser) => {
                     .collection('scores').doc(resp.user.uid).set({
                         username: newUser.userName,
                         score: 0
-                })
+                }),
+                    firestore.collection('singleplayerScores').doc('bashScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('phpScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('dockerScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('htmlScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('mysqlScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('wordpressScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('laravelScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('kubernetesScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('javascriptScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('devopsScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    }),
+                    firestore.collection('singleplayerScores').doc('linuxScore')
+                        .collection('scores').doc(resp.user.uid).set({
+                        username: newUser.userName,
+                        score: 0
+                    })
+
+
             )
         }).then(() => {
             dispatch({type: 'SIGNUP_SUCCESS'});
