@@ -45,3 +45,4 @@ exports.mlRatingUpdated = functions.firestore
     .onUpdate((snap,context) => {
         return refactorMlRating();
     });
+
