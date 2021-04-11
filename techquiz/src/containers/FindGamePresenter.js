@@ -5,7 +5,6 @@ import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 
 const mapStateToProps = (state) => {
-    console.log(state,'state in findgamepres');
     const uid = state.firebase.auth.uid;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
@@ -14,6 +13,7 @@ const mapStateToProps = (state) => {
         userStats: userStat,
     }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
     return{
