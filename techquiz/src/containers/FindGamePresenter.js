@@ -8,12 +8,12 @@ const mapStateToProps = (state) => {
     const uid = state.firebase.auth.uid;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
+
     return{
         auth: state.firebase.auth,
         userStats: userStat,
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
     return{
