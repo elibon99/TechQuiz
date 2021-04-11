@@ -7,7 +7,7 @@ const FindGame = ({auth, addToQueue, userStats}) => {
         return <Redirect to="/signin"/>
     }
     return(
-            userStats ?
+        userStats ?
             <div className="container find-game-margin">
                 <input placeholder ="Search for player" type="text" id="searchForPlayer"/>
                 <button className="btn blue lighten-1 z-depth-0" onClick={() => addToQueue(userStats.mlRating)}>Random Match</button>
