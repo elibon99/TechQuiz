@@ -11,8 +11,7 @@ export const addToMatchQueue = (rating, username) => {
                 username: doc.data().userName,
                 gameID: null
             })
-                .then((docRef) => {
-                    console.log(docRef)
+                .then((doc) => {
                     dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
                 })
                 .catch((err) => {
