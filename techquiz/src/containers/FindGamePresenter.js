@@ -5,6 +5,7 @@ import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 
 const mapStateToProps = (state) => {
+    console.log(state)
     const uid = state.firebase.auth.uid;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => {
     return{
         auth: state.firebase.auth,
         userStats: userStat,
+        currentFoundGame: state.matchQueue
     }
 }
 
