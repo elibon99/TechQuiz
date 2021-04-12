@@ -28,6 +28,7 @@ function refactorMlRating() {
     });
 }
 
+
 function matchMakingFindOpponent(userID, entryID) {
     console.log(userID, 'userID', entryID, 'entryID');
     return admin.firestore()
@@ -59,7 +60,22 @@ function matchMakingFindOpponent(userID, entryID) {
                     admin.firestore().collection('games').doc(doc.data().gameID).update({
                         userID2: userID,
                     })
-                        .then(() => console.log('added a user to another game'))
+                        .then(() => {
+                            console.log('added a user to another game');
+                            admin.firestore().collection('matchqueue').doc(doc.id).delete()
+                                .then(() => {
+                                    console.log("Matchqueue document deleted!");
+                                }).catch((error) => {
+                                    console.log("Error removing matchqueue document: ", error)
+                            });
+                            admin.firestore().collection('matchqueue').doc(entryID).delete()
+                                .then(() => {
+                                    console.log("Matchqueue document deleted!");
+                                }).catch((error) => {
+                                console.log("Error removing matchqueue document: ", error)
+                            });
+
+                        })
                         .catch((err) => console.log(err));
                     setupMatch = true;
                 }
