@@ -20,7 +20,7 @@ const Leaderboard = ({
                      }) => {
     return(
         <div className="container">
-            <h5>Leaderboard</h5>
+            <h5 className="leaderboard-title">Leaderboard</h5>
             <div className="row">
                 <div className="col s12 m3">
                     <Ranking title={"Multiplayer rating"} ratings={mlRating} type="mlRating" users={users}/>
