@@ -36,7 +36,8 @@ export const signUp = (newUser) => {
             return (
                 firestore.collection('users').doc(resp.user.uid).set({
                     userName: newUser.userName,
-                    initials: newUser.userName[0]
+                    initials: newUser.userName[0],
+                    currentGameID: null
                 }),
                 firestore.collection('userStats').doc(resp.user.uid).set({
                     wins: 0,
