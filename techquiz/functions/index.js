@@ -29,7 +29,7 @@ function refactorMlRating() {
 }
 
 
-function matchMakingFindOpponent(userID, entryID) {
+function matchMakingFindOpponent(userID, entryID, username) {
     console.log(userID, 'userID', entryID, 'entryID');
     return admin.firestore()
         .collection('matchqueue')
@@ -39,7 +39,9 @@ function matchMakingFindOpponent(userID, entryID) {
                 console.log('alone, wanna create a gamecollection:)');
                 admin.firestore().collection('games').add({
                     userID1: userID,
+                    user1Name: username,
                     userID2: '',
+                    user2Name: '',
                     turn: userID,
                     p1Score: 0,
                     p2Score: 0,
@@ -48,7 +50,12 @@ function matchMakingFindOpponent(userID, entryID) {
                         admin.firestore().collection('matchqueue').doc(entryID).update({
                             gameID: docRef.id,
                         })
-                            .then(() => console.log('update worked in matchqueue'))
+                            .then(() => {
+                                console.log('update worked in matchqueue');
+                                admin.firestore().collection('users').doc(userID).update({
+                                    currentGameID: docRef.id
+                                }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
+                            })
                             .catch((err) => console.log(err, 'didnt work inside matchqueue update'));
                     })
                     .catch((err) => console.log(err, ' something went wrong creating the game'));
@@ -59,9 +66,13 @@ function matchMakingFindOpponent(userID, entryID) {
                     console.log('Different IDs, game is not null, MATCH THESE');
                     admin.firestore().collection('games').doc(doc.data().gameID).update({
                         userID2: userID,
+                        user2Name: username
                     })
                         .then(() => {
                             console.log('added a user to another game');
+                            admin.firestore().collection('users').doc(userID).update({
+                                currentGameID: doc.data().gameID
+                            }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
                             admin.firestore().collection('matchqueue').doc(doc.id).delete()
                                 .then(() => {
                                     console.log("Matchqueue document deleted!");
@@ -80,6 +91,7 @@ function matchMakingFindOpponent(userID, entryID) {
                     setupMatch = true;
                 }
             });
+
         })
 }
 
@@ -98,5 +110,13 @@ exports.mlRatingUpdated = functions.firestore
 exports.matchMaking = functions.firestore
     .document('matchqueue/{id}')
     .onCreate((snap, context) => {
-        return matchMakingFindOpponent(snap.data().uid, context.params.id);
+        let username = '';
+        return admin.firestore().collection('users').doc(snap.data().uid).get()
+            .then((docRef) => {
+                console.log("This is the username: ", docRef.data().userName);
+                username = docRef.data().userName;
+                return matchMakingFindOpponent(snap.data().uid, context.params.id, username);
+            })
+            .catch((error) => console.log("Error receiving username: ", error));
+
     });
