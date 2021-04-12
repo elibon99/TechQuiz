@@ -3,6 +3,7 @@ import React from 'react';
 const GameVsInfo = () => {
     return(
         <div className="card-content">
+            <div className="container">
             <div className="row flex">
                 <div className="col s12 m5 player-content">
                     <i className="large material-icons">account_circle</i>
@@ -25,6 +26,7 @@ const GameVsInfo = () => {
                         Rating: 120
                     </h5>
                 </div>
+            </div>
             </div>
         </div>
     )

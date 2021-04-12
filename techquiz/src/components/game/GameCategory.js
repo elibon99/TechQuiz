@@ -19,10 +19,12 @@ const GameCategory = ({auth}) =>  {
         <div className="container">
             <div className="card game-landing-container">
                 <GameVsCategoryInfo/>
-                <div className="row">
+                <div className="card-content">
+                    <div className="container">
+                        <div className="row flex">
                     {categories.map((category => {
                         return (
-                            <div key={category.id} className="col s12 m6">
+                            <div key={category.id} className="col s12 m6 game-category-col">
                                 <div className="card category-title-container">
                                     <div className="category-title">
                                         {category.name}
@@ -30,10 +32,12 @@ const GameCategory = ({auth}) =>  {
                                 </div>
                             </div>)
                     }))}
+                        </div>
+                    </div>
                 </div>
 
-                <div className="row">
-                        <div className="col s12 m12">
+                <div className="card-content">
+                        <div className="container">
                             <Link to='/quiz-landing'>
                                 <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
                             </Link>

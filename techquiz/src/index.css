@@ -102,7 +102,7 @@ ol{
 }
 
 .game-item{
-  border: 1px solid;
+  height: 40px;
   text-align: center;
 }
 
@@ -213,8 +213,18 @@ ol{
   color:white;
 }
 
+.game-set-item{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 nav .sidenav-trigger{
   margin: 0px 0px;
+}
+
+.game-category-col{
+  padding-left: 0px!important;
 }
 
 

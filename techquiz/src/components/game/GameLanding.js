@@ -13,7 +13,7 @@ const GameLanding = ({auth}) => {
             <div className="card game-landing-container">
                 <GameVsInfo/>
                 <GameSetItem/>
-                <div className="row">
+                <div className="card-content">
                     <div className="container">
                         <Link to='/choose-category'>
                             <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
