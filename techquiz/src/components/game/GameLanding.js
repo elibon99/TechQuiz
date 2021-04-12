@@ -3,12 +3,14 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth}) => {
-    console.log(auth, 'hejhejhejeh');
+const GameLanding = ({auth, game}) => {
+    //console.log(auth, 'hejhejhejeh');
+    console.log(game)
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
     return(
+        game ?
         <div className="container">
             <div className="card game-landing-container">
                 <GameVsInfo/>
@@ -21,7 +23,9 @@ const GameLanding = ({auth}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> :
+            <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+
     )
 }
 
