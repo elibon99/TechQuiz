@@ -133,6 +133,12 @@ ol{
   background-color: #42A5F5;
   color: #FFFF;
 }
+
+.category-title-container:focus{
+  background-color: #42A5F5;
+  color: #FFFF;
+}
+
 .category-display-container{
   display: flex;
   margin: 20px 0px;
