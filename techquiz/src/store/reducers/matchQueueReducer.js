@@ -1,5 +1,6 @@
 const initState = {
     matchMakingError: null,
+    redirectTo: null
 }
 
 const matchQueueReducer = (state = initState, action) => {
@@ -16,6 +17,18 @@ const matchQueueReducer = (state = initState, action) => {
                 ...state,
                 matchMakingError: 'Added to match queue failed',
             }
+        case 'REDIRECT':
+            return{
+                ...state,
+                redirectTo: action.payload
+            }
+
+        case 'RESTORE_REDIRECT_TO':
+            return{
+                ...state,
+                redirectTo: null
+            }
+
         default:
             return state;
     }
