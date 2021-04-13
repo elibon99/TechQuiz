@@ -7,6 +7,7 @@ const mapStateToProps = (state) => {
     }
 }
 
+
 const GameFinishedPresenter = connect(mapStateToProps)(GameFinished);
 
 export default GameFinishedPresenter;
