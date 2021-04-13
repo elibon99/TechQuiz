@@ -3,7 +3,7 @@ import GameVsCategoryInfo from "./GameVsCategoryInfo";
 import {Link, Redirect} from "react-router-dom";
 
 const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, auth, localGame}) =>  {
-
+    const [selectedCategories, setSelectedCategories]= React.useState("");
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -15,10 +15,10 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
                 <div className="card-content">
                     <div className="container">
                         <div className="row flex">
-                    {localGame && localGame.map((category => {
+                    {localGame.selectedCategories && localGame.selectedCategories.map((category => {
                         return (
                             <div key={category} className="col s12 m6 game-category-col">
-                                <div id={category} className="card category-title-container" tabIndex="1">
+                                <div id={category} onClick={e => {setSelectedCategories(e.target.id)}} className="card category-title-container" tabIndex="1">
                                     <div className="category-title">
                                         {category}
                                     </div>
