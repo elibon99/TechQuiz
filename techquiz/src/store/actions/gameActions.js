@@ -19,3 +19,9 @@ function getCategories(categories){
     }
     return selectedCategories;
 }
+
+export const chosenCategory = () => {
+    return(dispatch) => {
+        dispatch({type: 'SELECTED_CATEGORY_SUCCESS'});
+    }
+}
