@@ -49,7 +49,14 @@ function matchMakingFindOpponent(userID, entryID, username) {
                             p1Score: 0,
                             p2Score: 0,
                         })
-                            .then((docRef) => {
+                            .then((doc) => {
+                                admin.firestore().collection('games').doc(docRef.data().gameID)
+                                    .collection('gameSets').add({
+                                    questions: {},
+                                    score: 0
+                                })
+                                    .then(() => console.log('hello we did it boys, games'))
+                                    .catch((err) => console.log(err, 'fuck'));
                                 console.log('update worked in matchqueue');
                                 admin.firestore().collection('users').doc(userID).update({
                                     currentGameID: docRef.id
