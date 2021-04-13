@@ -4,7 +4,7 @@ import GameCategory from "../components/game/GameCategory";
 import {firestoreConnect} from "react-redux-firebase";
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state)
+    //console.log(state)
     const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
@@ -26,7 +26,8 @@ const mapStateToProps = (state, ownProps) => {
         profile: state.firebase.profile,
         userStat: userStat,
         score: score,
-        isYourTurn: isYourTurn
+        isYourTurn: isYourTurn,
+        localGame: state.game
     }
 }
 const GameCategoryPresenter = compose(

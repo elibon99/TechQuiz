@@ -2,22 +2,8 @@ import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
 import {Link, Redirect} from "react-router-dom";
 
+const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, auth, localGame}) =>  {
 
-function getCategories(categories){
-    let selectedCategories = [];
-    for(let i = 0; i < 4; i += 1){
-        var randomIndex = Math.floor(Math.random() * (categories.length-1));
-        selectedCategories.push(categories[randomIndex]);
-        categories.splice(randomIndex, 1);
-    }
-    return selectedCategories;
-}
-
-const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, auth}) =>  {
-    const categories = [
-        "Linux", "DevOps", "MySQL", "PHP", "BASH", "Dockers",
-        "HTML", "WordPress", "Laravel", "Kubernetes", "JavaScript"
-    ]
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -29,10 +15,10 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
                 <div className="card-content">
                     <div className="container">
                         <div className="row flex">
-                    {getCategories(categories) && getCategories(categories).map((category => {
+                    {localGame && localGame.map((category => {
                         return (
                             <div key={category} className="col s12 m6 game-category-col">
-                                <div className="card category-title-container" tabIndex="1">
+                                <div id={category} className="card category-title-container" tabIndex="1">
                                     <div className="category-title">
                                         {category}
                                     </div>

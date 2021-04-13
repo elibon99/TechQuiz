@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import GameLanding from "../components/game/GameLanding";
+import {generateCategories} from "../store/actions/gameActions";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -32,8 +33,14 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return{
+        generateCategories: () => dispatch(generateCategories())
+    }
+}
+
 const GameLandingPresenter = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         {collection: 'users'},
         {collection: 'games'},
