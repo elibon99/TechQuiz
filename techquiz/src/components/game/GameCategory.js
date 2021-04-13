@@ -1,33 +1,39 @@
 import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
 import {Link, Redirect} from "react-router-dom";
+import GameVsInfo from "./GameVsInfo";
 
-const categories = [
-    {name: "Linux", id: 1},
-    {name: "Java", id: 2},
-    {name: "MySQL", id: 3 },
-    {name: "PHP", id: 4}
-]
+function getCategories(categories){
+    let selectedCategories = [];
+    for(let i = 0; i < 4; i += 1){
+        var randomIndex = Math.floor(Math.random() * (categories.length-1));
+        selectedCategories.push(categories[randomIndex]);
+        categories.splice(randomIndex, 1);
+    }
+    return selectedCategories;
+}
 
-
-
-const GameCategory = ({auth}) =>  {
+const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, auth}) =>  {
+    const categories = [
+        "Linux", "DevOps", "MySQL", "PHP", "BASH", "Dockers",
+        "HTML", "WordPress", "Laravel", "Kubernetes", "JavaScript"
+    ]
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
     return (
         <div className="container">
             <div className="card game-landing-container">
-                <GameVsCategoryInfo/>
+                <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat}/>
                 <div className="card-content">
                     <div className="container">
                         <div className="row flex">
-                    {categories.map((category => {
+                    {getCategories(categories) && getCategories(categories).map((category => {
                         return (
-                            <div key={category.id} className="col s12 m6 game-category-col">
-                                <div className="card category-title-container">
+                            <div key={category} className="col s12 m6 game-category-col">
+                                <div className="card category-title-container" tabIndex="1">
                                     <div className="category-title">
-                                        {category.name}
+                                        {category}
                                     </div>
                                 </div>
                             </div>)
