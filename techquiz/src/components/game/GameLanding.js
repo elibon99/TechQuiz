@@ -5,7 +5,7 @@ import {Link, Redirect} from "react-router-dom";
 
 const GameLanding = ({auth, game, opponent, profile, userStat,score, isYourTurn}) => {
     //console.log(auth, 'hejhejhejeh');
-    //console.log(game)
+    console.log(game)
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }

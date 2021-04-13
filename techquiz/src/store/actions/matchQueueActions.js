@@ -29,6 +29,7 @@ export const addToMatchQueue = (rating, username) => {
                         })
                             .then((docRef) => {
                                 dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
+                                console.log(gamingSetId, "gameID")
                                 dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingSetId}`});
                             })
                             .catch((err) => {
