@@ -37,28 +37,30 @@ function matchMakingFindOpponent(userID, entryID, username) {
         .then((querySnapshot) => {
             if(querySnapshot.size <= 1){
                 console.log('alone, wanna create a gamecollection:)');
-                admin.firestore().collection('games').add({
-                    userID1: userID,
-                    user1Name: username,
-                    userID2: '',
-                    user2Name: '',
-                    turn: userID,
-                    p1Score: 0,
-                    p2Score: 0,
-                })
+                //console.log("GAMING ID : ", querySnapshot.data().gameID)
+                admin.firestore().collection('matchqueue').doc(entryID).get()
                     .then((docRef) => {
-                        admin.firestore().collection('matchqueue').doc(entryID).update({
-                            gameID: docRef.id,
+                        admin.firestore().collection('games').doc(docRef.data().gameID).set({
+                            userID1: userID,
+                            user1Name: username,
+                            userID2: '',
+                            user2Name: '',
+                            turn: userID,
+                            p1Score: 0,
+                            p2Score: 0,
                         })
-                            .then(() => {
+                            .then((docRef) => {
                                 console.log('update worked in matchqueue');
                                 admin.firestore().collection('users').doc(userID).update({
                                     currentGameID: docRef.id
-                                }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
+                                }).then(() => console.log("Updated users successfull"))
+                                    .catch((err) => console.log("Failed to update users", err));
                             })
-                            .catch((err) => console.log(err, 'didnt work inside matchqueue update'));
+                            .catch((err) => console.log(err, ' something went wrong creating the game'));
+
                     })
-                    .catch((err) => console.log(err, ' something went wrong creating the game'));
+                    .catch((error) => console.log("Couldn't get matchque document"))
+
             }
             let setupMatch = false;
             querySnapshot.forEach((doc) => {
