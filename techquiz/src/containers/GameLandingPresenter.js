@@ -27,7 +27,8 @@ const mapStateToProps = (state, ownProps) => {
         profile: state.firebase.profile,
         userStat: userStat,
         score: score,
-        isYourTurn: isYourTurn
+        isYourTurn: isYourTurn,
+        gameID: id,
     }
 }
 
