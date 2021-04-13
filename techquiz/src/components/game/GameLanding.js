@@ -4,7 +4,6 @@ import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
 const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories}) => {
-    console.log(gameID, 'gameid');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -17,7 +16,7 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
                 <div className="card-content">
                     <div className="container">
                         <Link to={'/choose-category/' + gameID}>
-                            <button className="btn blue lighten-1 z-depth-0 play-button" onClick={generateCategories()}>Play</button>
+                            <button className="btn blue lighten-1 z-depth-0 play-button" onClick={generateCategories}>Play</button>
                         </Link>
                     </div>
                 </div>
