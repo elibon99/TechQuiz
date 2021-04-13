@@ -1,7 +1,7 @@
 import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
 import {Link, Redirect} from "react-router-dom";
-import GameVsInfo from "./GameVsInfo";
+
 
 function getCategories(categories){
     let selectedCategories = [];
@@ -22,6 +22,7 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
         return <Redirect to="/signin"/>
     }
     return (
+        (game && userStat) ?
         <div className="container">
             <div className="card game-landing-container">
                 <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat}/>
@@ -50,7 +51,7 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
                         </div>
                 </div>
             </div>
-        </div>
+        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
