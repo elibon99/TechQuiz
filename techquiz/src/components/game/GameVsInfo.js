@@ -1,6 +1,7 @@
 import React from 'react';
 
-const GameVsInfo = () => {
+const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
+
     return(
         <div className="card-content">
             <div className="container">
@@ -8,23 +9,26 @@ const GameVsInfo = () => {
                 <div className="col s12 m5 player-content">
                     <i className="large material-icons">account_circle</i>
                     <h5>
-                        Elias
+                        {profile.userName}
                     </h5>
                     <h5>
-                        Rating: 102
+                        Rating: {userStat.mlRating}
                     </h5>
                 </div>
                 <div className="col s12 m2 score-content">
-                    <span>0-0</span>
+                    <span>{score.userScore}-{score.opponentScore}</span>
                 </div>
                 <div className="col s12 m5 player-content">
                     <i className="large material-icons">account_circle</i>
-                    <h5>
-                        Pelle
-                    </h5>
-                    <h5>
-                        Rating: 120
-                    </h5>
+                    {opponent ?
+                        <div>
+                        <h5>
+                            {opponent.username}
+                        </h5>
+                        <h5>
+                            Rating: {opponent.rating}
+                        </h5>
+                        </div> : <h5>Random player</h5>}
                 </div>
             </div>
             </div>

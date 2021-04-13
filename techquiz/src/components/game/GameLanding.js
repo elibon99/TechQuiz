@@ -3,18 +3,18 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth, game}) => {
+const GameLanding = ({auth, game, opponent, profile, userStat,score, isYourTurn}) => {
     //console.log(auth, 'hejhejhejeh');
-    console.log(game)
+    //console.log(game)
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
     return(
-        game ?
+        (game && userStat) ?
         <div className="container">
             <div className="card game-landing-container">
-                <GameVsInfo/>
-                <GameSetItem/>
+                <GameVsInfo game={game} opponent={opponent} profile={profile} userStat={userStat} score={score}/>
+                <GameSetItem isYourTurn={isYourTurn}/>
                 <div className="card-content">
                     <div className="container">
                         <Link to='/choose-category'>

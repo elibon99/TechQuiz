@@ -1,11 +1,20 @@
 import React from 'react'
 import QuickMatch from "./QuickMatch";
-import {Redirect} from "react-router-dom";
+import {Redirect} from 'react-router-dom';
 
-const FindGame = ({auth, addToQueue, userStats, user}) => {
+const FindGame = ({auth, addToQueue, restoreRedirectTo, userStats, user, matchQueue}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
+    console.log(matchQueue.redirectTo)
+
+    if(matchQueue.redirectTo){
+        return (
+            <Redirect to={matchQueue.redirectTo}/>,
+            restoreRedirectTo()
+            )
+    }
+
     return(
         userStats ?
             <div className="container find-game-margin">
