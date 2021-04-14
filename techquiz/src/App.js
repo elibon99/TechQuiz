@@ -27,7 +27,7 @@ function App() {
               <Route path = '/leaderboard' component={LeaderboardPresenter}></Route>
               <Route path = '/game-landing/:id' component={GameLandingPresenter}></Route>
               <Route path = '/choose-category/:id' component={GameCategoryPresenter}></Route>
-              <Route path = '/quiz-landing' component={QuizLandingPresenter}></Route>
+              <Route path = '/quiz-landing/:id' component={QuizLandingPresenter}></Route>
               <Route path = '/quiz-question' component={QuizQuestionsPresenter}></Route>
               <Route path = '/current-game-stats' component={CurrentGameStatsPresenter}></Route>
               <Route path = '/game-finished' component={GameFinishedPresenter}></Route>

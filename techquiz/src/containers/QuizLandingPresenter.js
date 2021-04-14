@@ -1,9 +1,10 @@
 import {connect} from "react-redux";
 import QuizLanding from "../components/game/QuizLanding";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+    const gamingID = ownProps.match.params.id;
     return{
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
     }
 }
 
