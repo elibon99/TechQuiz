@@ -2,6 +2,8 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import GameCategory from "../components/game/GameCategory";
 import {firestoreConnect} from "react-redux-firebase";
+import {fetchQuestions} from "../store/actions/gameActions";
+
 
 const mapStateToProps = (state, ownProps) => {
     //console.log(state)
@@ -21,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
 
     return{
         auth: state.firebase.auth,
+        gamingID: id,
         game: game,
         opponent: opponent,
         profile: state.firebase.profile,
@@ -30,8 +33,16 @@ const mapStateToProps = (state, ownProps) => {
         localGame: state.game
     }
 }
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        fetchQuestions: (gamingID, category) => dispatch(fetchQuestions(gamingID,category))
+    }
+}
+
+
 const GameCategoryPresenter = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         {collection: 'users'},
         {collection: 'games'},
