@@ -63,7 +63,14 @@ export const fetchQuestions = (gamingID, category) => {
                     score: 0,
                     category: category
                 })
-                    .then((doc) => console.log("Updated games with gameSets questions"))
+                    .then((doc) => {
+                        firestore.collection('games').doc(gamingID).update({
+                            currentSet: doc.id
+                        })
+                            .then(() => console.log('added currentSet to games collection'))
+                            .catch((err) => console.log(err, 'something went wrong inside currentset add'));
+                        console.log("Updated games with gameSets questions")
+                    })
                     .catch((error) => console.log("Error updating games: ", error));
             })
             .catch((error) => console.log("Failed fetch from API :", error));

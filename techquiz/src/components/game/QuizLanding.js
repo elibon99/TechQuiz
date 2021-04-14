@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-const QuizLanding = ({auth, localGame}) => {
+const QuizLanding = ({auth, category}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -11,7 +11,7 @@ const QuizLanding = ({auth, localGame}) => {
                 <div className="card-content">
                     <div className="container">
                         <div className="row category-display-container">
-                            <h5>Linux</h5>
+                            <h5>{category}</h5>
                         </div>
                         <div className="row">
                             <Link to="/quiz-question">
