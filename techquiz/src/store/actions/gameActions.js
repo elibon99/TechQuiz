@@ -105,7 +105,14 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                 var finalScore = score;
                 activeQuestion += 1;
 
+                if (activeQuestion === 3){
+                    activeQuestion = 0;
+                }
+                console.log(correctAnswersRes, "correct answer")
+                console.log(answer, "Choosen answer")
+
                 if(correctAnswersRes[answer] === "true"){
+                    console.log("correct answer");
                     score += 10;
                     finalScore = score;
                     docRef.ref.update({
