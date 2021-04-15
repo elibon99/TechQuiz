@@ -151,18 +151,22 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                     }
                                     dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
                                     if(doc.data().turn === doc.data().userID1){
+                                        console.log("Update player 1 score");
+                                        const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID2;
                                         doc.ref.update({
                                             p1Score: doc.data().p1Score + finalScore,
-                                            turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID2,
+                                            turn: theTurn,
                                             shouldCreateNewGameSet: playerShouldSelectCategory
-                                        }).then(() => console.log("Updated player 1 score"))
+                                        }).then(() => console.log("Updated plsfsfsfsdfsdfdsayer 1 score"))
                                             .catch((error) => console.log("SOmething went wrong"));
                                     } else {
+                                        console.log("Update player 2 score");
+                                        const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID1;
                                         doc.ref.update({
                                             p2Score: doc.data().p2Score + finalScore,
-                                            turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID1,
+                                            turn: theTurn,
                                             shouldCreateNewGameSet: playerShouldSelectCategory
-                                        }).then(() => console.log("Updated player 1 score"))
+                                        }).then(() => console.log("Updated psdfsdfsdfsdflayer 1 score"))
                                             .catch((error) => console.log("SOmething went wrong"));
                                     }
                                 })
