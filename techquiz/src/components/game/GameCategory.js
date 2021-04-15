@@ -7,10 +7,13 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    console.log(selectedCategories, "chosen category")
+    if(localGame){
+        console.log(localGame.selectedCategories)
+    }
+    //console.log(selectedCategories, "chosen category")
 
     return (
-        (game && userStat) ?
+        (game && userStat && localGame.selectedCategories) ?
         <div className="container">
             <div className="card game-landing-container">
                 <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat}/>
