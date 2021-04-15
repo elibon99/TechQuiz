@@ -3,7 +3,8 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories}) => {
+const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet}) => {
+    console.log(shouldCreateNewGameSet, 'should create gameset');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -15,14 +16,17 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
                 <GameSetItem isYourTurn={isYourTurn}/>
                 <div className="card-content">
                     <div className="container">
-                        {isYourTurn ?
+                        {(isYourTurn && shouldCreateNewGameSet) ?
                             <Link to={'/choose-category/' + gameID}>
                                 <button className="btn blue lighten-1 z-depth-0 play-button" onClick={generateCategories}>Play</button>
+                            </Link> :
+                        isYourTurn ?
+                            <Link to={'/quiz-landing/' + gameID}>
+                                <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
                             </Link> :
                             <Link to='/profile'>
                                 <button className="btn blue lighten-1 z-depth-0 play-button">Go back to profile</button>
                             </Link>}
-
                     </div>
                 </div>
             </div>
