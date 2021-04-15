@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import QuizQuestions from "../components/game/QuizQuestions";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
-import {verifyQuestion} from "../store/actions/gameActions";
+import {verifyQuestion, restoreRedirectTo} from "../store/actions/gameActions";
 
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
@@ -18,13 +18,15 @@ const mapStateToProps = (state, ownProps) => {
         auth: state.firebase.auth,
         gameSetID: gameSetID,
         gameID: id,
-        gameSet: gameSet
+        gameSet: gameSet,
+        game: state.game
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        verifyQuestion: (gamingID, answer, gameSetID) => dispatch(verifyQuestion(gamingID,answer, gameSetID))
+        verifyQuestion: (gamingID, answer, gameSetID) => dispatch(verifyQuestion(gamingID,answer, gameSetID)),
+        restoreRedirectTo: () => dispatch(restoreRedirectTo())
     }
 }
 
