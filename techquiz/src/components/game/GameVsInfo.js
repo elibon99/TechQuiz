@@ -2,6 +2,8 @@ import React from 'react';
 
 const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
 
+    console.log(opponent, " opponent data")
+
     return(
         <div className="card-content">
             <div className="container">
