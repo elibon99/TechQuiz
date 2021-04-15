@@ -21,17 +21,18 @@ const categories = [
 
 export const generateCategories = () => {
     return(dispatch) => {
-        let selectedCats = getCategories(categories);
+        let selectedCats = getCategories();
         dispatch({type: 'GENERATE_CATEGORIES_SUCCESS', payload: selectedCats});
     }
 }
 
-function getCategories(categories){
+function getCategories(){
     let selectedCategories = [];
+    var cats = [...categories];
     for(let i = 0; i < 4; i += 1){
-        var randomIndex = Math.floor(Math.random() * (categories.length-1));
-        selectedCategories.push(categories[randomIndex]);
-        categories.splice(randomIndex, 1);
+        var randomIndex = Math.floor(Math.random() * (cats.length-1));
+        selectedCategories.push(cats[randomIndex]);
+        cats.splice(randomIndex, 1);
     }
     return selectedCategories;
 }
