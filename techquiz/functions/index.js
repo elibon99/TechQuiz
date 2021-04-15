@@ -48,7 +48,8 @@ function matchMakingFindOpponent(userID, entryID, username) {
                             turn: userID,
                             p1Score: 0,
                             p2Score: 0,
-                            currentSet: ""
+                            currentSet: "",
+                            shouldCreateNewGameSet : userID
                         })
                             .then((doc) => {
                                 // admin.firestore().collection('games').doc(docRef.data().gameID)
