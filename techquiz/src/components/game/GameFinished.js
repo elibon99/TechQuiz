@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-const GameFinished = ({auth}) => {
+const GameFinished = ({auth, whoWon, userStats, opponentCredentials, username}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -9,13 +9,13 @@ const GameFinished = ({auth}) => {
         <div className="container game-finished-container">
             <h3 className="center">Game Finished</h3>
 
-            <h5 className="center">Elias Won: 9-5</h5>
+            <h5 className="center">{whoWon ? whoWon : ""}</h5>
 
             <br/>
             <br/>
 
-            <p className="center">Elias rating: 105(+3)</p>
-            <p className="center">Per rating: 94(-3)</p>
+            <p className="center">{username ? username : ""} rating: {userStats ? userStats.mlRating : ""}</p>
+            <p className="center">{opponentCredentials ? opponentCredentials.username : ""} rating: {opponentCredentials ? opponentCredentials.rating : ""}</p>
 
             <div className="container game-finished-btn">
                 <Link to='/game-landing'>

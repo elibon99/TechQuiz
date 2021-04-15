@@ -152,14 +152,14 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                     dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
                                     if(doc.data().turn === doc.data().userID1){
                                         doc.ref.update({
-                                            p1Score: finalScore,
+                                            p1Score: doc.data().p1Score + finalScore,
                                             turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID2,
                                             shouldCreateNewGameSet: playerShouldSelectCategory
                                         }).then(() => console.log("Updated player 1 score"))
                                             .catch((error) => console.log("SOmething went wrong"));
                                     } else {
                                         doc.ref.update({
-                                            p2Score: finalScore,
+                                            p2Score: doc.data().p2Score + finalScore,
                                             turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID1,
                                             shouldCreateNewGameSet: playerShouldSelectCategory
                                         }).then(() => console.log("Updated player 1 score"))
@@ -167,6 +167,13 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                     }
                                 })
                                 .catch((err) => console.log(err));
+                            firestore.collection('games').doc(gamingID).collection('gameSets').get()
+                                .then((querySnapshot) => {
+                                    if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
+                                        dispatch({type: 'GAME_OVER_SUCCESS', payload: `${'/game-finished/' + gamingID}`});
+                                    }
+                                }).catch((error) => console.log("Something trying to finish wrong :", error));
+
                         })
                         .catch((err) => console.log(err, 'error updating round over thingie'));
                 }

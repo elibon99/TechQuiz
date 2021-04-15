@@ -50,6 +50,12 @@ const gameReducer = (state = initState, action) => {
                 ...state,
                 redirectTo: null
             }
+        case 'GAME_OVER_SUCCESS':
+            return {
+                ...state,
+                redirectTo: action.payload
+            }
+
         default:
             return state;
     }

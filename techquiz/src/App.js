@@ -30,7 +30,7 @@ function App() {
               <Route path = '/quiz-landing/:id' component={QuizLandingPresenter}></Route>
               <Route path = '/quiz-question/:id' component={QuizQuestionsPresenter}></Route>
               <Route path = '/current-game-stats' component={CurrentGameStatsPresenter}></Route>
-              <Route path = '/game-finished' component={GameFinishedPresenter}></Route>
+              <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
               <Route path = '/home' component={LandingPresenter}></Route>
 
           </Switch>

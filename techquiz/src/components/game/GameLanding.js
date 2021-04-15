@@ -3,10 +3,15 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet}) => {
+const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, localGame, restoreRedirectTo}) => {
     console.log(shouldCreateNewGameSet, 'should create gameset');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
+    }
+    if(localGame.redirectTo){
+        const path = localGame.redirectTo;
+        restoreRedirectTo();
+        return <Redirect to={path}/>
     }
     return(
         (game && userStat) ?

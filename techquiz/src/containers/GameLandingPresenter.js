@@ -3,6 +3,7 @@ import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import GameLanding from "../components/game/GameLanding";
 import {generateCategories} from "../store/actions/gameActions";
+import {restoreRedirectTo} from "../store/actions/matchQueueActions";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -32,13 +33,15 @@ const mapStateToProps = (state, ownProps) => {
         score: score,
         isYourTurn: isYourTurn,
         gameID: id,
-        shouldCreateNewGameSet: shouldCreateNewGameSet
+        shouldCreateNewGameSet: shouldCreateNewGameSet,
+        localGame: state.game
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        generateCategories: () => dispatch(generateCategories())
+        generateCategories: () => dispatch(generateCategories()),
+        restoreRedirectTo: () => dispatch(restoreRedirectTo())
     }
 }
 
