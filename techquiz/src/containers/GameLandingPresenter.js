@@ -20,6 +20,8 @@ const mapStateToProps = (state, ownProps) => {
     const score = (opponentScore !== null && userScore !== null) ? {userScore: userScore, opponentScore: opponentScore} : null;
     const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
+    const shouldCreateNewGameSet = game ? (game.shouldCreateNewGameSet === uid ? true : false) : null;
+    game ? console.log(game.shouldCreateNewGameSet, ' who is this guy') : console.log('woops');
 
     return{
         auth: state.firebase.auth,
@@ -30,6 +32,7 @@ const mapStateToProps = (state, ownProps) => {
         score: score,
         isYourTurn: isYourTurn,
         gameID: id,
+        shouldCreateNewGameSet: shouldCreateNewGameSet
     }
 }
 
