@@ -9,17 +9,12 @@ import {Redirect} from "react-router-dom";
 ]*/
 
 const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo}) => {
-    const [selectedAnswer, setSelectedAnswer]= React.useState("");
-
-    //console.log(game.redirectTo, 'trying to redirect eh?');
 
     if(game.redirectTo){
         const path = game.redirectTo;
         restoreRedirectTo();
         return <Redirect to={path}/>
     }
-
-    //console.log(selectedAnswer, "chosen category")
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
@@ -42,8 +37,8 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                         return (
                             entry[1] ?
                             <div key={entry[0]} className="col s12 m6">
-                                <div id={entry[0]} onClick={e => {setSelectedAnswer(e.target.id); console.log(selectedAnswer, "this was the selected answer"); verifyQuestion(gameID, selectedAnswer, gameSetID )}} className="card category-title-container" tabIndex="1">
-                                    <div id={entry[0]} onClick={e => {setSelectedAnswer(e.target.id); console.log(selectedAnswer, "this was the selected answer"); verifyQuestion(gameID, selectedAnswer, gameSetID)}} className="category-title">
+                                <div id={entry[0]} onClick={e => {verifyQuestion(gameID, e.target.id, gameSetID)}} className="card category-title-container" tabIndex="1">
+                                    <div id={entry[0]} onClick={e => {verifyQuestion(gameID, e.target.id, gameSetID)}} className="category-title">
                                         {entry[1]}
                                     </div>
                                 </div>
