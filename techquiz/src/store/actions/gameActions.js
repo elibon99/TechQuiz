@@ -61,7 +61,8 @@ export const fetchQuestions = (gamingID, category) => {
                 firestore.collection('games').doc(gamingID).collection('gameSets').add({
                     questions: {resp},
                     score: 0,
-                    category: category
+                    category: category,
+                    activeQuestion: 0
                 })
                     .then((doc) => {
                         firestore.collection('games').doc(gamingID).update({
@@ -84,6 +85,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         const firestore = getFirestore();
         firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
             .then((docRef) => {
+                var activeQuestion = docRef.data().activeQuestion;
                 var correctAnswers = docRef.data().questions.resp[docRef.data().activeQuestion].correct_answers;
                 var correctAnswersRes = {
                     answer_a: "",
@@ -101,21 +103,28 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                 var score = docRef.data().score;
 
                 var finalScore = score;
+                activeQuestion += 1;
 
                 if(correctAnswersRes[answer] === "true"){
                     score += 10;
                     finalScore = score;
                     docRef.ref.update({
-                        score: score
+                        score: score,
+                        activeQuestion: activeQuestion
                     }).then(() => dispatch({type: "CORRECT_ANSWER_UPDATED"}))
                         .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE"}, error));
                 } else {
                     dispatch({type: "WRONG_ANSWER"});
+                    docRef.ref.update({
+                        activeQuestion: activeQuestion
+                    }).then(() => dispatch({type: "ACTIVE_QUESTION_UPDATED"}))
+                        .catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
                 }
 
                 if(docRef.data().activeQuestion === 2){
                     firestore.collection('games').doc(gamingID).get()
                         .then((doc) => {
+                            dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
                             if(doc.data().turn === doc.data().userID1){
                                 doc.ref.update({
                                     p1Score: finalScore,
@@ -133,5 +142,11 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                 }
             })
             .catch((error) => console.log("Something went wrong: ", error));
+    }
+}
+
+export const restoreRedirectTo = () => {
+    return(dispatch) => {
+        dispatch({type: 'RESTORE_REDIRECT_TO'});
     }
 }
