@@ -7,13 +7,17 @@ const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
-    const gameSet = game ? game.currentSet : null;
-    console.log(game, 'that was game in qzpresenter');
+    const gameSetID = game ? game.currentSet : null;
+    const gameSets = state.firestore.data.Ggamesets;
+    const gameSet = gameSetID ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
+    if(gameSet){
+        console.log(gameSet, " in presenter")
+    }
     return{
         auth: state.firebase.auth,
-        gameSet: gameSet,
-        category: " blabla",
-        gameID: id
+        gameSetID: gameSetID,
+        gameID: id,
+        gameSet: gameSet
     }
 }
 
@@ -23,8 +27,11 @@ const QuizLandingPresenter = compose(
         {collection: 'games',
         doc: props.gameID,
         subcollections: [
-            {collection: props.gameSet}
-        ]}
+            {collection: 'gameSets', doc: props.gameSetID}
+        ],
+            storeAs: 'Ggamesets'
+        },
+        {collection: 'games'}
     ])
 )(QuizLanding);
 
