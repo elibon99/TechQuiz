@@ -1,7 +1,8 @@
 const initState = {
     gameError: null,
     selectedCategories: null,
-    isCorrectAnswer: null
+    isCorrectAnswer: null,
+    redirectTo : null
 }
 
 const gameReducer = (state = initState, action) => {
@@ -28,6 +29,26 @@ const gameReducer = (state = initState, action) => {
             return {
                 ...state,
                 isCorrectAnswer: false
+            }
+        case 'ACTIVE_QUESTION_UPDATED':
+            return {
+                ...state
+            }
+        case 'ACTIVE_QUESTION_FAILURE':
+            return {
+                ...state,
+                gameError: "Couldn't update question"
+            }
+        case 'REDIRECT':
+            return{
+                ...state,
+                redirectTo: action.payload
+            }
+
+        case 'RESTORE_REDIRECT_TO':
+            return{
+                ...state,
+                redirectTo: null
             }
         default:
             return state;
