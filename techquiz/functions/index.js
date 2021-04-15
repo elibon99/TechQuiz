@@ -74,31 +74,40 @@ function matchMakingFindOpponent(userID, entryID, username) {
             querySnapshot.forEach((doc) => {
                 if((doc.data().uid !== userID) && (doc.data().gameID !== null) && (setupMatch === false)){
                     console.log('Different IDs, game is not null, MATCH THESE');
-                    admin.firestore().collection('games').doc(doc.data().gameID).update({
-                        userID2: userID,
-                        user2Name: username
-                    })
-                        .then(() => {
-                            console.log('added a user to another game');
-                            admin.firestore().collection('users').doc(userID).update({
-                                currentGameID: doc.data().gameID
-                            }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
-                            admin.firestore().collection('matchqueue').doc(doc.id).delete()
+
+                    admin.firestore().collection('games').doc(doc.data().gameID).get()
+                        .then((docRef) => {
+                            const turn = (docRef.data().turn === "") ? userID : docRef.data().turn;
+                            docRef.ref.update({
+                                userID2: userID,
+                                turn: turn,
+                                user2Name: username
+                            })
                                 .then(() => {
-                                    console.log("Matchqueue document deleted!");
-                                }).catch((error) => {
-                                    console.log("Error removing matchqueue document: ", error)
-                            });
-                            admin.firestore().collection('matchqueue').doc(entryID).delete()
-                                .then(() => {
-                                    console.log("Matchqueue document deleted!");
-                                }).catch((error) => {
-                                console.log("Error removing matchqueue document: ", error)
-                            });
+                                    console.log('added a user to another game');
+                                    admin.firestore().collection('users').doc(userID).update({
+                                        currentGameID: doc.data().gameID
+                                    }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
+                                    admin.firestore().collection('matchqueue').doc(doc.id).delete()
+                                        .then(() => {
+                                            console.log("Matchqueue document deleted!");
+                                        }).catch((error) => {
+                                        console.log("Error removing matchqueue document: ", error)
+                                    });
+                                    admin.firestore().collection('matchqueue').doc(entryID).delete()
+                                        .then(() => {
+                                            console.log("Matchqueue document deleted!");
+                                        }).catch((error) => {
+                                        console.log("Error removing matchqueue document: ", error)
+                                    });
+
+                                })
+                                .catch((err) => console.log(err));
+                            setupMatch = true;
 
                         })
-                        .catch((err) => console.log(err));
-                    setupMatch = true;
+                        .catch((error) => console.log("Something went wrong fetching game: ", error));
+
                 }
             });
 
