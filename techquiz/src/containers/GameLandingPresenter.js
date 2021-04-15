@@ -6,14 +6,14 @@ import {generateCategories} from "../store/actions/gameActions";
 
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state)
+    console.log(state, "State withinh game landing presenter")
     const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
-    const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID2) : null;
+    const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID1) : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
     const userScore = game ? (game.userID1 === uid ? game.p1Score : game.p2Score) : null;
