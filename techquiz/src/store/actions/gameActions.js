@@ -62,7 +62,8 @@ export const fetchQuestions = (gamingID, category) => {
                     questions: {resp},
                     score: 0,
                     category: category,
-                    activeQuestion: 0
+                    activeQuestion: 0,
+                    hasBeenAnsweredBy: 0
                 })
                     .then((doc) => {
                         firestore.collection('games').doc(gamingID).update({
@@ -75,7 +76,6 @@ export const fetchQuestions = (gamingID, category) => {
                     .catch((error) => console.log("Error updating games: ", error));
             })
             .catch((error) => console.log("Failed fetch from API :", error));
-
     }
 }
 
@@ -83,6 +83,8 @@ export const fetchQuestions = (gamingID, category) => {
 export const verifyQuestion = (gamingID, answer, gameSetID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
+        const userID = getState().firebase.auth.uid;
+
         firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
             .then((docRef) => {
                 var activeQuestion = docRef.data().activeQuestion;
@@ -99,11 +101,12 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                     correctAnswersRes[entry[0].substring(0,8)] = entry[1];
                 })
 
-                //console.log(correctAnswersRes, "the correct answers")
                 var score = docRef.data().score;
 
                 var finalScore = score;
+
                 activeQuestion += 1;
+                var finalQuestion = activeQuestion;
 
                 if (activeQuestion === 3){
                     activeQuestion = 0;
@@ -128,24 +131,43 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                         .catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
                 }
 
-                if(docRef.data().activeQuestion === 2){
-                    firestore.collection('games').doc(gamingID).get()
-                        .then((doc) => {
-                            dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
-                            if(doc.data().turn === doc.data().userID1){
-                                doc.ref.update({
-                                    p1Score: finalScore,
-                                    turn: doc.data().userID2
-                                }).then(() => console.log("Updated player 1 score"))
-                                    .catch((error) => console.log("SOmething went wrong"));
-                            }else{
-                                doc.ref.update({
-                                    p2Score: finalScore,
-                                    turn: doc.data().userID1
-                                }).then(() => console.log("Updated player 1 score"))
-                                    .catch((error) => console.log("SOmething went wrong"));
-                            }
+                if(finalQuestion === 3){
+                    var hasBeenAnsweredByTemp = (docRef.data().hasBeenAnsweredBy + 1);
+                    docRef.ref.update({
+                        score: 0,
+                        hasBeenAnsweredBy: (docRef.data().hasBeenAnsweredBy + 1)
+                    })
+                        .then(() => {
+                            firestore.collection('games').doc(gamingID).get()
+                                .then((doc) => {
+                                    let playerShouldSelectCategory = userID;
+                                    if (hasBeenAnsweredByTemp === 2) {
+                                        console.log('round over, current user should select new cat');
+                                        playerShouldSelectCategory = userID;
+                                    }
+                                    else {
+                                        playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
+                                    }
+                                    dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
+                                    if(doc.data().turn === doc.data().userID1){
+                                        doc.ref.update({
+                                            p1Score: finalScore,
+                                            turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID2,
+                                            shouldCreateNewGameSet: playerShouldSelectCategory
+                                        }).then(() => console.log("Updated player 1 score"))
+                                            .catch((error) => console.log("SOmething went wrong"));
+                                    } else {
+                                        doc.ref.update({
+                                            p2Score: finalScore,
+                                            turn: (hasBeenAnsweredByTemp === 2)? userID : doc.data().userID1,
+                                            shouldCreateNewGameSet: playerShouldSelectCategory
+                                        }).then(() => console.log("Updated player 1 score"))
+                                            .catch((error) => console.log("SOmething went wrong"));
+                                    }
+                                })
+                                .catch((err) => console.log(err));
                         })
+                        .catch((err) => console.log(err, 'error updating round over thingie'));
                 }
             })
             .catch((error) => console.log("Something went wrong: ", error));
