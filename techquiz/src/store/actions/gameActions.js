@@ -77,3 +77,61 @@ export const fetchQuestions = (gamingID, category) => {
 
     }
 }
+
+
+export const verifyQuestion = (gamingID, answer, gameSetID) => {
+    return(dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore();
+        firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
+            .then((docRef) => {
+                var correctAnswers = docRef.data().questions.resp[docRef.data().activeQuestion].correct_answers;
+                var correctAnswersRes = {
+                    answer_a: "",
+                    answer_b: "",
+                    answer_c: "",
+                    answer_d: "",
+                    answer_e: "",
+                    answer_f: ""
+                };
+                Object.entries(correctAnswers).forEach((entry) => {
+                    correctAnswersRes[entry[0].substring(0,8)] = entry[1];
+                })
+
+                //console.log(correctAnswersRes, "the correct answers")
+                var score = docRef.data().score;
+
+                var finalScore = score;
+
+                if(correctAnswersRes[answer] === "true"){
+                    score += 10;
+                    finalScore = score;
+                    docRef.ref.update({
+                        score: score
+                    }).then(() => dispatch({type: "CORRECT_ANSWER_UPDATED"}))
+                        .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE"}, error));
+                } else {
+                    dispatch({type: "WRONG_ANSWER"});
+                }
+
+                if(docRef.data().activeQuestion === 2){
+                    firestore.collection('games').doc(gamingID).get()
+                        .then((doc) => {
+                            if(doc.data().turn === doc.data().userID1){
+                                doc.ref.update({
+                                    p1Score: finalScore,
+                                    turn: doc.data().userID2
+                                }).then(() => console.log("Updated player 1 score"))
+                                    .catch((error) => console.log("SOmething went wrong"));
+                            }else{
+                                doc.ref.update({
+                                    p2Score: finalScore,
+                                    turn: doc.data().userID1
+                                }).then(() => console.log("Updated player 1 score"))
+                                    .catch((error) => console.log("SOmething went wrong"));
+                            }
+                        })
+                }
+            })
+            .catch((error) => console.log("Something went wrong: ", error));
+    }
+}
