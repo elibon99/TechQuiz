@@ -10,9 +10,9 @@ const mapStateToProps = (state, ownProps) => {
     const gameSetID = game ? game.currentSet : null;
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
-    if(gameSet){
-        console.log(gameSet, " in presenter")
-    }
+    // if(gameSet){
+    //     console.log(gameSet, "state of quiz landing presenter")
+    // }
     return{
         auth: state.firebase.auth,
         gameSetID: gameSetID,

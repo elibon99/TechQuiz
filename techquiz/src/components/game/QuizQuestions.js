@@ -11,8 +11,10 @@ import {Redirect} from "react-router-dom";
 const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo}) => {
 
     if(game.redirectTo){
+        console.log(game.redirectTo, " this is the redirect")
         const path = game.redirectTo;
         restoreRedirectTo();
+        console.log(game.redirectTo, " this is after restored")
         return <Redirect to={path}/>
     }
 

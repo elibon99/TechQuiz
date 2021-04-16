@@ -1,11 +1,11 @@
 import React from 'react';
 
 const GameSetItem = ({isYourTurn}) => {
-    if(isYourTurn){
-        console.log("It is your turn")
-    }else{
-        console.log("It is not your turn")
-    }
+    // if(isYourTurn){
+    //     console.log("It is your turn")
+    // }else{
+    //     console.log("It is not your turn")
+    // }
     return(
         <div className="card-content">
             <div className="container">

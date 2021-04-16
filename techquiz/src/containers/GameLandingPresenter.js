@@ -6,7 +6,7 @@ import {generateCategories, restoreRedirectFirebase} from "../store/actions/game
 
 
 const mapStateToProps = (state, ownProps) => {
-    console.log(state, "State withinh game landing presenter")
+    //console.log(state, "State withinh game landing presenter")
     const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
@@ -22,7 +22,7 @@ const mapStateToProps = (state, ownProps) => {
     const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
     const shouldCreateNewGameSet = game ? (game.shouldCreateNewGameSet === uid ? true : false) : null;
-    game ? console.log(game.shouldCreateNewGameSet, ' who is this guy') : console.log('woops');
+    //game ? console.log(game.shouldCreateNewGameSet, ' who is this guy') : console.log('woops');
 
     return{
         auth: state.firebase.auth,
