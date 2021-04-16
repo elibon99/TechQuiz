@@ -7,9 +7,9 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    if(localGame){
-        console.log(localGame.selectedCategories)
-    }
+    // if(localGame){
+    //     console.log(localGame.selectedCategories)
+    // }
     //console.log(selectedCategories, "chosen category")
 
     return (
