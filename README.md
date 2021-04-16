@@ -61,3 +61,7 @@ and several important folders: components, containers and store. We follow MVP a
 as our model. 
 
 * The store folder contains all of our actions and reducers. 
+
+* The functions folder contains cloud functions, which allow us to run server side code on firebase
+
+* The config folder contians initialization information for our firebase web app
