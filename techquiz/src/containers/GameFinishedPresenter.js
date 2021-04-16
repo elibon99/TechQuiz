@@ -23,10 +23,10 @@ const mapStateToProps = (state, ownProps) => {
             whoWon = `${"It's a draw: " + userScore + "-" + opponentScore}`;
         }
         else if(opponentScore > userScore){
-            whoWon = `${opponentName + "won: " + opponentScore + "-" + userScore }`
+            whoWon = `${opponentName + " won: " + opponentScore + "-" + userScore }`
         }
         else{
-            whoWon = `${username + "won: " + userScore + "-" + opponentScore }`
+            whoWon = `${username + " won: " + userScore + "-" + opponentScore }`
         }
     }
     return{
