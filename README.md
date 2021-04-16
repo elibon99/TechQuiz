@@ -21,7 +21,7 @@ Features:
 * Signing up new accounts
 * Logging into and out of accounts
 * Profile page
-* A matchmaking system  
+* A matchmaking system created using cloud functions  
 * Finding games against random opponents
 * Generating random categories for the gamesets
 * Fetching questions from the quizAPI with said categories
