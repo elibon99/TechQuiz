@@ -2,8 +2,7 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import GameLanding from "../components/game/GameLanding";
-import {generateCategories} from "../store/actions/gameActions";
-import {restoreRedirectTo} from "../store/actions/matchQueueActions";
+import {generateCategories, restoreRedirectFirebase} from "../store/actions/gameActions";
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -13,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
     const userStats = state.firestore.data.userStats;
+    const redirectTo = game ? game.redirectTo : null;
     const userStat = userStats ? userStats[uid] : null;
     const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID1) : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
@@ -34,20 +34,21 @@ const mapStateToProps = (state, ownProps) => {
         isYourTurn: isYourTurn,
         gameID: id,
         shouldCreateNewGameSet: shouldCreateNewGameSet,
-        localGame: state.game
+        redirectTo: redirectTo
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
         generateCategories: () => dispatch(generateCategories()),
-        restoreRedirectTo: () => dispatch(restoreRedirectTo())
+        restoreRedirectFirebase: (gameID) => dispatch(restoreRedirectFirebase(gameID))
     }
 }
 
 const GameLandingPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
+
+    firestoreConnect((props) => [
         {collection: 'users'},
         {collection: 'games'},
         {collection: 'userStats'}
