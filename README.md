@@ -20,7 +20,7 @@ them to climb in the leaderboard.
 Features:
 * Signing up new accounts
 * Logging into and out of accounts
-* Profile page, 
+* Profile page
 * A matchmaking system  
 * Finding games against random opponents
 * Generating random categories for the gamesets
@@ -33,9 +33,15 @@ Features:
 
 Features:
 * Creating games against a certain username
-* Single player game
+* Single player games
 * Implement a timer for the games
 * Changing usernames/passwords/emails
+* Leaderboards pages for each category as to show all entries rather than top 10
+* Showing Game History
+* Showing Current Games
+* Viewing other players profiles
+* Quick-rematching against previously played users.
+* Friends list of other users  
 * General fixes
 * General CSS changes
 
