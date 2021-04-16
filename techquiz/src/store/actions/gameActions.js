@@ -150,6 +150,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                         playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
                                     }
                                     dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
+                                    dispatch({type: 'RESTORE_REDIRECT_TO'});
                                     if(doc.data().turn === doc.data().userID1){
                                         console.log("Update player 1 score");
                                         const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID2;
@@ -174,6 +175,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                             firestore.collection('games').doc(gamingID).collection('gameSets').get()
                                 .then((querySnapshot) => {
                                     if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
+                                        console.log("Want to change redirectTo in game collection");
                                         firestore.collection('games').doc(gamingID).update({
                                             redirectTo: `${'/game-finished/' + gamingID}`
                                         }).then(() => console.log("Updated redirectTO"))
