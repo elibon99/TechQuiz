@@ -43,10 +43,11 @@ Features:
 
 All code for this project is stored in the src/ folder. 
 Therein lies the app itself, the index.js file, the css 
-and several important folders: components, containers and store. 
+and several important folders: components, containers and store. We follow MVP architecture where: 
 
-* The components folder contains all our different vues and are structured 
+* The components folder contains all of our different views which depend on presenters for data. 
 
-* The containers folder contains all our presenters to the according vues. 
+* The containers folder contains all our presenters to the according views and are all mapped to the redux store, which serve
+as our model. 
 
-* The store folder contains all our actions and reducers. 
+* The store folder contains all of our actions and reducers. 
