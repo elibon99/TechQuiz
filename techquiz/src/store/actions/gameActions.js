@@ -174,7 +174,10 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                             firestore.collection('games').doc(gamingID).collection('gameSets').get()
                                 .then((querySnapshot) => {
                                     if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
-                                        dispatch({type: 'GAME_OVER_SUCCESS', payload: `${'/game-finished/' + gamingID}`});
+                                        firestore.collection('games').doc(gamingID).update({
+                                            redirectTo: `${'/game-finished/' + gamingID}`
+                                        }).then(() => console.log("Updated redirectTO"))
+                                            .catch((error) => console.log("SOmething went wrong updating redirecTo"));
                                     }
                                 }).catch((error) => console.log("Something trying to finish wrong :", error));
 
@@ -189,5 +192,15 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
 export const restoreRedirectTo = () => {
     return(dispatch) => {
         dispatch({type: 'RESTORE_REDIRECT_TO'});
+    }
+}
+
+export const restoreRedirectFirebase = (gamingID) => {
+    return (dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore();
+        firestore.collection('games').doc(gamingID).update({
+            redirectTo: null
+        }).then(() => dispatch({type: "RESTORE_FIREBASE_REDIRECT_SUCCESS"}))
+            .catch((error) => dispatch({type: "RESTORE_FIREBASE_REDIRECT_FAILURE"}));
     }
 }
