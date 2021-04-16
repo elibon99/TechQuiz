@@ -3,14 +3,14 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, localGame, restoreRedirectTo}) => {
+const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, restoreRedirectFirebase, redirectTo}) => {
     console.log(shouldCreateNewGameSet, 'should create gameset');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    if(localGame.redirectTo){
-        const path = localGame.redirectTo;
-        restoreRedirectTo();
+    if(redirectTo){
+        const path = redirectTo;
+        restoreRedirectFirebase();
         return <Redirect to={path}/>
     }
     return(
