@@ -26,7 +26,7 @@ Features:
 * Generating random categories for the gamesets
 * Fetching questions from the quizAPI with said categories
 * Starting, playing and finishing multiplayer games
-
+* Application state is persistant and stored using firebase
 
 
 ***What we still plan to do***
