@@ -1,6 +1,6 @@
 # TechQuiz
 
-# Link to app: 
+### Link to app: 
 https://techquiz-de162.web.app/findgame
 
 
