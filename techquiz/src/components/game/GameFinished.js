@@ -18,8 +18,8 @@ const GameFinished = ({auth, whoWon, userStats, opponentCredentials, username}) 
             <p className="center">{opponentCredentials ? opponentCredentials.username : ""} rating: {opponentCredentials ? opponentCredentials.rating : ""}</p>
 
             <div className="container game-finished-btn">
-                <Link to='/game-landing'>
-                    <button className="btn blue lighten-1 z-depth-0 play-button">Rematch</button>
+                <Link to='/'>
+                    <button disabled={true} className="btn blue lighten-1 z-depth-0 play-button">Rematch</button>
                 </Link>
             </div>
 

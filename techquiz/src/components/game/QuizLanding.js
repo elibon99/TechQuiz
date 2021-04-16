@@ -11,12 +11,13 @@ const QuizLanding = ({auth, gameSet, gameID}) => {
         return <Redirect to="/signin"/>
     }
     return(
+        (gameSet && gameID) ?
         <div className="container">
             <div className="card">
                 <div className="card-content">
                     <div className="container">
                         <div className="row category-display-container">
-                            <h5>{gameSet ? gameSet.category : ""}</h5>
+                            <h5>{gameSet.category}</h5>
                         </div>
                         <div className="row">
                             <Link to={"/quiz-question/" + gameID}>
@@ -26,7 +27,7 @@ const QuizLanding = ({auth, gameSet, gameID}) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
