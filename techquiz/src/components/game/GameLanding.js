@@ -4,7 +4,7 @@ import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
 const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, restoreRedirectFirebase, redirectTo}) => {
-    console.log(shouldCreateNewGameSet, 'should create gameset');
+    //console.log(shouldCreateNewGameSet, 'should create gameset');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
