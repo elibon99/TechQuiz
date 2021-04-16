@@ -55,13 +55,13 @@ All code for this project is stored in the src/ folder.
 Therein lies the app itself, the index.js file, the css 
 and several important folders: components, containers and store. We follow MVP architecture where: 
 
-* The components folder contains all of our different views which depend on presenters for data. 
+* The *components* folder contains all of our different views which depend on presenters for data. 
 
-* The containers folder contains all our presenters to the according views and are all mapped to the redux store, which serve
+* The *containers* folder contains all our presenters to the according views and are all mapped to the redux store, which serve
 as our model. 
 
-* The store folder contains all of our actions and reducers. 
+* The *store* folder contains all of our actions and reducers. 
 
-* The functions folder contains cloud functions, which allow us to run server side code on firebase
+* The *functions* folder contains cloud functions, which allow us to run server side code on firebase
 
-* The config folder contians initialization information for our firebase web app
+* The *config* folder contians initialization information for our firebase web app
