@@ -18,7 +18,7 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
         return <Redirect to={path}/>
     }
     const mouseDownHandler = (event) => {
-        if(event.button == 1){
+        if(event.button === 1 || event.button === 2 || event.button === 0){
             console.log("Trying to click in middle with category, :", event.target.id)
             verifyQuestion(gameID, event.target.id, gameSetID);
         }
