@@ -203,7 +203,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                         .then(() => console.log('updated player loss count'))
                                                         .catch((err) => console.log(err, 'couldnt update player loss count'));
                                                 }
-                                                if (result === -1) {
+                                                else if (result === -1) {
                                                     firestore.collection('userStats').doc(userID).update({
                                                         losses: firebase.firestore.FieldValue.increment(1),
                                                         mlRating: firebase.firestore.FieldValue.increment(-3)
