@@ -174,50 +174,64 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                 })
                                 .catch((err) => console.log(err));
                             firestore.collection('games').doc(gamingID).collection('gameSets').get()
-                                .then(async (querySnapshot) => {
+                                .then((querySnapshot) => {
                                     if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
-                                        let result = await decideWinner(gamingID, userID, firestore);
-                                        console.log(result, 'decide winner result');
-                                        let opponentUserID = getOpponentID(gamingID, firestore, userID);
-                                        console.log(opponentUserID, 'that was the opponents user id');
-                                        if (result === 1) {
-                                            firestore.collection('userStats').doc(userID).update({
-                                                wins: firebase.firestore.FieldValue.increment(1),
-                                                mlRating: firebase.firestore.FieldValue.increment(3)
-                                            })
-                                                .then(() => console.log('updated player win count'))
-                                                .catch((err) => console.log(err, 'couldnt update player win count'));
+                                        firestore.collection('games').doc(gamingID).get()
+                                            .then((document) => {
+                                                const p1Score = document.data().p1Score;
+                                                const p2Score = document.data().p2Score;
+                                                const uid1 = document.data().userID1;
+                                                const uid2 = document.data().userID2;
 
-                                            firestore.collection('userStats').doc(opponentUserID).update({
-                                                losses: firebase.firestore.FieldValue.increment(1),
-                                                mlRating: firebase.firestore.FieldValue.increment(-3)
-                                            })
-                                                .then(() => console.log('updated player loss count'))
-                                                .catch((err) => console.log(err, 'couldnt update player loss count'));
-                                        }
-                                        if (result === -1) {
-                                            firestore.collection('userStats').doc(userID).update({
-                                                losses: firebase.firestore.FieldValue.increment(1),
-                                                mlRating: firebase.firestore.FieldValue.increment(-3)
-                                            })
-                                                .then(() => console.log('updated player loss count'))
-                                                .catch((err) => console.log(err, 'couldnt update player loss count'));
+                                                let result = decideWinner(p1Score, p2Score, userID, uid1);
+                                                const opponentId = (uid1 === userID) ? uid2 : uid1;
+                                                console.log(opponentId, 'that was the opponents user id');
 
-                                            firestore.collection('userStats').doc(opponentUserID).update({
-                                                wins: firebase.firestore.FieldValue.increment(1),
-                                                mlRating: firebase.firestore.FieldValue.increment(3)
+                                                if (result === 1) {
+                                                    firestore.collection('userStats').doc(userID).update({
+                                                        wins: firebase.firestore.FieldValue.increment(1),
+                                                        mlRating: firebase.firestore.FieldValue.increment(3)
+                                                    })
+                                                        .then(() => console.log('updated player win count'))
+                                                        .catch((err) => console.log(err, 'couldnt update player win count'));
+
+                                                    firestore.collection('userStats').doc(opponentId).update({
+                                                        losses: firebase.firestore.FieldValue.increment(1),
+                                                        mlRating: firebase.firestore.FieldValue.increment(-3)
+                                                    })
+                                                        .then(() => console.log('updated player loss count'))
+                                                        .catch((err) => console.log(err, 'couldnt update player loss count'));
+                                                }
+                                                if (result === -1) {
+                                                    firestore.collection('userStats').doc(userID).update({
+                                                        losses: firebase.firestore.FieldValue.increment(1),
+                                                        mlRating: firebase.firestore.FieldValue.increment(-3)
+                                                    })
+                                                        .then(() => console.log('updated player loss count'))
+                                                        .catch((err) => console.log(err, 'couldnt update player loss count'));
+
+                                                    firestore.collection('userStats').doc(opponentId).update({
+                                                        wins: firebase.firestore.FieldValue.increment(1),
+                                                        mlRating: firebase.firestore.FieldValue.increment(3)
+                                                    })
+                                                        .then(() => console.log('updated player win count'))
+                                                        .catch((err) => console.log(err, 'couldnt update player win count'));
+                                                }
+                                                else {
+                                                    console.log('its a tie in else statement');
+                                                }
+                                                console.log("Want to change redirectTo in game collection");
+                                                firestore.collection('games').doc(gamingID).update({
+                                                    redirectTo: `${'/game-finished/' + gamingID}`
+                                                }).then(() => console.log("Updated redirectTO"))
+                                                    .catch((error) => console.log("SOmething went wrong updating redirecTo"));
+
+
                                             })
-                                                .then(() => console.log('updated player win count'))
-                                                .catch((err) => console.log(err, 'couldnt update player win count'));
-                                        }
-                                        else {
-                                            console.log('its a tie');
-                                        }
-                                        console.log("Want to change redirectTo in game collection");
-                                        firestore.collection('games').doc(gamingID).update({
-                                            redirectTo: `${'/game-finished/' + gamingID}`
-                                        }).then(() => console.log("Updated redirectTO"))
-                                            .catch((error) => console.log("SOmething went wrong updating redirecTo"));
+                                            .catch((error) => console.log("Could'nt get game data"));
+
+
+
                                     }
                                 }).catch((error) => console.log("Something trying to finish wrong :", error));
 
@@ -239,53 +253,45 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
  * 0 = tie
  * -1 = p2 won
  */
-function decideWinner(gamingID, currentUserID, firestore){
-    let p1Score = 0;
-    let p2Score = 0;
-    let uid1 = "";
+function decideWinner(p1Score, p2Score, currentUserID, uid1){
+
+
     let p1Result = null;
     let p2Result = null;
-    firestore.collection('games').doc(gamingID).get()
-        .then((doc) => {
-            p1Score = doc.data().p1Score;
-            p2Score = doc.data().p2Score;
-            uid1 = doc.data().userID1;
 
+    if(p1Score === p2Score){
+        console.log('its a tie');
+        return 0;
+    }
+    if (currentUserID === uid1){
+        console.log('logged in user is uid1');
+        p1Result = (p1Score - p2Score);
+    }
+    else {
+        console.log('logged in user is uid2');
+        p2Result = (p2Score - p1Score);
+    }
+    if (p1Result){
+        if(p1Result > 0) {
+            console.log('p1 won');
+            return 1;
+        }
+        else {
+            console.log('p2 won');
+            return -1
+        }
+    }
+    else {
+        if(p2Result > 0){
+            console.log('p2 won');
+            return -1
+        }
+        else {
+            console.log('p1 won');
+            return 1
+        }
+    }
 
-            if(p1Score === p2Score){
-                console.log('its a tie');
-                return 0;
-            }
-            if (currentUserID === uid1){
-                console.log('logged in user is uid1');
-                p1Result = (p1Score - p2Score);
-            }
-            else {
-                console.log('logged in user is uid2');
-                p2Result = (p2Score - p1Score);
-            }
-            if (p1Result){
-                if(p1Result > 0) {
-                    console.log('p1 won');
-                    return 1;
-                }
-                else {
-                    console.log('p2 won');
-                    return -1
-                }
-            }
-            else {
-                if(p2Result > 0){
-                    console.log('p2 won');
-                    return -1
-                }
-                else {
-                    console.log('p1 won');
-                    return 1
-                }
-            }
-        })
-        .catch((err) => console.log(err, 'something went wrong deciding winner'));
 }
 
 function getOpponentID (gamingID, firestore, userID) {
