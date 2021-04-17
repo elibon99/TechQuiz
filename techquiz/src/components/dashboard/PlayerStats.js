@@ -22,7 +22,7 @@ const PlayerStats = ({stats, winLossRatio}) => {
                 </div>
                 <div className="row">
                     <div className="col s12 m12" title={"Your Win / Loss ratio is your expected amount of wins per loss"}>
-                        W/L-ratio: {winLossRatio}
+                        W/L-ratio: {winLossRatio.toFixed(2)}
                     </div>
                 </div>
             </div>
