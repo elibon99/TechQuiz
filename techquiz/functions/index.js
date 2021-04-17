@@ -142,3 +142,13 @@ exports.matchMaking = functions.firestore
             .catch((error) => console.log("Error receiving username: ", error));
 
     });
+
+exports.updateMLRating = functions.firestore
+    .document('userStats/{id}')
+    .onUpdate((change, context) => {
+        return admin.firestore().collection('multiplayerRating').doc(context.params.id).update({
+            rating: change.after.data().mlRating
+        })
+            .then(() => console.log('updated mlrating'))
+            .catch((error) => console.log("Error updating mlrating: ", error));
+    });
