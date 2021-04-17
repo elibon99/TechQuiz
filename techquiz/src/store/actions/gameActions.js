@@ -293,24 +293,7 @@ function decideWinner(p1Score, p2Score, currentUserID, uid1){
 
 }
 
-function getOpponentID (gamingID, firestore, userID) {
-    let uid1 = "";
-    let uid2 = "";
-    firestore.collection('games').doc(gamingID).get()
-        .then((doc) => {
-            uid1 = doc.data().userID1;
-            uid2 = doc.data().userID2;
-        })
-        .catch((err) => console.log(err, 'couldnt get opponent ID'));
-    if (userID === uid1){
-        console.log('opponent user is userid2', uid2);
-        return uid2;
-    }
-    else {
-        console.log('opponent user is userid1', uid1);
-        return uid1;
-    }
-}
+
 
 export const restoreRedirectTo = () => {
     return(dispatch) => {
