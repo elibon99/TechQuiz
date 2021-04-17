@@ -255,8 +255,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
  * -1 = p2 won
  */
 function decideWinner(p1Score, p2Score, currentUserID, uid1){
-
-
     let p1Result = null;
     let p2Result = null;
 
@@ -285,11 +283,11 @@ function decideWinner(p1Score, p2Score, currentUserID, uid1){
     else {
         if(p2Result > 0){
             console.log('p2 won');
-            return -1
+            return 1
         }
         else {
             console.log('p1 won');
-            return 1
+            return -1
         }
     }
 
