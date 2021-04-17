@@ -2,19 +2,28 @@ import React from 'react'
 import GameItemYourTurn from "./GameItemYourTurn";
 import GameItemTheirTurn from "./GameItemTheirTurn";
 
-const CurrentGames = () => {
+const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
     return(
         <div className="dashboard-item-container container section">
             <h5>Current Games:</h5>
             <div className="row">
                 <div className="col s12 m5">
                     Your turn:
-                    <GameItemYourTurn/>
-                    <GameItemYourTurn/>
+                    {currentGamesYourTurn && currentGamesYourTurn.map((entry) => {
+                        return (
+                                <GameItemYourTurn game={entry} key={entry[0]}/>
+                            )
+                    })}
+
                 </div>
                 <div className="col s12 m5 offset-m2">
                     Their turn:
-                    <GameItemTheirTurn/>
+                    {currentGamesTheirTurn && currentGamesTheirTurn.map((entry) => {
+                        return(
+                            <GameItemTheirTurn game={entry} key={entry[0]}/>
+                        )
+                    })
+                    }
                 </div>
             </div>
         </div>
