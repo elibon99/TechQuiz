@@ -174,9 +174,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                 })
                                 .catch((err) => console.log(err));
                             firestore.collection('games').doc(gamingID).collection('gameSets').get()
-                                .then((querySnapshot) => {
+                                .then(async (querySnapshot) => {
                                     if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
-                                        let result = decideWinner(gamingID, userID, firestore);
+                                        let result = await decideWinner(gamingID, userID, firestore);
                                         console.log(result, 'decide winner result');
                                         let opponentUserID = getOpponentID(gamingID, firestore, userID);
                                         console.log(opponentUserID, 'that was the opponents user id');
@@ -250,6 +250,7 @@ function decideWinner(gamingID, currentUserID, firestore){
             p1Score = doc.data().p1Score;
             p2Score = doc.data().p2Score;
             uid1 = doc.data().userID1;
+
 
             if(p1Score === p2Score){
                 console.log('its a tie');
