@@ -82,8 +82,9 @@ export const fetchQuestions = (gamingID, category) => {
 
 
 export const verifyQuestion = (gamingID, answer, gameSetID) => {
-    return(dispatch, getState, {getFirestore}) => {
+    return(dispatch, getState, {getFirestore, getFirebase}) => {
         const firestore = getFirestore();
+        const firebase = getFirebase();
         const userID = getState().firebase.auth.uid;
 
         firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
@@ -175,6 +176,27 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                             firestore.collection('games').doc(gamingID).collection('gameSets').get()
                                 .then((querySnapshot) => {
                                     if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
+                                        let result = decideWinner(gamingID, userID, firestore);
+                                        console.log(result, 'decide winner result');
+                                        if (result === 1) {
+                                            firestore.collection('userStats').doc(userID).update({
+                                                wins: firebase.firestore.FieldValue.increment(1),
+                                                mlRating: firebase.firestore.FieldValue.increment(3)
+                                            })
+                                                .then(() => console.log('updated player win count'))
+                                                .catch((err) => console.log(err, 'couldnt update player win count'));
+                                        }
+                                        if (result === -1) {
+                                            firestore.collection('userStats').doc(userID).update({
+                                                losses: firebase.firestore.FieldValue.increment(1),
+                                                mlRating: firebase.firestore.FieldValue.increment(-3)
+                                            })
+                                                .then(() => console.log('updated player loss count'))
+                                                .catch((err) => console.log(err, 'couldnt update player loss count'));
+                                        }
+                                        else {
+                                            console.log('its a tie');
+                                        }
                                         console.log("Want to change redirectTo in game collection");
                                         firestore.collection('games').doc(gamingID).update({
                                             redirectTo: `${'/game-finished/' + gamingID}`
@@ -189,6 +211,63 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
             })
             .catch((error) => console.log("Something went wrong: ", error));
     }
+}
+
+/**
+ * This func will decide who won the game
+ * @param gamingID -- the id of the current game
+ * @param currentUserID -- the ID of the current user
+ * @param firestore -- the firestore
+ * returns: 1, 0 or -1 depending on who won.
+ * 1 = p1 won
+ * 0 = tie
+ * -1 = p2 won
+ */
+function decideWinner(gamingID, currentUserID, firestore){
+    let p1Score = 0;
+    let p2Score = 0;
+    let uid1 = "";
+    let p1Result = null;
+    let p2Result = null;
+    firestore.collection('games').doc(gamingID).get()
+        .then((doc) => {
+            p1Score = doc.data().p1Score;
+            p2Score = doc.data().p2Score;
+            uid1 = doc.data().userID1;
+        })
+        .catch((err) => console.log(err, 'something went wrong deciding winner'));
+    if(p1Score === p2Score){
+        console.log('its a tie');
+        return 0;
+    }
+    if (currentUserID === uid1){
+        console.log('logged in user is uid1');
+        p1Result = (p1Score - p2Score);
+    }
+    else {
+        console.log('logged in user is uid2');
+        p2Result = (p2Score - p1Score);
+    }
+   if (p1Result){
+       if(p1Result > 0) {
+           console.log('p1 won');
+           return 1;
+       }
+       else {
+           console.log('p2 won');
+           return -1
+       }
+   }
+   else {
+       if(p2Result > 0){
+           console.log('p2 won');
+           return -1
+       }
+       else {
+           console.log('p1 won');
+           return 1
+       }
+   }
 }
 
 export const restoreRedirectTo = () => {
