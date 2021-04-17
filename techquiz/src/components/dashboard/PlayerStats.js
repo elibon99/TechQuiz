@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlayerStats = ({stats}) => {
+const PlayerStats = ({stats, winLossRatio}) => {
     return(
             <div className="dashboard-item-container container section">
                 <h5>Stats:</h5>
@@ -22,7 +22,7 @@ const PlayerStats = ({stats}) => {
                 </div>
                 <div className="row">
                     <div className="col s12 m12" title={"Your Win / Loss ratio is your expected amount of wins per loss"}>
-                        W/L-ratio: {stats.wlRatio}
+                        W/L-ratio: {winLossRatio}
                     </div>
                 </div>
             </div>
