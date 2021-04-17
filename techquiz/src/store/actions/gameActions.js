@@ -250,40 +250,41 @@ function decideWinner(gamingID, currentUserID, firestore){
             p1Score = doc.data().p1Score;
             p2Score = doc.data().p2Score;
             uid1 = doc.data().userID1;
+
+            if(p1Score === p2Score){
+                console.log('its a tie');
+                return 0;
+            }
+            if (currentUserID === uid1){
+                console.log('logged in user is uid1');
+                p1Result = (p1Score - p2Score);
+            }
+            else {
+                console.log('logged in user is uid2');
+                p2Result = (p2Score - p1Score);
+            }
+            if (p1Result){
+                if(p1Result > 0) {
+                    console.log('p1 won');
+                    return 1;
+                }
+                else {
+                    console.log('p2 won');
+                    return -1
+                }
+            }
+            else {
+                if(p2Result > 0){
+                    console.log('p2 won');
+                    return -1
+                }
+                else {
+                    console.log('p1 won');
+                    return 1
+                }
+            }
         })
         .catch((err) => console.log(err, 'something went wrong deciding winner'));
-    if(p1Score === p2Score){
-        console.log('its a tie');
-        return 0;
-    }
-    if (currentUserID === uid1){
-        console.log('logged in user is uid1');
-        p1Result = (p1Score - p2Score);
-    }
-    else {
-        console.log('logged in user is uid2');
-        p2Result = (p2Score - p1Score);
-    }
-   if (p1Result){
-       if(p1Result > 0) {
-           console.log('p1 won');
-           return 1;
-       }
-       else {
-           console.log('p2 won');
-           return -1
-       }
-   }
-   else {
-       if(p2Result > 0){
-           console.log('p2 won');
-           return -1
-       }
-       else {
-           console.log('p1 won');
-           return 1
-       }
-   }
 }
 
 function getOpponentID (gamingID, firestore, userID) {
