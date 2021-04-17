@@ -17,6 +17,12 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
         //console.log(game.redirectTo, " this is after restored")
         return <Redirect to={path}/>
     }
+    const mouseDownHandler = (event) => {
+        if(event.button == 1){
+            console.log("Trying to click in middle with category, :", event.target.id)
+            verifyQuestion(gameID, event.target.id, gameSetID);
+        }
+    }
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
@@ -39,8 +45,8 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                         return (
                             entry[1] ?
                             <div key={entry[0]} className="col s12 m6">
-                                <div id={entry[0]} onClick={e => {verifyQuestion(gameID, e.target.id, gameSetID)}} className="card category-title-container" >
-                                    <div id={entry[0]} onClick={e => {verifyQuestion(gameID, e.target.id, gameSetID)}} className="category-title">
+                                <div id={entry[0]} onClick={mouseDownHandler} className="card category-title-container" >
+                                    <div id={entry[0]} className="category-title">
                                         {entry[1]}
                                     </div>
                                 </div>
