@@ -187,7 +187,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                 const opponentId = (uid1 === userID) ? uid2 : uid1;
                                                 console.log(opponentId, 'that was the opponents user id');
 
-                                                if (result === 1) {
+                                                if (result === -1) {
                                                     firestore.collection('userStats').doc(userID).update({
                                                         wins: firebase.firestore.FieldValue.increment(1),
                                                         mlRating: firebase.firestore.FieldValue.increment(3)
@@ -202,7 +202,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                         .then(() => console.log('updated player loss count'))
                                                         .catch((err) => console.log(err, 'couldnt update player loss count'));
                                                 }
-                                                if (result === -1) {
+                                                if (result === 1) {
                                                     firestore.collection('userStats').doc(userID).update({
                                                         losses: firebase.firestore.FieldValue.increment(1),
                                                         mlRating: firebase.firestore.FieldValue.increment(-3)
