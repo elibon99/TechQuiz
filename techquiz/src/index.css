@@ -247,7 +247,6 @@ nav .sidenav-trigger{
 
 .nav-wrapper ul li a:hover{
   color: #64B5F6;
-  background-color: #424242;
   transition: color .3s!important;
 }
 
