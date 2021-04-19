@@ -16,6 +16,13 @@ export const addToMatchQueue = (rating, username) => {
                                 if(doc.data().uid !== uid && doc.data().gameID !== null){
                                     gamingSetId = doc.data().gameID;
                                 }
+                                else if (doc.data().uid === uid){
+                                    console.log('> 1 entry, same userID');
+                                    gamingSetId = firestore.collection('games').doc().id;
+                                }
+                                else{
+                                    console.log('watafak');
+                                }
                             })
                         }
                         else{
