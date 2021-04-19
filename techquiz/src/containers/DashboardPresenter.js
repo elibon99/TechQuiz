@@ -10,6 +10,9 @@ const mapStateToProps = (state) => {
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
     const games = state.firestore.data.games;
     const gameEntries = games ? Object.entries(games) : null;
+    let userScore = 0;
+    let opponentScore = 0;
+    let whoWon = null;
 
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn === uid && entry[1].gameIsFinished === false;
@@ -36,13 +39,48 @@ const mapStateToProps = (state) => {
         }
     }) : console.log('currentGamesTheirTurnNONONO');
 
+    let finishedGames = (games && uid) ? gameEntries.filter((entry) => {
+        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === true;
+    }) : null;
+
+    finishedGames ? finishedGames.forEach((entry) => {
+        userScore = (entry[1].userID1 === uid) ? entry[1].p1Score : entry[1].p2Score;
+        opponentScore = (entry[1].userID1 === uid) ? entry[1].p2Score : entry[1].p1Score;
+        if(entry[1].userID1 === uid) {
+            if(userScore === opponentScore){
+                whoWon = `${"It was a draw: " + userScore + "-" + opponentScore}`;
+            }
+            else if(userScore > opponentScore){
+                whoWon = `${"You won: " + userScore + "-" + opponentScore}`
+            }
+            else {
+                whoWon = `${"You lost: " + userScore + "-" + opponentScore}`
+            }
+            entry.push({opponentName : entry[1].user2Name, whoWon : whoWon});
+        }
+        else {
+            if(userScore === opponentScore){
+                whoWon = `${"It was a draw: " + userScore + "-" + opponentScore}`;
+            }
+            else if(userScore > opponentScore){
+                whoWon = `${"You won: " + userScore + "-" + opponentScore}`
+            }
+            else {
+                whoWon = `${"You lost: " + userScore + "-" + opponentScore}`
+            }
+            entry.push({opponentName : entry[1].user1Name, whoWon : whoWon});
+        }
+    }) : console.log('finishedgames aooaoao');
+
+
     return{
         auth: state.firebase.auth,
         userStat: userStat,
         profile: state.firebase.profile,
         winLossRatio: winLossRatio,
         currentGamesYourTurn: currentGamesYourTurn,
-        currentGamesTheirTurn: currentGamesTheirTurn
+        currentGamesTheirTurn: currentGamesTheirTurn,
+        finishedGames : finishedGames
     }
 }
 
