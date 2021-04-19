@@ -103,6 +103,11 @@ ol{
   font-weight: bold;
 }
 
+.flex-col{
+
+
+}
+
 .flex{
   display: flex;
   flex-wrap: wrap;

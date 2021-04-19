@@ -10,10 +10,11 @@ const FriendLanding = ({auth, friendList}) => {
         <div className="container">
             <div className="row">
                 <div className="col s12 m4">
+                    <h5 className="center">
+                        Friend Requests
+                    </h5>
                     <div className="col s12 m12">
-                        <h5 className="center">
-                            Friend Requests
-                        </h5>
+
                         <div className="card">
                             <div className="card-content">
                             </div>
