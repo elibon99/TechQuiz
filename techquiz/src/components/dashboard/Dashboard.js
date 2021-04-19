@@ -7,15 +7,15 @@ import {Redirect} from "react-router-dom";
 
 
 
-const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames}) => {
+const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName}) => {
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
     return (
-        userStat ?
+        (userStat && userName) ?
             <div className="dashboard container">
-                <h1>{profile.userName}</h1>
+                <h1>{userName}</h1>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
