@@ -92,6 +92,8 @@ ol{
 
 .player-content{
   text-align: center;
+  color: black!important;
+  padding-left: 0px!important;
 }
 
 .score-content{
@@ -263,3 +265,22 @@ nav .sidenav-trigger{
   padding: 8px !important;
 }
 
+.friend-req-container{
+  margin: 10px 0px;
+  border-bottom: 1px solid #838383;
+  border-top: 1px solid #838383;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friend-req-btn{
+  margin-right: 12px;
+}
+
+.radio-buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
