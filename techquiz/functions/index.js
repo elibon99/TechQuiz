@@ -73,7 +73,7 @@ function matchMakingFindOpponent(userID, entryID, username) {
                     })
                     .catch((error) => console.log("Couldn't get matchque document"))
 
-            }
+            } else{
             let setupMatch = false;
             let setupMatch2 = false;
             querySnapshot.forEach((doc) => {
@@ -96,7 +96,7 @@ function matchMakingFindOpponent(userID, entryID, username) {
                         .catch((err) => console.log(err, ' error adding 2nd player'));
 
                 }
-                if((doc.data().uid !== userID) && (doc.data().gameID !== null) && (setupMatch === false)){
+                if ((doc.data().uid !== userID) && (doc.data().gameID !== null) && (setupMatch === false)){
                     console.log('Different IDs, game is not null, MATCH THESE');
 
                     admin.firestore().collection('games').doc(doc.data().gameID).get()
@@ -134,6 +134,7 @@ function matchMakingFindOpponent(userID, entryID, username) {
 
                 }
             });
+            }
 
         })
 }
