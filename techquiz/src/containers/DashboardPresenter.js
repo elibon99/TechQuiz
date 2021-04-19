@@ -9,14 +9,13 @@ const mapStateToProps = (state) => {
     const userStat = userStats ? userStats[uid] : null;
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
     const games = state.firestore.data.games;
-
     const gameEntries = games ? Object.entries(games) : null;
 
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
-        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn === uid;
+        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn === uid && entry[1].gameIsFinished === false;
     }) : null;
     let currentGamesTheirTurn = (games && uid) ? gameEntries.filter((entry) => {
-        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn !== uid;
+        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn !== uid && entry[1].gameIsFinished === false;
     }) : null;
 
     currentGamesYourTurn ? currentGamesYourTurn.forEach((entry) => {
