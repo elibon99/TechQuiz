@@ -200,3 +200,15 @@ exports.updateMLRating = functions.firestore
             .then(() => console.log('updated mlrating'))
             .catch((error) => console.log("Error updating mlrating: ", error));
     });
+
+exports.setUsername = functions.firestore
+    .document('users/{userID}')
+    .onCreate((snap,context) => {
+        var userName = snap.data().userName.toLowerCase();
+        console.log("Username is ", userName);
+        return admin.firestore().collection('usernames').doc(userName).update({
+            userID: context.params.userID
+        }).then(() => console.log('Updated usernames collection'))
+            .catch((error) => console.log('Error updating usernames collection, :', error));
+
+    });
