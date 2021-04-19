@@ -4,6 +4,7 @@ export const addToMatchQueue = (rating, username) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const uid = firebase.auth().currentUser.uid;
+        let shouldSkip = false;
 
         firestore.collection('users').doc(uid).get()
             .then((doc) => {
@@ -13,12 +14,19 @@ export const addToMatchQueue = (rating, username) => {
                         if(querySnapshot.size >= 1){
                             var gamingSetId = null;
                             querySnapshot.forEach((doc) => {
-                                if(doc.data().uid !== uid && doc.data().gameID !== null){
+                                if(shouldSkip){
+                                    return;
+                                }
+                                else if(doc.data().uid !== uid && doc.data().gameID !== null){
                                     gamingSetId = doc.data().gameID;
+                                    console.log("First else if happened with gameID: ", gamingSetId)
+                                    shouldSkip = true;
                                 }
                                 else if (doc.data().uid === uid){
                                     console.log('> 1 entry, same userID');
+                                    console.log("Second else if happened")
                                     gamingSetId = firestore.collection('games').doc().id;
+                                    shouldSkip = true;
                                 }
                                 else{
                                     console.log('watafak');
@@ -27,6 +35,7 @@ export const addToMatchQueue = (rating, username) => {
                         }
                         else{
                             gamingSetId = firestore.collection('games').doc().id;
+                            console.log("Else statement happened")
                         }
                         firestore.collection('matchqueue').add({
                             uid: uid,
