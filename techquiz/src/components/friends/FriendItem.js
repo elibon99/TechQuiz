@@ -1,12 +1,12 @@
 import React from 'react';
 
-const FriendItem = ({friendList}) => {
+const FriendItem = ({friend}) => {
     return (
         <div className="col s12 m3 player-content">
             <div className="card">
                 <div className="card-content friends-card-padding">
                     <i className="medium material-icons">account_circle</i>
-                    <h5>Bony</h5>
+                    <h6>{friend.userName}</h6>
                 </div>
             </div>
         </div>
