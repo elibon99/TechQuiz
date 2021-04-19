@@ -73,68 +73,94 @@ function matchMakingFindOpponent(userID, entryID, username) {
                     })
                     .catch((error) => console.log("Couldn't get matchque document"))
 
-            } else{
-            let setupMatch = false;
-            let setupMatch2 = false;
-            querySnapshot.forEach((doc) => {
-                if((doc.data().uid === userID) && (setupMatch2 === false)){
-                    console.log('same user wants to create more than one game, make another game');
-                    admin.firestore().collection('games').doc(doc.data().gameID).set({
-                        userID1: userID,
-                        user1Name: username,
-                        userID2: '',
-                        user2Name: '',
-                        turn: userID,
-                        p1Score: 0,
-                        p2Score: 0,
-                        currentSet: "",
-                        shouldCreateNewGameSet : userID,
-                        amountOfPlayerLeft : 2,
-                        redirectTo: null,
-                        gameIsFinished: false
-                    }).then(() => {console.log('added same player to a 2nd game'); setupMatch2 = true;})
-                        .catch((err) => console.log(err, ' error adding 2nd player'));
-
-                }
-                if ((doc.data().uid !== userID) && (doc.data().gameID !== null) && (setupMatch === false)){
-                    console.log('Different IDs, game is not null, MATCH THESE');
-
-                    admin.firestore().collection('games').doc(doc.data().gameID).get()
-                        .then((docRef) => {
-                            const turn = (docRef.data().turn === "") ? userID : docRef.data().turn;
-                            docRef.ref.update({
-                                userID2: userID,
-                                turn: turn,
-                                user2Name: username
-                            })
-                                .then(() => {
-                                    console.log('added a user to another game');
-                                    admin.firestore().collection('users').doc(userID).update({
-                                        currentGameID: doc.data().gameID
-                                    }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
-                                    admin.firestore().collection('matchqueue').doc(doc.id).delete()
-                                        .then(() => {
-                                            console.log("Matchqueue document deleted!");
-                                        }).catch((error) => {
-                                        console.log("Error removing matchqueue document: ", error)
-                                    });
-                                    admin.firestore().collection('matchqueue').doc(entryID).delete()
-                                        .then(() => {
-                                            console.log("Matchqueue document deleted!");
-                                        }).catch((error) => {
-                                        console.log("Error removing matchqueue document: ", error)
-                                    });
-
-                                })
-                                .catch((err) => console.log(err));
-                            setupMatch = true;
-
-                        })
-                        .catch((error) => console.log("Something went wrong fetching game: ", error));
-
-                }
-            });
             }
+            else {
+                let setupMatch = false;
+                let setupMatch2 = false;
+                let shouldSkip = false;
+                querySnapshot.forEach((doc) => {
+                    if(shouldSkip){
+                        return;
+                    }
+                    else if (doc.data().uid === userID) {
+                        admin.firestore().collection('games').doc(doc.data().gameID).get()
+                            .then((docSnapshot) => {
+                                if(docSnapshot.exists){
+                                    console.log("Collection already exists")
+                                }
+                                else{
+                                    console.log('same user wants to create more than one game, make another game');
+                                    admin.firestore().collection('games').doc(doc.data().gameID).set({
+                                        userID1: userID,
+                                        user1Name: username,
+                                        userID2: '',
+                                        user2Name: '',
+                                        turn: userID,
+                                        p1Score: 0,
+                                        p2Score: 0,
+                                        currentSet: "",
+                                        shouldCreateNewGameSet: userID,
+                                        amountOfPlayerLeft: 2,
+                                        redirectTo: null,
+                                        gameIsFinished: false
+                                    }).then(() => {
+                                        console.log('added same player to a 2nd game');
+                                        setupMatch2 = true;
+                                    })
+                                        .catch((err) => console.log(err, ' error adding 2nd player'));
+                                    shouldSkip = true;
+
+                                }
+                            })
+                            .catch((error) => console.log("Couldnt fetch games :", error));
+                    }
+                    else if ((doc.data().uid !== userID) && (doc.data().gameID !== null)) {
+                        console.log('Different IDs, game is not null, MATCH THESE');
+
+                        admin.firestore().collection('games').doc(doc.data().gameID).get()
+                            .then((docRef) => {
+                                const turn = (docRef.data().turn === "") ? userID : docRef.data().turn;
+                                docRef.ref.update({
+                                    userID2: userID,
+                                    turn: turn,
+                                    user2Name: username
+                                })
+                                    .then(() => {
+                                        console.log('added a user to another game');
+                                        admin.firestore().collection('users').doc(userID).update({
+                                            currentGameID: doc.data().gameID
+                                        }).then(() => console.log("Updated users successfull")).catch((err) => console.log("Failed to update users", err));
+                                        admin.firestore().collection('matchqueue').doc(doc.id).delete()
+                                            .then(() => {
+                                                console.log("Matchqueue document deleted!");
+                                            }).catch((error) => {
+                                            console.log("Error removing matchqueue document: ", error)
+                                        });
+                                        admin.firestore().collection('matchqueue').doc(entryID).delete()
+                                            .then(() => {
+                                                console.log("Matchqueue document deleted!");
+                                            }).catch((error) => {
+                                            console.log("Error removing matchqueue document: ", error)
+                                        });
+
+                                    })
+                                    .catch((err) => console.log(err));
+                                setupMatch = true;
+
+                            })
+                            .catch((error) => console.log("Something went wrong fetching game: ", error));
+                        shouldSkip = true;
+
+                    }
+
+                    else{
+                        console.log("Didn't do any of the if else statments");
+                    }
+
+
+                });
+            }
+
 
         })
 }
