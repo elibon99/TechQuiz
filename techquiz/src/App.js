@@ -21,7 +21,7 @@ function App() {
           <NavBarPresenter/>
           <Switch>
               <Route exact path = '/' component={LandingPresenter}></Route>
-              <Route path = '/profile' component={DashboardPresenter}></Route>
+              <Route path = '/profile/:id' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUpPresenter}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGamePresenter}></Route>
