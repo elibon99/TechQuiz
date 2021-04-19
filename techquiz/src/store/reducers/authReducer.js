@@ -37,6 +37,12 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 authError: action.err.message
             }
+        case 'SIGNUP_FAILURE_NONUNIQUE':
+            console.log('signup error, nonunique username');
+            return{
+                ...state,
+                authError: action.payload
+            }
         default:
             return state;
     }
