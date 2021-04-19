@@ -75,8 +75,9 @@ function matchMakingFindOpponent(userID, entryID, username) {
 
             }
             let setupMatch = false;
+            let setupMatch2 = false;
             querySnapshot.forEach((doc) => {
-                if(doc.data().uid === userID){
+                if((doc.data().uid === userID) && (setupMatch2 === false)){
                     console.log('same user wants to create more than one game, make another game');
                     admin.firestore().collection('games').doc(doc.data().gameID).set({
                         userID1: userID,
@@ -91,7 +92,7 @@ function matchMakingFindOpponent(userID, entryID, username) {
                         amountOfPlayerLeft : 2,
                         redirectTo: null,
                         gameIsFinished: false
-                    }).then(() => console.log('added same player to a 2nd game'))
+                    }).then(() => {console.log('added same player to a 2nd game'); setupMatch2 = true;})
                         .catch((err) => console.log(err, ' error adding 2nd player'));
 
                 }
