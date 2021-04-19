@@ -12,6 +12,7 @@ import DashboardPresenter from "./containers/DashboardPresenter";
 import NavBarPresenter from "./containers/NavBarPresenter";
 import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
+import FriendPresenter from "./containers/FriendPresenter";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route path = '/current-game-stats' component={CurrentGameStatsPresenter}></Route>
               <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
               <Route path = '/home' component={LandingPresenter}></Route>
+              <Route path = '/friends' component={FriendPresenter}></Route>
 
           </Switch>
         </div>
