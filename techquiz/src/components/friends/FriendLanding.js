@@ -4,7 +4,7 @@ import FriendItem from "./FriendItem";
 import FriendRequestItem from "./FriendRequestItem";
 import {Link} from "react-router-dom";
 
-const FriendLanding = ({auth, friends, friendSearch, setUsername}) => {
+const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, acceptFriendRequest, rejectFriendRequest}) => {
 
     if(!auth.uid){
         return <Redirect to="/signin"/>
@@ -19,10 +19,13 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername}) => {
 
                         <div className="card">
                             <div className="card-content">
-                                <FriendRequestItem/>
-                                <FriendRequestItem/>
-                                <FriendRequestItem/>
-                                <FriendRequestItem/>
+                                {friendRequests && Object.entries(friendRequests).map((request) => {
+                                    return(
+                                            <FriendRequestItem key={request[0]} request={request[1]} requestID={request[0]}
+                                                               acceptFriendRequest={acceptFriendRequest}
+                                                               rejectFriendRequest={rejectFriendRequest}/>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>
