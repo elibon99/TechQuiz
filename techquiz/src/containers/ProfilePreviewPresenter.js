@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addFriend: (userID) => dispatch(addFriend(userID))
+        addFriend: (userID, userName) => dispatch(addFriend(userID, userName))
     }
 }
 
