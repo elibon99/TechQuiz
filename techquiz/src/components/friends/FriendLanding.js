@@ -14,9 +14,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername}) => {
         <div className="container">
             <div className="row">
                 <div className="col s12 m4">
-                    <h5 className="center">
-                        Friend Requests
-                    </h5>
+                    <h5 className="grey-text text-darken-3 center">Friends Requests</h5>
                     <div className="col s12 m12">
 
                         <div className="card">
@@ -32,21 +30,38 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername}) => {
                     <div className="col s12 m8">
                         <form className="white"
                               onChange={(e) => {e.preventDefault();}}>
-                            <h5 className="grey-text text-darken-3">Friends</h5>
+                            <h5 className="grey-text text-darken-3">Friends & Users</h5>
                             <div className="input-field">
-                                <input type="text" id="userName" name="userName" placeholder="Search for friends.."
+                                <input type="text" id="userName" name="userName" placeholder="Search for users.."
                                        onChange={e => {setUsername(e.target.value)}}/>
                             </div>
                         </form>
+                        <div>
+                            <div className="col s12 m12 col-padding-friend-landing">
+                                <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
+                            </div>
                         {friends && Object.entries(friends).map((friend) => {
                             return(
                                 <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
                                     <FriendItem friend={friend[1]}/>
                                 </Link>
-
-
                             )
                         })}
+                        </div>
+                        <div className="col s12 m12 col-padding-friend-landing">
+                            <h6 className="grey-text text-darken-3 title-underline-users">All users</h6>
+                        </div>
+
+                        <div>
+                        {friends && Object.entries(friends).map((friend) => {
+                            return(
+                                <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
+                                    <FriendItem friend={friend[1]}/>
+                                </Link>
+                            )
+                        })}
+                        </div>
+
                     </div>
                 </div>
             </div>
