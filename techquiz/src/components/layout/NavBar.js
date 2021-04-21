@@ -9,7 +9,7 @@ import M from 'materialize-css';
 const Navbar = (props) => {
     const links = props.auth.uid ? <LoggedInLinks signOut={props.signOut} profile={props.profile} id={props.auth.uid}/> : <LoggedOutLinks />;
     const brandlogo = props.auth.uid ?
-        <Link to={'/profile/' + props.auth.uid} className="brand-logo">TechQuiz</Link>:
+        <Link to='/profile' className="brand-logo">TechQuiz</Link>:
         <Link to='/' className="brand-logo">TechQuiz</Link>
 
     useEffect(() => {
