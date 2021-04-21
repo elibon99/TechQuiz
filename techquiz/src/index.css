@@ -309,3 +309,21 @@ nav .sidenav-trigger{
 .profile-preview-userName{
   margin : 0px;
 }
+
+.thumbs-up{
+  height: 36px;
+  width: 36px;
+  color: #42A5F5;
+}
+
+.thumbs-down{
+  height: 36px;
+  width: 36px;
+  color: red;
+}
+
+.thumbs-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
