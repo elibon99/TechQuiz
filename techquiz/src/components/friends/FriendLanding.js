@@ -4,7 +4,7 @@ import FriendItem from "./FriendItem";
 import FriendRequestItem from "./FriendRequestItem";
 import {Link} from "react-router-dom";
 
-const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, acceptFriendRequest, rejectFriendRequest}) => {
+const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
 
     if(!auth.uid){
         return <Redirect to="/signin"/>
@@ -19,13 +19,20 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
 
                         <div className="card">
                             <div className="card-content">
-                                {friendRequests && Object.entries(friendRequests).map((request) => {
+                                {friendRequests ? Object.entries(friendRequests).map((request) => {
                                     return(
                                             <FriendRequestItem key={request[0]} request={request[1]} requestID={request[0]}
                                                                acceptFriendRequest={acceptFriendRequest}
                                                                rejectFriendRequest={rejectFriendRequest}/>
                                     )
-                                })}
+                                }): <div className="center">No current friend requests</div>}
+                            </div>
+                        </div>
+                        <div className="card">
+                            <div className="card-content">
+                                <div className="center">
+                                    Pending friend requests
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +53,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                         {friends && Object.entries(friends).map((friend) => {
                             return(
                                 <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
-                                    <FriendItem friend={friend[1]}/>
+                                    <FriendItem user={friend[1]}/>
                                 </Link>
                             )
                         })}
@@ -56,10 +63,10 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                         </div>
 
                         <div>
-                        {friends && Object.entries(friends).map((friend) => {
+                        {users && Object.entries(users).map((user) => {
                             return(
-                                <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
-                                    <FriendItem friend={friend[1]}/>
+                                <Link to={'/profile-preview/' + user[0]} key={user[0]}>
+                                    <FriendItem user={user[1]}/>
                                 </Link>
                             )
                         })}
