@@ -8,7 +8,7 @@ const SignIn = (props) => {
     const changeHandler = e => {
         setCredentials({...credentials, [e.target.name]: e.target.value})
     }
-    if(props.auth.uid) return <Redirect to='/profile' />
+    if(props.auth.uid) return <Redirect to={'/profile/'+props.auth.uid} />
     return(
         <div className="container">
             <form className="white"

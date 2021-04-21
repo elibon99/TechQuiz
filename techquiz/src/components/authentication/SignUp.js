@@ -10,7 +10,7 @@ const SignUp = ({signUp, auth, authError}) => {
     const changeHandler = e => {
         setCredentials({...credentials, [e.target.name]: e.target.value})
     }
-    if(auth.uid) return <Redirect to='/' />
+    if(auth.uid) return <Redirect to={'/profile/' + auth.uid} />
 
     return(
         <div className="container">
