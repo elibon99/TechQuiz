@@ -5,15 +5,17 @@ import FriendLanding from "../components/friends/FriendLanding";
 import {setUsername, rejectFriendRequest, acceptFriendRequest} from "../store/actions/friendActions";
 
 const mapStateToProps = (state) => {
+    console.log(state, 'stateoianfeoinsofinsoin');
     const users = state.firestore.data.UsersFriends;
-    const friends = users ? users : null;
     const uid = state.firebase.auth.uid;
     const friendRequests = state.firestore.data.receivedFriendRequests;
+
     return{
         auth: state.firebase.auth,
         friendSearch: state.friends.username,
-        friends: friends,
+        users: users,
         uid: uid,
+        friends: state.firestore.data.friends,
         friendRequests: friendRequests
     }
 }
@@ -41,6 +43,13 @@ const FriendPresenter = compose(
             ['gotRequest', '==', props.uid]
         ],
             storeAs: 'receivedFriendRequests'
+        },
+        {collection: 'users',
+        doc: props.uid,
+        subcollections : [
+            {collection: 'friends'}
+        ],
+            storeAs: 'friends'
         }
     ])
 )(FriendLanding);
