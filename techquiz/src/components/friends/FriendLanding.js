@@ -52,7 +52,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                             </div>
                         {friends && Object.entries(friends).map((friend) => {
                             return(
-                                <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
+                                <Link to={'/profile-preview/' + friend[1].userID} key={friend[0]}>
                                     <FriendItem user={friend[1]}/>
                                 </Link>
                             )
