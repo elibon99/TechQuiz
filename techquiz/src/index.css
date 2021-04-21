@@ -292,8 +292,20 @@ nav .sidenav-trigger{
 
 .title-underline-users{
   border-bottom: 1px solid;
+  margin-bottom: 12px;
 }
 
 .col-padding-friend-landing{
   padding-left: 0px!important;
+}
+
+.profile-preview-top{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.profile-preview-userName{
+  margin : 0px;
 }
