@@ -13,6 +13,7 @@ import NavBarPresenter from "./containers/NavBarPresenter";
 import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
+import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <NavBarPresenter/>
           <Switch>
               <Route exact path = '/' component={LandingPresenter}></Route>
-              <Route path = '/profile/:id' component={DashboardPresenter}></Route>
+              <Route path = '/profile' component={DashboardPresenter}></Route>
               <Route path = '/signup' component={SignUpPresenter}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGamePresenter}></Route>
@@ -34,7 +35,7 @@ function App() {
               <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
               <Route path = '/home' component={LandingPresenter}></Route>
               <Route path = '/friends' component={FriendPresenter}></Route>
-
+              <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
         </div>
       </BrowserRouter>
