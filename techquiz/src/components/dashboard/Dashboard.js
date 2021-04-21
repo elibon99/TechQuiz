@@ -13,9 +13,9 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
         return <Redirect to="/signin"/>
     }
     return (
-        (userStat && userName) ?
+        (userStat && profile) ?
             <div className="dashboard container">
-                <h1>{userName}</h1>
+                <h1>{profile.userName}</h1>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
