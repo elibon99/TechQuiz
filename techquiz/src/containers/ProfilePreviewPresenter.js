@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import ProfilePreview from "../components/friends/ProfilePreview";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
+import {addFriend} from "../store/actions/friendActions";
 
 const mapStateToProps = (state, ownProps) => {
     const uid = ownProps.match.params.id;
@@ -17,11 +18,18 @@ const mapStateToProps = (state, ownProps) => {
         userName: userName,
         userStat: userStat,
         winLossRatio: winLossRatio,
+        userID: uid
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        addFriend: (userID) => dispatch(addFriend(userID))
     }
 }
 
 const ProfilePreviewPresenter = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props) => [
         {collection: 'users'},
         {collection: 'userStats'},
