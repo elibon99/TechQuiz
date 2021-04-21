@@ -12,7 +12,7 @@ const ProfilePreview = ({auth, userStat, winLossRatio, userName, addFriend, user
             <div className="dashboard container">
                 <div className="profile-preview-top">
                     <h1 className="profile-preview-userName">{userName}</h1>
-                    <button onClick={() => {addFriend(userID)}}>
+                    <button onClick={() => {addFriend(userID, userName)}}>
                         Add friend :)
                     </button>
                 </div>
