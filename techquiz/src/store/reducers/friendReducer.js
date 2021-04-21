@@ -1,7 +1,9 @@
 const initState = {
     username: "",
     addFriendError: null,
-    addFriendSuccess: null
+    addFriendSuccess: null,
+    friendRequestAnswerError : null,
+    friendRequestAnswerSuccess : null
 }
 
 const friendReducer = (state = initState, action) => {
@@ -20,6 +22,26 @@ const friendReducer = (state = initState, action) => {
             return{
                 ...state,
                 addFriendError: action.err.message
+            }
+        case 'ACCEPTED_REQUEST_SUCCESS':
+            return{
+                ...state,
+                friendRequestAnswerSuccess: 'friend successfully accepted'
+            }
+        case 'ACCEPTED_REQUEST_FAILURE':
+            return{
+                ...state,
+                friendRequestAnswerError: action.err.message
+            }
+        case 'REJECTED_REQUEST_SUCCESS':
+            return{
+                ...state,
+                friendRequestAnswerSuccess: 'friend successfully rejected'
+            }
+        case 'REJECTED_REQUEST_FAILURE':
+            return{
+                ...state,
+                friendRequestAnswerError: action.err.message
             }
         default:
             return state;
