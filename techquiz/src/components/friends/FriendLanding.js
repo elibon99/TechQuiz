@@ -40,7 +40,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername}) => {
                         </form>
                         {friends && Object.entries(friends).map((friend) => {
                             return(
-                                <Link to={'/profile/' + friend[0]} key={friend[0]}>
+                                <Link to={'/profile-preview/' + friend[0]} key={friend[0]}>
                                     <FriendItem friend={friend[1]}/>
                                 </Link>
 
