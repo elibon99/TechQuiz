@@ -212,3 +212,32 @@ exports.setUsername = functions.firestore
             .catch((error) => console.log('Error updating usernames collection, :', error));
 
     });
+
+exports.friendAccepted = functions.firestore
+    .document('friendRequests/{id}')
+    .onUpdate((change, context) => {
+        if(change.after.data().isAccepted){
+            const sentReqID = change.after.data().sentRequest;
+            const sentReqUserName = change.after.data().sentReqUserName;
+            const gotReqID = change.after.data().gotRequest;
+            const gotReqUserName = change.after.data().gotReqUserName;
+            return admin.firestore().collection('users').doc(sentReqID).collection('friends').add({
+                    userID: gotReqID,
+                    userName: gotReqUserName
+                }).then(() =>{
+                    admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
+                        userID: sentReqID,
+                        userName: sentReqUserName
+                    }).then(() =>console.log('added sentreq to gotreq friend'))
+                        .catch((err) => console.log(err, 'err adding sentreq to gotreq friend'))
+                })
+                    .catch((err) => console.log(err, 'err adding gotreq to sentreq friend'))
+        }
+        if (change.after.data().isRejected){
+            return admin.firestore().collection('friendRequests').doc(context.params.id).delete()
+                    .then(() => console.log('deleted friendreq entry after rejection'))
+                    .catch((err) => console.log(err, 'could not delete friend req'))
+        }
+    })
+
+
