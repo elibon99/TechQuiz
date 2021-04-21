@@ -3,8 +3,8 @@ import Dashboard from "../components/dashboard/Dashboard";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
 
-const mapStateToProps = (state, ownProps) => {
-    const uid = ownProps.match.params.id;
+const mapStateToProps = (state) => {
+    const uid = state.firebase.auth.uid;
     const users = state.firestore.data.users;
     const user = users ? users[uid] : null;
     const userName = user ? user.userName : null;
