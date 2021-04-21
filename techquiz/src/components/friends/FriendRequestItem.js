@@ -1,4 +1,6 @@
 import React from 'react';
+import ThumbsDown from "./ThumbsDown";
+import ThumbsUp from "./ThumbsUp";
 
 const FriendRequestItem = () => {
     return(
@@ -7,9 +9,9 @@ const FriendRequestItem = () => {
                 Per
             </div>
 
-            <div>
-                <button className="btn waves-effect waves-light #64b5f6 blue lighten-2 btn-full-height friend-req-btn">Accept</button>
-                <button className="btn waves-effect waves-light red lighten-2 btn-full-height">Reject</button>
+            <div className="thumbs-container">
+                <ThumbsUp className="thumbs-up"/>
+                <ThumbsDown className="thumbs-down"/>
             </div>
         </div>
     )
