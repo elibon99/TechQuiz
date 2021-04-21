@@ -76,6 +76,11 @@ ol{
 .card {
   margin-top: 50px;
 }
+
+.card-friend-item {
+  margin-top: 0px;
+}
+
 .game-landing-container{
   padding: 20px 0px;
 }
