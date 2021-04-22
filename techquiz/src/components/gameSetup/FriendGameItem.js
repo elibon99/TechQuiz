@@ -15,7 +15,7 @@ const FriendGameItem = ({friendInfo, createFriendGame}) => {
                             <Link to={'/game-landing/' + friendInfo.gamingID}>
                             <button className="right btn waves-effect waves-light #64b5f6 blue lighten-2" >View Game</button>
                             </Link>
-                        </div> : <button className="right btn waves-effect waves-light #64b5f6 blue lighten-2" onClick={() => {createFriendGame(friendInfo.userID, friendInfo.userName)}}>Play</button>
+                        </div> : <button className="right btn waves-effect waves-light #64b5f6 blue lighten-2" onClick={() => {createFriendGame(friendInfo.userID, friendInfo.username)}}>Play</button>
                     }
 
                 </div>
