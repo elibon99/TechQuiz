@@ -327,3 +327,15 @@ nav .sidenav-trigger{
   flex-direction: row;
   align-items: center;
 }
+
+.friend-game-item-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.friend-game-item-title{
+  font-size: 15px;
+  margin: 0px 0px;
+}
