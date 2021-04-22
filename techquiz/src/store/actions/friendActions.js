@@ -59,3 +59,32 @@ export const rejectFriendRequest = (requestID) => {
         });
     }
 }
+
+export const createFriendGame = (userID, otherName) => {
+    return(dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore();
+        const myID = getState().firebase.auth.uid;
+        const myName = getState().firebase.profile.userName;
+        firestore.collection('games').add({
+            userID1: myID,
+            user1Name: myName,
+            userID2: userID,
+            user2Name: otherName,
+            turn: myID,
+            p1Score: 0,
+            p2Score: 0,
+            currentSet: "",
+            shouldCreateNewGameSet : myID,
+            amountOfPlayerLeft : 2,
+            redirectTo: null,
+            gameIsFinished: false
+        }).then((docRef) => dispatch({type: 'CREATED_FRIEND_GAME_SUCCESS', payload: `${'/game-landing/' + docRef.id}`}))
+            .catch((err) => dispatch({type:'CREATE_FRIEND_GAME_FAILURE', err}))
+    }
+}
+
+export const restoreRedirectTo = () => {
+    return(dispatch) => {
+        dispatch({type: 'RESTORE_REDIRECT_TO'});
+    }
+}
