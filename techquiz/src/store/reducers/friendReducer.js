@@ -3,7 +3,10 @@ const initState = {
     addFriendError: null,
     addFriendSuccess: null,
     friendRequestAnswerError : null,
-    friendRequestAnswerSuccess : null
+    friendRequestAnswerSuccess : null,
+    createdFriendGameSuccess: null,
+    createdFriendGameError: null,
+    redirectTo: null
 }
 
 const friendReducer = (state = initState, action) => {
@@ -42,6 +45,22 @@ const friendReducer = (state = initState, action) => {
             return{
                 ...state,
                 friendRequestAnswerError: action.err.message
+            }
+        case 'CREATED_FRIEND_GAME_SUCCESS':
+            return{
+                ...state,
+                createdFriendGameSuccess: 'successfully created game with friend',
+                redirectTo: action.payload
+            }
+        case 'CREATED_FRIEND_GAME_FAILURE':
+            return {
+                ...state,
+                createdFriendGameError: action.err.message
+            }
+        case 'RESTORE_REDIRECT_TO':
+            return {
+                ...state,
+                redirectTo: null
             }
         default:
             return state;
