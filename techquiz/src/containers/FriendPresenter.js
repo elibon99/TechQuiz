@@ -7,6 +7,8 @@ import {setUsername, rejectFriendRequest, acceptFriendRequest} from "../store/ac
 const mapStateToProps = (state) => {
     console.log(state, 'stateoianfeoinsofinsoin');
     const users = state.firestore.data.UsersFriends;
+    const profile = state.firebase.profile;
+    const username = profile ? profile.userName : null;
     const uid = state.firebase.auth.uid;
     const friendRequests = state.firestore.data.receivedFriendRequests;
 
@@ -16,7 +18,8 @@ const mapStateToProps = (state) => {
         users: users,
         uid: uid,
         friends: state.firestore.data.friends,
-        friendRequests: friendRequests
+        friendRequests: friendRequests,
+        username: username
     }
 }
 
@@ -34,7 +37,8 @@ const FriendPresenter = compose(
         {collection: 'users',
         where: [
             ['userName', '>=', props.friendSearch],
-            ['userName', '<=', props.friendSearch + '\uf8ff']
+            ['userName', '<=', props.friendSearch + '\uf8ff'],
+            ['userName', '!=', props.username]
         ],
             storeAs: 'UsersFriends'
         },
@@ -47,7 +51,14 @@ const FriendPresenter = compose(
         {collection: 'users',
         doc: props.uid,
         subcollections : [
-            {collection: 'friends'}
+            {collection: 'friends',
+                where: [
+                    ['userName', '>=', props.friendSearch],
+                    ['userName', '<=', props.friendSearch + '\uf8ff'],
+                    ['userName', '!=', props.username]
+                ],
+            }
+
         ],
             storeAs: 'friends'
         }
