@@ -52,7 +52,8 @@ function matchMakingFindOpponent(userID, entryID, username) {
                             shouldCreateNewGameSet : userID,
                             amountOfPlayerLeft : 2,
                             redirectTo: null,
-                            gameIsFinished: false
+                            gameIsFinished: false,
+                            timeOfGameFinished: null
                         })
                             .then((doc) => {
                                 // admin.firestore().collection('games').doc(docRef.data().gameID)
@@ -102,7 +103,8 @@ function matchMakingFindOpponent(userID, entryID, username) {
                                         shouldCreateNewGameSet: userID,
                                         amountOfPlayerLeft: 2,
                                         redirectTo: null,
-                                        gameIsFinished: false
+                                        gameIsFinished: false,
+                                        timeOfGameFinished: null
                                     }).then(() => {
                                         console.log('added same player to a 2nd game');
                                         setupMatch2 = true;
