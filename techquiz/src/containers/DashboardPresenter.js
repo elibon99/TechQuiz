@@ -100,8 +100,7 @@ const DashboardPresenter = compose(
         {collection: 'users'},
         {collection: 'userStats'},
         {collection: 'multiplayerRating'},
-        {collection: 'games',
-        }
+        {collection: 'games'}
     ])
     )(Dashboard);
 
