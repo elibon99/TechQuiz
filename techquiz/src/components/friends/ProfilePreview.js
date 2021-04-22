@@ -2,7 +2,7 @@ import React from 'react';
 import PlayerStats from "../dashboard/PlayerStats";
 import {Redirect} from "react-router-dom";
 
-const ProfilePreview = ({auth, userStat, winLossRatio, userName, addFriend, userID}) => {
+const ProfilePreview = ({auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending}) => {
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
@@ -12,9 +12,12 @@ const ProfilePreview = ({auth, userStat, winLossRatio, userName, addFriend, user
             <div className="dashboard container">
                 <div className="profile-preview-top">
                     <h1 className="profile-preview-userName">{userName}</h1>
-                    <button onClick={() => {addFriend(userID, userName)}}>
-                        Add friend :)
-                    </button>
+                    {isFriend ? <h5>You are friends</h5> : isPending ?
+                        <h5>Pending request</h5> :
+                        <button onClick={() => {addFriend(userID, userName)}}>
+                            Add friend :)
+                        </button>
+                    }
                 </div>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
