@@ -224,7 +224,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                 console.log("Want to change redirectTo in game collection");
                                                 firestore.collection('games').doc(gamingID).update({
                                                     redirectTo: `${'/game-finished/' + gamingID}`,
-                                                    gameIsFinished: true
+                                                    gameIsFinished: true,
+                                                    timeOfGameFinished: new Date()
 
                                                 }).then(() => console.log("Updated redirectTO"))
                                                     .catch((error) => console.log("SOmething went wrong updating redirecTo"));
