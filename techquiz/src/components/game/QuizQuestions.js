@@ -1,21 +1,45 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
-//
-/*const answers = [
-    {name: "ls", id: 1},
-    {name: "delete", id: 2},
-    {name: "remove", id: 3},
-    {name: "rmdir", id: 4},
-]*/
 
-const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo}) => {
-
+const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, correctAnswers, answer}) => {
     if(game.redirectTo){
-        //console.log(game.redirectTo, " this is the redirect")
         const path = game.redirectTo;
         restoreRedirectTo();
-        //console.log(game.redirectTo, " this is after restored")
         return <Redirect to={path}/>
+    }
+
+/*    if(correctAnswers && answer){
+        if(correctAnswers[answer] === "true"){
+            console.log('correct, make it green');
+            document.getElementById(answer).style.backgroundColor = "green";
+        }
+        else {
+            console.log('wrong answer, light up the correct ones and the one u chose red.')
+            Object.entries(correctAnswers).forEach((entry) => {
+                console.log(entry, 'entry inside for loop');
+                if(entry[1] === "true"){
+                    console.log(entry, ' it was a true answer');
+                    document.getElementById(entry[0]).style.backgroundColor = "green";
+                }
+            })
+            try{
+                document.getElementById(answer).style.backgroundColor = "red";
+            }
+            catch {console.log('didnt work, bad index');}
+        }
+    }*/
+    if((gameSet !== null) && (correctAnswers === null)){
+        console.log(Object.entries(gameSet.questions.resp[gameSet.activeQuestion].answers), 'logging gameseasdfasdft');
+        Object.entries(gameSet.questions.resp[gameSet.activeQuestion].answers).forEach((entry) =>{
+            console.log(entry, ' entire entry in for each');
+            try{
+                document.getElementById(entry[0]).style.backgroundColor = "gray";
+            }
+            catch{
+                console.log('index out of bounds');
+            }
+
+        })
     }
     const mouseDownHandler = (event) => {
         if(event.button === 1 || event.button === 2 || event.button === 0){
