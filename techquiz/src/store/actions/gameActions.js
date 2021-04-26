@@ -103,6 +103,11 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                     correctAnswersRes[entry[0].substring(0,8)] = entry[1];
                 })
 
+                let correctAnswerToQuestion = Object.entries(correctAnswersRes).filter((answer) => {
+                    return answer[1] === "true";
+                });
+                console.log(correctAnswerToQuestion, 'right answer in Q');
+
                 var score = docRef.data().score;
 
                 var finalScore = score;
@@ -113,24 +118,38 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                 if (activeQuestion === 3){
                     activeQuestion = 0;
                 }
-                console.log(correctAnswersRes, "correct answer")
+                console.log(correctAnswersRes, "all answers")
                 console.log(answer, "Choosen answer")
+
+                dispatch({type: "SET_CHOSEN_ANSWER", payload: answer});
 
                 if(correctAnswersRes[answer] === "true"){
                     console.log("correct answer");
                     score += 10;
                     finalScore = score;
-                    docRef.ref.update({
-                        score: score,
-                        activeQuestion: activeQuestion
-                    }).then(() => dispatch({type: "CORRECT_ANSWER_UPDATED"}))
-                        .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE"}, error));
+                    dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
+                    setTimeout(() => {
+                        docRef.ref.update({
+                            score: score,
+                            activeQuestion: activeQuestion
+                        }).then(() => {
+                            dispatch({type: "CORRECT_ANSWER_UPDATED"});
+                            dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                        })
+                            .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE"}, error));
+                    }, 3000);
                 } else {
+                    dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
                     dispatch({type: "WRONG_ANSWER"});
-                    docRef.ref.update({
-                        activeQuestion: activeQuestion
-                    }).then(() => dispatch({type: "ACTIVE_QUESTION_UPDATED"}))
-                        .catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
+
+                    setTimeout(() => {
+                        docRef.ref.update({
+                            activeQuestion: activeQuestion
+                        }).then(() => {
+                            dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                            dispatch({type: "ACTIVE_QUESTION_UPDATED"})
+                        }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
+                    }, 3000)
                 }
 
                 if(finalQuestion === 3){
