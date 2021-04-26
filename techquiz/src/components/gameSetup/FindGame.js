@@ -6,7 +6,6 @@ const FindGame = ({auth, addToQueue, restoreRedirectTo, userStats, user, matchQu
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    //console.log(matchQueue.redirectTo)
 
     if(matchQueue.redirectTo){
         const path = matchQueue.redirectTo;
