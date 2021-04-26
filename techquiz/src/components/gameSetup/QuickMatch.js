@@ -4,7 +4,6 @@ import RecentPlayerGameItem from "./RecentPlayerGameItem";
 import {Link, Redirect} from "react-router-dom";
 
 const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirectTo, recentPlayers, setUsername, friendsTemp}) => {
-    console.log(recentPlayers.length, 'recenteplayersoiasoinsoin');
     if(friendGameStatus.redirectTo){
         const path = friendGameStatus.redirectTo;
         restoreRedirectTo();
