@@ -33,7 +33,14 @@ const mapDispatchToProps = (dispatch) => {
 
 const FriendPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect((props) => [
+    firestoreConnect((props) => {
+    if(props.uid === undefined || props.username == undefined){
+        console.log('user is NOT logged in. dont do the beneath stuff.');
+        return [];
+    } else {
+        console.log(props.username, 'username');
+        console.log(props.friendSearch, 'friendsearch');
+       return [
         {collection: 'users',
         where: [
             ['userName', '>=', props.friendSearch],
@@ -62,7 +69,7 @@ const FriendPresenter = compose(
         ],
             storeAs: 'friends'
         }
-    ])
+    ] }})
 )(FriendLanding);
 
 export default FriendPresenter;
