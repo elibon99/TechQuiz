@@ -1,7 +1,13 @@
 
-export const setUsername = (userName) => {
+export const setUsernameFriends = (userName) => {
     return(dispatch) => {
-        dispatch({type: "CHANGE_USERSEARCH", payload: userName});
+        dispatch({type: "CHANGE_USER_SEARCH_FRIENDS", payload: userName});
+    }
+}
+
+export const setUsernameFindGame = (userName) => {
+    return(dispatch) => {
+        dispatch({type: "CHANGE_USER_SEARCH_FIND_GAME", payload: userName});
     }
 }
 
