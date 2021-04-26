@@ -11,7 +11,11 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
     }
 
     return (
-        <div className="container">
+        <div>
+        <h5 className="page-title">Friends</h5>
+        <div className="container find-game-margin">
+
+            <div className="card"><div className="card-content">
             <div className="row">
                 <div className="col s12 m4">
                     <h5 className="grey-text text-darken-3 center">Friends Requests</h5>
@@ -40,7 +44,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                     <div className="col s12 m8">
                         <form className="white"
                               onChange={(e) => {e.preventDefault();}}>
-                            <h5 className="grey-text text-darken-3">Friends & Users</h5>
+                            <h5 className="grey-text text-darken-3 center">Friends & Users</h5>
                             <div className="input-field">
                                 <input type="text" id="userName" name="userName" placeholder="Search for users.."
                                        onChange={e => {setUsername(e.target.value)}}/>
@@ -74,7 +78,9 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
 
                     </div>
                 </div>
+            </div></div>
             </div>
+        </div>
     )
 }
 
