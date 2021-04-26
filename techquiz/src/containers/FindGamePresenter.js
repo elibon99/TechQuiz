@@ -4,7 +4,7 @@ import {addToMatchQueue} from "../store/actions/matchQueueActions";
 import {restoreRedirectTo} from "../store/actions/matchQueueActions";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
-import {createFriendGame, setUsername, restoreRedirectTo as RedirectTo} from "../store/actions/friendActions";
+import {createFriendGame, setUsernameFindGame, restoreRedirectTo as RedirectTo} from "../store/actions/friendActions";
 
 const mapStateToProps = (state) => {
     const uid = state.firebase.auth.uid;
@@ -74,7 +74,7 @@ const mapStateToProps = (state) => {
 
     return{
         auth: state.firebase.auth,
-        friendSearch: state.friends.username,
+        friendSearch: state.friends.usernameFindGame,
         uid: uid,
         friendGameStatus: state.friends,
         userStats: userStat,
@@ -93,7 +93,7 @@ const mapDispatchToProps = (dispatch) => {
         addToQueue: (rating) => dispatch(addToMatchQueue(rating)),
         restoreRedirectTo: () => dispatch(restoreRedirectTo()),
         createFriendGame: (userID, otherName) => dispatch(createFriendGame(userID, otherName)),
-        setUsername: (username) => dispatch(setUsername(username)),
+        setUsername: (username) => dispatch(setUsernameFindGame(username)),
         restoreRedirectToFriendGame: () => dispatch(RedirectTo())
     }
 }
