@@ -87,12 +87,14 @@ ol{
 
 .quick-match-title {
   text-align: center;
+  font-size: 26px;
 }
 
 .find-game-margin {
-  margin-top: 60px;
-  border: solid 1px;
+  margin-top: 40px;
+  border: solid 1px #838383;
   padding: 20px 20px;
+  border-radius: 8px;
 }
 
 .player-content{
@@ -252,7 +254,7 @@ nav .sidenav-trigger{
   padding-left: 0px!important;
 }
 
-.leaderboard-title{
+.page-title{
   text-align: center;
   font-size: 28px;
 }
@@ -338,4 +340,12 @@ nav .sidenav-trigger{
 .friend-game-item-title{
   font-size: 15px;
   margin: 0px 0px;
+}
+
+.text-title-recentplayers{
+  font-weight: bold;
+}
+
+.card-quick-match{
+  margin-top: 25px;
 }
