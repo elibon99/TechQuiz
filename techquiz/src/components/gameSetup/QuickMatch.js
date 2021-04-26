@@ -1,9 +1,9 @@
 import React from 'react'
-import GameItemYourTurn from "../dashboard/GameItemYourTurn";
 import FriendGameItem from "./FriendGameItem";
+import RecentPlayerGameItem from "./RecentPlayerGameItem";
 import {Redirect} from "react-router-dom";
 
-const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirectTo}) => {
+const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirectTo, recentPlayers}) => {
     if(friendGameStatus.redirectTo){
         const path = friendGameStatus.redirectTo;
         restoreRedirectTo();
@@ -20,8 +20,9 @@ const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirec
             </div>
             <div className="card-content">
                 <h5>Recent Players</h5>
-                <GameItemYourTurn/>
-                <GameItemYourTurn/>
+                {recentPlayers && recentPlayers.map((player) => {
+                    return <RecentPlayerGameItem key={player.opponentID} opponentInfo={player}/>
+                })}
             </div>
         </div>
     )
