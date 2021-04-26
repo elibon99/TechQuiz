@@ -13,6 +13,8 @@ const mapStateToProps = (state) => {
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
     const games = state.firestore.data.games;
     const gameEntries = games ? Object.entries(games) : null;
+    const finishedGamesFB = state.firestore.data.finishedGames ? state.firestore.data.finishedGames : null;
+    const finishedGameEntries = finishedGamesFB ? Object.entries(finishedGamesFB) : null;
     let userScore = 0;
     let opponentScore = 0;
     let whoWon = null;
@@ -20,6 +22,7 @@ const mapStateToProps = (state) => {
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn === uid && entry[1].gameIsFinished === false;
     }) : null;
+
     let currentGamesTheirTurn = (games && uid) ? gameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn !== uid && entry[1].gameIsFinished === false;
     }) : null;
@@ -46,7 +49,7 @@ const mapStateToProps = (state) => {
         })
     }
 
-    let finishedGames = (games && uid) ? gameEntries.filter((entry) => {
+    let finishedGames = (finishedGamesFB && uid) ? finishedGameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === true;
     }) : null;
 
@@ -100,7 +103,8 @@ const DashboardPresenter = compose(
         {collection: 'users'},
         {collection: 'userStats'},
         {collection: 'multiplayerRating'},
-        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc']}
+        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc'], storeAs: 'finishedGames'},
+        {collection: 'games'}
     ])
     )(Dashboard);
 
