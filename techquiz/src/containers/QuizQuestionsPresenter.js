@@ -5,7 +5,6 @@ import {firestoreConnect} from "react-redux-firebase";
 import {verifyQuestion, restoreRedirectTo} from "../store/actions/gameActions";
 
 const mapStateToProps = (state, ownProps) => {
-    //console.log(state, "this is the state of the quiz question presenter")
     const id = ownProps.match.params.id;
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
@@ -18,7 +17,9 @@ const mapStateToProps = (state, ownProps) => {
         gameSetID: gameSetID,
         gameID: id,
         gameSet: gameSet,
-        game: state.game
+        game: state.game,
+        correctAnswers: state.game.correctAnswers,
+        answer: state.game.answer
     }
 }
 
@@ -28,7 +29,6 @@ const mapDispatchToProps = (dispatch) => {
         restoreRedirectTo: () => dispatch(restoreRedirectTo())
     }
 }
-
 
 const QuizQuestionsPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
