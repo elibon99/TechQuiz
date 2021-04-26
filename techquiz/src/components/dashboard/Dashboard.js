@@ -14,8 +14,10 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
     }
     return (
         (userStat && profile) ?
-            <div className="dashboard container">
-                <h1>{profile.userName}</h1>
+            <div>
+                <h5 className="page-title">Your Profile</h5>
+            <div className="dashboard container find-game-margin">
+                <h4>{profile.userName}</h4>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
@@ -29,6 +31,7 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
                         <FinishedGames finishedGames={finishedGames}/>
                     </div>
                 </div>
+            </div>
             </div>:
             <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
