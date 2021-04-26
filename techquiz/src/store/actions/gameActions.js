@@ -80,6 +80,17 @@ export const fetchQuestions = (gamingID, category) => {
     }
 }
 
+function disableDivs(answers){
+    answers.forEach((entry) => {
+        document.getElementById(entry[0]).style.pointerEvents = "none";
+    })
+}
+
+function enableDivs(answers){
+    answers.forEach((entry) => {
+        document.getElementById(entry[0]).setAttribute('style', '');
+    })
+}
 
 export const verifyQuestion = (gamingID, answer, gameSetID) => {
     return(dispatch, getState, {getFirestore, getFirebase}) => {
@@ -103,7 +114,13 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                     correctAnswersRes[entry[0].substring(0,8)] = entry[1];
                 })
 
-                let correctAnswerToQuestion = Object.entries(correctAnswersRes).filter((answer) => {
+                let allAnswers = Object.entries(correctAnswersRes).filter((entry) => {
+                    return docRef.data().questions.resp[docRef.data().activeQuestion].answers[entry[0]] !== null;
+                })
+
+                console.log(correctAnswersRes, "The correct answers after filtering")
+
+                let correctAnswerToQuestion = allAnswers.filter((answer) => {
                     return answer[1] === "true";
                 });
                 console.log(correctAnswerToQuestion, 'right answer in Q');
@@ -126,36 +143,72 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                 if(correctAnswersRes[answer] === "true"){
                     console.log("correct answer");
                     score += 10;
+                    console.log("your score after correct answer, : ", score)
                     finalScore = score;
                     dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
+                    console.log(answer, " this is the answer")
+                    document.getElementById(answer).style.backgroundColor = "green";
+                    docRef.ref.update({
+                        score: score
+                    }).then(() => console.log("Updated score"))
+                        .catch((error) => console.log("Error updating score: ", error))
+                    disableDivs(allAnswers);
                     setTimeout(() => {
-                        docRef.ref.update({
-                            score: score,
-                            activeQuestion: activeQuestion
-                        }).then(() => {
-                            dispatch({type: "CORRECT_ANSWER_UPDATED"});
-                            dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                        })
-                            .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE"}, error));
+                        if(finalQuestion !== 3) {
+                            // document.getElementById(answer).style.backgroundColor = "";
+                            // document.getElementById(answer).style.pointerEvents = "";
+                            enableDivs(allAnswers);
+
+                            docRef.ref.update({
+                                activeQuestion: activeQuestion
+                            }).then(() => {
+
+                                dispatch({type: "CORRECT_ANSWER_UPDATED"});
+                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                            })
+                                .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}));
+                        } else{
+                            docRef.ref.update({
+                                score: score
+                            }).then(() => {dispatch({type: "CORRECT_ANSWER_UPDATED"});})
+                                .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}))
+                        }
                     }, 3000);
                 } else {
                     dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
                     dispatch({type: "WRONG_ANSWER"});
-
+                    console.log(answer, " this is the answer")
+                    document.getElementById(answer).style.backgroundColor = "red";
+                    correctAnswerToQuestion.forEach((entry) => {
+                        document.getElementById(entry[0]).style.backgroundColor = "green";
+                    })
+                    disableDivs(allAnswers);
                     setTimeout(() => {
-                        docRef.ref.update({
-                            activeQuestion: activeQuestion
-                        }).then(() => {
-                            dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                            dispatch({type: "ACTIVE_QUESTION_UPDATED"})
-                        }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
+                        if(finalQuestion !== 3) {
+                            // document.getElementById(answer).style.backgroundColor = "";
+                            // document.getElementById(answer).style.pointerEvents= "";
+                            // document.getElementById(answer).setAttribute('style', '');
+                            // correctAnswerToQuestion.forEach((entry) => {
+                            //     // document.getElementById(entry[0]).style.backgroundColor = "";
+                            //     // document.getElementById(entry[0]).style.pointerEvents = "";
+                            //     document.getElementById(entry[0]).setAttribute('style', '');
+                            // })
+                            enableDivs(allAnswers);
+
+
+                            docRef.ref.update({
+                                activeQuestion: activeQuestion
+                            }).then(() => {
+                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                                dispatch({type: "ACTIVE_QUESTION_UPDATED"})
+                            }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
+                        }
                     }, 3000)
                 }
 
                 if(finalQuestion === 3){
                     var hasBeenAnsweredByTemp = (docRef.data().hasBeenAnsweredBy + 1);
                     docRef.ref.update({
-                        score: 0,
                         hasBeenAnsweredBy: (docRef.data().hasBeenAnsweredBy + 1)
                     })
                         .then(() => {
@@ -169,8 +222,15 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                     else {
                                         playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
                                     }
-                                    dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
-                                    dispatch({type: 'RESTORE_REDIRECT_TO'});
+                                    setTimeout(() => {
+                                        dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
+                                        dispatch({type: 'RESTORE_REDIRECT_TO'});
+                                        docRef.ref.update({
+                                            score: 0
+                                        }).then(() => console.log(""))
+                                            .catch((error) => console.log("error, ", error));
+                                    }, 3000)
+
                                     if(doc.data().turn === doc.data().userID1){
                                         console.log("Update player 1 score");
                                         const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID2;
