@@ -5,11 +5,9 @@ import FriendRequestItem from "./FriendRequestItem";
 import {Link} from "react-router-dom";
 
 const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
-
     if(!auth.uid){
         return <Redirect to="/signin"/>
     }
-
     return (
         <div>
         <h5 className="page-title">Friends</h5>
