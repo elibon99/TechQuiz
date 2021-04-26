@@ -3,7 +3,6 @@ import QuickMatch from "./QuickMatch";
 import {Redirect} from 'react-router-dom';
 
 const FindGame = ({auth, addToQueue, restoreRedirectTo, userStats, user, matchQueue, createFriendGame, friends, setUsername, restoreRedirectToFriendGame, friendGameStatus, recentPlayers, friendsTemp, friendSearch}) => {
-    console.log(friendSearch, 'aoisdfoiasndf');
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
