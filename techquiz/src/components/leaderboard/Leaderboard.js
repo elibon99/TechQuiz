@@ -19,8 +19,9 @@ const Leaderboard = ({
                          wordpressScore
                      }) => {
     return(
-        <div className="container">
-            <h5 className="leaderboard-title">Leaderboard</h5>
+        <div>
+        <h5 className="page-title">Leaderboard</h5>
+        <div className="container find-game-margin">
             <div className="row">
                 <div className="col s12 m3">
                     <Ranking title={"Multiplayer rating"} ratings={mlRating} type="mlRating" users={users}/>
@@ -43,6 +44,7 @@ const Leaderboard = ({
                 </div>
 
             </div>
+        </div>
         </div>
     )
 }
