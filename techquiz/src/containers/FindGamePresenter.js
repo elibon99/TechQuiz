@@ -17,6 +17,8 @@ const mapStateToProps = (state) => {
     const friends = state.firestore.data.friends;
     const games = state.firestore.data.games;
     const gameEntries = games ? Object.entries(games) : null;
+    const friendsTemp = state.firestore.data.friendsTemp ? state.firestore.data.friendsTemp : null;
+
     let finishedGames = (games && uid) ? gameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === true;
     }) : null;
@@ -70,9 +72,6 @@ const mapStateToProps = (state) => {
         friendsResult = null;
     }
 
-
-
-
     return{
         auth: state.firebase.auth,
         friendSearch: state.friends.username,
@@ -84,7 +83,8 @@ const mapStateToProps = (state) => {
         matchQueue: state.matchQueue,
         friends: friendsResult,
         username: username,
-        recentPlayers: recentPlayers
+        recentPlayers: recentPlayers,
+        friendsTemp: friendsTemp
     }
 }
 
@@ -116,7 +116,13 @@ const FindGamePresenter = compose(
             ],
             storeAs: 'friends'
         },
-        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc']}
+        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc']},
+        {collection: 'users',doc: props.uid,
+            subcollections : [
+                {collection: 'friends'}
+            ],
+            storeAs: 'friendsTemp'
+        }
     ])
 )(FindGame);
 
