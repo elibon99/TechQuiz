@@ -1,5 +1,6 @@
 const initState = {
-    username: "",
+    usernameFriends: "",
+    usernameFindGame: "",
     addFriendError: null,
     addFriendSuccess: null,
     friendRequestAnswerError : null,
@@ -11,10 +12,15 @@ const initState = {
 
 const friendReducer = (state = initState, action) => {
     switch (action.type){
-        case 'CHANGE_USERSEARCH':
+        case 'CHANGE_USER_SEARCH_FRIENDS':
             return{
                 ...state,
-                username: action.payload
+                usernameFriends: action.payload
+            }
+        case 'CHANGE_USER_SEARCH_FIND_GAME':
+            return{
+                ...state,
+                usernameFindGame: action.payload
             }
         case 'ADD_FRIEND_SUCCESS':
             return{
