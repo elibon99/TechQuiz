@@ -17,24 +17,52 @@ const mapStateToProps = (state) => {
     const friends = state.firestore.data.friends;
     const games = state.firestore.data.games;
     const gameEntries = games ? Object.entries(games) : null;
+    let finishedGames = (games && uid) ? gameEntries.filter((entry) => {
+        return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === true;
+    }) : null;
+
+    var isYourFriend = new Map();
+    if(friends){
+        var friendArray = Object.entries(friends);
+        friendArray.forEach((entry)=> {
+            isYourFriend.set(entry[1].userID, true);
+        })
+    }
+
+    let recentPlayers = [];
+
+    if(finishedGames){
+        let hasAdded = new Map();
+        finishedGames.forEach((entry) => {
+            var opponentUser = entry[1].userID1 === uid ? entry[1].userID2 : entry[1].userID1;
+            var opponentName = opponentUser === entry[1].userID1 ? entry[1].user1Name : entry[1].user2Name;
+            if(!hasAdded.get(opponentUser) && !isYourFriend.get(opponentUser)){
+                recentPlayers.push({opponentID: opponentUser, opponentName: opponentName});
+                hasAdded.set(opponentUser, true);
+            }
+
+        })
+    }
     let currentGames = (games && uid) ? gameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === false;
     }) : null;
     var friendsResult = [];
-    if(friends && currentGames){
+    if(friends){
         Object.entries(friends).forEach((friend)=> {
             var inGame = false;
             var isYourTurn = false;
             var gamingID = null;
-            currentGames.forEach((game) => {
-                if(game[1].userID1 === friend[1].userID || game[1].userID2 === friend[1].userID){
-                    inGame = true;
-                    gamingID = game[0];
-                    if(game.turn === uid){
-                        isYourTurn = true;
+            if(currentGames) {
+                currentGames.forEach((game) => {
+                    if (game[1].userID1 === friend[1].userID || game[1].userID2 === friend[1].userID) {
+                        inGame = true;
+                        gamingID = game[0];
+                        if (game.turn === uid) {
+                            isYourTurn = true;
+                        }
                     }
-                }
-            })
+                })
+            }
 
             friendsResult.push({userID: friend[1].userID, username: friend[1].userName, inGameWith: inGame, isYourTurn: isYourTurn, gamingID: gamingID});
         })
@@ -55,7 +83,8 @@ const mapStateToProps = (state) => {
         user: user,
         matchQueue: state.matchQueue,
         friends: friendsResult,
-        username: username
+        username: username,
+        recentPlayers: recentPlayers
     }
 }
 
@@ -87,7 +116,7 @@ const FindGamePresenter = compose(
             ],
             storeAs: 'friends'
         },
-        {collection: 'games'}
+        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc']}
     ])
 )(FindGame);
 
