@@ -2,10 +2,13 @@ import {connect} from "react-redux";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import FriendLanding from "../components/friends/FriendLanding";
-import {setUsername, rejectFriendRequest, acceptFriendRequest} from "../store/actions/friendActions";
+import {
+    setUsernameFriends,
+    rejectFriendRequest,
+    acceptFriendRequest,
+} from "../store/actions/friendActions";
 
 const mapStateToProps = (state) => {
-    console.log(state, 'stateoianfeoinsofinsoin');
     const users = state.firestore.data.UsersFriends;
     const profile = state.firebase.profile;
     const username = profile ? profile.userName : null;
@@ -14,7 +17,7 @@ const mapStateToProps = (state) => {
 
     return{
         auth: state.firebase.auth,
-        friendSearch: state.friends.username,
+        friendSearch: state.friends.usernameFriends,
         users: users,
         uid: uid,
         friends: state.firestore.data.friends,
@@ -25,7 +28,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        setUsername: (username) => dispatch(setUsername(username)),
+        setUsername: (username) => dispatch(setUsernameFriends(username)),
         acceptFriendRequest: (requestID) => dispatch(acceptFriendRequest(requestID)),
         rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID))
     }
@@ -34,12 +37,10 @@ const mapDispatchToProps = (dispatch) => {
 const FriendPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props) => {
-    if(props.uid === undefined || props.username == undefined){
-        console.log('user is NOT logged in. dont do the beneath stuff.');
+    if(props.uid === undefined || props.username === undefined){
+        console.log('user is NOT logged in or hasnt been recognized as logged in yet. dont do the beneath stuff.');
         return [];
     } else {
-        console.log(props.username, 'username');
-        console.log(props.friendSearch, 'friendsearch');
        return [
         {collection: 'users',
         where: [
