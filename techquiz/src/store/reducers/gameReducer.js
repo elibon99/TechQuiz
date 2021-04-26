@@ -2,7 +2,10 @@ const initState = {
     gameError: null,
     selectedCategories: null,
     isCorrectAnswer: null,
-    redirectTo : null
+    redirectTo : null,
+    correctAnswers : null,
+    answer : null,
+
 }
 
 const gameReducer = (state = initState, action) => {
@@ -18,7 +21,6 @@ const gameReducer = (state = initState, action) => {
                 ...state,
                 gameError: null,
                 isCorrectAnswer: true
-
             }
         case 'CORRECT_ANSWER_FAILURE':
             return{
@@ -29,6 +31,21 @@ const gameReducer = (state = initState, action) => {
             return {
                 ...state,
                 isCorrectAnswer: false
+            }
+        case  'CORRECT_ANSWER_ADDED':
+            return {
+                ...state,
+                correctAnswers: action.payload
+            }
+        case  'SET_CHOSEN_ANSWER':
+            return {
+                ...state,
+                answer: action.payload
+            }
+        case  'RESTORE_CORRECT_ANSWER':
+            return {
+                ...state,
+                correctAnswers: null
             }
         case 'ACTIVE_QUESTION_UPDATED':
             return {
