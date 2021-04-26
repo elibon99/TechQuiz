@@ -15,7 +15,7 @@ import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
 
-function App() {
+function App({store}) {
   return (
       <BrowserRouter>
         <div className="App">
