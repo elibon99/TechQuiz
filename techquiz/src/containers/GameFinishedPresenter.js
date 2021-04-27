@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import GameFinished from "../components/game/GameFinished";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
+import {createGameInvitation} from "../store/actions/gameInvitationActions";
 
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
@@ -15,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
     const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID1) : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
-    const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
+    const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating, userID: opponentID} : null;
     const userScore = game ? (game.userID1 === uid ? game.p1Score : game.p2Score) : null;
     var whoWon = null;
     if(opponentScore && userScore){
@@ -39,9 +40,15 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
+const mapDispatchToProps = (dispatch) => {
+    return{
+        createGameInvitation: (opponentID, opponentName) => dispatch(createGameInvitation(opponentID, opponentName))
+    }
+}
+
 
 const GameFinishedPresenter = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         {collection: 'users'},
         {collection: 'games'},
