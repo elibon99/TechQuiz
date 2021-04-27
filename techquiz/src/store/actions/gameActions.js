@@ -226,7 +226,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                         dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
                                         dispatch({type: 'RESTORE_REDIRECT_TO'});
                                         docRef.ref.update({
-                                            score: 0
+                                            score: 0,
+                                            activeQuestion: 0
                                         }).then(() => console.log(""))
                                             .catch((error) => console.log("error, ", error));
                                     }, 3000)
