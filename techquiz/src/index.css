@@ -354,3 +354,13 @@ nav .sidenav-trigger{
   height: 300px;
   overflow: auto;
 }
+
+.link-to-profile-friend-req{
+  font-weight: bold;
+  color: black;
+  height: 47px;
+}
+
+.link-to-profile-friend-req:hover{
+  background-color: aliceblue;
+}
