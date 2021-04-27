@@ -2,9 +2,10 @@ import React from 'react';
 import {Redirect} from 'react-router-dom';
 import FriendItem from "./FriendItem";
 import FriendRequestItem from "./FriendRequestItem";
+import SentFriendRequestItem from "./SentFriendRequestItem";
 import {Link} from "react-router-dom";
 
-const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
+const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, sentFriendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
     if(!auth.uid){
         return <Redirect to="/signin"/>
     }
@@ -34,6 +35,11 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                             <div className="card-content">
                                 <div className="center">
                                     Pending friend requests
+                                    { sentFriendRequests ? Object.entries(sentFriendRequests).map((request) => {
+                                        return (
+                                            <SentFriendRequestItem key={request[0]} request={request[1]}/>
+                                        )
+                                    }): <div>You have no pending friend requests</div>}
                                 </div>
                             </div>
                         </div>
