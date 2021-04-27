@@ -2,13 +2,14 @@ import React from 'react';
 import PlayerStats from "./PlayerStats";
 import CurrentGames from "./CurrentGames";
 import FinishedGames from "./FinishedGames";
+import GameInvitations from "./GameInvitations";
 import {Redirect} from "react-router-dom";
 
 
 
 
-const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName}) => {
-
+const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
+    //console.log(gameInvitations, "your game invitation")
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -20,16 +21,36 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
                 <h4>{profile.userName}</h4>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
-                        <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
+                        <div className="card">
+                            <div className="card-content">
+                                <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
+                            </div>
+                        </div>
                     </div>
                     <div className="dashboard-item col s12 m12">
-                        <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
+                        <div className="card">
+                            <div className="card-content">
+                                <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="dashboard-item col s12 m12">
+                        <div className="card">
+                            <div className="card-content">
+                                <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
-                        <FinishedGames finishedGames={finishedGames}/>
+                        <div className="card">
+                            <div className="card-content">
+                                <FinishedGames finishedGames={finishedGames}/>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
             </div>
             </div>:
