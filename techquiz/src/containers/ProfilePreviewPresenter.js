@@ -2,13 +2,13 @@ import {connect} from "react-redux";
 import ProfilePreview from "../components/friends/ProfilePreview";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
-import {addFriend} from "../store/actions/friendActions";
+import {addFriend, removeFriend} from "../store/actions/friendActions";
 
 const mapStateToProps = (state, ownProps) => {
     const uid = ownProps.match.params.id;
     const myID = state.firebase.auth.uid;
     var isPending = false;
-    const friendRequest = state.firestore.data.friendRequests;
+    const friendRequest = state.firestore.data.friendRequests ? state.firestore.data.friendRequests : null;
     if(friendRequest) {
         Object.entries(friendRequest).forEach((entry) => {
             if(entry[1].gotRequest === uid && entry[1].sentRequest === myID){
@@ -25,7 +25,6 @@ const mapStateToProps = (state, ownProps) => {
     const userStat = userStats ? userStats[uid] : null;
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
 
-
     return{
         auth: state.firebase.auth,
         userName: userName,
@@ -34,36 +33,43 @@ const mapStateToProps = (state, ownProps) => {
         userID: uid,
         myID: myID,
         isFriend: isFriend,
-        isPending: isPending
+        isPending: isPending,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        addFriend: (userID, userName) => dispatch(addFriend(userID, userName))
+        addFriend: (userID, userName) => dispatch(addFriend(userID, userName)),
+        removeFriend: (friendUserID) => dispatch(removeFriend(friendUserID))
     }
 }
 
 const ProfilePreviewPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect((props) => [
-        {collection: 'users'},
-        {collection: 'userStats'},
-        {collection: 'multiplayerRating'},
-        {collection: 'users',
-            doc: props.myID,
-            subcollections : [
-                {collection: 'friends',
-                    where: [
-                        ['userName', '==', props.userName],
-                    ],
-                }
+    firestoreConnect((props) => {
+        if (props.auth.uid === undefined) {
+            return [];
+        }
+        else { return [
+                {collection: 'users'},
+                {collection: 'userStats'},
+                {collection: 'multiplayerRating'},
+                {collection: 'users',
+                    doc: props.myID,
+                    subcollections : [
+                        {collection: 'friends',
+                            where: [
+                                ['userName', '==', props.userName],
+                            ],
+                        }
 
-            ],
-            storeAs: 'friends'
-        },
-        {collection: 'friendRequests'}
-    ])
+                    ],
+                    storeAs: 'friends'
+                },
+                {collection: 'friendRequests'}
+            ]
+        }
+    })
 )(ProfilePreview);
 
 
