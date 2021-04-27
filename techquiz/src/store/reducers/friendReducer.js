@@ -7,7 +7,9 @@ const initState = {
     friendRequestAnswerSuccess : null,
     createdFriendGameSuccess: null,
     createdFriendGameError: null,
-    redirectTo: null
+    redirectTo: null,
+    friendRemovedError : null,
+    friendRemovedYouError: null
 }
 
 const friendReducer = (state = initState, action) => {
@@ -22,6 +24,27 @@ const friendReducer = (state = initState, action) => {
                 ...state,
                 usernameFindGame: action.payload
             }
+        case 'FRIEND_DELETED_SUCCESFULLY':
+            return{
+                ...state
+            }
+        case 'FRIEND_DELETED_FAILURE':
+            return{
+                ...state,
+                usernameFindGame: action.payload,
+                friendRemovedError: action.err.message
+            }
+        case 'FRIEND_DELETED_YOU_SUCCESFULLY':
+            return{
+                ...state
+            }
+        case 'FRIEND_DELETED_YOU_FAILURE':
+            return{
+                ...state,
+                usernameFindGame: action.payload,
+                friendRemovedYouError: action.err.message
+            }
+
         case 'ADD_FRIEND_SUCCESS':
             return{
                 ...state,
