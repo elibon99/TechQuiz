@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import Dashboard from "../components/dashboard/Dashboard";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
+import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
 
 const mapStateToProps = (state) => {
     const uid = state.firebase.auth.uid;
@@ -93,19 +94,36 @@ const mapStateToProps = (state) => {
         winLossRatio: winLossRatio,
         currentGamesYourTurn: currentGamesYourTurn,
         currentGamesTheirTurn: currentGamesTheirTurn,
-        finishedGames : finishedGames
+        finishedGames : finishedGames,
+        gameInvitations: state.firestore.data.gameInvitations
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        acceptGameInvitation: (invitationID) => dispatch(acceptGameInvitation(invitationID)),
+        rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID))
     }
 }
 
 const DashboardPresenter = compose(
-    connect(mapStateToProps),
-    firestoreConnect((props) => [
-        {collection: 'users'},
-        {collection: 'userStats'},
-        {collection: 'multiplayerRating'},
-        {collection: 'games', orderBy: ['timeOfGameFinished', 'desc'], storeAs: 'finishedGames'},
-        {collection: 'games'}
-    ])
+    connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect((props) => {
+        if(props.auth.uid === undefined){
+            return [];
+        }else{
+            return [
+                {collection: 'users'},
+                {collection: 'userStats'},
+                {collection: 'multiplayerRating'},
+                {collection: 'games', orderBy: ['timeOfGameFinished', 'desc'], storeAs: 'finishedGames'},
+                {collection: 'games'},
+                {collection: 'gameInvitations' ,
+                where: [
+                    ['gotRequestID', '==', props.auth.uid]
+                ]
+                }
+            ]}})
     )(Dashboard);
 
 export default DashboardPresenter;
