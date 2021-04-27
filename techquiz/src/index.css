@@ -11,7 +11,6 @@ code {
 }
 
 .dashboard-item {
-  border: 1px solid;
   margin: 10px 0px;
 }
 
@@ -348,4 +347,10 @@ nav .sidenav-trigger{
 
 .card-quick-match{
   margin-top: 25px;
+}
+
+
+.profile-current-games-col{
+  height: 300px;
+  overflow: auto;
 }
