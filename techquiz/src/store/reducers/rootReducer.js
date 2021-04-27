@@ -6,6 +6,7 @@ import {firestoreReducer} from "redux-firestore";
 import {firebaseReducer} from "react-redux-firebase";
 import gameReducer from "./gameReducer";
 import friendReducer from "./friendReducer";
+import gameInvitationReducer from "./gameInvitationReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     firestore: firestoreReducer,
     firebase: firebaseReducer,
     game: gameReducer,
-    friends: friendReducer
+    friends: friendReducer,
+    gameInvitation: gameInvitationReducer
 });
 
 export default rootReducer;
