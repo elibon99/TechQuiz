@@ -247,4 +247,40 @@ exports.friendAccepted = functions.firestore
         }
     })
 
+exports.gameInvitationResponse = functions.firestore
+    .document('gameInvitations/{id}')
+    .onUpdate((change, context) =>{
+        if(change.after.data().isAccepted){
+            const sentReqID = change.after.data().sentRequestID;
+            const sentReqUserName = change.after.data().sentReqUserName;
+            const gotReqID = change.after.data().gotRequestID;
+            const gotReqUserName = change.after.data().gotReqUserName;
+            return admin.firestore().collection('games').add({
+                userID1: sentReqID,
+                user1Name: sentReqUserName,
+                userID2: gotReqID,
+                user2Name: gotReqUserName,
+                turn: sentReqID,
+                p1Score: 0,
+                p2Score: 0,
+                currentSet: "",
+                shouldCreateNewGameSet : sentReqID,
+                amountOfPlayerLeft : 2,
+                redirectTo: null,
+                gameIsFinished: false,
+                timeOfGameFinished: null
+            }).then(() => {
+                admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
+                    .then(() => console.log("Succesfully deleted gameInvitation and created game"))
+                    .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
+            })
+                .catch((error) => console.log("Couldn't create game from invitation, ", error));
+        }
+        if(change.after.data().isRejected){
+            return admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
+                .then(() => console.log("Succesfully deleted gameInvitation and created game"))
+                .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
+        }
+    })
+
 
