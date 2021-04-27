@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     const username = profile ? profile.userName : null;
     const uid = state.firebase.auth.uid;
     const friendRequests = state.firestore.data.receivedFriendRequests;
+    const sentFriendRequests = state.firestore.data.sentFriendRequests
 
     return{
         auth: state.firebase.auth,
@@ -22,7 +23,8 @@ const mapStateToProps = (state) => {
         uid: uid,
         friends: state.firestore.data.friends,
         friendRequests: friendRequests,
-        username: username
+        username: username,
+        sentFriendRequests: sentFriendRequests
     }
 }
 
@@ -56,6 +58,12 @@ const FriendPresenter = compose(
         ],
             storeAs: 'receivedFriendRequests'
         },
+           {collection: 'friendRequests',
+               where: [
+                   ['sentRequest', '==', props.uid]
+               ],
+               storeAs: 'sentFriendRequests'
+           },
         {collection: 'users',
         doc: props.uid,
         subcollections : [
