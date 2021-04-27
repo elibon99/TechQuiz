@@ -36,6 +36,29 @@ export const addFriend = (userID, otherName) => {
     }
 }
 
+export const removeFriend = (friendUserID) => {
+    return(dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore();
+        const uid = getState().firebase.auth.uid;
+        firestore.collection('users').doc(uid).collection('friends').where('userID', '==', friendUserID).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    doc.ref.delete();
+                })
+                dispatch({type:'FRIEND_DELETED_SUCCESFULLY'})
+            })
+            .catch((err) => dispatch({type:'FRIEND_DELETED_FAILURE', err}));
+        firestore.collection('users').doc(friendUserID).collection('friends').where('userID', '==', uid).get()
+            .then((querySnapshot) => {
+                querySnapshot.forEach((doc) => {
+                    doc.ref.delete();
+                })
+                dispatch({type:'FRIEND_DELETED_YOU_SUCCESFULLY'})
+            })
+            .catch((err) => dispatch({type:'FRIEND_DELETED_YOU_FAILURE', err}));
+    }
+}
+
 export const acceptFriendRequest = (requestID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
