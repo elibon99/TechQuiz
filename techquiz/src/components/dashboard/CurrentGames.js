@@ -5,7 +5,7 @@ import GameItemTheirTurn from "./GameItemTheirTurn";
 const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
     return(
         <div className="dashboard-item-container container section">
-            <h5>Current Games:</h5>
+            <h5>Current Games</h5>
             <div className="row">
                 <div className="col s12 m5 profile-current-games-col">
                     Your turn:

@@ -5,13 +5,12 @@ import {compose} from "redux";
 import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
 
 const mapStateToProps = (state) => {
+    /* Getting user stats from firestore for the currently logged in user*/
     const uid = state.firebase.auth.uid;
-    const users = state.firestore.data.users;
-    const user = users ? users[uid] : null;
-    const userName = user ? user.userName : null;
-    const userStats = state.firestore.data.userStats;
-    const userStat = userStats ? userStats[uid] : null;
+    const userStat = state.firestore.data.userStats ? state.firestore.data.userStats[uid] : null;
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
+
+
     const games = state.firestore.data.games;
     const gameEntries = games ? Object.entries(games) : null;
     const finishedGamesFB = state.firestore.data.finishedGames ? state.firestore.data.finishedGames : null;
@@ -88,7 +87,6 @@ const mapStateToProps = (state) => {
 
     return{
         auth: state.firebase.auth,
-        userName: userName,
         userStat: userStat,
         profile: state.firebase.profile,
         winLossRatio: winLossRatio,
