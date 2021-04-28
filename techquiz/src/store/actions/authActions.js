@@ -1,3 +1,8 @@
+/**
+ * This function attempts to sign in the user.
+ * @param credentials - the user credentials: email and password
+ * @returns - dispatch of type success or failure depending on login state.
+ * */
 export const signIn = (credentials) => {
     return (dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
@@ -12,6 +17,10 @@ export const signIn = (credentials) => {
     }
 }
 
+/**
+ * This function attempts to sign out the user.
+ * @returns - dispatch of type success or failure depending on logout state.
+ * */
 export const signOut = () => {
     return(dispatch, getState, {getFirebase}) => {
         const firebase = getFirebase();
@@ -24,6 +33,14 @@ export const signOut = () => {
     }
 }
 
+/**
+ * This function attempts to sign up the user.
+ * @param newUser - an object with the new users credentials:
+ * newUser.username - the users username,
+ * newUser.email - the users email,
+ * newUser.password - the users password.
+ * @returns - dispatch of type success or failure depending on signup state.
+ * */
 export const signUp = (newUser) => {
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firebase = getFirebase();
@@ -115,8 +132,6 @@ export const signUp = (newUser) => {
                             username: newUser.userName,
                             score: 0
                         })
-
-
                 )
             }).then(() => {
                 dispatch({type: 'SIGNUP_SUCCESS'});
@@ -126,8 +141,6 @@ export const signUp = (newUser) => {
             }).catch((err) => {
                 console.log(err, 'something went wrong setting usernames. non-unique user')
                 dispatch({type: 'SIGNUP_FAILURE_NONUNIQUE', payload: "This username is taken. Your username must be unique."});
-
         });
-
     }
 }

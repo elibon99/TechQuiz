@@ -1,4 +1,19 @@
 
+/**
+ * This function takes the current user and adds it to the matchqueue.
+ * If there are no entries in the matchqueue, a game is created for the user.
+ *
+ * If there is at least one entry and its creator is not the current user, it tries
+ * to match these two players into the same game. Both their matchqueue entries are then deleted.
+ * // TODO - är detta ovan korrekt eller sker det på cloudfunctionen minns ej?
+ *
+ * If there are only entries from the same user in the matchqueue,
+ * another game will be created for the current user.
+ *
+ * @param rating - the rating of the user.
+ * @returns - dispatches success/failure depending on outcome.
+ * */
+// TODO - thoroughly go through this method and add comments where needed.
 export const addToMatchQueue = (rating) => {
     return(dispatch, getState, {getFirebase, getFirestore}) =>{
         const firebase = getFirebase();
@@ -70,7 +85,6 @@ export const addToMatchQueue = (rating) => {
                             .catch((err) => {
                                 dispatch({type: 'ADDED_TO_MATCH_QUEUE_FAILURE', err});
                             });
-
                     } )
                     .catch((error) => console.log("could not fetch matchqueue"))
             })
@@ -78,6 +92,10 @@ export const addToMatchQueue = (rating) => {
     }
 }
 
+/**
+ * This function restores the redirectTo and sets it to null.
+ * @returns - dispatch of type restore_redirect_to.
+ * */
 export const restoreRedirectTo = () => {
     return(dispatch) => {
         dispatch({type: 'RESTORE_REDIRECT_TO'});

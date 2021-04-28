@@ -1,16 +1,34 @@
 
+/**
+ * This function sets the search to whatever the input is.
+ * Used by a component to get the friends of the user.
+ * @param userName - the search of the current user. Not necessarily a username.
+ * @returns - dispatch of type change_user_search_friends.
+ * */
 export const setUsernameFriends = (userName) => {
     return(dispatch) => {
         dispatch({type: "CHANGE_USER_SEARCH_FRIENDS", payload: userName});
     }
 }
 
+/**
+ * This function sets the search to whatever the input is.
+ * Used by a component to get all users.
+ * @param userName - the search of the current user. Not necessarily a username.
+ * @returns - dispatch of type change_user_search_find_game.
+ * */
 export const setUsernameFindGame = (userName) => {
     return(dispatch) => {
         dispatch({type: "CHANGE_USER_SEARCH_FIND_GAME", payload: userName});
     }
 }
 
+/**
+ * This function tries to add the selected user to the current user's friends list.
+ * @param userID - the userID of the selected soon-to-be-friend.
+ * @param otherName - the name of the selected soon-to-be-friend.
+ * @returns - dispatch of type success or failure depending on addfriend state.
+ * */
 export const addFriend = (userID, otherName) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -36,6 +54,13 @@ export const addFriend = (userID, otherName) => {
     }
 }
 
+/**
+ * This function tries to remove the selected user from the current user's friends list.
+ * It also removes the current user from the selected user's friends list,
+ * since friendships are two-way.
+ * @param friendUserID - the userID of the selected soon-to-be-deleted-friend.
+ * @returns - dispatch of type success or failure depending on removeFriend state.
+ * */
 export const removeFriend = (friendUserID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -59,6 +84,12 @@ export const removeFriend = (friendUserID) => {
     }
 }
 
+/**
+ * This function tries to accept the selected friend request. After accepting,
+ * it sets the isAccepted attribute to true which will trigger a cloud function adding friends.
+ * @param requestID - the ID of the friend request.
+ * @returns - dispatch of type success or failure depending on acceptFriendRequest state.
+ * */
 export const acceptFriendRequest = (requestID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -74,6 +105,12 @@ export const acceptFriendRequest = (requestID) => {
     }
 }
 
+/**
+ * This function tries to reject the selected friend request. After rejecting,
+ * it sets the isRejected attribute to true which will trigger a cloud function removing friend requests.
+ * @param requestID - the ID of the friend request.
+ * @returns - dispatch of type success or failure depending on rejectFriendRequest state.
+ * */
 export const rejectFriendRequest = (requestID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -89,6 +126,12 @@ export const rejectFriendRequest = (requestID) => {
     }
 }
 
+/**
+ * This function tries to create a new game with the current user and the selected friend.
+ * @param userID - the userID of the friend.
+ * @param otherName - the name of the friend.
+ * @returns - dispatch of type success or failure depending on createFriendGame state.
+ * */
 export const createFriendGame = (userID, otherName) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -112,6 +155,10 @@ export const createFriendGame = (userID, otherName) => {
     }
 }
 
+/**
+ * This function restores the redirect to null.
+ * @returns - dispatch of type restore_redirect_to.
+ * */
 export const restoreRedirectTo = () => {
     return(dispatch) => {
         dispatch({type: 'RESTORE_REDIRECT_TO'});

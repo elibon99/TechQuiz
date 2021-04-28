@@ -1,5 +1,11 @@
 
 
+/**
+ * This function tries to create a game invite to a new game to the opponent.
+ * @param opponentID - the ID of the opponent to be invited.
+ * @param opponentName - the name of the opponent.
+ * @returns - dispatch of type success or failure depending on state.
+ * */
 export const createGameInvitation = (opponentID, opponentName) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -19,6 +25,11 @@ export const createGameInvitation = (opponentID, opponentName) => {
     }
 }
 
+/**
+ * This function tries to accept a game invitation.
+ * @param invitationID - the ID of the game invitation entry.
+ * @returns - dispatch of type success or failure depending on state.
+ * */
 export const acceptGameInvitation = (invitationID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -30,6 +41,11 @@ export const acceptGameInvitation = (invitationID) => {
     }
 }
 
+/**
+ * This function tries to reject a game invitation.
+ * @param invitationID - the ID of the game invitation entry.
+ * @returns - dispatch of type success or failure depending on state.
+ * */
 export const rejectGameInvitation = (invitationID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();

@@ -1,8 +1,5 @@
-// const categories = [
-//     "Linux", "DevOps", "MySQL", "PHP", "BASH", "Dockers",
-//     "HTML", "WordPress", "Laravel", "Kubernetes", "JavaScript"
-// ]
 
+/* All categories in the API. Used for selecting 4 random categories for the question retrieval.*/
 const categories = [
     {category: "Linux", value: "Linux", tags: "Linux"},
     {category: "DevOps", value: "DevOps", tags: "DevOps"},
@@ -17,8 +14,11 @@ const categories = [
     {category: "JavaScript", value: "Code", tags: "JavaScript"}
 ]
 
-
-
+/**
+ * This function gets 4 categories using the getCategories method.
+ * @returns - dispatch of type success or failure depending on createFriendGame state.
+ * @returns - selectedCats - the 4 selected categories.
+ * */
 export const generateCategories = () => {
     return(dispatch) => {
         let selectedCats = getCategories();
@@ -26,6 +26,10 @@ export const generateCategories = () => {
     }
 }
 
+/**
+ * This function generates 4 random categories out of the 11 declared above.
+ * @returns - selectedCategories - the 4 selected categories.
+ * */
 function getCategories(){
     let selectedCategories = [];
     var cats = [...categories];
@@ -37,9 +41,19 @@ function getCategories(){
     return selectedCategories;
 }
 
+/* The URL to the API */
 const URL = "https://quizapi.io/api/v1/questions?";
+
+/* Our API key... should not be here */
 const API_KEY  = "UwbOCHKVnP7pMftLcMxEB2vvycdJtFg7rOAWaEKR";
 
+/**
+ * This function fetches 3 random questions from the chosen category and adds them to the
+ * game in the database.
+ * @param gamingID - the id of the game.
+ * @param category - the selected category.
+ * @returns - dispatch of type success or failure depending on fetchQuestions state.
+ * */
 export const fetchQuestions = (gamingID, category) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
@@ -50,6 +64,7 @@ export const fetchQuestions = (gamingID, category) => {
         const test = URL + pp;
         console.log(test)
 
+        /* Fetch from the api */
         fetch(URL + new URLSearchParams(params), {
             "method": "GET",
             "headers": {
@@ -57,6 +72,7 @@ export const fetchQuestions = (gamingID, category) => {
                 "Content-Type": "application/x-www-form-urlencoded",
                 "Accept": "application/json"
             }
+            /* update the database and game with the fetched questions. */
         }).then(resp => resp.json())
             .then((resp) => {
                 firestore.collection('games').doc(gamingID).collection('gameSets').add({
@@ -80,18 +96,39 @@ export const fetchQuestions = (gamingID, category) => {
     }
 }
 
+/**
+ * This function disables the buttons in the quiz questions after the user clicked one entry
+ * as to prevent the user from selecting several answers per question.
+ * @param answers - all answers from the api to the current question.
+ * */
 function disableDivs(answers){
     answers.forEach((entry) => {
         document.getElementById(entry[0]).style.pointerEvents = "none";
     })
 }
 
+/**
+ * This function enables the buttons in the quiz questions again.
+ * @param answers - all answers from the api to the current question.
+ * */
 function enableDivs(answers){
     answers.forEach((entry) => {
         document.getElementById(entry[0]).setAttribute('style', '');
     })
 }
 
+/**
+ * This function handles the questions and the users answers. After checking
+ * if the user answered correctly or not, it updates the scores accordingly.
+ * It goes to the next question unless all questions (3) has been answered.
+ * In which case it either ends the game and decides a winner, or starts a new gameset
+ * and changes the category and questions.
+ * @param gamingID - the id of the current game,
+ * @param answer - the answer that the user has selected,
+ * @param gameSetID - the id of the current gameSet.
+ * @returns - dispatches success/failure depending on outcome.
+ * */
+// TODO - thoroughly go through this code and add comments where necessary.
 export const verifyQuestion = (gamingID, answer, gameSetID) => {
     return(dispatch, getState, {getFirestore, getFirebase}) => {
         const firestore = getFirestore();
@@ -194,7 +231,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                             //     document.getElementById(entry[0]).setAttribute('style', '');
                             // })
                             enableDivs(allAnswers);
-
 
                             docRef.ref.update({
                                 activeQuestion: activeQuestion
@@ -314,8 +350,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                             })
                                             .catch((error) => console.log("Could'nt get game data"));
 
-
-
                                     }
                                 }).catch((error) => console.log("Something trying to finish wrong :", error));
 
@@ -332,7 +366,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
  * @param gamingID -- the id of the current game
  * @param currentUserID -- the ID of the current user
  * @param firestore -- the firestore
- * returns: 1, 0 or -1 depending on who won.
+ * @returns: 1, 0 or -1 depending on who won.
  * 1 = p1 won
  * 0 = tie
  * -1 = p2 won
@@ -373,17 +407,21 @@ function decideWinner(p1Score, p2Score, currentUserID, uid1){
             return -1
         }
     }
-
 }
 
 
-
+/**
+ * This function sets the redirectTo to null
+ * @returns - dispatch of type restore_redirect_to. */
 export const restoreRedirectTo = () => {
     return(dispatch) => {
         dispatch({type: 'RESTORE_REDIRECT_TO'});
     }
 }
 
+/**
+ * This function restores the redirect, same as above, but in the database - firebase.
+ * @returns - dispatch of type success or failure depending on state. */
 export const restoreRedirectFirebase = (gamingID) => {
     return (dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
