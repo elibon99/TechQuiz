@@ -2,6 +2,11 @@ import React from 'react'
 import GameItemYourTurn from "./GameItemYourTurn";
 import GameItemTheirTurn from "./GameItemTheirTurn";
 
+/**
+ * This components main focus is displaying the current games of the current user.
+ * @param currentGamesYourTurn - all the active games of the current user where its the users turn,
+ * @param currentGamesTheirTurn - all the active games of the current user where its NOT the users turn,
+ * */
 const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
     return(
         <div className="dashboard-item-container container section">

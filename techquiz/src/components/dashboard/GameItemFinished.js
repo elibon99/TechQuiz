@@ -1,6 +1,10 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 
+/**
+ * This components main focus is displaying ONE finished game item.
+ * @param game - the finished game
+ * */
 const GameItemFinished = ({game}) => {
     return(
         <div className="gameitem-container">

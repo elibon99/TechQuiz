@@ -8,6 +8,9 @@ import gameReducer from "./gameReducer";
 import friendReducer from "./friendReducer";
 import gameInvitationReducer from "./gameInvitationReducer";
 
+/**
+ * This function combines all reducers to a root reducer.
+ * */
 const rootReducer = combineReducers({
     auth: authReducer,
     profileStats: profileStatsReducer,

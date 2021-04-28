@@ -1,6 +1,12 @@
 import React from 'react';
 import GameRequestItem from "./GameRequestItem";
 
+/**
+ * This components main focus is displaying the game invitations of the current user.
+ * @param gameInvitations - all the game invitations of the current user,
+ * @param acceptGameInvitation - a method accepting a game invitation,
+ * @param rejectGameInvitation - a method rejecting a game invitatioin.
+ * */
 const GameInvitations = ({gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     return (
         <div className="dashboard-item-container container section">

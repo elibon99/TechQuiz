@@ -7,7 +7,20 @@ import {Redirect} from "react-router-dom";
 
 
 
-
+/**
+ * This components main focus is displaying all things regarding the current users profile.
+ * @param auth - an object containing the auth info,
+ * @param userStat - an object containing the userstats,
+ * @param profile - an object containing the current users profile,
+ * @param winLossRatio - the current users win loss ratio,
+ * @param currentGamesYourTurn - all the active games of the current user where its the users turn,
+ * @param currentGamesTheirTurn - all the active games of the current user where its NOT the users turn,
+ * @param finishedGames - all finished games of the current user,
+ * @param userName - the current users username,
+ * @param gameInvitations - the current users gameInviations,
+ * @param acceptGameInvitation - a method accepting a game invitation
+ * @param rejectGameInvitation - a method rejecting a game invitation.
+ * */
 const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     //console.log(gameInvitations, "your game invitation")
     if(!auth.uid) {

@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * This components main focus is displaying the current users player stats.
+ * @param stats - the stats of the user,
+ * @param winLossRatio - the win loss ratio of the user.
+ * */
 const PlayerStats = ({stats, winLossRatio}) => {
     return(
             <div className="dashboard-item-container container section">

@@ -1,5 +1,12 @@
 import React from 'react';
 
+/**
+ * This components main focus is displaying all game requests/invitations to the user.
+ * @param invitation - the invitation,
+ * @param invitationID - the invitationID,
+ * @param acceptGameInvitation - a method accepting a game invitation,
+ * @param rejectGameInvitation - a method rejecting a game invitation.
+ * */
 const GameRequestItem = ({invitation, invitationID, acceptGameInvitation, rejectGameInvitation}) => {
     return(
         <div className="friend-req-container">

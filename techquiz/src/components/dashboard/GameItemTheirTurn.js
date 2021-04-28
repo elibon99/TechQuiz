@@ -1,5 +1,9 @@
 import React from 'react'
 
+/**
+ * This components main focus is displaying all games where it's the opponents turn.
+ * @param game - the game.
+ * */
 const GameItemTheirTurn = ({game}) => {
     return(
         game ?

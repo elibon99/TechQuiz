@@ -1,6 +1,11 @@
 import React from 'react';
 import GameItemFinished from "./GameItemFinished";
 
+/**
+ * This components main focus is displaying the finished games of the current user.
+ * They are ordered by date.
+ * @param finishedGames - all the finished games of the current user.
+ * */
 const FinishedGames = ({finishedGames}) => {
     return (
         <div className="dashboard-item-container container section">

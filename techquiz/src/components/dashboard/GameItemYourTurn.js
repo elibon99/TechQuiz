@@ -1,6 +1,10 @@
 import React from 'react'
 import {Link} from "react-router-dom";
 
+/**
+ * This components main focus is displaying all games where it's the USERS turn.
+ * @param game - the game.
+ * */
 const GameItemYourTurn = ({game}) => {
     return(
         game ?

@@ -1,7 +1,13 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
 
-
+/**
+ * This components main focus is signing in registered users.
+ * @param props - all properties sent from the SignIn-presenter:
+ * props.auth - an object holding auth info,
+ * props.authError - an object holding authError info,
+ * props.signIn(creds) - a method that tries to sign in the user.
+ * */
 const SignIn = (props) => {
     const [credentials, setCredentials] = React.useState({
         email: '',
@@ -34,7 +40,6 @@ const SignIn = (props) => {
                 </div>
             </form>
         </div>
-
     )
 }
 

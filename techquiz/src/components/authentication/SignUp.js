@@ -1,6 +1,13 @@
 import React from 'react'
 import {Redirect} from 'react-router-dom'
 
+/**
+ * This components main focus is signing up users.
+ * @param signUp(newUser) - a method that tries to sign up the user with the credentials:
+ * (newUser): username, email, password.
+ * @param auth - an object holding auth info,
+ * @param authError - an object holding authError info,
+ * */
 const SignUp = ({signUp, auth, authError}) => {
     const [credentials, setCredentials] = React.useState({
         email: '',
