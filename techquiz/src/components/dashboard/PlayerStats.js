@@ -3,7 +3,7 @@ import React from 'react';
 const PlayerStats = ({stats, winLossRatio}) => {
     return(
             <div className="dashboard-item-container container section">
-                <h5>Stats:</h5>
+                <h5>Stats</h5>
                 <div className="row">
                     <div className="col s12 m7">
                         Wins: {stats.wins}
