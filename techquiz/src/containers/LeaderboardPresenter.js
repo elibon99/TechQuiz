@@ -3,10 +3,18 @@ import Leaderboard from "../components/leaderboard/Leaderboard";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 
+/**
+ * This function maps the state to props which will be sent to the relevant components.
+ * @param state
+ * @returns //TODO
+ */
 const mapStateToProps = (state) => {
+    // TODO - check for redundancy
+    /* Get the multiplayer ratings*/
     const mlRating = state.firestore.ordered.multiplayerRating;
     const mlRatingResult = mlRating ? mlRating : null;
 
+    /* Get the score of each category */
     const bashScore = state.firestore.ordered["singleplayerScores/bashScore/scores"];
     const bashScoreResult = bashScore ? bashScore : null;
     const devopsScore = state.firestore.ordered["singleplayerScores/devopsScore/scores"];
@@ -30,14 +38,15 @@ const mapStateToProps = (state) => {
     const wordpressScore = state.firestore.ordered["singleplayerScores/wordpressScore/scores"];
     const wordpressCoreResult = wordpressScore ? wordpressScore : null;
 
+    /* Get the userstats */
     const userStats = state.firestore.ordered.userStats;
     const userStatsResult = userStats ? userStats : null;
 
+    /* Get all users */
     const users = state.firestore.data.users;
     const usersResult = users ? users : null;
 
-
-    return{
+    return {
         auth: state.firebase.auth,
         users: usersResult,
         mlRating: mlRatingResult,
@@ -56,6 +65,12 @@ const mapStateToProps = (state) => {
     }
 }
 
+/**
+ * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
+ * @returns an empty array if the user is not signed in.
+ * @returns the requested collections if the user is signed in.
+ * */
+// TODO: FIX AUTH GUARD
 const LeaderboardPresenter = compose(
     connect(mapStateToProps),
     firestoreConnect([

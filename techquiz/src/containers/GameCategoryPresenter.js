@@ -4,9 +4,16 @@ import GameCategory from "../components/game/GameCategory";
 import {firestoreConnect} from "react-redux-firebase";
 import {fetchQuestions} from "../store/actions/gameActions";
 
-
+/**
+ * This function maps the state to props which will be sent to the relevant components.
+ * @param state
+ * @returns //TODO
+ */
 const mapStateToProps = (state, ownProps) => {
-    //console.log(state)
+    /* Get the current user, their userstats, the opponent info,
+     the games, the score of both, the turn of the player */
+
+    // TODO: gå igenom om man kan dela upp de snyggare men de ser dependent ut av varandra så vågar ej flytta
     const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
@@ -34,6 +41,11 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
+/**
+ * This function maps the dispatch to props so that the dispatch can be used in the relevant components.
+ * @param dispatch - the dispatch method
+ * @returns fetchQuestions - a method that will fetch 3 questions with the selected category.
+ * */
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchQuestions: (gamingID, category) => dispatch(fetchQuestions(gamingID,category))
@@ -41,6 +53,12 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
+/**
+ * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
+ * @returns an empty array if the user is not signed in.
+ * @returns the requested collections if the user is signed in.
+ * */
+// TODO: FIX AUTH GUARD
 const GameCategoryPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([

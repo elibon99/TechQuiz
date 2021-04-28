@@ -4,7 +4,11 @@ import {firestoreConnect} from "react-redux-firebase";
 import GameLanding from "../components/game/GameLanding";
 import {generateCategories, restoreRedirectFirebase} from "../store/actions/gameActions";
 
-
+/**
+ * This function maps the state to props which will be sent to the relevant components.
+ * @param state
+ * @returns //TODO
+ */
 const mapStateToProps = (state, ownProps) => {
     /* Getting game data from firestore */
     const gameID = ownProps.match.params.id;
@@ -22,7 +26,6 @@ const mapStateToProps = (state, ownProps) => {
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
     const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
-
 
     /* Getting current game score */
     const gameScore = (opponentScore !== null && userScore !== null) ? {userScore: userScore, opponentScore: opponentScore} : null;
@@ -48,6 +51,12 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
+/**
+ * This function maps the dispatch to props so that the dispatch can be used in the relevant components.
+ * @param dispatch - the dispatch method
+ * @returns generateCategories - a method that will generate 4 categories randomly out of all 11 from the API.
+ * @returns restoreRedirectFirebase - a method that will set the redirectTo in firebase games to null.
+ * */
 const mapDispatchToProps = (dispatch) => {
     return{
         generateCategories: () => dispatch(generateCategories()),
@@ -55,9 +64,14 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
+/**
+ * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
+ * @returns an empty array if the user is not signed in.
+ * @returns the requested collections if the user is signed in.
+ * */
+// TODO: FIX AUTH GUARD
 const GameLandingPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-
     firestoreConnect((props) => [
         {collection: 'users'},
         {collection: 'games'},

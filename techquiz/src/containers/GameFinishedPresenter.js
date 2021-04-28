@@ -4,7 +4,14 @@ import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import {createGameInvitation} from "../store/actions/gameInvitationActions";
 
+/**
+ * This function maps the state to props which will be sent to the relevant components.
+ * @param state
+ * @returns //TODO
+ */
 const mapStateToProps = (state, ownProps) => {
+    // TODO CHECK FOR REDUNDANCY
+    /* Get current user info, get games, get opponent info, get score of both */
     const id = ownProps.match.params.id;
     const userData = state.firebase.profile;
     const username = userData ? userData.userName : null;
@@ -18,6 +25,8 @@ const mapStateToProps = (state, ownProps) => {
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
     const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating, userID: opponentID} : null;
     const userScore = game ? (game.userID1 === uid ? game.p1Score : game.p2Score) : null;
+
+    /* Decide whether the current user or the opponent won, change whoWon var accordingly. */
     var whoWon = null;
     if(opponentScore && userScore){
         if(opponentScore === userScore){
@@ -30,23 +39,33 @@ const mapStateToProps = (state, ownProps) => {
             whoWon = `${username + " won: " + userScore + "-" + opponentScore }`
         }
     }
+
     return{
         auth: state.firebase.auth,
         whoWon: whoWon,
         username: username,
         userStats: userStat,
         opponentCredentials: opponent
-
     }
 }
 
+/**
+ * This function maps the dispatch to props so that the dispatch can be used in the relevant components.
+ * @param dispatch - the dispatch method
+ * @returns createGameInvitation - a method that will invite the opponent to a game.
+ * */
 const mapDispatchToProps = (dispatch) => {
     return{
         createGameInvitation: (opponentID, opponentName) => dispatch(createGameInvitation(opponentID, opponentName))
     }
 }
 
-
+/**
+ * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
+ * @returns an empty array if the user is not signed in.
+ * @returns the requested collections if the user is signed in.
+ * */
+// TODO: FIX AUTH GUARD
 const GameFinishedPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([

@@ -8,7 +8,13 @@ import {
     acceptFriendRequest,
 } from "../store/actions/friendActions";
 
+/**
+* This function maps the state to props which will be sent to the relevant components.
+* @param state
+* @returns auth - an object with auth information.
+*/
 const mapStateToProps = (state) => {
+    /* Get the current users info, their friendrequests and info about their friends */
     const users = state.firestore.data.UsersFriends;
     const profile = state.firebase.profile;
     const username = profile ? profile.userName : null;
@@ -28,6 +34,13 @@ const mapStateToProps = (state) => {
     }
 }
 
+/**
+ * This function maps the dispatch to props so that the dispatch can be used in the relevant components.
+ * @param dispatch - the dispatch method
+ * @returns setUsername - a method that will a method that sets the username search to whatever is in the input.
+ * @returns acceptFriendRequest - a method that will handle the logic for accepting a friend request.
+ * @returns rejectFriendRequest - a method that will handle the logic for accepting a friend request.
+ * */
 const mapDispatchToProps = (dispatch) => {
     return{
         setUsername: (username) => dispatch(setUsernameFriends(username)),
@@ -36,11 +49,15 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
+/**
+ * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
+ * @returns an empty array if the user is not signed in.
+ * @returns the requested collections if the user is signed in.
+ * */
 const FriendPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props) => {
     if(props.uid === undefined || props.username === undefined){
-        console.log('user is NOT logged in or hasnt been recognized as logged in yet. dont do the beneath stuff.');
         return [];
     } else {
        return [
