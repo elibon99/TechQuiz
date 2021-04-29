@@ -382,3 +382,8 @@ nav .sidenav-trigger{
   align-items: center;
   color: black;
 }
+
+.profile-container-custom{
+  display: flex;
+  align-items: center;
+}
