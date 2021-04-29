@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import QuizQuestions from "../components/game/QuizQuestions";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
-import {verifyQuestion, restoreRedirectTo} from "../store/actions/gameActions";
+import {verifyQuestion, restoreRedirectTo, stopTimer} from "../store/actions/gameActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -19,6 +19,17 @@ const mapStateToProps = (state, ownProps) => {
     const gameSetID = game ? game.currentSet : null;
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = gameSetID ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
+    const activeQuestion = gameSet ? gameSet.activeQuestion : null;
+    const answers = activeQuestion ? gameSet.questions.resp[activeQuestion].answers : null;
+    var answersEntries = answers ? Object.entries(answers) : null;
+
+    if(answersEntries){
+        answersEntries.sort((entry1,entry2) => {
+            return entry1[1] > entry2[1];
+        })
+    }
+
+    console.log(answersEntries, "after sorts")
 
     return {
         auth: state.firebase.auth,
@@ -27,7 +38,8 @@ const mapStateToProps = (state, ownProps) => {
         gameSet: gameSet,
         game: state.game,
         correctAnswers: state.game.correctAnswers,
-        answer: state.game.answer
+        answer: state.game.answer,
+        timer: state.game.questionTimer
     }
 }
 
@@ -42,7 +54,8 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         verifyQuestion: (gamingID, answer, gameSetID) => dispatch(verifyQuestion(gamingID,answer, gameSetID)),
-        restoreRedirectTo: () => dispatch(restoreRedirectTo())
+        restoreRedirectTo: () => dispatch(restoreRedirectTo()),
+        stopTimer: () => dispatch(stopTimer())
     }
 }
 
