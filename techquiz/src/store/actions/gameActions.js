@@ -117,6 +117,36 @@ function enableDivs(answers){
     })
 }
 
+var timerInterval = null;
+
+export const startTimer = (gameID, gameSetID) => {
+    return(dispatch, getState, {getFirestore, getFirebase}) => {
+        //const firestore = getFirestore();
+        //const uid = getState().firebase.auth.uid;
+        dispatch({type: "INITIALIZE_TIMER", payload: 10});
+        timerInterval = setInterval(() => {
+            var currentTimerVal = getState().game.questionTimer;
+            if(currentTimerVal === 0){
+                dispatch(verifyQuestion(gameID, "TIMER_OUT", gameSetID));
+                dispatch({type: "STOP_TIMER", payload: currentTimerVal});
+                clearInterval(timerInterval);
+
+            }else{
+                dispatch({type: "DECREMENT_TIMER", payload: currentTimerVal-1})
+            }
+
+        },1000);
+    }
+}
+
+export const stopTimer = () => {
+    return(dispatch, getState) => {
+        var currentTimer = getState().game.questionTimer;
+        dispatch({type: "STOP_TIMER", payload: currentTimer});
+        clearInterval(timerInterval);
+    }
+}
+
 /**
  * This function handles the questions and the users answers. After checking
  * if the user answered correctly or not, it updates the scores accordingly.
@@ -134,11 +164,11 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         const firestore = getFirestore();
         const firebase = getFirebase();
         const userID = getState().firebase.auth.uid;
-
         firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
             .then((docRef) => {
                 var activeQuestion = docRef.data().activeQuestion;
                 var correctAnswers = docRef.data().questions.resp[docRef.data().activeQuestion].correct_answers;
+                console.log(answer, "this is the answer")
                 var correctAnswersRes = {
                     answer_a: "",
                     answer_b: "",
@@ -179,7 +209,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
 
                 if(correctAnswersRes[answer] === "true"){
                     console.log("correct answer");
-                    score += 10;
+                    var currentTimer = getState().game.questionTimer;
+                    score += currentTimer;
                     console.log("your score after correct answer, : ", score)
                     finalScore = score;
                     dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
@@ -202,6 +233,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
 
                                 dispatch({type: "CORRECT_ANSWER_UPDATED"});
                                 dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                                dispatch(startTimer(gamingID, gameSetID));
                             })
                                 .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}));
                         } else{
@@ -211,7 +243,39 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                 .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}))
                         }
                     }, 3000);
-                } else {
+                }
+
+                else if (answer === "TIMER_OUT"){
+                    console.log("TIMER OUT")
+                    dispatch({type: "WRONG_ANSWER"});
+                    correctAnswerToQuestion.forEach((entry) => {
+                        document.getElementById(entry[0]).style.backgroundColor = "green";
+                    })
+                    disableDivs(allAnswers);
+                    setTimeout(() => {
+                        if(finalQuestion !== 3) {
+                            // document.getElementById(answer).style.backgroundColor = "";
+                            // document.getElementById(answer).style.pointerEvents= "";
+                            // document.getElementById(answer).setAttribute('style', '');
+                            // correctAnswerToQuestion.forEach((entry) => {
+                            //     // document.getElementById(entry[0]).style.backgroundColor = "";
+                            //     // document.getElementById(entry[0]).style.pointerEvents = "";
+                            //     document.getElementById(entry[0]).setAttribute('style', '');
+                            // })
+                            enableDivs(allAnswers);
+
+                            docRef.ref.update({
+                                activeQuestion: activeQuestion
+                            }).then(() => {
+                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
+                                dispatch({type: "ACTIVE_QUESTION_UPDATED"});
+                                dispatch(startTimer(gamingID, gameSetID));
+                            }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
+                        }
+                    }, 3000)
+
+                }
+                else {
                     dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
                     dispatch({type: "WRONG_ANSWER"});
                     console.log(answer, " this is the answer")
@@ -236,7 +300,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                 activeQuestion: activeQuestion
                             }).then(() => {
                                 dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                                dispatch({type: "ACTIVE_QUESTION_UPDATED"})
+                                dispatch({type: "ACTIVE_QUESTION_UPDATED"});
+                                dispatch(startTimer(gamingID, gameSetID));
                             }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
                         }
                     }, 3000)
