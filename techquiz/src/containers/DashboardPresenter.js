@@ -6,8 +6,16 @@ import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameI
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
- * @param state
- * @returns //TODO
+ * @param state - the redux state.
+ * @returns an object that maps the the following properties to states:
+ *  auth - maps to the firebase auth collection,
+ *  userStat - maps to firestore current user stats,
+ *  profile - maps to the users collection via firebase,
+ *  winLossRatio - the current users Win/Loss-ratio,
+ *  currentGamesYourTurn - all the current users games, where it's the current users turn,
+ *  currentGamesTheirTurn - all the current users games, where it's the opponents turn,
+ *  finishedGames - all the current users finished games,
+ *  gameInvitations - all the game invitations of the current user.
  */
 const mapStateToProps = (state) => {
     /* Getting user stats from firestore for the currently logged in user*/
