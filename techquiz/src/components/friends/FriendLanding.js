@@ -19,8 +19,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                 <div className="col s12 m4">
                     <h5 className="grey-text text-darken-3 center">Friends Requests</h5>
                     <div className="col s12 m12">
-
-                        <div className="card">
+                        <h6 className="friend-request-title">Incoming friend requests</h6>
+                        <div className="card friend-req-margin">
                             <div className="card-content">
                                 {friendRequests ? Object.entries(friendRequests).map((request) => {
                                     return(
@@ -31,10 +31,10 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                 }): <div className="center">No current friend requests</div>}
                             </div>
                         </div>
-                        <div className="card">
+                        <h6 className="friend-request-title">Pending friend requests</h6>
+                        <div className="card friend-req-margin">
                             <div className="card-content">
                                 <div className="center">
-                                    Pending friend requests
                                     { sentFriendRequests ? Object.entries(sentFriendRequests).map((request) => {
                                         return (
                                             <SentFriendRequestItem key={request[0]} request={request[1]}/>
