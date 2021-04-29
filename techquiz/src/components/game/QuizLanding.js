@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-const QuizLanding = ({auth, gameSet, gameID}) => {
+const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID}) => {
 
     // if(gameSet){
     //     console.log(gameSet, "in quiz landing")
@@ -11,7 +11,7 @@ const QuizLanding = ({auth, gameSet, gameID}) => {
         return <Redirect to="/signin"/>
     }
     return(
-        (gameSet && gameID) ?
+        (gameSet && gameID && gameSetID) ?
         <div className="container">
             <div className="card">
                 <div className="card-content">
@@ -21,7 +21,7 @@ const QuizLanding = ({auth, gameSet, gameID}) => {
                         </div>
                         <div className="row">
                             <Link to={"/quiz-question/" + gameID}>
-                                <button className="btn blue lighten-1 z-depth-0 play-button">Click here to begin quiz</button>
+                                <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => startTimer(gameID, gameSetID)}>Click here to begin quiz</button>
                             </Link>
                         </div>
                     </div>
