@@ -6,6 +6,7 @@ import {Link} from "react-router-dom";
  * @param game - the game.
  * */
 const GameItemYourTurn = ({game}) => {
+    console.log(game, 'game');
     return(
         game ?
         <div className="gameitem-container">
