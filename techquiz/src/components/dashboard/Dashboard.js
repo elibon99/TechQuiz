@@ -31,7 +31,15 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
             <div>
                 <h5 className="page-title">Your Profile</h5>
             <div className="dashboard container find-game-margin">
-                <h4>{profile.userName}</h4>
+                <div className="row profile-container-custom">
+                    <div className="col s12 m3">
+                        <h4>{profile.userName}</h4>
+                        <i className="large material-icons">account_circle</i>
+                    </div>
+                    <div className="col s12 m9">
+                        I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                    </div>
+                </div>
                 <div className="row">
                     <div className="dashboard-item col s12 m12">
                         <div className="card">
