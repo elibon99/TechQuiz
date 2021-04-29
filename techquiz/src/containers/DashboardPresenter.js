@@ -44,6 +44,14 @@ const mapStateToProps = (state) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].turn !== uid && entry[1].gameIsFinished === false;
     }) : null;
 
+    /* If the above statement doesn't return any current games
+    for the current user with their turn, set the array to null. */
+    if(currentGamesYourTurn){
+        if(currentGamesYourTurn.length === 0){
+            currentGamesYourTurn = null;
+        }
+    }
+
     /* Add the opponents name in to the game objects where it's the users turn to play */
     if (currentGamesYourTurn) {
         currentGamesYourTurn.forEach((entry) => {
@@ -55,6 +63,15 @@ const mapStateToProps = (state) => {
             }
         })
     }
+
+    /* If the above statement doesn't return any current games
+    for the current user the opponents turn turn, set the array to null. */
+    if(currentGamesTheirTurn){
+        if(currentGamesTheirTurn.length === 0){
+            currentGamesTheirTurn = null;
+        }
+    }
+
     /* Add the opponents name in to the game objects where it's the opponent's turn to play */
     if(currentGamesTheirTurn){
         currentGamesTheirTurn.forEach((entry) => {
@@ -71,6 +88,13 @@ const mapStateToProps = (state) => {
     let finishedGames = (finishedGamesFB && uid) ? finishedGameEntries.filter((entry) => {
         return (entry[1].userID1 === uid || entry[1].userID2 === uid) && entry[1].gameIsFinished === true;
     }) : null;
+
+    /* If the above statement doesn't return any finished games for the current user, set the array to null. */
+    if(finishedGames){
+        if(finishedGames.length === 0){
+            finishedGames = null;
+        }
+    }
 
     /* Go through each finished game, decide who won. push the whoWon result in to the game object. */
     if(finishedGames){
