@@ -1,19 +1,23 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 
-const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, correctAnswers, answer}) => {
+const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, correctAnswers, answer, timer, stopTimer}) => {
     if(game.redirectTo){
         const path = game.redirectTo;
         restoreRedirectTo();
         return <Redirect to={path}/>
     }
-
     const mouseDownHandler = (event) => {
         if(event.button === 1 || event.button === 2 || event.button === 0){
             console.log("Trying to click in middle with category, :", event.target.id)
+            stopTimer();
             verifyQuestion(gameID, event.target.id, gameSetID);
         }
     }
+
+    console.log(timer, "timer val")
+
+
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
@@ -29,7 +33,7 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                     </div>
                 </div>
                 <div className="row">
-                    <p className="center">Placeholder</p>
+                    <p className="center">{timer ? timer : "Time's up"}</p>
                 </div>
                 <div className="row flex">
                     {gameSet && (game.redirectTo === null) && Object.entries(gameSet.questions.resp[gameSet.activeQuestion].answers).map((entry => {
