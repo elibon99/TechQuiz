@@ -5,7 +5,7 @@ const initState = {
     redirectTo : null,
     correctAnswers : null,
     answer : null,
-
+    questionTimer: null
 }
 
 const gameReducer = (state = initState, action) => {
@@ -15,6 +15,23 @@ const gameReducer = (state = initState, action) => {
                 ...state,
                 gameError: null,
                 selectedCategories: action.payload
+            }
+        case 'INITIALIZE_TIMER':
+            return{
+                ...state,
+                questionTimer: action.payload
+            }
+
+        case 'DECREMENT_TIMER':
+            return{
+                ...state,
+                questionTimer: action.payload
+            }
+
+        case 'STOP_TIMER':
+            return{
+                ...state,
+                questionTimer: action.payload
             }
         case 'CORRECT_ANSWER_UPDATED':
             return {
