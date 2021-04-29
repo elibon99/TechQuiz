@@ -2,6 +2,7 @@ import {connect} from "react-redux";
 import QuizLanding from "../components/game/QuizLanding";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
+import {startTimer} from "../store/actions/gameActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -16,6 +17,8 @@ const mapStateToProps = (state, ownProps) => {
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
     const gameSetID = game ? game.currentSet : null;
+
+    console.log(gameSetID, "the gm id")
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
 
@@ -23,7 +26,14 @@ const mapStateToProps = (state, ownProps) => {
         auth: state.firebase.auth,
         gameSetID: gameSetID,
         gameID: id,
-        gameSet: gameSet
+        gameSet: gameSet,
+        timer: state.game.questionTimer
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return{
+        startTimer: (gameID, gameSetId) => dispatch(startTimer(gameID, gameSetId))
     }
 }
 
@@ -34,7 +44,7 @@ const mapStateToProps = (state, ownProps) => {
  * */
 // TODO: FIX AUTH GUARD
 const QuizLandingPresenter = compose(
-    connect(mapStateToProps),
+    connect(mapStateToProps,mapDispatchToProps),
     firestoreConnect((props) => [
         {collection: 'games',
         doc: props.gameID,
