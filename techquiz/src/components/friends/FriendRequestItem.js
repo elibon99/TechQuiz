@@ -6,11 +6,12 @@ import {Link} from "react-router-dom";
 const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFriendRequest}) => {
     return(
         <div>
-            <Link to={"/profile-preview/" + request.sentRequest}>
             <div className="friend-req-container link-to-profile-friend-req">
-                    <div>
+                <Link to={"/profile-preview/" + request.sentRequest}>
+                    <div className="friend-req-name-title">
                         {request.sentReqUserName}
                     </div>
+                 </Link>
                 <div className="thumbs-container">
                     <button onClick={() => acceptFriendRequest(requestID)}>
                         <ThumbsUp className="thumbs-up"/>
@@ -20,7 +21,6 @@ const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFrien
                     </button>
                 </div>
             </div>
-            </Link>
         </div>
     )
 }
