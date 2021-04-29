@@ -1,5 +1,6 @@
 import React from 'react';
 import GameItemFinished from "./GameItemFinished";
+import {Link} from "react-router-dom";
 
 /**
  * This components main focus is displaying the finished games of the current user.
@@ -16,7 +17,7 @@ const FinishedGames = ({finishedGames}) => {
                         return (
                             <GameItemFinished game={entry} key={entry[0]}/>
                         )
-                    }) : <div> You don't have any finished games. Go play some games! </div>}
+                    }) : <h6> You don't have any finished games. Go find a game <Link to= "/findgame"><button className="btn waves-effect waves-light #64b5f6 blue lighten-2"> here </button></Link>! </h6>}
                 </div>
             </div>
         </div>
