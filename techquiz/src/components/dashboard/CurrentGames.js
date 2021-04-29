@@ -1,6 +1,7 @@
 import React from 'react'
 import GameItemYourTurn from "./GameItemYourTurn";
 import GameItemTheirTurn from "./GameItemTheirTurn";
+import {Link} from "react-router-dom";
 
 /**
  * This components main focus is displaying the current games of the current user.
@@ -14,21 +15,21 @@ const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
             <h5>Current Games</h5>
             <div className="row">
                 <div className="col s12 m5 profile-current-games-col">
-                    Your turn:
+                    <h6>Your turn:</h6>
                     {currentGamesYourTurn ? currentGamesYourTurn.map((entry) => {
                         return (
                                 <GameItemYourTurn game={entry} key={entry[0]}/>
                             )
-                    }) : <div> You don't have any games where it's your turn. Come back later or start a new game here! </div>}
+                    }) : <h6> You don't have any games where it's your turn. Come back later or start a new game <Link to= "/findgame"><button className="btn waves-effect waves-light #64b5f6 blue lighten-2"> here </button></Link></h6>}
 
                 </div>
                 <div className="col s12 m5 offset-m2 profile-current-games-col">
-                    Their turn:
+                    <h6>Their turn: </h6>
                     {currentGamesTheirTurn ? currentGamesTheirTurn.map((entry) => {
                         return(
                             <GameItemTheirTurn game={entry} key={entry[0]}/>
                         )
-                    }) : <div> You don't have any games where it's your opponents turn. </div>
+                    }) : <h6> You don't have any games where it's your opponents turn to play. </h6>
                     }
                 </div>
             </div>
