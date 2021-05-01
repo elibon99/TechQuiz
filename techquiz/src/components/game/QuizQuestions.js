@@ -1,7 +1,7 @@
 import React from 'react';
 import {Redirect} from "react-router-dom";
 
-const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, correctAnswers, answer, timer, stopTimer}) => {
+const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, timer, stopTimer}) => {
     if(game.redirectTo){
         const path = game.redirectTo;
         restoreRedirectTo();
@@ -14,10 +14,6 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
             verifyQuestion(gameID, event.target.id, gameSetID);
         }
     }
-
-    console.log(timer, "timer val")
-
-
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
@@ -36,7 +32,9 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                     <p className="center">{timer ? timer : "Time's up"}</p>
                 </div>
                 <div className="row flex">
-                    {gameSet && (game.redirectTo === null) && Object.entries(gameSet.questions.resp[gameSet.activeQuestion].answers).map((entry => {
+                    {gameSet && (game.redirectTo === null) && Object.entries(gameSet.questions.resp[gameSet.activeQuestion].answers).sort((entry1, entry2) => {
+                        return entry1[0] > entry2[0] ? 1 : -1 ;
+                    }).map((entry => {
                         return (
                             entry[1] ?
                             <div key={entry[0]} className="col s12 m6">
