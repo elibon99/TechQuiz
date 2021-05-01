@@ -7,10 +7,8 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    // if(localGame){
-    //     console.log(localGame.selectedCategories)
-    // }
-    //console.log(selectedCategories, "chosen category")
+
+    console.log(localGame.selectedCategories, "<- all 4 categories")
 
     return (
         (game && userStat && localGame.selectedCategories) ?
@@ -24,8 +22,9 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
                         return (
                             <div key={category.tags}  className="col s12 m6 game-category-col">
                                 <div id={category.tags} onClick={e => {setSelectedCategories(e.target.id)}} className="card category-title-container" tabIndex="1">
-                                    <div id={category.tags} className="category-title" onClick={e => {setSelectedCategories(e.target.id)}}>
-                                        {category.category}
+                                    <div id={category.tags} className="quiz-landing-card quiz-landing-card-title" onClick={e => {setSelectedCategories(e.target.id)}}>
+                                        <img id={category.tags} className="category-background-image" onClick={e => {setSelectedCategories(e.target.id)}} src={category.iconSrc} alt={category.category}/>
+                                            {category.category}
                                     </div>
                                 </div>
                             </div>)
