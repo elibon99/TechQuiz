@@ -22,14 +22,25 @@ const mapStateToProps = (state, ownProps) => {
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
 
-
+    /* Get which category was selected out of the 4, to get the selectedCategory.iconSrc property */
+    var selectedCategory = null;
+    const selectedCategories = state.game.selectedCategories;
+    if(selectedCategories && gameSet){
+        for(let i = 0; i < selectedCategories.length; i += 1){
+            if(selectedCategories[i].category === gameSet.category){
+                selectedCategory = selectedCategories[i];
+            }
+        }
+    }
 
     return {
         auth: state.firebase.auth,
         gameSetID: gameSetID,
         gameID: id,
         gameSet: gameSet,
-        timer: state.game.questionTimer
+        timer: state.game.questionTimer,
+        localGame: state.game,
+        selectedCategory: selectedCategory
     }
 }
 
