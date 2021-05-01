@@ -25,7 +25,7 @@ const GameFinished = ({auth, whoWon, userStats, opponentCredentials, username, c
 
             <div className="container game-finished-btn">
                 <Link to='/'>
-                    <button className="btn blue lighten-1 z-depth-0 play-button">Return to dashboard</button>
+                    <button className="btn blue lighten-1 z-depth-0 play-button">Return to your profile</button>
                 </Link>
             </div>
 
