@@ -408,3 +408,19 @@ nav .sidenav-trigger{
   width: 120px;
   height: 120px;
 }
+
+.homepage-buttons-div{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-buttons-signin{
+  display: flex;
+  flex-direction: column;
+}
+.homepage-buttons-signup{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
