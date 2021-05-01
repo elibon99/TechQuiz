@@ -22,6 +22,8 @@ const mapStateToProps = (state, ownProps) => {
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
 
+
+
     return {
         auth: state.firebase.auth,
         gameSetID: gameSetID,
