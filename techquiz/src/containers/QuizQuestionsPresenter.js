@@ -19,17 +19,6 @@ const mapStateToProps = (state, ownProps) => {
     const gameSetID = game ? game.currentSet : null;
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = gameSetID ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
-    const activeQuestion = gameSet ? gameSet.activeQuestion : null;
-    const answers = activeQuestion ? gameSet.questions.resp[activeQuestion].answers : null;
-    var answersEntries = answers ? Object.entries(answers) : null;
-
-    if(answersEntries){
-        answersEntries.sort((entry1,entry2) => {
-            return entry1[1] > entry2[1];
-        })
-    }
-
-    console.log(answersEntries, "after sorts")
 
     return {
         auth: state.firebase.auth,
@@ -37,8 +26,6 @@ const mapStateToProps = (state, ownProps) => {
         gameID: id,
         gameSet: gameSet,
         game: state.game,
-        correctAnswers: state.game.correctAnswers,
-        answer: state.game.answer,
         timer: state.game.questionTimer
     }
 }
