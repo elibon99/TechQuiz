@@ -1,12 +1,13 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID}) => {
+const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory}) => {
 
     // if(gameSet){
     //     console.log(gameSet, "in quiz landing")
     // }
 
+    console.log(localGame, 'localgame')
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -17,7 +18,14 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID}) => {
                 <div className="card-content">
                     <div className="container">
                         <div className="row category-display-container">
-                            <h5>{gameSet.category}</h5>
+                            {selectedCategory ?
+                                <div className="quiz-landing-card">
+                                    <img className="category-background-image category-background-image-quiz-landing" src={selectedCategory.iconSrc} alt="catSrc"/>
+                                    <div>
+                                         <h5>{gameSet.category}</h5>
+                                    </div>
+                                </div>: <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
+
                         </div>
                         <div className="row">
                             <Link to={"/quiz-question/" + gameID}>
