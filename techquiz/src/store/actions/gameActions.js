@@ -1,17 +1,18 @@
 
-/* All categories in the API. Used for selecting 4 random categories for the question retrieval.*/
+/* All categories in the API. Used for selecting 4 random categories for the question retrieval.
+* All images (iconSrc) taken from iconify. */
 const categories = [
-    {category: "Linux", value: "Linux", tags: "Linux"},
-    {category: "DevOps", value: "DevOps", tags: "DevOps"},
-    {category: "MySQL", value: "SQL", tags: "MySQL"},
-    {category: "PHP", value: "Code", tags:"PHP"},
-    {category: "BASH", value: "bash", tags: "BASH"},
-    {category: "Docker", value: "Docker", tags: "Docker"},
-    {category: "HTML", value: "Code", tags: "HTML"},
-    {category: "WordPress", value: "CMS", tags: "WordPress"},
-    {category: "Laravel", value: "Code", tags: "Laravel"},
-    {category: "Kubernetes", value: "", tags: "Kubernetes"},
-    {category: "JavaScript", value: "Code", tags: "JavaScript"}
+    {category: "Linux", value: "Linux", tags: "Linux", iconSrc: "https://api.iconify.design/fa-brands:linux.svg"},
+    {category: "DevOps", value: "DevOps", tags: "DevOps", iconSrc: "https://api.iconify.design/cib:azure-devops.svg"},
+    {category: "MySQL", value: "SQL", tags: "MySQL", iconSrc: "https://api.iconify.design/cib:mysql.svg"},
+    {category: "PHP", value: "Code", tags:"PHP", iconSrc: "https://api.iconify.design/fa-brands:php.svg"},
+    {category: "BASH", value: "bash", tags: "BASH", iconSrc: "https://api.iconify.design/bi:terminal.svg"},
+    {category: "Docker", value: "Docker", tags: "Docker", iconSrc: "https://api.iconify.design/file-icons:docker.svg"},
+    {category: "HTML", value: "Code", tags: "HTML", iconSrc: "https://api.iconify.design/dashicons:html.svg"},
+    {category: "WordPress", value: "CMS", tags: "WordPress", iconSrc: "https://api.iconify.design/bx:bxl-wordpress.svg"},
+    {category: "Laravel", value: "Code", tags: "Laravel", iconSrc: "https://api.iconify.design/cib:laravel.svg"},
+    {category: "Kubernetes", value: "", tags: "Kubernetes", iconSrc: "https://api.iconify.design/logos:kubernetes.svg"},
+    {category: "JavaScript", value: "Code", tags: "JavaScript", iconSrc: "https://api.iconify.design/bx:bxl-javascript.svg"}
 ]
 
 /**
