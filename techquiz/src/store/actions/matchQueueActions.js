@@ -67,7 +67,8 @@ export const addToMatchQueue = (rating) => {
                                 amountOfPlayerLeft : 2,
                                 redirectTo: null,
                                 gameIsFinished: false,
-                                timeOfGameFinished: null
+                                timeOfGameFinished: null,
+                                hasChosenCategory: false
                             }).then(() => console.log("Succesfully created game"))
                                 .catch((err) => console.log("Failed to create game :", err));
                         }
