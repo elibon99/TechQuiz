@@ -18,6 +18,7 @@ const mapStateToProps = (state, ownProps) => {
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
+    const hasChosenCategory = game ? game.hasChosenCategory : null;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
     const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID2) : null;
@@ -37,7 +38,8 @@ const mapStateToProps = (state, ownProps) => {
         userStat: userStat,
         score: score,
         isYourTurn: isYourTurn,
-        localGame: state.game
+        localGame: state.game,
+        hasChosenCategory: hasChosenCategory
     }
 }
 
