@@ -85,7 +85,8 @@ export const fetchQuestions = (gamingID, category) => {
                 })
                     .then((doc) => {
                         firestore.collection('games').doc(gamingID).update({
-                            currentSet: doc.id
+                            currentSet: doc.id,
+                            hasChosenCategory: true
                         })
                             .then(() => console.log('added currentSet to games collection'))
                             .catch((err) => console.log(err, 'something went wrong inside currentset add'));
