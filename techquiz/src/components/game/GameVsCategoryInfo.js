@@ -1,12 +1,12 @@
 import React from 'react';
 
-const GameVsCategoryInfo = ({game, opponent, profile, userStat}) => {
+const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategory}) => {
     return(
         <div className="card-content">
             <div className="container">
                 <div className="row category-selection-title">
                     <h3>Your turn</h3>
-                    <h5>Choose category</h5>
+                    <h5>{hasChosenCategory ? "Category is already chosen" : "Choose category"}</h5>
                 </div>
                 <div className="row flex">
                     <div className="col s12 m5 player-content">
