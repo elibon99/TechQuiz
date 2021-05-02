@@ -179,7 +179,8 @@ exports.gameInvitationResponse = functions.firestore
                 amountOfPlayerLeft : 2,
                 redirectTo: null,
                 gameIsFinished: false,
-                timeOfGameFinished: null
+                timeOfGameFinished: null,
+                hasChosenCategory: false
             }).then(() => {
                 admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
                     .then(() => console.log("Succesfully deleted gameInvitation and created game"))
