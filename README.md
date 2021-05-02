@@ -31,21 +31,20 @@ Features:
 * Fetching questions from the quizAPI with said categories
 * Starting, playing and finishing multiplayer games
 * Application state is persistant and stored using firebase
-
+* Creating games against a certain username
+* Implemented a timer for the games - 10 seconds per question.
+* Showing Game History
+* Showing Current Games
+* Viewing other players profiles
+* Friends list of other users  
+* Quick-rematching against previously played users.
 
 ***What we still plan to do***
 
 Features:
-* Creating games against a certain username
 * Single player games
-* Implement a timer for the games
 * Changing usernames/passwords/emails
 * Leaderboards pages for each category as to show all entries rather than top 10
-* Showing Game History
-* Showing Current Games
-* Viewing other players profiles
-* Quick-rematching against previously played users.
-* Friends list of other users  
 * General fixes
 * General CSS changes
 
