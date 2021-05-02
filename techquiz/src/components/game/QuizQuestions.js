@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from "react-router-dom";
+import {Prompt, Redirect} from "react-router-dom";
 
 const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, timer, stopTimer}) => {
     if(game.redirectTo){
@@ -20,6 +20,13 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
     }
     return(
         <div className="container">
+            <Prompt
+                when={true}
+                message={(location, action) =>{
+                    return `Are you sure you want to leave the game. You will receive 0 points for this gameset ${location.pathname}`}
+                }
+
+            />
             <div className="card-content">
                 <div className="row answer-display-container">
                     <div className="col s6 m6"><h6 className="left">Current Score: {gameSet ? gameSet.score : ""}</h6></div>
