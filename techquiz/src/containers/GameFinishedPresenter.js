@@ -28,7 +28,7 @@ const mapStateToProps = (state, ownProps) => {
 
     /* Decide whether the current user or the opponent won, change whoWon var accordingly. */
     var whoWon = null;
-    if(opponentScore && userScore){
+    if(opponentScore !== null && userScore !== null){
         if(opponentScore === userScore){
             whoWon = `${"It's a draw: " + userScore + "-" + opponentScore}`;
         }
