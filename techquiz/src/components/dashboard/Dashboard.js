@@ -4,8 +4,7 @@ import CurrentGames from "./CurrentGames";
 import FinishedGames from "./FinishedGames";
 import GameInvitations from "./GameInvitations";
 import {Redirect} from "react-router-dom";
-
-
+import ProfileInfo from "./ProfileInfo";
 
 /**
  * This components main focus is displaying all things regarding the current users profile.
@@ -22,7 +21,6 @@ import {Redirect} from "react-router-dom";
  * @param rejectGameInvitation - a method rejecting a game invitation.
  * */
 const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
-    //console.log(gameInvitations, "your game invitation")
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -31,23 +29,11 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
             <div>
                 <h5 className="page-title">Your Profile</h5>
             <div className="dashboard container find-game-margin">
-                <div className="row profile-container-custom">
-                    <div className="col s12 m3">
-                        <h4>{profile.userName}</h4>
-                        <i className="large material-icons">account_circle</i>
-                    </div>
-                    <div className="col s12 m9">
-                        I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                    </div>
-                </div>
                 <div className="row">
-                    <div className="dashboard-item col s12 m12">
-                        <div className="card">
-                            <div className="card-content">
-                                <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
-                            </div>
-                        </div>
+                    <div className="col s12 m4">
+                        <ProfileInfo profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
                     </div>
+                    <div className="col s12 offset-m1 m7">
                     <div className="dashboard-item col s12 m12">
                         <div className="card">
                             <div className="card-content">
@@ -62,16 +48,14 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="dashboard-item col s12 m12">
-                        <div className="card">
-                            <div className="card-content">
-                                <FinishedGames finishedGames={finishedGames}/>
+                        <div className="dashboard-item col s12 m12">
+                            <div className="card">
+                                <div className="card-content">
+                                    <FinishedGames finishedGames={finishedGames}/>
+                                </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             </div>:
