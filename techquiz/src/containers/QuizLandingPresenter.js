@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import QuizLanding from "../components/game/QuizLanding";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
-import {startTimer} from "../store/actions/gameActions";
+import {startTimer, resetHasChosenCategory} from "../store/actions/gameActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -18,9 +18,10 @@ const mapStateToProps = (state, ownProps) => {
     const game = (id && games) ? games[id] : null;
     const gameSetID = game ? game.currentSet : null;
 
-    console.log(gameSetID, "the gm id")
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
+
+
 
     /* Get which category was selected out of the 4, to get the selectedCategory.iconSrc property */
     var selectedCategory = null;
@@ -40,13 +41,15 @@ const mapStateToProps = (state, ownProps) => {
         gameSet: gameSet,
         timer: state.game.questionTimer,
         localGame: state.game,
-        selectedCategory: selectedCategory
+        selectedCategory: selectedCategory,
+        categoriesToImg: state.game.categoriesImgPath
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        startTimer: (gameID, gameSetId) => dispatch(startTimer(gameID, gameSetId))
+        startTimer: (gameID, gameSetId) => dispatch(startTimer(gameID, gameSetId)),
+        resetHasChosenCategory: (gameID) => dispatch(resetHasChosenCategory(gameID))
     }
 }
 
