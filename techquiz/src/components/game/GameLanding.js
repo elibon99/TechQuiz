@@ -3,8 +3,7 @@ import GameSetItem from "./GameSetItem";
 import GameVsInfo from "./GameVsInfo";
 import {Link, Redirect} from "react-router-dom";
 
-const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, restoreRedirectFirebase, redirectTo}) => {
-    //console.log(shouldCreateNewGameSet, 'should create gameset');
+const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn, gameID, generateCategories, shouldCreateNewGameSet, restoreRedirectFirebase, redirectTo, mySetResults, opponentSetResults, gameSetCategories, currentSet, hasBeenAnsweredBy}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -18,7 +17,10 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
         <div className="container">
             <div className="card game-landing-container">
                 <GameVsInfo game={game} opponent={opponent} profile={profile} userStat={userStat} score={score}/>
-                <GameSetItem isYourTurn={isYourTurn}/>
+                <GameSetItem isYourTurn={isYourTurn} myResults={mySetResults[0]} opponentResults={opponentSetResults[0]} category={gameSetCategories[0]} setNr={1} currentSet={currentSet} hasBeenAnsweredBy={hasBeenAnsweredBy}/>
+                <GameSetItem isYourTurn={isYourTurn} myResults={mySetResults[1]} opponentResults={opponentSetResults[1]} category={gameSetCategories[1]} setNr={2} currentSet={currentSet} hasBeenAnsweredBy={hasBeenAnsweredBy}/>
+                <GameSetItem isYourTurn={isYourTurn} myResults={mySetResults[2]} opponentResults={opponentSetResults[2]} category={gameSetCategories[2]} setNr={3} currentSet={currentSet} hasBeenAnsweredBy={hasBeenAnsweredBy}/>
+
                 <div className="card-content">
                     <div className="container">
                         {(isYourTurn && shouldCreateNewGameSet) ?
