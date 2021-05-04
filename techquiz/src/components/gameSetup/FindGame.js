@@ -13,6 +13,7 @@ const FindGame = ({auth, addToQueue, restoreRedirectTo, userStats, user, matchQu
         return <Redirect to={path}/>
     }
 
+
     return(
         userStats ?
             <div><h5 className="page-title">Find a game</h5>
