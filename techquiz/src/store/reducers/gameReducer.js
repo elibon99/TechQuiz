@@ -5,7 +5,20 @@ const initState = {
     redirectTo : null,
     correctAnswers : null,
     answer : null,
-    questionTimer: null
+    questionTimer: null,
+    categoriesImgPath : {
+        Linux: "https://api.iconify.design/fa-brands:linux.svg",
+        DevOps: "https://api.iconify.design/cib:azure-devops.svg",
+        MySQL: "https://api.iconify.design/cib:mysql.svg",
+        PHP: "https://api.iconify.design/fa-brands:php.svg",
+        BASH: "https://api.iconify.design/bi:terminal.svg",
+        Docker: "https://api.iconify.design/file-icons:docker.svg",
+        HTML: "https://api.iconify.design/dashicons:html.svg",
+        WordPress: "https://api.iconify.design/bx:bxl-wordpress.svg",
+        Laravel: "https://api.iconify.design/cib:laravel.svg",
+        Kubernetes: "https://api.iconify.design/logos:kubernetes.svg",
+        JavaScript: "https://api.iconify.design/bx:bxl-javascript.svg"
+    }
 }
 
 const gameReducer = (state = initState, action) => {
@@ -28,36 +41,31 @@ const gameReducer = (state = initState, action) => {
                 questionTimer: action.payload
             }
 
+        case 'UPDATED_SCORE_SUCCESS':
+            return{
+                ...state
+            }
+        case 'UPDATED_SCORE_FAILURE':
+            return{
+                ...state,
+                gameError: action.error.message
+            }
+
+        case 'UPDATED_ACTIVE_QUESTION_SUCCESS':
+            return{
+                ...state
+            }
+
+        case 'UPDATE_ACTIVE_QUESTION_FAILURE':
+            return{
+                ...state,
+                gameError: action.error.message
+            }
+
         case 'STOP_TIMER':
             return{
                 ...state,
                 questionTimer: action.payload
-            }
-        case 'CORRECT_ANSWER_UPDATED':
-            return {
-                ...state,
-                gameError: null,
-                isCorrectAnswer: true
-            }
-        case 'CORRECT_ANSWER_FAILURE':
-            return{
-                ...state,
-                gameError: "Couldn't update score"
-            }
-        case 'WRONG_ANSWER':
-            return {
-                ...state,
-                isCorrectAnswer: false
-            }
-        case  'CORRECT_ANSWER_ADDED':
-            return {
-                ...state,
-                correctAnswers: action.payload
-            }
-        case  'SET_CHOSEN_ANSWER':
-            return {
-                ...state,
-                answer: action.payload
             }
         case  'RESTORE_CORRECT_ANSWER':
             return {
@@ -89,6 +97,16 @@ const gameReducer = (state = initState, action) => {
                 ...state,
                 redirectTo: action.payload
             }
+        case 'RESTORED_HAS_CHOSEN_CATEGORY_SUCCESS':
+            return{
+                ...state
+            }
+        case 'RESTORED_HAS_CHOSEN_CATEGORY_FAILURE':
+            return{
+                ...state,
+                gameError: action.error.message
+            }
+
 
         default:
             return state;
