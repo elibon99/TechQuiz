@@ -62,7 +62,7 @@ export const addToMatchQueue = (rating) => {
                                 turn: uid,
                                 p1Score: 0,
                                 p2Score: 0,
-                                currentSet: "",
+                                currentSet: "1",
                                 shouldCreateNewGameSet : uid,
                                 amountOfPlayerLeft : 2,
                                 redirectTo: null,
