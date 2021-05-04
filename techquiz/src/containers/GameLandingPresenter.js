@@ -10,10 +10,13 @@ import {generateCategories, restoreRedirectFirebase} from "../store/actions/game
  * @returns //TODO
  */
 const mapStateToProps = (state, ownProps) => {
+
+    console.log(state)
     /* Getting game data from firestore */
     const gameID = ownProps.match.params.id;
-    const games = state.firestore.data.games;
+    const games = state.firestore.data.Games;
     const game = (gameID && games) ? games[gameID] : null;
+    const currentSet = game ? game.currentSet : null;
 
     /* Getting user data from game and userstats */
     const uid = state.firebase.auth.uid;
@@ -37,6 +40,72 @@ const mapStateToProps = (state, ownProps) => {
     /* shouldCreateNewGameSet is true if shouldCreateNewGameSet is equal to the userID of the currently logged in user, else false*/
     const shouldCreateNewGameSet = game ? (game.shouldCreateNewGameSet === uid ? true : false) : null;
 
+    const setResults = state.firestore.data.GameSets;
+    let myResults = [];
+    let opponentResults = [];
+    let categories = [];
+    let hasBeenAnsweredBy = [];
+
+
+    if(setResults && game){
+
+        if(uid === game.userID1){
+            let j = 0;
+            Object.entries(setResults).forEach((entry) => {
+                if(entry[1].hasBeenAnsweredBy > 0){
+                    hasBeenAnsweredBy[j] = entry[1].hasBeenAnsweredBy;
+                    categories[j] = entry[1].category;
+                    console.log(entry[1].questions.resp[0].p2Score, " p2 thing")
+                    if(entry[1].questions.resp[0].p2Score !== undefined){
+                        opponentResults[j] = {qScore0: 0, qScore1 : 0, qScore2: 0};
+                    }
+                    if(entry[1].questions.resp[0].p1Score !== undefined){
+                        myResults[j] = {qScore0: 0, qScore1 : 0, qScore2: 0};
+                    }
+                    for(let i = 0; i <= 2; i++){
+                        var attr = "qScore" + i;
+                        if(entry[1].questions.resp[i].p1Score !== undefined){
+                            myResults[j][attr] = entry[1].questions.resp[i].p1Score;
+                        }
+                        if(opponentResults[j] !== undefined){
+                            opponentResults[j][attr] = entry[1].questions.resp[i].p2Score;
+                        }
+                    }
+                    j++;
+                }
+
+            })
+        }
+        else{
+            let j = 0;
+            Object.entries(setResults).forEach((entry) => {
+                if(entry[1].hasBeenAnsweredBy > 0){
+                    hasBeenAnsweredBy[j] = entry[1].hasBeenAnsweredBy;
+                    categories[j] = entry[1].category;
+                    if(entry[1].questions.resp[0].p1Score !== undefined){
+                        opponentResults[j] = {qScore0: 0, qScore1 : 0, qScore2: 0};
+                    }
+                    if(entry[1].questions.resp[0].p2Score !== undefined){
+                        myResults[j] = {qScore0: 0, qScore1 : 0, qScore2: 0};
+                    }
+
+                    for(let i = 0; i <= 2; i++){
+                        var attr = "qScore" + i;
+                        if(entry[1].questions.resp[i].p2Score !== undefined){
+                            myResults[j][attr] = entry[1].questions.resp[i].p2Score;
+                        }
+                        if(opponentResults[j] !== undefined){
+                            opponentResults[j][attr] = entry[1].questions.resp[i].p1Score;
+                        }
+                    }
+                    j++;
+                }
+
+            })
+        }
+    }
+
+
     return{
         auth: state.firebase.auth,
         game: game,
@@ -47,7 +116,12 @@ const mapStateToProps = (state, ownProps) => {
         isYourTurn: isYourTurn,
         gameID: gameID,
         shouldCreateNewGameSet: shouldCreateNewGameSet,
-        redirectTo: redirectTo
+        redirectTo: redirectTo,
+        mySetResults: myResults,
+        opponentSetResults: opponentResults,
+        gameSetCategories: categories,
+        currentSet: currentSet,
+        hasBeenAnsweredBy: hasBeenAnsweredBy
     }
 }
 
@@ -74,8 +148,14 @@ const GameLandingPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props) => [
         {collection: 'users'},
-        {collection: 'games'},
-        {collection: 'userStats'}
+        {collection: 'games', storeAs: 'Games'},
+        {collection: 'userStats'},
+        {collection: 'games', doc: props.gameID,
+            subcollections: [
+                {collection: 'gameSets', orderBy: ['createdAt', 'desc']}
+            ],
+            storeAs: 'GameSets'
+        }
     ])
 )(GameLanding);
 
