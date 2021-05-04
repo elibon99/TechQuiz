@@ -1,6 +1,7 @@
 
 /* All categories in the API. Used for selecting 4 random categories for the question retrieval.
 * All images (iconSrc) taken from iconify. */
+
 const categories = [
     {category: "Linux", value: "Linux", tags: "Linux", iconSrc: "https://api.iconify.design/fa-brands:linux.svg"},
     {category: "DevOps", value: "DevOps", tags: "DevOps", iconSrc: "https://api.iconify.design/cib:azure-devops.svg"},
@@ -76,23 +77,31 @@ export const fetchQuestions = (gamingID, category) => {
             /* update the database and game with the fetched questions. */
         }).then(resp => resp.json())
             .then((resp) => {
-                firestore.collection('games').doc(gamingID).collection('gameSets').add({
-                    questions: {resp},
-                    score: 0,
-                    category: category,
-                    activeQuestion: 0,
-                    hasBeenAnsweredBy: 0
-                })
-                    .then((doc) => {
-                        firestore.collection('games').doc(gamingID).update({
-                            currentSet: doc.id,
-                            hasChosenCategory: true
+                firestore.collection('games').doc(gamingID).collection('gameSets').get()
+                    .then((querySnapshot) => {
+                        var gameSetID = querySnapshot.size + 1;
+                        gameSetID = JSON.stringify(gameSetID)
+                        firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).set({
+                            questions: {resp},
+                            score: 0,
+                            category: category,
+                            activeQuestion: 0,
+                            hasBeenAnsweredBy: 0,
+                            createdAt: new Date()
                         })
-                            .then(() => console.log('added currentSet to games collection'))
-                            .catch((err) => console.log(err, 'something went wrong inside currentset add'));
-                        console.log("Updated games with gameSets questions")
-                    })
-                    .catch((error) => console.log("Error updating games: ", error));
+                            .then((doc) => {
+                                firestore.collection('games').doc(gamingID).update({
+                                    currentSet: gameSetID,
+                                    hasChosenCategory: true
+                                })
+                                    .then(() => console.log('added currentSet to games collection'))
+                                    .catch((err) => console.log(err, 'something went wrong inside currentset add'));
+                                console.log("Updated games with gameSets questions")
+                            })
+                            .catch((error) => console.log("Error updating games: ", error));
+
+                    }).catch((error) => console.log("Couldnt fetch gameSets"));
+
             })
             .catch((error) => console.log("Failed fetch from API :", error));
     }
@@ -125,7 +134,7 @@ export const startTimer = (gameID, gameSetID) => {
     return(dispatch, getState, {getFirestore, getFirebase}) => {
         //const firestore = getFirestore();
         //const uid = getState().firebase.auth.uid;
-        dispatch({type: "INITIALIZE_TIMER", payload: 10});
+        dispatch({type: "INITIALIZE_TIMER", payload: 1000});
         timerInterval = setInterval(() => {
             var currentTimerVal = getState().game.questionTimer;
             if(currentTimerVal === 0){
@@ -149,6 +158,17 @@ export const stopTimer = () => {
     }
 }
 
+export const resetHasChosenCategory = (gameID) => {
+    return(dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+
+        firestore.collection('games').doc(gameID).update({
+            hasChosenCategory: false
+        }).then(() => dispatch({type: "RESTORED_HAS_CHOSEN_CATEGORY_SUCCESS"}))
+            .catch((error) => dispatch({ type: "RESTORED_HAS_CHOSEN_CATEGORY_FAILURE", error}));
+    }
+}
+
 /**
  * This function handles the questions and the users answers. After checking
  * if the user answered correctly or not, it updates the scores accordingly.
@@ -166,265 +186,216 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         const firestore = getFirestore();
         const firebase = getFirebase();
         const userID = getState().firebase.auth.uid;
-        firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
+        let User1ID = null;
+
+        firestore.collection('games').doc(gamingID).get()
             .then((docRef) => {
-                var activeQuestion = docRef.data().activeQuestion;
-                var correctAnswers = docRef.data().questions.resp[docRef.data().activeQuestion].correct_answers;
-                console.log(answer, "this is the answer")
-                var correctAnswersRes = {
-                    answer_a: "",
-                    answer_b: "",
-                    answer_c: "",
-                    answer_d: "",
-                    answer_e: "",
-                    answer_f: ""
-                };
-                Object.entries(correctAnswers).forEach((entry) => {
-                    correctAnswersRes[entry[0].substring(0,8)] = entry[1];
-                })
+                User1ID = docRef.data().userID1;
 
-                let allAnswers = Object.entries(correctAnswersRes).filter((entry) => {
-                    return docRef.data().questions.resp[docRef.data().activeQuestion].answers[entry[0]] !== null;
-                })
-
-                console.log(correctAnswersRes, "The correct answers after filtering")
-
-                let correctAnswerToQuestion = allAnswers.filter((answer) => {
-                    return answer[1] === "true";
-                });
-                console.log(correctAnswerToQuestion, 'right answer in Q');
-
-                var score = docRef.data().score;
-
-                var finalScore = score;
-
-                activeQuestion += 1;
-                var finalQuestion = activeQuestion;
-
-                if (activeQuestion === 3){
-                    activeQuestion = 0;
-                }
-                console.log(correctAnswersRes, "all answers")
-                console.log(answer, "Choosen answer")
-
-                dispatch({type: "SET_CHOSEN_ANSWER", payload: answer});
-
-                if(correctAnswersRes[answer] === "true"){
-                    console.log("correct answer");
-                    var currentTimer = getState().game.questionTimer;
-                    score += currentTimer;
-                    console.log("your score after correct answer, : ", score)
-                    finalScore = score;
-                    dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
-                    console.log(answer, " this is the answer")
-                    document.getElementById(answer).style.backgroundColor = "green";
-                    docRef.ref.update({
-                        score: score
-                    }).then(() => console.log("Updated score"))
-                        .catch((error) => console.log("Error updating score: ", error))
-                    disableDivs(allAnswers);
-                    setTimeout(() => {
-                        if(finalQuestion !== 3) {
-                            // document.getElementById(answer).style.backgroundColor = "";
-                            // document.getElementById(answer).style.pointerEvents = "";
-                            enableDivs(allAnswers);
-
-                            docRef.ref.update({
-                                activeQuestion: activeQuestion
-                            }).then(() => {
-
-                                dispatch({type: "CORRECT_ANSWER_UPDATED"});
-                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                                dispatch(startTimer(gamingID, gameSetID));
-                            })
-                                .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}));
-                        } else{
-                            docRef.ref.update({
-                                score: score
-                            }).then(() => {dispatch({type: "CORRECT_ANSWER_UPDATED"});})
-                                .catch((error) => dispatch({type: "CORRECT_ANSWER_FAILURE", error}))
-                        }
-                    }, 3000);
-                }
-
-                else if (answer === "TIMER_OUT"){
-                    console.log("TIMER OUT")
-                    dispatch({type: "WRONG_ANSWER"});
-                    correctAnswerToQuestion.forEach((entry) => {
-                        document.getElementById(entry[0]).style.backgroundColor = "green";
-                    })
-                    disableDivs(allAnswers);
-                    setTimeout(() => {
-                        if(finalQuestion !== 3) {
-                            // document.getElementById(answer).style.backgroundColor = "";
-                            // document.getElementById(answer).style.pointerEvents= "";
-                            // document.getElementById(answer).setAttribute('style', '');
-                            // correctAnswerToQuestion.forEach((entry) => {
-                            //     // document.getElementById(entry[0]).style.backgroundColor = "";
-                            //     // document.getElementById(entry[0]).style.pointerEvents = "";
-                            //     document.getElementById(entry[0]).setAttribute('style', '');
-                            // })
-                            enableDivs(allAnswers);
-
-                            docRef.ref.update({
-                                activeQuestion: activeQuestion
-                            }).then(() => {
-                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                                dispatch({type: "ACTIVE_QUESTION_UPDATED"});
-                                dispatch(startTimer(gamingID, gameSetID));
-                            }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
-                        }
-                    }, 3000)
-
-                }
-                else {
-                    dispatch({type: "CORRECT_ANSWER_ADDED", payload: correctAnswersRes})
-                    dispatch({type: "WRONG_ANSWER"});
-                    console.log(answer, " this is the answer")
-                    document.getElementById(answer).style.backgroundColor = "red";
-                    correctAnswerToQuestion.forEach((entry) => {
-                        document.getElementById(entry[0]).style.backgroundColor = "green";
-                    })
-                    disableDivs(allAnswers);
-                    setTimeout(() => {
-                        if(finalQuestion !== 3) {
-                            // document.getElementById(answer).style.backgroundColor = "";
-                            // document.getElementById(answer).style.pointerEvents= "";
-                            // document.getElementById(answer).setAttribute('style', '');
-                            // correctAnswerToQuestion.forEach((entry) => {
-                            //     // document.getElementById(entry[0]).style.backgroundColor = "";
-                            //     // document.getElementById(entry[0]).style.pointerEvents = "";
-                            //     document.getElementById(entry[0]).setAttribute('style', '');
-                            // })
-                            enableDivs(allAnswers);
-
-                            docRef.ref.update({
-                                activeQuestion: activeQuestion
-                            }).then(() => {
-                                dispatch({type: "RESTORE_CORRECT_ANSWER"});
-                                dispatch({type: "ACTIVE_QUESTION_UPDATED"});
-                                dispatch(startTimer(gamingID, gameSetID));
-                            }).catch((error) => dispatch({type: "ACTIVE_QUESTION_FAILURE"}, error));
-                        }
-                    }, 3000)
-                }
-
-                if(finalQuestion === 3){
-                    var hasBeenAnsweredByTemp = (docRef.data().hasBeenAnsweredBy + 1);
-                    docRef.ref.update({
-                        hasBeenAnsweredBy: (docRef.data().hasBeenAnsweredBy + 1)
-                    })
-                        .then(() => {
-                            firestore.collection('games').doc(gamingID).get()
-                                .then((doc) => {
-                                    let playerShouldSelectCategory = userID;
-                                    if (hasBeenAnsweredByTemp === 2) {
-                                        console.log('round over, current user should select new cat');
-                                        playerShouldSelectCategory = userID;
-                                    }
-                                    else {
-                                        playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
-                                    }
-                                    setTimeout(() => {
-                                        dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
-                                        dispatch({type: 'RESTORE_REDIRECT_TO'});
-                                        docRef.ref.update({
-                                            score: 0,
-                                            activeQuestion: 0
-                                        }).then(() => console.log(""))
-                                            .catch((error) => console.log("error, ", error));
-                                    }, 3000)
-
-                                    if(doc.data().turn === doc.data().userID1){
-                                        console.log("Update player 1 score");
-                                        const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID2;
-                                        doc.ref.update({
-                                            p1Score: doc.data().p1Score + finalScore,
-                                            turn: theTurn,
-                                            shouldCreateNewGameSet: playerShouldSelectCategory
-                                        }).then(() => console.log("Updated plsfsfsfsdfsdfdsayer 1 score"))
-                                            .catch((error) => console.log("SOmething went wrong"));
-                                    } else {
-                                        console.log("Update player 2 score");
-                                        const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID1;
-                                        doc.ref.update({
-                                            p2Score: doc.data().p2Score + finalScore,
-                                            turn: theTurn,
-                                            shouldCreateNewGameSet: playerShouldSelectCategory
-                                        }).then(() => console.log("Updated psdfsdfsdfsdflayer 1 score"))
-                                            .catch((error) => console.log("SOmething went wrong"));
-                                    }
-                                })
-                                .catch((err) => console.log(err));
-                            firestore.collection('games').doc(gamingID).collection('gameSets').get()
-                                .then((querySnapshot) => {
-                                    if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
-                                        firestore.collection('games').doc(gamingID).get()
-                                            .then((document) => {
-                                                const p1Score = document.data().p1Score;
-                                                const p2Score = document.data().p2Score;
-                                                const uid1 = document.data().userID1;
-                                                const uid2 = document.data().userID2;
-
-                                                let result = decideWinner(p1Score, p2Score, userID, uid1);
-                                                console.log(result, " this is the result")
-                                                const opponentId = (uid1 === userID) ? uid2 : uid1;
-                                                console.log(opponentId, 'that was the opponents user id');
-
-                                                if (result === 1) {
-                                                    firestore.collection('userStats').doc(userID).update({
-                                                        wins: firebase.firestore.FieldValue.increment(1),
-                                                        mlRating: firebase.firestore.FieldValue.increment(3)
-                                                    })
-                                                        .then(() => console.log('updated player win count'))
-                                                        .catch((err) => console.log(err, 'couldnt update player win count'));
-
-                                                    firestore.collection('userStats').doc(opponentId).update({
-                                                        losses: firebase.firestore.FieldValue.increment(1),
-                                                        mlRating: firebase.firestore.FieldValue.increment(-3)
-                                                    })
-                                                        .then(() => console.log('updated player loss count'))
-                                                        .catch((err) => console.log(err, 'couldnt update player loss count'));
-                                                }
-                                                else if (result === -1) {
-                                                    firestore.collection('userStats').doc(userID).update({
-                                                        losses: firebase.firestore.FieldValue.increment(1),
-                                                        mlRating: firebase.firestore.FieldValue.increment(-3)
-                                                    })
-                                                        .then(() => console.log('updated player loss count'))
-                                                        .catch((err) => console.log(err, 'couldnt update player loss count'));
-
-                                                    firestore.collection('userStats').doc(opponentId).update({
-                                                        wins: firebase.firestore.FieldValue.increment(1),
-                                                        mlRating: firebase.firestore.FieldValue.increment(3)
-                                                    })
-                                                        .then(() => console.log('updated player win count'))
-                                                        .catch((err) => console.log(err, 'couldnt update player win count'));
-                                                }
-                                                else {
-                                                    console.log('its a tie in else statement');
-                                                }
-                                                console.log("Want to change redirectTo in game collection");
-                                                firestore.collection('games').doc(gamingID).update({
-                                                    redirectTo: `${'/game-finished/' + gamingID}`,
-                                                    gameIsFinished: true,
-                                                    timeOfGameFinished: new Date()
-
-                                                }).then(() => console.log("Updated redirectTO"))
-                                                    .catch((error) => console.log("SOmething went wrong updating redirecTo"));
-
-
-                                            })
-                                            .catch((error) => console.log("Could'nt get game data"));
-
-                                    }
-                                }).catch((error) => console.log("Something trying to finish wrong :", error));
-
+                firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
+                    .then((docRef) => {
+                        var activeQuestion = docRef.data().activeQuestion;
+                        var correctAnswers = docRef.data().questions.resp[docRef.data().activeQuestion].correct_answers;
+                        var correctAnswersRes = {
+                            answer_a: "",
+                            answer_b: "",
+                            answer_c: "",
+                            answer_d: "",
+                            answer_e: "",
+                            answer_f: ""
+                        };
+                        Object.entries(correctAnswers).forEach((entry) => {
+                            correctAnswersRes[entry[0].substring(0,8)] = entry[1];
                         })
-                        .catch((err) => console.log(err, 'error updating round over thingie'));
-                }
-            })
-            .catch((error) => console.log("Something went wrong: ", error));
+
+                        let allAnswers = Object.entries(correctAnswersRes).filter((entry) => {
+                            return docRef.data().questions.resp[docRef.data().activeQuestion].answers[entry[0]] !== null;
+                        })
+
+                        let correctAnswerToQuestion = allAnswers.filter((answer) => {
+                            return answer[1] === "true";
+                        });
+
+                        var score = docRef.data().score;
+                        var scorePerQuestion = 0;
+                        var finalScore = score;
+
+                        activeQuestion += 1;
+                        var currentQuestion = activeQuestion;
+
+                        if (activeQuestion === 3){
+                            activeQuestion = 0;
+                        }
+
+                        let questionsToBeUpdated = docRef.data().questions;
+
+                        if(correctAnswersRes[answer] === "true"){
+                            var currentTimer = getState().game.questionTimer;
+                            score += currentTimer;
+                            scorePerQuestion = currentTimer;
+                            finalScore = score;
+                            document.getElementById(answer).style.backgroundColor = "green";
+                        }
+                        else if (answer === "TIMER_OUT"){
+                            correctAnswerToQuestion.forEach((entry) => {
+                                document.getElementById(entry[0]).style.backgroundColor = "green";
+                            })
+                        }
+                        else {
+                            document.getElementById(answer).style.backgroundColor = "red";
+                            correctAnswerToQuestion.forEach((entry) => {
+                                document.getElementById(entry[0]).style.backgroundColor = "green";
+                            })
+                        }
+
+                        if(userID === User1ID){
+                            questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1Score"] = scorePerQuestion;
+                            questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1ChosenAnswer"] = answer;
+                        } else{
+                            questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2Score"] = scorePerQuestion;
+                            questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2ChosenAnswer"] = answer;
+                        }
+                        disableDivs(allAnswers);
+                        docRef.ref.update({
+                            score: score,
+                            questions: questionsToBeUpdated
+                        }).then(() => {
+                            dispatch({type: "UPDATED_SCORE_SUCCESS"});
+                            setTimeout(() => {
+                                if(currentQuestion !== 3){
+                                    enableDivs(allAnswers);
+
+                                    docRef.ref.update({
+                                        activeQuestion: activeQuestion
+                                    }).then(() => {
+                                        dispatch({type: "UPDATED_ACTIVE_QUESTION_SUCCESS"})
+                                        dispatch(startTimer(gamingID, gameSetID));
+                                    }).catch((error) => dispatch({type: "UPDATED_ACTIVE_QUESTION_FAILURE", error}));
+                                }
+                            }, 3000);
+                        }).catch((error) => dispatch({type: "UPDATED_SCORE_FAILURE", error}));
+
+
+                        if(currentQuestion === 3){
+                            var hasBeenAnsweredByTemp = (docRef.data().hasBeenAnsweredBy + 1);
+                            docRef.ref.update({
+                                hasBeenAnsweredBy: (docRef.data().hasBeenAnsweredBy + 1)
+                            })
+                                .then(() => {
+                                    firestore.collection('games').doc(gamingID).get()
+                                        .then((doc) => {
+                                            let playerShouldSelectCategory = userID;
+                                            if (hasBeenAnsweredByTemp === 2) {
+                                                playerShouldSelectCategory = userID;
+                                                docRef.ref.update({
+                                                    category: null
+                                                }).then(() => console.log("reset categor"))
+                                                    .catch((error) => console.log(" couldn't reset category, ", error));
+                                            }
+                                            else {
+                                                playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
+                                            }
+                                            setTimeout(() => {
+                                                dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingID}`});
+                                                dispatch({type: 'RESTORE_REDIRECT_TO'});
+                                                docRef.ref.update({
+                                                    score: 0,
+                                                    activeQuestion: 0
+                                                }).then(() => console.log(""))
+                                                    .catch((error) => console.log("error, ", error));
+                                            }, 3000)
+
+                                            if(doc.data().turn === doc.data().userID1){
+                                                const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID2;
+                                                doc.ref.update({
+                                                    p1Score: doc.data().p1Score + finalScore,
+                                                    turn: theTurn,
+                                                    shouldCreateNewGameSet: playerShouldSelectCategory
+                                                }).then(() => console.log("Updated player 1 score"))
+                                                    .catch((error) => console.log("Something went wrong updating player 1 score"));
+                                            } else {
+                                                const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID1;
+                                                doc.ref.update({
+                                                    p2Score: doc.data().p2Score + finalScore,
+                                                    turn: theTurn,
+                                                    shouldCreateNewGameSet: playerShouldSelectCategory
+                                                }).then(() => console.log("Updated player 2 score"))
+                                                    .catch((error) => console.log("Something went wrong updating player 2 score"));
+                                            }
+                                        })
+                                        .catch((err) => console.log(err));
+                                    firestore.collection('games').doc(gamingID).collection('gameSets').get()
+                                        .then((querySnapshot) => {
+                                            if(querySnapshot.size === 3 && hasBeenAnsweredByTemp === 2){
+                                                firestore.collection('games').doc(gamingID).get()
+                                                    .then((document) => {
+                                                        const p1Score = document.data().p1Score;
+                                                        const p2Score = document.data().p2Score;
+                                                        const uid1 = document.data().userID1;
+                                                        const uid2 = document.data().userID2;
+
+                                                        let result = decideWinner(p1Score, p2Score, userID, uid1);
+                                                        const opponentId = (uid1 === userID) ? uid2 : uid1;
+
+                                                        if (result === 1) {
+                                                            firestore.collection('userStats').doc(userID).update({
+                                                                wins: firebase.firestore.FieldValue.increment(1),
+                                                                mlRating: firebase.firestore.FieldValue.increment(3)
+                                                            })
+                                                                .then(() => console.log('updated player win count'))
+                                                                .catch((err) => console.log(err, 'couldnt update player win count'));
+
+                                                            firestore.collection('userStats').doc(opponentId).update({
+                                                                losses: firebase.firestore.FieldValue.increment(1),
+                                                                mlRating: firebase.firestore.FieldValue.increment(-3)
+                                                            })
+                                                                .then(() => console.log('updated player loss count'))
+                                                                .catch((err) => console.log(err, 'couldnt update player loss count'));
+                                                        }
+                                                        else if (result === -1) {
+                                                            firestore.collection('userStats').doc(userID).update({
+                                                                losses: firebase.firestore.FieldValue.increment(1),
+                                                                mlRating: firebase.firestore.FieldValue.increment(-3)
+                                                            })
+                                                                .then(() => console.log('updated player loss count'))
+                                                                .catch((err) => console.log(err, 'couldnt update player loss count'));
+
+                                                            firestore.collection('userStats').doc(opponentId).update({
+                                                                wins: firebase.firestore.FieldValue.increment(1),
+                                                                mlRating: firebase.firestore.FieldValue.increment(3)
+                                                            })
+                                                                .then(() => console.log('updated player win count'))
+                                                                .catch((err) => console.log(err, 'couldnt update player win count'));
+                                                        }
+                                                        else {
+                                                            console.log('its a tie in else statement');
+                                                        }
+                                                        console.log("Want to change redirectTo in game collection");
+                                                        firestore.collection('games').doc(gamingID).update({
+                                                            redirectTo: `${'/game-finished/' + gamingID}`,
+                                                            gameIsFinished: true,
+                                                            timeOfGameFinished: new Date()
+
+                                                        }).then(() => console.log("Updated redirectTO"))
+                                                            .catch((error) => console.log("SOmething went wrong updating redirecTo"));
+
+
+                                                    })
+                                                    .catch((error) => console.log("Could'nt get game data"));
+
+                                            }
+                                        }).catch((error) => console.log("Something trying to finish wrong :", error));
+
+                                })
+                                .catch((err) => console.log(err, 'error updating round over thingie'));
+                        }
+                    })
+                    .catch((error) => console.log("Something went wrong: ", error));
+
+
+            }).catch((error) => console.log("could not fetch game ", error));
+
+
     }
 }
 
