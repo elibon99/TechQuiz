@@ -1,18 +1,25 @@
 import React from 'react';
-import GameInvitations from "./GameInvitations";
 
 /**
  * This components main focus is displaying all game requests/invitations to the user.
  * @param profile - the users profile,
  * @param userStats - the users stats
  * */
-const ProfileInfo = ({profile, userStat, winLossRatio}) => {
+const ProfileInfo = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
+    console.log(profilePicURL, 'pic url');
     return(
         <div>
             <div className="profile-info-stats-container">
                 <div className="profile-logo-title-container">
-                    <i className="large material-icons" onClick={() => {console.log('hello')}}>account_circle</i>
+                    <div className="profile-info-pic-div">
+                        <label for="file-input">
+                            <img className="profile-info-pic" src={profilePicURL} alt="profile-pic"/>
+                        </label>
+                        <input id="file-input" type='file'
+                               onChange={(event) => setProfilePicture(event.target.files[0])}/>
+                    </div>
                     <h4>{profile.userName}</h4>
+
                 </div>
                 <div className="profile-stats-container">
                     <div className="profile-stats-content">
