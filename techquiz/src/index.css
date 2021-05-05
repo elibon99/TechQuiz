@@ -42,7 +42,7 @@ code {
 }
 
 .dashboard-item-container {
-  margin: 0;
+  margin: 0px 0px;
 }
 
 .game-status-title{
@@ -376,10 +376,15 @@ nav .sidenav-trigger{
   margin-top: 25px;
 }
 
-
-.profile-current-games-col{
-  height: 300px;
+.profile-current-games-col-your-turn{
   overflow: auto;
+  max-height: 180px;
+  margin-bottom: 20px;
+}
+
+.profile-current-games-col-their-turn{
+  overflow: auto;
+  max-height: 180px;
 }
 
 .link-to-profile-friend-req{
@@ -480,6 +485,9 @@ nav .sidenav-trigger{
 .profile-info-stats-container{
   display: flex;
   flex-direction: column;
+  border: 1px #838383 solid;
+  border-radius: 10px;
+
 }
 
 .profile-logo-title-container{
@@ -515,3 +523,15 @@ nav .sidenav-trigger{
   justify-content: space-between;
 }
 
+.card-container-profile{
+  margin: 0px 0px;
+}
+
+.profile-finished-games-col{
+  overflow: auto;
+  max-height: 250px;
+}
+
+.h6-title-current-games{
+  font-weight: bold;
+}
