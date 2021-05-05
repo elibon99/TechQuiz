@@ -549,4 +549,8 @@ nav .sidenav-trigger{
   border-radius: 10px;
 }
 
-
+.profile-pic-friend-frienditem{
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
