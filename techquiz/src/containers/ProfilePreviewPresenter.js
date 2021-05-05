@@ -38,6 +38,8 @@ const mapStateToProps = (state, ownProps) => {
     const userStat = userStats ? userStats[uid] : null;
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
 
+    const friendPicURL = user ? user.photoURL : null;
+
     return {
         auth: state.firebase.auth,
         userName: userName,
@@ -47,6 +49,7 @@ const mapStateToProps = (state, ownProps) => {
         myID: myID,
         isFriend: isFriend,
         isPending: isPending,
+        friendPicURL: friendPicURL
     }
 }
 
