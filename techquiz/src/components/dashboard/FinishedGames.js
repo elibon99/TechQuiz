@@ -9,10 +9,10 @@ import {Link} from "react-router-dom";
  * */
 const FinishedGames = ({finishedGames}) => {
     return (
-        <div className="dashboard-item-container container section">
+        <div className="dashboard-item-container section">
             <h5>Finished games</h5>
             <div className="row">
-                <div className="col s12 m12">
+                <div className="col s12 m12 profile-finished-games-col">
                     {finishedGames ? finishedGames.map((entry) => {
                         return (
                             <GameItemFinished game={entry} key={entry[0]}/>
