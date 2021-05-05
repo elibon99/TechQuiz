@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayerStats from "./PlayerStats";
+import GameInvitations from "./GameInvitations";
 
 /**
  * This components main focus is displaying all game requests/invitations to the user.
@@ -61,6 +61,9 @@ const ProfileInfo = ({profile, userStat, winLossRatio}) => {
             </div>
             <div>
                 <p contentEditable={true} id="userBio">
+                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
                     I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
                 </p>
             </div>
