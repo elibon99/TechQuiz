@@ -58,7 +58,8 @@ export const signUp = (newUser) => {
                     firestore.collection('users').doc(resp.user.uid).set({
                         userName: newUser.userName,
                         initials: newUser.userName[0],
-                        currentGameID: null
+                        currentGameID: null,
+                        photoURL: null
                     }),
                         firestore.collection('userStats').doc(resp.user.uid).set({
                             wins: 0,
@@ -142,5 +143,38 @@ export const signUp = (newUser) => {
                 console.log(err, 'something went wrong setting usernames. non-unique user')
                 dispatch({type: 'SIGNUP_FAILURE_NONUNIQUE', payload: "This username is taken. Your username must be unique."});
         });
+    }
+}
+
+/**
+ * This function attempts to set a profile picture to the user.
+ * @param imagesFile - the image to be uploaded and set as a profile picture
+ * @returns - dispatch of type success or failure depending on login state.
+ * */
+export const setProfilePicture = (imageFile) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firebase = getFirebase();
+        const firestore = getFirestore();
+        const uid = getState().firebase.auth.uid;
+
+        firebase.storage().ref('users/' + uid + '/profile.jpg').put(imageFile)
+            .then((snapshot) => {
+                snapshot.ref.getDownloadURL()
+                    .then((url) => {
+                        firebase.auth().currentUser.updateProfile({
+                            photoURL: url
+                        })
+                            .then(() => {
+                                firestore.collection('users').doc(uid).update({
+                                    photoURL: url
+                                })
+                                    .then(() => console.log('yay updated in colleciton users'))
+                                    .catch((err) => console.log(err, 'fuck that didnt work'));
+                            })
+                            .catch((err) => console.log(err, 'fuck 2'));
+                    }).catch((err) => console.log(err, 'damn it'));
+
+                console.log('uploaded pic');
+            }).catch((err) => console.log(err, 'didnt work uploading pic'));
     }
 }
