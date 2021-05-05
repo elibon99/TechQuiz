@@ -287,10 +287,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                             let playerShouldSelectCategory = userID;
                                             if (hasBeenAnsweredByTemp === 2) {
                                                 playerShouldSelectCategory = userID;
-                                                docRef.ref.update({
-                                                    category: null
-                                                }).then(() => console.log("reset categor"))
-                                                    .catch((error) => console.log(" couldn't reset category, ", error));
                                             }
                                             else {
                                                 playerShouldSelectCategory = doc.data().shouldCreateNewGameSet;
