@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     const username = profile ? profile.userName : null;
     const uid = state.firebase.auth.uid;
     const friendRequests = state.firestore.data.receivedFriendRequests;
-    const sentFriendRequests = state.firestore.data.sentFriendRequests
+    const sentFriendRequests = state.firestore.data.sentFriendRequests;
 
     return{
         auth: state.firebase.auth,
