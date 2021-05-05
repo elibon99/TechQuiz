@@ -3,7 +3,6 @@ import PlayerStats from "../dashboard/PlayerStats";
 import {Redirect} from "react-router-dom";
 
 const ProfilePreview = ({friendPicURL, auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending, removeFriend, friendEntryID}) => {
-
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -11,7 +10,8 @@ const ProfilePreview = ({friendPicURL, auth, userStat, winLossRatio, userName, a
         (userStat && userName) ?
             <div className="dashboard container">
                 <div className="profile-preview-top">
-                    <img className="friend-profile-pic" src={friendPicURL} alt="friend-profile-pic"/>
+                    {friendPicURL ? <img className="friend-profile-pic" alt="friend-profile-pic" src={friendPicURL}/>
+                        : <i className="large material-icons">account_circle</i>}
                     <h1 className="profile-preview-userName">{userName}</h1>
                     {isFriend ?
                         <div>
