@@ -3,6 +3,7 @@ import Dashboard from "../components/dashboard/Dashboard";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
 import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
+import {setProfilePicture} from "../store/actions/authActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -18,6 +19,7 @@ import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameI
  *  gameInvitations - all the game invitations of the current user.
  */
 const mapStateToProps = (state) => {
+    console.log(state, ' state:)');
     /* Getting user stats from firestore for the currently logged in user*/
     const uid = state.firebase.auth.uid;
     const userStat = state.firestore.data.userStats ? state.firestore.data.userStats[uid] : null;
@@ -33,6 +35,11 @@ const mapStateToProps = (state) => {
     let userScore = 0;
     let opponentScore = 0;
     let whoWon = null;
+
+    console.log(state.firebase.auth, 'state firebase');
+    const profilePicURL = state.firebase.auth.photoURL;
+    console.log(profilePicURL, 'inside prseenter');
+    //const profileImages = firebase.storage()
 
     /* Get all games where its the current user's turn to play  */
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
@@ -136,7 +143,8 @@ const mapStateToProps = (state) => {
         currentGamesYourTurn: currentGamesYourTurn,
         currentGamesTheirTurn: currentGamesTheirTurn,
         finishedGames : finishedGames,
-        gameInvitations: state.firestore.data.gameInvitations
+        gameInvitations: state.firestore.data.gameInvitations,
+        profilePicURL: profilePicURL
     }
 }
 
@@ -149,7 +157,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         acceptGameInvitation: (invitationID) => dispatch(acceptGameInvitation(invitationID)),
-        rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID))
+        rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID)),
+        setProfilePicture: (imageFile) => dispatch(setProfilePicture(imageFile))
     }
 }
 
