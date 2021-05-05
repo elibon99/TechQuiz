@@ -9,7 +9,7 @@ import GameRequestItem from "./GameRequestItem";
  * */
 const GameInvitations = ({gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     return (
-        <div className="dashboard-item-container container section">
+        <div className="dashboard-item-container section">
             <h5>Game Invitations</h5>
             <div className="row">
                 <div className="col s12 m12">
