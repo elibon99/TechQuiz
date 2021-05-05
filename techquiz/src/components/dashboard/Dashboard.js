@@ -19,7 +19,7 @@ import ProfileInfo from "./ProfileInfo";
  * @param acceptGameInvitation - a method accepting a game invitation
  * @param rejectGameInvitation - a method rejecting a game invitation.
  * */
-const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
+const Dashboard = ({profilePicURL, setProfilePicture, auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -30,7 +30,7 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
             <div className="dashboard container find-game-margin">
                 <div className="row">
                     <div className="col s12 m5">
-                        <ProfileInfo profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
+                        <ProfileInfo profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
                             <div className="card">
                                 <div className="card-content">
                                     <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
