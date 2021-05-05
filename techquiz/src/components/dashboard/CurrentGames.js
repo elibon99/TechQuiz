@@ -11,20 +11,18 @@ import {Link} from "react-router-dom";
 const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
     console.log(currentGamesYourTurn, 'cgurturn');
     return(
-        <div className="dashboard-item-container container section">
-            <h5>Current Games</h5>
-            <div className="row">
-                <div className="col s12 m5 profile-current-games-col">
-                    <h6>Your turn:</h6>
+        <div className="dashboard-item-container">
+            <div className="row current-games-container">
+                <h6 className="h6-title-current-games">Your turn:</h6>
+                <div className="col s12 m12 profile-current-games-col-your-turn">
                     {currentGamesYourTurn ? currentGamesYourTurn.map((entry) => {
                         return (
                                 <GameItemYourTurn game={entry} key={entry[0]}/>
                             )
                     }) : <h6> You don't have any games where it's your turn. Come back later or start a new game <Link to= "/findgame"><button className="btn waves-effect waves-light #64b5f6 blue lighten-2"> here </button></Link></h6>}
-
                 </div>
-                <div className="col s12 m5 offset-m2 profile-current-games-col">
-                    <h6>Their turn: </h6>
+                <h6 className="h6-title-current-games">Their turn: </h6>
+                <div className="col s12 m12 profile-current-games-col-their-turn">
                     {currentGamesTheirTurn ? currentGamesTheirTurn.map((entry) => {
                         return(
                             <GameItemTheirTurn game={entry} key={entry[0]}/>
