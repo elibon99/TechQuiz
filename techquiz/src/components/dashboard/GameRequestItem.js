@@ -11,7 +11,7 @@ const GameRequestItem = ({invitation, invitationID, acceptGameInvitation, reject
     return(
         <div className="friend-req-container">
             <div>
-                {invitation.sentReqUserName} would like to start a game against you
+                {invitation.sentReqUserName}
             </div>
 
             <div className="thumbs-container">
