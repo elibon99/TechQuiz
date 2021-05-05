@@ -535,3 +535,18 @@ nav .sidenav-trigger{
 .h6-title-current-games{
   font-weight: bold;
 }
+.profile-info-pic{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+.profile-info-pic-div>input{
+  display: none;
+}
+.friend-profile-pic{
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+}
+
+
