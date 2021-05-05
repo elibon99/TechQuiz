@@ -1,5 +1,4 @@
 import React from 'react';
-import PlayerStats from "./PlayerStats";
 import CurrentGames from "./CurrentGames";
 import FinishedGames from "./FinishedGames";
 import GameInvitations from "./GameInvitations";
@@ -30,19 +29,19 @@ const Dashboard = ({auth, userStat, profile, winLossRatio, currentGamesYourTurn,
                 <h5 className="page-title">Your Profile</h5>
             <div className="dashboard container find-game-margin">
                 <div className="row">
-                    <div className="col s12 m4">
+                    <div className="col s12 m5">
                         <ProfileInfo profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
-                    </div>
-                    <div className="col s12 offset-m1 m7">
-                    <div className="dashboard-item col s12 m12">
-                        <div className="card">
-                            <div className="card-content">
-                                <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
+                            <div className="card">
+                                <div className="card-content">
+                                    <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
+                                </div>
                             </div>
-                        </div>
                     </div>
-                    <div className="dashboard-item col s12 m12">
-                        <div className="card">
+
+                    <div className="col s12 offset-m1 m6">
+                    <div className="dashboard-item col s12 m12 card-container-profile">
+                        <h5>Active Games</h5>
+                        <div className="card card-container-profile">
                             <div className="card-content">
                                 <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
                             </div>
