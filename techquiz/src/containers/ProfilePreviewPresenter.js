@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import ProfilePreview from "../components/friends/ProfilePreview";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
-import {addFriend, removeFriend} from "../store/actions/friendActions";
+import {addFriend, removeFriend, acceptFriendRequest, rejectFriendRequest} from "../store/actions/friendActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -17,11 +17,20 @@ const mapStateToProps = (state, ownProps) => {
 
     /* Get all the friend requests (outgoing and incoming) of the current user. */
     var isPending = false;
+    var hasSentMeRequest = false;
+    var requestID = null;
     const friendRequest = state.firestore.data.friendRequests ? state.firestore.data.friendRequests : null;
     if(friendRequest) {
         Object.entries(friendRequest).forEach((entry) => {
-            if(entry[1].gotRequest === uid && entry[1].sentRequest === myID){
-                isPending = true;
+            if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {
+                if (entry[1].gotRequest === uid && entry[1].sentRequest === myID) {
+                    isPending = true;
+                    requestID = entry[0];
+                }
+                if (entry[1].sentRequest === uid && entry[1].gotRequest === myID) {
+                    hasSentMeRequest = true;
+                    requestID = entry[0];
+                }
             }
         });
     }
@@ -49,7 +58,9 @@ const mapStateToProps = (state, ownProps) => {
         myID: myID,
         isFriend: isFriend,
         isPending: isPending,
-        friendPicURL: friendPicURL
+        hasSentMeRequest: hasSentMeRequest,
+        friendPicURL: friendPicURL,
+        requestID: requestID
     }
 }
 
@@ -62,7 +73,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         addFriend: (userID, userName) => dispatch(addFriend(userID, userName)),
-        removeFriend: (friendUserID) => dispatch(removeFriend(friendUserID))
+        removeFriend: (friendUserID) => dispatch(removeFriend(friendUserID)),
+        acceptFriendRequest: (requestID) => dispatch(acceptFriendRequest(requestID)),
+        rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID))
+
     }
 }
 
