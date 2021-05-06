@@ -134,22 +134,29 @@ exports.friendAccepted = functions.firestore
             const sentReqUserName = change.after.data().sentReqUserName;
             const gotReqID = change.after.data().gotRequest;
             const gotReqUserName = change.after.data().gotReqUserName;
-            return admin.firestore().collection('users').doc(sentReqID).collection('friends').add({
-                    userID: gotReqID,
-                    userName: gotReqUserName
-                }).then(() =>{
+            return admin.firestore().collection('users').doc(sentReqID).get()
+                .then((docRef) => {
                     admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
                         userID: sentReqID,
-                        userName: sentReqUserName
+                        userName: sentReqUserName,
+                        photoURL: docRef.data().photoURL
                     }).then(() => {
-                        console.log('added sentreq to gotreq friend')
-                        admin.firestore().collection('friendRequests').doc(context.params.id).delete()
-                            .then(() => console.log('deleted friendreq entry after accepted'))
-                            .catch((err) => console.log(err, 'could not delete friend req after accept'))
-                    })
-                        .catch((err) => console.log(err, 'err adding sentreq to gotreq friend'))
-                })
-                    .catch((err) => console.log(err, 'err adding gotreq to sentreq friend'))
+                        admin.firestore().collection('users').doc(gotReqID).get()
+                            .then((docRef2) => {
+                                admin.firestore().collection('users').doc(sentReqID).collection('friends').add({
+                                    userID: gotReqID,
+                                    userName: gotReqUserName,
+                                    photoURL: docRef2.data().photoURL
+                                }).then(() => {
+                                    admin.firestore().collection('friendRequests').doc(context.params.id).delete()
+                                        .then(() => console.log("Succesfully deleted friendRequest document"))
+                                        .catch((error) => console.log("Failed to delete friendRequest document ", error));
+                                })
+                                    .catch((error) => console.log("Something went wrong adding friend ", error));
+                            }).catch((error) => console.log("Something went wrong: ", error));
+                    }).catch((error) => console.log("Failed to fetch users from ", gotReqID, " with errror: ", error));
+                }).catch((error) => console.log("Failed to fetch users from ,", gotReqID, " with errror: ", error));
+
         }
         if (change.after.data().isRejected){
             return admin.firestore().collection('friendRequests').doc(context.params.id).delete()
