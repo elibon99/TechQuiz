@@ -328,14 +328,11 @@ nav .sidenav-trigger{
 }
 
 .profile-preview-top{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 25px;
+  margin-top: 6px;
 }
 
 .profile-preview-userName{
-  margin : 0px;
+  margin : 10px 0px;
 }
 
 .thumbs-up{
@@ -355,6 +352,34 @@ nav .sidenav-trigger{
   flex-direction: row;
   align-items: center;
 }
+
+.profile-preview-friend-req-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-preview-friend-req-container div button{
+  margin: 0px 6px;
+}
+
+.profile-preview-logo-tile-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-preview-title-friend-status-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+
 
 .friend-game-item-container{
   display: flex;
@@ -496,6 +521,10 @@ nav .sidenav-trigger{
   align-items: center;
 }
 
+.profile-logo-title-container h4{
+  margin-left: 12px;
+}
+
 .profile-stats-container{
   display: flex;
   flex-direction: row;
@@ -544,8 +573,8 @@ nav .sidenav-trigger{
   display: none;
 }
 .friend-profile-pic{
-  height: 100px;
-  width: 100px;
+  height: 130px;
+  width: 130px;
   border-radius: 10px;
 }
 
