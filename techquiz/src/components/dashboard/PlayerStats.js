@@ -5,33 +5,56 @@ import React from 'react';
  * @param stats - the stats of the user,
  * @param winLossRatio - the win loss ratio of the user.
  * */
-const PlayerStats = ({stats, winLossRatio}) => {
+const PlayerStats2 = ({stats, winLossRatio}) => {
     return(
-            <div className="dashboard-item-container container section">
-                <h5>Stats</h5>
+        <div className="card profile-info-card">
+            <div className="card-content">
+                <h5 className="profile-info-card-title">Your stats</h5>
                 <div className="row">
-                    <div className="col s12 m7">
-                        Wins: {stats.wins}
+                    <div className="col s6 m6 l3 column-bottom-padding">
+                        <div className="profile-info-stats-card-container">
+                            <h5 className="profile-info-stats-number">
+                                {stats.wins}
+                            </h5>
+                            <h6 className="profile-info-stats-title">
+                                Wins
+                            </h6>
+                        </div>
                     </div>
-                    <div className="col s12 m5">
-                        Current multiplayer rating: {stats.mlRating}
+                    <div className="col s6 m6 l3 column-bottom-padding">
+                        <div className="profile-info-stats-card-container">
+                            <h5 className="profile-info-stats-number">
+                                {stats.losses}
+                            </h5>
+                            <h6 className="profile-info-stats-title">
+                                Losses
+                            </h6>
+                        </div>
                     </div>
-                </div>
-                <div className="row">
-                    <div className="col s12 m7">
-                        Losses: {stats.losses}
+                    <div className="col s6 m6 l3 column-bottom-padding">
+                        <div className="profile-info-stats-card-container">
+                            <h5 className="profile-info-stats-number">
+                                {winLossRatio}
+                            </h5>
+                            <h6 className="profile-info-stats-title">
+                                Win/Loss - Ratio
+                            </h6>
+                        </div>
                     </div>
-                    <div className="col s12 m5">
-                        Lifetime best single score: {stats.slScore}
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col s12 m12" title={"Your Win / Loss ratio is your expected amount of wins per loss"}>
-                        W/L-ratio: {winLossRatio.toFixed(2)}
+                    <div className="col s6 m6 l3 column-bottom-padding">
+                        <div className="profile-info-stats-card-container">
+                            <h5 className="profile-info-stats-number">
+                                {stats.mlRating}
+                            </h5>
+                            <h6 className="profile-info-stats-title">
+                                Multiplayer rating
+                            </h6>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
     )
 }
 
-export default PlayerStats;
+export default PlayerStats2;

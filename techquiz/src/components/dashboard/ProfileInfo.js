@@ -5,77 +5,34 @@ import React from 'react';
  * @param profile - the users profile,
  * @param userStats - the users stats
  * */
-const ProfileInfo = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
-    console.log(profilePicURL, 'pic url');
+const ProfileInfo2 = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
     return(
-        <div>
-            <div className="profile-info-stats-container">
-                <div className="profile-logo-title-container">
-                    <div className="profile-info-pic-div">
-                        <label for="file-input">
-                            <img className="profile-info-pic" src={profilePicURL} alt="profile-pic"/>
+        <div className="card profile-info-card">
+            <div className="card-content">
+                <div className="profile-info-container">
+                    <div className="profile-info-logo-title-container">
+
+                        <label htmlFor="file-input">
+                            {profilePicURL? <img className="profile-info-pic" src={profilePicURL} alt="profile-pic"/>:
+                                <i className="large material-icons profile-standard-pic">account_circle</i>}
                         </label>
                         <input id="file-input" type='file'
                                onChange={(event) => setProfilePicture(event.target.files[0])}/>
+                        <h5>{profile.userName}</h5>
                     </div>
-                    <h4>{profile.userName}</h4>
+                    <div className="profile-info-bio-container">
+                        <p contentEditable={true} id="userBio">
+                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
+                        </p>
+                    </div>
 
                 </div>
-                <div className="profile-stats-container">
-                    <div className="profile-stats-content">
-                        <h6>
-                            Wins
-                        </h6>
-                        <h6>
-                            {userStat.wins}
-                        </h6>
-                    </div>
-                    <div className="profile-stats-content">
-                        <h6>
-                            Losses
-                        </h6>
-                        <h6>
-                            {userStat.losses}
-                        </h6>
-                    </div>
-                    <div className="profile-stats-content">
-                        <h6>
-                            W/L - ratio
-                        </h6>
-                        <h6>
-                            {winLossRatio}
-                        </h6>
-                    </div>
-                </div>
-                <div className="profile-stats-container-ratings">
-                    <div className="profile-stats-content">
-                        <h6>
-                            Multiplayer Rating
-                        </h6>
-                        <h6>
-                            {userStat.mlRating}
-                        </h6>
-                    </div>
-                    <div className="profile-stats-content">
-                        <h6>
-                            Singleplayer Score
-                        </h6>
-                        <h6>
-                            9999
-                        </h6>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <p contentEditable={true} id="userBio">
-                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                    I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                </p>
             </div>
         </div>
     )
 }
 
-export default ProfileInfo;
+export default ProfileInfo2;
