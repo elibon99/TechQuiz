@@ -5,7 +5,7 @@ import React from 'react';
  * @param profile - the users profile,
  * @param userStats - the users stats
  * */
-const ProfileInfo2 = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
+const ProfileInfo = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
     return(
         <div className="card profile-info-card">
             <div className="card-content">
@@ -35,4 +35,4 @@ const ProfileInfo2 = ({setProfilePicture, profile, userStat, winLossRatio, profi
     )
 }
 
-export default ProfileInfo2;
+export default ProfileInfo;
