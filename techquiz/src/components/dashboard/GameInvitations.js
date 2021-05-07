@@ -9,15 +9,16 @@ import GameRequestItem from "./GameRequestItem";
  * */
 const GameInvitations = ({gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     return (
-        <div className="dashboard-item-container section">
-            <h5>Game Invitations</h5>
-            <div className="row">
-                <div className="col s12 m12">
-                    {gameInvitations ? Object.entries(gameInvitations).map((entry) => {
-                        return <GameRequestItem key={entry[0]} invitationID={entry[0]} acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} invitation={entry[1]} />
-                    }) : <h6>You don't have any game invitations at the moment</h6>}
+        <div className="card profile-info-card">
+            <div className="card-content profile-info-card-content">
+                <h5 className="profile-info-card-title">Game Invitations</h5>
+                <div className="profile-info-game-invitations-container">
+                        {gameInvitations ? Object.entries(gameInvitations).map((entry) => {
+                            return <GameRequestItem key={entry[0]} invitationID={entry[0]} acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} invitation={entry[1]} />
+                        }) : <h6 className="profile-info-no-data-title">You don't have any game invitations at the moment</h6>}
                 </div>
             </div>
+
         </div>
     )
 }
