@@ -33,16 +33,17 @@ const Dashboard = ({profilePicURL, setProfilePicture, auth, userStat, profile, w
                         <ProfileInfo profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
 
-                        <div className="col s12 m12 l12 xl4 column-zero-left-padding profile-info-padding-small-screens">
+                        <div className="col s12 m12 l12 xl3 column-zero-left-padding padding profile-info-padding-small-screens">
+                            <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
+                        </div>
+                        <div className="col s12 m12 l12 xl3 column-zero-left-padding profile-info-padding-small-screens">
                             <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
                         </div>
-                        <div className="col s12 m12 l12 xl4 profile-info-padding-small-screens">
+                        <div className="col s12 m12 l12 xl6 column-zero-right-padding profile-info-padding-small-screens">
                             <FinishedGames finishedGames={finishedGames}/>
                         </div>
 
-                        <div className="col s12 m12 l12 xl4 column-zero-right-padding profile-info-padding-small-screens">
-                            <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
-                        </div>
+
                     </div>
                 </div>
             </div>:

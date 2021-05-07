@@ -20,7 +20,8 @@ code {
 }
 
 .gameitem-container {
-  margin: 10px 0px;
+  margin: 0px 0px;
+  padding: 4px 0px;
   border : 1px solid lightgray;
 
   display: flex;
@@ -30,7 +31,17 @@ code {
 }
 
 .active-games-btn{
+
   width: 103px;
+}
+
+.played-against-finished-games{
+  padding-left: 10px;
+  width: 36%;
+}
+
+.finished-games-status{
+  width: 40%;
 }
 
 .profile-info-finished-games-container{
@@ -601,6 +612,21 @@ nav .sidenav-trigger{
   height: 130px;
   width: 130px;
   border-radius: 10px;
+}
+
+.games-btn{
+  display: flex;
+  align-items: center;
+  height: 28px;
+  width: 100%;
+}
+
+.btn-container{
+  width: 24%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
 }
 
 .profile-pic-friend-frienditem{

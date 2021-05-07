@@ -13,12 +13,8 @@ const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFrien
                     </div>
                  </Link>
                 <div className="thumbs-container">
-                    <button onClick={() => acceptFriendRequest(requestID)}>
-                        <ThumbsUp className="thumbs-up"/>
-                    </button>
-                    <button onClick={() => rejectFriendRequest(requestID)}>
-                        <ThumbsDown className="thumbs-down"/>
-                    </button>
+                        <ThumbsUp className="thumbs-up" acceptFriendRequest={acceptFriendRequest}/>
+                        <ThumbsDown className="thumbs-down" rejectFriendRequest={rejectFriendRequest}/>
                 </div>
             </div>
         </div>

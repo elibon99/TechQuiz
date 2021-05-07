@@ -17,7 +17,7 @@ const FinishedGames = ({finishedGames}) => {
                         return (
                             <GameItemFinished game={entry} key={entry[0]}/>
                         )
-                    }) : <h6 className="profile-info-no-data-title"> You don't have any finished games. Go find a game <Link to= "/findgame"><button className="btn waves-effect waves-light #64b5f6 blue lighten-2"> here </button></Link>! </h6>}
+                    }) : <h6 className="profile-info-no-data-title"> You don't have any finished games. Go find a game <Link to= "/findgame"><button className="btn waves-effect waves-light #64b5f6 blue lighten-2 "> here </button></Link>! </h6>}
                 </div>
             </div>
         </div>
