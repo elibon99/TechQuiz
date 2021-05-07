@@ -3,6 +3,7 @@ body {
   font-family: gordita,Arial,Helvetica Neue,Helvetica,sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #f2f2f2;
 }
 
 code {
@@ -15,18 +16,41 @@ code {
 }
 
 .dashboard {
-  border: 1px solid;
-  margin-top: 40px;
-  padding: 20px 20px;
+  padding: 20px 0px;
 }
 
 .gameitem-container {
   margin: 10px 0px;
-  border : 1px solid;
+  border : 1px solid lightgray;
+
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+}
+
+.active-games-btn{
+  width: 103px;
+}
+
+.profile-info-finished-games-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.profile-info-game-invitations-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.profile-info-no-data-title{
+  margin: 10px 0px;
 }
 
 .gameitem-container>*:nth-child(3){
@@ -283,6 +307,7 @@ nav .sidenav-trigger{
   text-align: center;
   font-size: 28px;
   font-weight: bold;
+  margin: 20px 0px
 }
 
 .nav-wrapper ul li a:hover{
@@ -565,9 +590,9 @@ nav .sidenav-trigger{
   font-weight: bold;
 }
 .profile-info-pic{
-  height: 100px;
-  width: 100px;
-  border-radius: 10px;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
 }
 .profile-info-pic-div>input{
   display: none;
@@ -582,4 +607,182 @@ nav .sidenav-trigger{
   height: 60px;
   width: 60px;
   border-radius: 10px;
+}
+
+.profile-info-title-logo-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-info-title-logo-container>input{
+  display: none;
+}
+
+.profile-info-stats-number{
+  font-size: 26px;
+  font-weight: bold;
+  color: #ffffff;
+  padding-left: 4px;
+  text-align: center;
+}
+
+.profile-info-stats-title{
+  font-size: 16px;
+  color: #ffffff;
+  padding-left: 4px;
+  text-align: center;
+
+}
+
+.profile-info-logo-title-container{
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  padding-left: 10px;
+}
+
+.profile-info-logo-title-container h5{
+  margin-top: 6px;
+  text-align: center;
+}
+
+
+
+.profile-info-logo-title-container>input{
+  display: none;
+}
+
+.profile-info-logo-title-container img{
+  cursor: pointer;
+}
+
+.profile-info-container{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+
+.profile-info-bio-container{
+  border: 1px solid lightgray;
+  border-width: thin;
+  padding: 6px 6px;
+  width: 70%;
+  margin-right: 20px;
+  max-height: 102px;
+  overflow: auto;
+}
+
+.profile-preview-bio-container{
+  border: 1px solid lightgray;
+  border-width: thin;
+  padding: 6px 6px;
+  width: 100%;
+  max-height: 102px;
+  overflow: auto;
+}
+
+.profile-info-card-title{
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+.profile-info-card{
+  margin-top: 0px;
+  height: 100%!important;
+}
+
+.general-container{
+  padding: 20px 0px;
+}
+
+.general-card{
+  margin-top: 0px;
+}
+
+.profile-info-stats-card-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: #424242;
+  min-height: 101px;
+
+}
+
+.row-flex-box{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 0px!important;
+}
+
+.column-bottom-padding{
+  padding-bottom: 10px!important;
+}
+
+.column-zero-left-padding{
+  padding-left: 0px!important;
+}
+
+.column-zero-right-padding{
+  padding-right: 0px!important;
+}
+
+.profile-info-card-content{
+  min-height: 270px;
+  max-height: 270px;
+}
+
+.profile-info-padding-small-screens{}
+
+.profile-bio-friend-status-container{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-right: 20px;
+  width: 70%;
+}
+
+.profile-info-active-games-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  max-height: 180px;
+  overflow: auto;
+
+}
+
+@media screen and (max-width: 1200px) {
+  .profile-info-padding-small-screens{
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+  }
+}
+@media screen and (max-width: 600px) {
+  .profile-info-container{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .profile-info-bio-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 20px;
+    margin-right: 0px;
+  }
+  .profile-info-logo-title-container{
+    padding-left: 0px;
+    margin-right: 0px;
+  }
+
+  .profile-info-logo-title-container h5{
+    text-align: center;
+  }
+
+
 }
