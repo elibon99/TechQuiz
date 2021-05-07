@@ -12,39 +12,39 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
     return (
         <div>
         <h5 className="page-title">Friends</h5>
-        <div className="container find-game-margin">
-
-            <div className="card"><div className="card-content">
-            <div className="row">
-                <div className="col s12 m4">
-                    <h5 className="grey-text text-darken-3 center">Friends Requests</h5>
-                    <div className="col s12 m12">
-                        <h6 className="friend-request-title">Incoming friend requests</h6>
-                        <div className="card friend-req-margin">
-                            <div className="card-content">
-                                {friendRequests ? Object.entries(friendRequests).map((request) => {
-                                    return(
-                                            <FriendRequestItem key={request[0]} request={request[1]} requestID={request[0]}
-                                                               acceptFriendRequest={acceptFriendRequest}
-                                                               rejectFriendRequest={rejectFriendRequest}/>
-                                    )
-                                }): <div className="center">No current friend requests</div>}
-                            </div>
-                        </div>
-                        <h6 className="friend-request-title">Pending friend requests</h6>
-                        <div className="card friend-req-margin">
-                            <div className="card-content">
-                                <div className="center">
-                                    { sentFriendRequests ? Object.entries(sentFriendRequests).map((request) => {
-                                        return (
-                                            <SentFriendRequestItem key={request[0]} request={request[1]}/>
-                                        )
-                                    }): <div>You have no pending friend requests</div>}
+        <div className="container general-container">
+            <div className="card general-card">
+                <div className="card-content">
+                    <div className="row">
+                        <div className="col s12 m4">
+                            <h5 className="grey-text text-darken-3 center">Friends Requests</h5>
+                            <div className="col s12 m12">
+                                <h6 className="friend-request-title">Incoming friend requests</h6>
+                                <div className="card friend-req-margin">
+                                    <div className="card-content">
+                                        {friendRequests ? Object.entries(friendRequests).map((request) => {
+                                            return(
+                                                    <FriendRequestItem key={request[0]} request={request[1]} requestID={request[0]}
+                                                                       acceptFriendRequest={acceptFriendRequest}
+                                                                       rejectFriendRequest={rejectFriendRequest}/>
+                                            )
+                                        }): <div className="center">No current friend requests</div>}
+                                    </div>
+                                </div>
+                                <h6 className="friend-request-title">Pending friend requests</h6>
+                                <div className="card friend-req-margin">
+                                    <div className="card-content">
+                                        <div className="center">
+                                            { sentFriendRequests ? Object.entries(sentFriendRequests).map((request) => {
+                                                return (
+                                                    <SentFriendRequestItem key={request[0]} request={request[1]}/>
+                                                )
+                                            }): <div>You have no pending friend requests</div>}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
                     <div className="col s12 m8">
                         <form className="white"
                               onChange={(e) => {e.preventDefault();}}>
