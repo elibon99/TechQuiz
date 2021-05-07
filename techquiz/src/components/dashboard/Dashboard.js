@@ -4,6 +4,7 @@ import FinishedGames from "./FinishedGames";
 import GameInvitations from "./GameInvitations";
 import {Redirect} from "react-router-dom";
 import ProfileInfo from "./ProfileInfo";
+import PlayerStats from "./PlayerStats";
 
 /**
  * This components main focus is displaying all things regarding the current users profile.
@@ -27,36 +28,23 @@ const Dashboard = ({profilePicURL, setProfilePicture, auth, userStat, profile, w
         (userStat && profile) ?
             <div>
                 <h5 className="page-title">Your Profile</h5>
-            <div className="dashboard container find-game-margin">
-                <div className="row">
-                    <div className="col s12 m5">
+                <div className="dashboard container">
+                    <div className="row">
                         <ProfileInfo profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
-                            <div className="card">
-                                <div className="card-content">
-                                    <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
-                                </div>
-                            </div>
-                    </div>
+                        <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
 
-                    <div className="col s12 offset-m1 m6">
-                    <div className="dashboard-item col s12 m12 card-container-profile">
-                        <h5>Active Games</h5>
-                        <div className="card card-container-profile">
-                            <div className="card-content">
-                                <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
-                            </div>
+                        <div className="col s12 m12 l12 xl4 column-zero-left-padding profile-info-padding-small-screens">
+                            <CurrentGames currentGamesYourTurn={currentGamesYourTurn} currentGamesTheirTurn={currentGamesTheirTurn}/>
                         </div>
-                    </div>
-                        <div className="dashboard-item col s12 m12">
-                            <div className="card">
-                                <div className="card-content">
-                                    <FinishedGames finishedGames={finishedGames}/>
-                                </div>
-                            </div>
+                        <div className="col s12 m12 l12 xl4 profile-info-padding-small-screens">
+                            <FinishedGames finishedGames={finishedGames}/>
+                        </div>
+
+                        <div className="col s12 m12 l12 xl4 column-zero-right-padding profile-info-padding-small-screens">
+                            <GameInvitations acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} gameInvitations={gameInvitations}/>
                         </div>
                     </div>
                 </div>
-            </div>
             </div>:
             <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
