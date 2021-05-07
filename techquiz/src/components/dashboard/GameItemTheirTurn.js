@@ -12,7 +12,7 @@ const GameItemTheirTurn = ({game}) => {
                 {game[2].opponentName !== "" ? game[2].opponentName : "Random Player"}
             </div>
             <div className="gameitem-col">
-                <button disabled className="right btn waves-effect waves-light #64b5f6 blue lighten-2">Waiting...</button>
+                <button disabled className="right btn waves-effect waves-light #64b5f6 blue lighten-2 active-games-btn">Waiting...</button>
             </div>
         </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
