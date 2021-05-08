@@ -22,8 +22,6 @@ const mapStateToProps = (state) => {
     const friendRequests = state.firestore.data.receivedFriendRequests;
     const sentFriendRequests = state.firestore.data.sentFriendRequests;
 
-    console.log(state.firestore.data.friends, 'firens');
-
     return{
         auth: state.firebase.auth,
         friendSearch: state.friends.usernameFriends,
