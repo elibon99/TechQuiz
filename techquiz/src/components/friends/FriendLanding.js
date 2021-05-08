@@ -67,7 +67,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                                 <FriendItem user={friend[1]}/>
                                             </Link>
                                         )
-                                    }) : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
+                                    }) : (friends === null) ? <div className="no-friends-title">
+                                        You don't have any friends. Go friend someone on their profile!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
                             </div>
                             <div className="friends-container">
