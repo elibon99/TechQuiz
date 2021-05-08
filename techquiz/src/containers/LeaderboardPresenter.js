@@ -15,27 +15,27 @@ const mapStateToProps = (state) => {
     const mlRatingResult = mlRating ? mlRating : null;
 
     /* Get the score of each category */
-    const bashScore = state.firestore.ordered["singleplayerScores/bashScore/scores"];
+    const bashScore = state.firestore.ordered["singleplayerScores/BASH/scores"];
     const bashScoreResult = bashScore ? bashScore : null;
-    const devopsScore = state.firestore.ordered["singleplayerScores/devopsScore/scores"];
+    const devopsScore = state.firestore.ordered["singleplayerScores/DevOps/scores"];
     const devopsScoreResult = devopsScore ? devopsScore : null;
-    const dockerScore = state.firestore.ordered["singleplayerScores/dockerScore/scores"];
+    const dockerScore = state.firestore.ordered["singleplayerScores/Docker/scores"];
     const dockerScoreResult = dockerScore ? dockerScore : null;
-    const htmlScore = state.firestore.ordered["singleplayerScores/htmlScore/scores"];
+    const htmlScore = state.firestore.ordered["singleplayerScores/HTML/scores"];
     const htmlScoreResult = htmlScore ? htmlScore : null;
-    const javascriptScore = state.firestore.ordered["singleplayerScores/javascriptScore/scores"];
+    const javascriptScore = state.firestore.ordered["singleplayerScores/JavaScript/scores"];
     const javascriptScoreResult = javascriptScore ? javascriptScore : null;
-    const kubernetesScore = state.firestore.ordered["singleplayerScores/kubernetesScore/scores"];
+    const kubernetesScore = state.firestore.ordered["singleplayerScores/Kubernetes/scores"];
     const kubernetesScoreResult = kubernetesScore ? kubernetesScore : null;
-    const laravelScore = state.firestore.ordered["singleplayerScores/laravelScore/scores"];
+    const laravelScore = state.firestore.ordered["singleplayerScores/Laravel/scores"];
     const laravelScoreResult = laravelScore ? laravelScore : null;
-    const linuxScore = state.firestore.ordered["singleplayerScores/linuxScore/scores"];
+    const linuxScore = state.firestore.ordered["singleplayerScores/Linux/scores"];
     const linuxScoreResult = linuxScore ? linuxScore : null;
-    const mysqlScore = state.firestore.ordered["singleplayerScores/mysqlScore/scores"];
+    const mysqlScore = state.firestore.ordered["singleplayerScores/MySQL/scores"];
     const mysqlScoreResult = mysqlScore ? mysqlScore : null;
-    const phpScore = state.firestore.ordered["singleplayerScores/phpScore/scores"];
+    const phpScore = state.firestore.ordered["singleplayerScores/PHP/scores"];
     const phpCoreResult = phpScore ? phpScore : null;
-    const wordpressScore = state.firestore.ordered["singleplayerScores/wordpressScore/scores"];
+    const wordpressScore = state.firestore.ordered["singleplayerScores/WordPress/scores"];
     const wordpressCoreResult = wordpressScore ? wordpressScore : null;
 
     /* Get the userstats */
@@ -77,17 +77,17 @@ const LeaderboardPresenter = compose(
         {collection: 'multiplayerRating', limit: 10, orderBy: ['rating', 'desc']},
         {collection: 'userStats', limit: 10, orderBy: ['slScore', 'desc']},
         {collection: 'users'},
-        {collection: 'singleplayerScores/bashScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/devopsScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/dockerScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/htmlScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/javascriptScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/kubernetesScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/laravelScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/linuxScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/mysqlScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/phpScore/scores', limit:10, orderBy: ['score', 'desc']},
-        {collection: 'singleplayerScores/wordpressScore/scores', limit:10, orderBy: ['score', 'desc']}
+        {collection: 'singleplayerScores/BASH/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/DevOps/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/Docker/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/HTML/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/JavaScript/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/Kubernetes/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/Laravel/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/Linux/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/MySQL/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/PHP/scores', limit:10, orderBy: ['score', 'desc']},
+        {collection: 'singleplayerScores/WordPress/scores', limit:10, orderBy: ['score', 'desc']}
     ])
 )(Leaderboard);
 
