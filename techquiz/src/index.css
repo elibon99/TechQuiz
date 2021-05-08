@@ -831,7 +831,10 @@ nav .sidenav-trigger{
   padding-left: 10px;
   max-height: 180px;
   overflow: auto;
+}
 
+.no-friends-title{
+  padding-left: 10px;
 }
 
 @media screen and (max-width: 1200px) {
@@ -862,6 +865,4 @@ nav .sidenav-trigger{
   .profile-info-logo-title-container h5{
     text-align: center;
   }
-
-
 }
