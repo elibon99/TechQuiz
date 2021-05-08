@@ -1,8 +1,8 @@
 import React  from "react";
 
-const ThumbsUp = ({className, acceptAction}) => {
+const ThumbsUp = ({className, acceptAction, requestID}) => {
     return(
-        <div className="thumbs-up-container">
+        <div className="thumbs-up-container" onClick={() => acceptAction(requestID)}>
             <svg xmlns="http://www.w3.org/2000/svg" className={className} fill="none" viewBox="0 0 24 24"
                  stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
