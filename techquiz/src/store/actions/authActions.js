@@ -59,7 +59,8 @@ export const signUp = (newUser) => {
                         userName: newUser.userName,
                         initials: newUser.userName[0],
                         currentGameID: null,
-                        photoURL: null
+                        photoURL: null,
+                        biography: "Hey there. I am new to TechQuiz."
                     }),
                         firestore.collection('userStats').doc(resp.user.uid).set({
                             wins: 0,
