@@ -1,5 +1,6 @@
 const functions = require("firebase-functions");
 const admin = require('firebase-admin');
+const fieldValue = admin.firestore.FieldValue;
 admin.initializeApp(functions.config().firebase);
 
 
@@ -203,3 +204,32 @@ exports.gameInvitationResponse = functions.firestore
     })
 
 
+
+exports.updateSingleScore = functions.firestore
+    .document('games/{id}')
+    .onUpdate((change,context) => {
+        if (change.after.data().gameIsFinished) {
+            return admin.firestore().collection('games').doc(context.params.id)
+                .collection('gameSets').get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((entry) => {
+                        Object.entries(entry.data().questions.resp).forEach((question) => {
+                            admin.firestore().collection('singleplayerScores').doc(entry.data().category)
+                                .collection('scores').doc(change.after.data().userID1).update({
+                                score: fieldValue.increment(question[1].p1Score)
+                            }).then(() => {
+                                admin.firestore().collection('singleplayerScores').doc(entry.data().category)
+                                    .collection('scores').doc(change.after.data().userID2).update({
+                                    score: fieldValue.increment(question[1].p2Score)
+                                }).then(() => console.log('yay it worked, updating p1 and p2 singlescore'))
+                                    .catch((err) => console.log(err, ' couldnt update p1&p2 singlescore'));
+                            }).catch((err) => console.log(err, 'couldnt update p1 singlescore'));
+                        })
+                    })
+                }).catch((err) => console.log(err, 'wa wa'));
+        }
+        else{
+            console.log('gameisfinished is false, even though checking update');
+            return Promise.resolve(null);
+        }
+    });
