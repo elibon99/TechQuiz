@@ -25,7 +25,7 @@ const Leaderboard = ({
             <div className="row">
                 <div className="col s12 m3">
                     <Ranking title={"Multiplayer rating"} ratings={mlRating} type="mlRating" users={users}/>
-                    <Ranking title={"Singleplayer rating"} ratings={slScores} type="slScore" users={users}/>
+                    <Ranking title={"Singleplayer score"} ratings={slScores} type="slScore" users={users}/>
                 </div>
                 <div className="col s12 m9">
                     <div className="row">
