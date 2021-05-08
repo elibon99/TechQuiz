@@ -221,12 +221,23 @@ exports.updateSingleScore = functions.firestore
                                 admin.firestore().collection('singleplayerScores').doc(entry.data().category)
                                     .collection('scores').doc(change.after.data().userID2).update({
                                     score: fieldValue.increment(question[1].p2Score)
-                                }).then(() => console.log('yay it worked, updating p1 and p2 singlescore'))
+                                }).then(() => console.log('yay updated scores'))
                                     .catch((err) => console.log(err, ' couldnt update p1&p2 singlescore'));
                             }).catch((err) => console.log(err, 'couldnt update p1 singlescore'));
                         })
                     })
-                }).catch((err) => console.log(err, 'wa wa'));
+                }).then(() => {
+                    admin.firestore().collection('userStats').doc(change.after.data().userID1)
+                        .update({ slScore: fieldValue.increment(change.after.data().p1Score) })
+                        .then(() => {
+                            admin.firestore().collection('userStats').doc(change.after.data().userID2)
+                                .update({ slScore: fieldValue.increment(change.after.data().p2Score) })
+                                .then(() => {console.log('yay')})
+                                .catch((err) => console.log(err, 'damnit'));
+                        })
+                        .catch((err) => console.log(err, 'damnit2'));
+                })
+                .catch((err) => console.log(err, 'wa wa'));
         }
         else{
             console.log('gameisfinished is false, even though checking update');
