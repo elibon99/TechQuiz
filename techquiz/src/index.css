@@ -30,6 +30,16 @@ code {
   justify-content: space-between;
 }
 
+.active-game-opponent-title{
+  width: 60%;
+  padding-left: 10px;
+}
+
+.game-invitation-opponent-title{
+  width: 60%;
+  padding-left: 10px;
+}
+
 .active-games-btn{
 
   width: 103px;
@@ -134,7 +144,6 @@ ol{
 .player-content{
   text-align: center;
   color: black!important;
-  padding-left: 0px!important;
 }
 
 .score-content{
@@ -144,6 +153,13 @@ ol{
   text-align: center;
   font-size: 28px;
   font-weight: bold;
+}
+.input-field-padding{
+  padding-left: 10px;
+}
+
+.friends-container{
+  padding-left: 10px;
 }
 
 .flex-col{
@@ -318,7 +334,8 @@ nav .sidenav-trigger{
   text-align: center;
   font-size: 28px;
   font-weight: bold;
-  margin: 20px 0px
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .nav-wrapper ul li a:hover{
@@ -372,14 +389,14 @@ nav .sidenav-trigger{
 }
 
 .thumbs-up{
-  height: 36px;
-  width: 36px;
+  height: 28px;
+  width: 28px;
   color: #42A5F5;
 }
 
 .thumbs-down{
-  height: 36px;
-  width: 36px;
+  height: 28px;
+  width: 28px;
   color: red;
 }
 
@@ -387,6 +404,9 @@ nav .sidenav-trigger{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+  width: 40%;
 }
 
 .profile-preview-friend-req-container{
@@ -618,7 +638,31 @@ nav .sidenav-trigger{
   display: flex;
   align-items: center;
   height: 28px;
-  width: 100%;
+}
+
+.incoming-friend-request-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.pending-friend-request-container{
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+}
+
+.thumbs-up-container{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.thumbs-down-container{
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .btn-container{
@@ -629,10 +673,18 @@ nav .sidenav-trigger{
   padding-right: 10px;
 }
 
+.active-games-btn-container{
+  width: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
 .profile-pic-friend-frienditem{
   height: 60px;
   width: 60px;
-  border-radius: 10px;
+  border-radius: 50%;
 }
 
 .profile-info-title-logo-container{
@@ -714,6 +766,7 @@ nav .sidenav-trigger{
 .profile-info-card-title{
   padding-left: 10px;
   font-weight: bold;
+  margin-top: 16px;
 }
 
 .profile-info-card{
