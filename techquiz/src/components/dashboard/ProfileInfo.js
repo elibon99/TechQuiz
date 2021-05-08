@@ -21,12 +21,7 @@ const ProfileInfo = ({setProfilePicture, profile, profilePicURL}) => {
                         <h5>{profile.userName}</h5>
                     </div>
                     <div className="profile-info-bio-container">
-                        <p contentEditable={true} id="userBio">
-                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                            I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                        </p>
+                        {profile.biography}
                     </div>
                 </div>
             </div>
