@@ -29,7 +29,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                                                        acceptFriendRequest={acceptFriendRequest}
                                                                        rejectFriendRequest={rejectFriendRequest}/>
                                                 )
-                                            }): <div className="center">No current friend requests</div>}
+                                            }): <div>No current friend requests</div>}
                                         </div>
                                     </div>
                                 </div>
