@@ -5,13 +5,13 @@ import React from 'react';
  * @param profile - the users profile,
  * @param userStats - the users stats
  * */
-const ProfileInfo = ({setProfilePicture, profile, userStat, winLossRatio, profilePicURL}) => {
+const ProfileInfo = ({setProfilePicture, profile, profilePicURL}) => {
     return(
+        profile ?
         <div className="card profile-info-card">
             <div className="card-content">
                 <div className="profile-info-container">
                     <div className="profile-info-logo-title-container">
-
                         <label htmlFor="file-input">
                             {profilePicURL? <img className="profile-info-pic" src={profilePicURL} alt="profile-pic"/>:
                                 <i className="large material-icons profile-standard-pic">account_circle</i>}
@@ -28,10 +28,9 @@ const ProfileInfo = ({setProfilePicture, profile, userStat, winLossRatio, profil
                             I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
                         </p>
                     </div>
-
                 </div>
             </div>
-        </div>
+        </div> :  <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
