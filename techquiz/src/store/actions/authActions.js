@@ -73,62 +73,57 @@ export const signUp = (newUser) => {
                             rating: 100,
                             ranking: 1
                         }),
-                        firestore.collection('singleplayerScores').doc('linuxScore')
+                        firestore.collection('singleplayerScores').doc('Linux')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('bashScore')
+                        firestore.collection('singleplayerScores').doc('BASH')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('phpScore')
+                        firestore.collection('singleplayerScores').doc('PHP')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('dockerScore')
+                        firestore.collection('singleplayerScores').doc('Docker')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('htmlScore')
+                        firestore.collection('singleplayerScores').doc('HTML')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('mysqlScore')
+                        firestore.collection('singleplayerScores').doc('MySQL')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('wordpressScore')
+                        firestore.collection('singleplayerScores').doc('WordPress')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('laravelScore')
+                        firestore.collection('singleplayerScores').doc('Laravel')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('kubernetesScore')
+                        firestore.collection('singleplayerScores').doc('Kubernetes')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('javascriptScore')
+                        firestore.collection('singleplayerScores').doc('JavaScript')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
                         }),
-                        firestore.collection('singleplayerScores').doc('devopsScore')
-                            .collection('scores').doc(resp.user.uid).set({
-                            username: newUser.userName,
-                            score: 0
-                        }),
-                        firestore.collection('singleplayerScores').doc('linuxScore')
+                        firestore.collection('singleplayerScores').doc('DevOps')
                             .collection('scores').doc(resp.user.uid).set({
                             username: newUser.userName,
                             score: 0
