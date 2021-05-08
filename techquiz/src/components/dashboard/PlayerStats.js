@@ -34,7 +34,7 @@ const PlayerStats = ({stats, winLossRatio, userName}) => {
                     <div className="col s6 m6 l3 column-bottom-padding">
                         <div className="profile-info-stats-card-container">
                             <h5 className="profile-info-stats-number">
-                                {winLossRatio}
+                                {winLossRatio.toFixed(2)}
                             </h5>
                             <h6 className="profile-info-stats-title">
                                 Win/Loss - Ratio
