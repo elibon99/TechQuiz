@@ -1,11 +1,12 @@
 import React from 'react';
+import EdiText from 'react-editext';
 
 /**
  * This components main focus is displaying all game requests/invitations to the user.
  * @param profile - the users profile,
  * @param userStats - the users stats
  * */
-const ProfileInfo = ({setProfilePicture, profile, profilePicURL}) => {
+const ProfileInfo = ({setProfilePicture, profile, profilePicURL, setUserBiography}) => {
     return(
         profile ?
         <div className="card profile-info-card">
@@ -21,7 +22,7 @@ const ProfileInfo = ({setProfilePicture, profile, profilePicURL}) => {
                         <h5>{profile.userName}</h5>
                     </div>
                     <div className="profile-info-bio-container">
-                        {profile.biography}
+                        <EdiText type="text" value={profile.biography} onSave={(val) => setUserBiography(val)}/>
                     </div>
                 </div>
             </div>
