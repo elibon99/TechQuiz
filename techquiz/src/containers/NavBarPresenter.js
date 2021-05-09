@@ -8,7 +8,8 @@ import {signOut} from "../store/actions/authActions";
  * @returns //TODO
  */
 const mapStateToProps = (state) => {
-    return{
+
+    return {
         auth: state.firebase.auth,
         profile: state.firebase.profile
     }
