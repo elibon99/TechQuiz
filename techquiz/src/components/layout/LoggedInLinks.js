@@ -1,5 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import NotificationBell from "./NotificationBell";
 
 
 const LoggedInLinks = (props) => {
@@ -9,6 +10,7 @@ const LoggedInLinks = (props) => {
             <li><NavLink to='/friends'>Friends</NavLink></li>
             <li><NavLink to='/leaderboard'>Leaderboards</NavLink></li>
             <li><a href="/signin" onClick={props.signOut}>Log out</a></li>
+            <li><NavLink to='/notifications'><NotificationBell className="TODO"/></NavLink></li>
             <li><NavLink to='/profile' className='btn btn-floating blue lighten-1'>{props.profile.initials}</NavLink></li>
         </>
     )
