@@ -3,7 +3,7 @@ import Dashboard from "../components/dashboard/Dashboard";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
 import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
-import {setProfilePicture} from "../store/actions/authActions";
+import {setProfilePicture, setUserBiography} from "../store/actions/authActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -158,7 +158,8 @@ const mapDispatchToProps = (dispatch) => {
     return{
         acceptGameInvitation: (invitationID) => dispatch(acceptGameInvitation(invitationID)),
         rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID)),
-        setProfilePicture: (imageFile) => dispatch(setProfilePicture(imageFile))
+        setProfilePicture: (imageFile) => dispatch(setProfilePicture(imageFile)),
+        setUserBiography: (biography) => dispatch(setUserBiography(biography))
     }
 }
 
