@@ -3,7 +3,7 @@ import PlayerStats from "../dashboard/PlayerStats";
 import {Redirect} from "react-router-dom";
 
 
-const ProfilePreview = ({friendPicURL, auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending, removeFriend, friendEntryID, hasSentMeRequest, requestID, acceptFriendRequest, rejectFriendRequest}) => {
+const ProfilePreview = ({friendBiography, friendPicURL, auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending, removeFriend, friendEntryID, hasSentMeRequest, requestID, acceptFriendRequest, rejectFriendRequest}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -23,12 +23,11 @@ const ProfilePreview = ({friendPicURL, auth, userStat, winLossRatio, userName, a
                                     </div>
                                     <div className="profile-bio-friend-status-container">
                                         <div className="profile-preview-bio-container">
-                                            <p contentEditable={true} id="userBio">
-                                                I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                                                I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                                                I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                                                I am the greatest techquiz player ever. Challenge me if you dare. Tread lightly.
-                                            </p>
+                                            {friendBiography ?
+                                                <p id="userBio">
+                                                    {friendBiography}
+                                                </p> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+                                            }
                                         </div>
                                         {isFriend ?
                                             <div>
