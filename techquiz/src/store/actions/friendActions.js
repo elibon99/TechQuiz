@@ -44,6 +44,16 @@ export const addFriend = (userID, otherName) => {
             isAccepted: false,
             isRejected: false
         }).then(() => {
+            firestore.collection('notifications').add({
+              notificationMessage: "You have received a new friend request",
+              toUser: otherName,
+              fromUser: selfName,
+              toUserID: otherPerson,
+              fromUserID: self,
+                linkTo: "/profile-preview/" + self
+            })
+                .then(() => console.log('opened up a notification collection'))
+                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
             console.log('added a friend request entry');
             dispatch({type: 'ADD_FRIEND_SUCCESS'})
         })
