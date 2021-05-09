@@ -251,9 +251,11 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                         if(userID === User1ID){
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1Score"] = scorePerQuestion;
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1ChosenAnswer"] = answer;
+                            console.log('did this happen');
                         } else{
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2Score"] = scorePerQuestion;
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2ChosenAnswer"] = answer;
+                            console.log('did this happen2');
                         }
                         disableDivs(allAnswers);
                         docRef.ref.update({
