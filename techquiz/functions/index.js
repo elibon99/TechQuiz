@@ -156,7 +156,19 @@ exports.friendAccepted = functions.firestore
                                     .catch((error) => console.log("Something went wrong adding friend ", error));
                             }).catch((error) => console.log("Something went wrong: ", error));
                     }).catch((error) => console.log("Failed to fetch users from ", gotReqID, " with errror: ", error));
-                }).catch((error) => console.log("Failed to fetch users from ,", gotReqID, " with errror: ", error));
+                }).then(() => {
+                    firestore.collection('notifications').add({
+                        notificationMessage: "They accepted your friend request",
+                        toUser: gotReqUserName,
+                        fromUser: sentReqUserName,
+                        toUserID: gotReqID,
+                        fromUserID: sentReqID,
+                        linkTo: "/profile-preview/" + sentReqID
+                    })
+                        .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
+                        .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
+                })
+                .catch((error) => console.log("Failed to fetch users from ,", gotReqID, " with errror: ", error));
 
         }
         if (change.after.data().isRejected){
