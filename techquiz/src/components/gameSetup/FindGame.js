@@ -16,8 +16,9 @@ const FindGame = ({auth, addToQueue, restoreRedirectTo, userStats, user, matchQu
 
     return(
         userStats ?
-            <div><h5 className="page-title">Find a game</h5>
-                <div className="container find-game-margin">
+            <div>
+                <h5 className="page-title">Find a game</h5>
+                <div className="container general-container">
                     <button className="btn blue lighten-1 z-depth-0" onClick={() => {addToQueue(userStats.mlRating)}}>Random Match</button>
                     <QuickMatch friendsTemp={friendsTemp} setUsername={setUsername} recentPlayers={recentPlayers} friends={friends} createFriendGame={createFriendGame} friendGameStatus={friendGameStatus} restoreRedirectTo={restoreRedirectToFriendGame}/>
                 </div>
