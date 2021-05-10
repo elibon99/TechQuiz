@@ -13,7 +13,7 @@ const Notifications = ({notifications}) => {
                         </Link>
                     </li>
                 )
-            }) : "nope"}
+            }) : "You have no notifications. Go do something"}
         </div>
     )
 }
