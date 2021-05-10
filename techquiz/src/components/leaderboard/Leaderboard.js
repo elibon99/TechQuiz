@@ -21,13 +21,13 @@ const Leaderboard = ({
     return(
         <div>
         <h5 className="page-title">Leaderboard</h5>
-        <div className="container find-game-margin">
+        <div className="container general-container">
             <div className="row">
-                <div className="col s12 m3">
+                <div className="col s12 m12 l3">
                     <Ranking title={"Multiplayer rating"} ratings={mlRating} type="mlRating" users={users}/>
                     <Ranking title={"Singleplayer score"} ratings={slScores} type="slScore" users={users}/>
                 </div>
-                <div className="col s12 m9">
+                <div className="col s12 m12 l9">
                     <div className="row">
                         <CategoryScore title={"PHP"} scores={phpScore}/>
                         <CategoryScore title={"LINUX"} scores={linuxScore}/>
