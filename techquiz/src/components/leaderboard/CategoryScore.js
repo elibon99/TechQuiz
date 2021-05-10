@@ -3,7 +3,7 @@ import React from 'react';
 const CategoryScore = ({scores, title}) => {
     return(
         <div className="col s12 m4">
-            <div className="card">
+            <div className="card profile-info-card">
                 <div className="card-content">
                     <h5>{title}</h5>
                     {scores ?
