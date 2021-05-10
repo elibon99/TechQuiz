@@ -174,3 +174,23 @@ export const setProfilePicture = (imageFile) => {
             }).catch((err) => console.log(err, 'didnt work uploading pic'));
     }
 }
+
+/**
+ * This function attempts to set a profile picture to the user.
+ * @param biography - the new biography to be set as the users biography.
+ * @returns - dispatch of type success or failure depending on login state.
+ * */
+export const setUserBiography = (biography) => {
+    return (dispatch, getState, {getFirebase, getFirestore}) => {
+        const firestore = getFirestore();
+        const uid = getState().firebase.auth.uid;
+
+        firestore.collection('users').doc(uid).update({
+            biography: biography
+        })
+            .then(() => console.log('yay updated biography'))
+            .catch((err) => console.log(err, 'dang couldnt upgrade biography'));
+    }
+}
+
+

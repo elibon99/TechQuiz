@@ -13,7 +13,6 @@ const mapStateToProps = (state, ownProps) => {
     const uid = state.firebase.auth.uid;
 
     const notifications = state.firestore.data.Notifications;
-    console.log(notifications, 'notifications :D ');
 
     return {
         auth: state.firebase.auth,
@@ -41,6 +40,7 @@ const NotificationsPresenter = compose(
 
     return [
         {collection: 'notifications',
+            orderBy: ['createdAt', 'desc'],
             where: [
                 ['toUserID', '==', props.uid]
                 ],

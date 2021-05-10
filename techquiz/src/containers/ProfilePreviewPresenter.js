@@ -22,14 +22,19 @@ const mapStateToProps = (state, ownProps) => {
     const friendRequest = state.firestore.data.friendRequests ? state.firestore.data.friendRequests : null;
     if(friendRequest) {
         Object.entries(friendRequest).forEach((entry) => {
-            if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {
-                if (entry[1].gotRequest === uid && entry[1].sentRequest === myID) {
-                    isPending = true;
-                    requestID = entry[0];
-                }
-                if (entry[1].sentRequest === uid && entry[1].gotRequest === myID) {
-                    hasSentMeRequest = true;
-                    requestID = entry[0];
+            if(entry[1] === null){
+                console.log('entry 1 was null thats weird')
+            }
+            else{
+                if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {
+                    if (entry[1].gotRequest === uid && entry[1].sentRequest === myID) {
+                        isPending = true;
+                        requestID = entry[0];
+                    }
+                    if (entry[1].sentRequest === uid && entry[1].gotRequest === myID) {
+                        hasSentMeRequest = true;
+                        requestID = entry[0];
+                    }
                 }
             }
         });
@@ -47,7 +52,9 @@ const mapStateToProps = (state, ownProps) => {
     const userStat = userStats ? userStats[uid] : null;
     const winLossRatio = userStat ? (userStat.losses !== 0 ? (userStat.wins / userStat.losses): userStat.wins) : "NaN"
 
+    /* Get friends profile pic and biography */
     const friendPicURL = user ? user.photoURL : null;
+    const friendBiography = user ? user.biography : null;
 
     return {
         auth: state.firebase.auth,
@@ -60,7 +67,8 @@ const mapStateToProps = (state, ownProps) => {
         isPending: isPending,
         hasSentMeRequest: hasSentMeRequest,
         friendPicURL: friendPicURL,
-        requestID: requestID
+        requestID: requestID,
+        friendBiography : friendBiography
     }
 }
 

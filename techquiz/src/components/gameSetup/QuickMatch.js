@@ -3,7 +3,7 @@ import FriendGameItem from "./FriendGameItem";
 import RecentPlayerGameItem from "./RecentPlayerGameItem";
 import {Link, Redirect} from "react-router-dom";
 
-const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirectTo, recentPlayers, setUsername, friendsTemp}) => {
+const QuickMatch = ({acceptGameInvitation, rejectGameInvitation, createGameInvitation, friends, createFriendGame, friendGameStatus, restoreRedirectTo, recentPlayers, setUsername, friendsTemp}) => {
     if(friendGameStatus.redirectTo){
         const path = friendGameStatus.redirectTo;
         restoreRedirectTo();
@@ -31,10 +31,10 @@ const QuickMatch = ({friends, createFriendGame, friendGameStatus, restoreRedirec
                 <div className="card-content find-game-card-content">
                     <h5>Recent Players</h5>
                     <div className="recent-player-item-container">
-                        {recentPlayers.length !== 0 ? recentPlayers.map((player) => {
-                                return <RecentPlayerGameItem key={player.opponentID} opponentInfo={player}/>
-                            }) :
-                            <h6>You don't have any recent players. Press the <span className="text-title-recentplayers">Random Match</span> button at the top of this page to find a game against a random opponent!</h6>
+                    {recentPlayers.length !== 0 ? recentPlayers.map((player) => {
+                            return <RecentPlayerGameItem rejectGameInvitation={rejectGameInvitation} acceptGameInvitation={acceptGameInvitation} key={player.opponentID} opponentInfo={player} createGameInvitation={createGameInvitation}/>
+                        }) :
+                        <h6>You don't have any recent players. Press the <span className="text-title-recentplayers">Random Match</span> button at the top of this page to find a game against a random opponent!</h6>
 
                         }
                     </div>

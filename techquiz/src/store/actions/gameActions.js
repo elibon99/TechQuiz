@@ -187,10 +187,20 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         const firebase = getFirebase();
         const userID = getState().firebase.auth.uid;
         let User1ID = null;
+        let yourUsername = "";
+        let opponentUsername = "";
 
         firestore.collection('games').doc(gamingID).get()
             .then((docRef) => {
                 User1ID = docRef.data().userID1;
+
+                if(userID === User1ID) {
+                    yourUsername = docRef.data().user1Name;
+                    opponentUsername = docRef.data().user2Name;
+                } else {
+                    yourUsername = docRef.data().user2Name;
+                    opponentUsername = docRef.data().user1Name;
+                }
 
                 firestore.collection('games').doc(gamingID).collection('gameSets').doc(gameSetID).get()
                     .then((docRef) => {
@@ -309,7 +319,22 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                     p1Score: doc.data().p1Score + finalScore,
                                                     turn: theTurn,
                                                     shouldCreateNewGameSet: playerShouldSelectCategory
-                                                }).then(() => console.log("Updated player 1 score"))
+                                                }).then(() => {
+                                                    console.log("Updated player 1 score");
+                                                    if(theTurn === doc.data().userID2){
+                                                        firestore.collection('notifications').add({
+                                                            notificationMessage: "It's your turn to play in this game",
+                                                            toUser: doc.data().user2Name,
+                                                            fromUser: doc.data().user1Name,
+                                                            toUserID: doc.data().userID2,
+                                                            fromUserID: doc.data().userID1,
+                                                            linkTo: "/game-landing/" + gamingID,
+                                                            createdAt: new Date()
+                                                        })
+                                                            .then(() => console.log('opened up a notification collection'))
+                                                            .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+                                                    }
+                                                })
                                                     .catch((error) => console.log("Something went wrong updating player 1 score"));
                                             } else {
                                                 const theTurn = (hasBeenAnsweredByTemp === 2) ? userID : doc.data().userID1;
@@ -317,7 +342,23 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                     p2Score: doc.data().p2Score + finalScore,
                                                     turn: theTurn,
                                                     shouldCreateNewGameSet: playerShouldSelectCategory
-                                                }).then(() => console.log("Updated player 2 score"))
+                                                }).then(() => {
+                                                        console.log("Updated player 2 score");
+                                                    if(theTurn === doc.data().userID1){
+                                                        firestore.collection('notifications').add({
+                                                            notificationMessage: "It's your turn to play in this game",
+                                                            toUser: doc.data().user1Name,
+                                                            fromUser: doc.data().user2Name,
+                                                            toUserID: doc.data().userID1,
+                                                            fromUserID: doc.data().userID2,
+                                                            linkTo: "/game-landing/" + gamingID,
+                                                            createdAt: new Date()
+                                                        })
+                                                            .then(() => console.log('opened up a notification collection'))
+                                                            .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+                                                    }
+
+                                                })
                                                     .catch((error) => console.log("Something went wrong updating player 2 score"));
                                             }
                                         })
@@ -349,6 +390,31 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             })
                                                                 .then(() => console.log('updated player loss count'))
                                                                 .catch((err) => console.log(err, 'couldnt update player loss count'));
+
+                                                                firestore.collection('notifications').add({
+                                                                    notificationMessage: "Game over against " + opponentUsername + ". You Won! ",
+                                                                    toUser: yourUsername,
+                                                                    fromUser: opponentUsername,
+                                                                    toUserID: userID,
+                                                                    fromUserID: opponentId,
+                                                                    linkTo: "/game-finished/" + gamingID,
+                                                                    createdAt: new Date()
+                                                                })
+                                                                    .then(() => console.log('opened up a notification collection'))
+                                                                    .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
+                                                            firestore.collection('notifications').add({
+                                                                notificationMessage: "Game over against " + yourUsername + ". You Lost! ",
+                                                                toUser: opponentUsername,
+                                                                fromUser: yourUsername,
+                                                                toUserID: opponentId,
+                                                                fromUserID: userID,
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
+                                                            })
+                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
                                                         }
                                                         else if (result === -1) {
                                                             firestore.collection('userStats').doc(userID).update({
@@ -364,9 +430,58 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             })
                                                                 .then(() => console.log('updated player win count'))
                                                                 .catch((err) => console.log(err, 'couldnt update player win count'));
+
+                                                            firestore.collection('notifications').add({
+                                                                notificationMessage: "Game over against " + opponentUsername + ". You Lost! ",
+                                                                toUser: yourUsername,
+                                                                fromUser: opponentUsername,
+                                                                toUserID: userID,
+                                                                fromUserID: opponentId,
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
+                                                            })
+                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
+                                                            firestore.collection('notifications').add({
+                                                                notificationMessage: "Game over against " + yourUsername + ". You Won! ",
+                                                                toUser: opponentUsername,
+                                                                fromUser: yourUsername,
+                                                                toUserID: opponentId,
+                                                                fromUserID: userID,
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
+                                                            })
+                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
                                                         }
                                                         else {
                                                             console.log('its a tie in else statement');
+                                                            firestore.collection('notifications').add({
+                                                                notificationMessage: "Game over against " + yourUsername + ". It's a tie! ",
+                                                                toUser: opponentUsername,
+                                                                fromUser: yourUsername,
+                                                                toUserID: opponentId,
+                                                                fromUserID: userID,
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
+                                                            })
+                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
+                                                            firestore.collection('notifications').add({
+                                                                notificationMessage: "Game over against " + opponentUsername + ". It's a tie! ",
+                                                                toUser: yourUsername,
+                                                                fromUser: opponentUsername,
+                                                                toUserID: userID,
+                                                                fromUserID: opponentId,
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
+                                                            })
+                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+
                                                         }
                                                         console.log("Want to change redirectTo in game collection");
                                                         firestore.collection('games').doc(gamingID).update({
