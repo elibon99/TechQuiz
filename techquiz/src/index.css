@@ -15,7 +15,7 @@ code {
   margin: 10px 0px;
 }
 
-.dashboard {
+.container-padding {
   padding: 20px 0px;
 }
 
@@ -94,9 +94,6 @@ code {
   font-weight: bold;
 }
 
-.container{
-  overflow: hidden;
-}
 
 .brand-logo{
   font-size: 32px!important;
@@ -437,12 +434,7 @@ nav .sidenav-trigger{
 
 
 
-.friend-game-item-container{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+
 
 .friend-game-item-title{
   font-size: 15px;
@@ -835,6 +827,134 @@ nav .sidenav-trigger{
 
 .no-friends-title{
   padding-left: 10px;
+}
+
+/* Find game styling */
+.find-game-card-content{
+  min-height: 240px;
+  max-height: 240px;
+}
+
+.friend-game-item-container{
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.recent-player-item-container{
+  display: flex;
+  flex-direction: column;
+  max-height: 180px;
+  overflow: auto;
+}
+
+.friend-game-column-zero-left-padding{
+  padding-left: 0px!important;
+}
+
+.friend-game-column-zero-right-padding{
+  padding-right: 0px!important;
+}
+
+/*  Recent-game-item styling */
+.recent-player-item-btn-container{
+  padding-right: 10px;
+  width: 70%;
+}
+
+.recent-player-item-opponent-title{
+  padding-left: 10px;
+  width: 30%;
+}
+
+/*    Friend-game-item styling   */
+.friend-game-item-opponent-title{
+  padding-left: 10px;
+  width: 30%;
+}
+
+.friend-game-item-status{
+  width: 46%;
+}
+
+.notification-dropdown{
+  position: absolute;
+  list-style-type: none;
+  top: 0px;
+  width: 0;
+  max-height: 300px;
+  background-color: #424242;
+  border-radius: 6px;
+  padding: 10px 10px;
+  z-index: 60;
+  right: 0px;
+  transition: width 0.5s;
+  overflow-x: hidden;
+}
+
+
+.notification-item{
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: #42A5F5;
+  transition: width 0.3s;
+}
+
+.notification-item:hover{
+  background-color: #5a5959;
+}
+
+.notification-item li{
+  text-decoration: none!important;
+  width: 100%;
+  color: #ffffff;
+  padding: 10px 10px;
+}
+
+
+
+
+/*  Notification-bell  */
+.notification-bell-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.notification-bell-div{
+  margin-left: 60px;
+}
+
+.notification-bell{
+  vertical-align: middle;
+  height: 34px;
+  width: 34px;
+  stroke: #42A5F5;
+}
+
+.notification-bell path{
+  fill: #ffffff;
+}
+
+.initials-btn{
+
+  height: 34px;
+  width: 34px;
+}
+
+.notification-bell-inner-container{
+  cursor: pointer;
+}
+
+@media screen and (max-width: 992px){
+  .friend-game-column-zero-left-padding{
+    padding-right: 0px!important;
+  }
+  .friend-game-column-zero-right-padding{
+    padding-left: 0px!important;
+  }
 }
 
 @media screen and (max-width: 1200px) {
