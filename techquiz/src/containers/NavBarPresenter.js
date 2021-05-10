@@ -1,6 +1,8 @@
 import Navbar from "../components/layout/NavBar";
 import {connect} from "react-redux";
 import {signOut} from "../store/actions/authActions";
+import {compose} from "redux";
+import {firestoreConnect} from "react-redux-firebase";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -8,10 +10,14 @@ import {signOut} from "../store/actions/authActions";
  * @returns //TODO
  */
 const mapStateToProps = (state) => {
-
+    const uid = state.firebase.auth.uid;
+    const notifications = state.firestore.data.Notifications;
     return {
         auth: state.firebase.auth,
-        profile: state.firebase.profile
+        profile: state.firebase.profile,
+        uid: uid,
+        notifications: notifications
+
     }
 }
 
@@ -26,6 +32,22 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-const NavBarPresenter = connect(mapStateToProps, mapDispatchToProps)(Navbar);
+const NavBarPresenter = compose(
+    connect(mapStateToProps, mapDispatchToProps),
+    firestoreConnect((props) =>
+    {
+        console.log(props.uid);
+
+        return [
+            {collection: 'notifications',
+                orderBy: ['createdAt', 'desc'],
+                where: [
+                    ['toUserID', '==', props.uid]
+                ],
+                storeAs: 'Notifications'
+            }
+        ]
+    }
+))(Navbar);
 
 export default NavBarPresenter;
