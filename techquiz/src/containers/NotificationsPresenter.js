@@ -10,7 +10,6 @@ import {firestoreConnect} from "react-redux-firebase";
  */
 const mapStateToProps = (state, ownProps) => {
     /* Get id of URL - i.e. gameID */
-    const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
 
     const notifications = state.firestore.data.Notifications;
