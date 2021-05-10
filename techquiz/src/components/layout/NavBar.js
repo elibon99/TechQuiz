@@ -21,7 +21,7 @@ const Navbar = (props) => {
 
     return (
         <nav className="wrapper grey darken-3">
-            <Notifications/>
+            <Notifications notifications={props.notifications}/>
             <div className="nav-wrapper container">
                 {brandlogo}
                 <a href="/" className="sidenav-trigger" data-target="mobile-demo">
