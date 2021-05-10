@@ -21,10 +21,6 @@ const mapStateToProps = (state, ownProps) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return{
-    }
-}
 
 /**
  * This function connects to the firestore and retrieves the relevant collections if the user is logged in.
@@ -33,7 +29,7 @@ const mapDispatchToProps = (dispatch) => {
  * */
 // TODO: FIX AUTH GUARD
 const NotificationsPresenter = compose(
-    connect(mapStateToProps, mapDispatchToProps),
+    connect(mapStateToProps),
     firestoreConnect((props) =>
     {
         console.log(props.uid);
