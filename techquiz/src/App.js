@@ -14,7 +14,6 @@ import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
-import NotificationsPresenter from "./containers/NotificationsPresenter";
 
 function App({store}) {
   return (
@@ -36,7 +35,6 @@ function App({store}) {
               <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
               <Route path = '/home' component={LandingPresenter}></Route>
               <Route path = '/friends' component={FriendPresenter}></Route>
-              <Route path = '/notifications' component={NotificationsPresenter}></Route>
               <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
         </div>
