@@ -33,6 +33,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Activate sidenav-->
+
+    <script src="https://ajax.googleapis.com/ajax/
+             libs/jquery/3.3.1/jquery.min.js"></script>
     <script>
       $(document).ready(function (){
         $('.sidenav')
@@ -41,6 +44,41 @@
                   $('.sidenav').sidenav('close');
                 });
       });
+    </script>
+
+    <script type="text/javascript">
+      // $(".notification-bell-inner-container").click(function (){
+      //   console.log("this happenened");
+      //   var effect = 'slide';
+      //   var options = {direction: 'left'};
+      //   var duration = 500;
+      //
+      //   $(".notification-dropdown").slideDown("fast");
+      // });
+      $(document).on("click", function (event){
+        var $trigger = $(".notification-dropdown");
+        var elem = document.querySelector('.notification-dropdown');
+        var style = getComputedStyle(elem);
+
+        if($trigger !== event.target && style.width > "0px"){
+          document.getElementById("nots").style.width = "0";
+          document.getElementById("nots").style.padding = "0px 0px";
+
+        }
+      })
+
+
+      // $(document).on('click', '.notification-btn', function (){
+      //   $('#nots').toggle('slide', {direction: 'left'}, 500);
+      // })
+      //
+      // $(document).on("click", function (event){
+      //   var $trigger = $(".notification-dropdown");
+      //
+      //   if($trigger !== event.target && !$trigger.has(event.target).length){
+      //     $('#nots').toggle('slide', {direction: 'left'}, 500);
+      //   }
+      // })
     </script>
 
     <!-- The below function allowing for a sticky nav is taken from
