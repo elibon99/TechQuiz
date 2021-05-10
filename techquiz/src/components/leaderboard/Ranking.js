@@ -2,7 +2,7 @@ import React from 'react';
 
 const Ranking = ({ratings, title, type, users}) => {
     return(
-        <div className="card">
+        <div className="card profile-info-card">
             <div className="card-content">
             <h5>{title}</h5>
             {(ratings && users) ?
