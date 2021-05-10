@@ -16,7 +16,7 @@ import PlayerStats from "./PlayerStats";
  * @param currentGamesTheirTurn - all the active games of the current user where its NOT the users turn,
  * @param finishedGames - all finished games of the current user,
  * @param userName - the current users username,
- * @param gameInvitations - the current users gameInviations,
+ * @param gameInvitations - the current users gameInvitations,
  * @param acceptGameInvitation - a method accepting a game invitation
  * @param rejectGameInvitation - a method rejecting a game invitation.
  * */
@@ -28,7 +28,7 @@ const Dashboard = ({profilePicURL, setProfilePicture, auth, userStat, profile, w
         (userStat && profile) ?
             <div>
                 <h5 className="page-title">Your Profile</h5>
-                <div className="dashboard container">
+                <div className="general-container container">
                     <div className="row">
                         <ProfileInfo profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
