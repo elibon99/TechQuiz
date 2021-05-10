@@ -328,7 +328,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             fromUser: doc.data().user1Name,
                                                             toUserID: doc.data().userID2,
                                                             fromUserID: doc.data().userID1,
-                                                            linkTo: "/game-landing/" + gamingID
+                                                            linkTo: "/game-landing/" + gamingID,
+                                                            createdAt: new Date()
                                                         })
                                                             .then(() => console.log('opened up a notification collection'))
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -350,7 +351,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             fromUser: doc.data().user2Name,
                                                             toUserID: doc.data().userID1,
                                                             fromUserID: doc.data().userID2,
-                                                            linkTo: "/game-landing/" + gamingID
+                                                            linkTo: "/game-landing/" + gamingID,
+                                                            createdAt: new Date()
                                                         })
                                                             .then(() => console.log('opened up a notification collection'))
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -395,7 +397,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                     fromUser: opponentUsername,
                                                                     toUserID: userID,
                                                                     fromUserID: opponentId,
-                                                                    linkTo: "/game-finished/" + gamingID
+                                                                    linkTo: "/game-finished/" + gamingID,
+                                                                    createdAt: new Date()
                                                                 })
                                                                     .then(() => console.log('opened up a notification collection'))
                                                                     .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -406,7 +409,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUser: yourUsername,
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
-                                                                linkTo: "/game-finished/" + gamingID
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -433,7 +437,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUser: opponentUsername,
                                                                 toUserID: userID,
                                                                 fromUserID: opponentId,
-                                                                linkTo: "/game-finished/" + gamingID
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -444,7 +449,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUser: yourUsername,
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
-                                                                linkTo: "/game-finished/" + gamingID
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -458,7 +464,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUser: yourUsername,
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
-                                                                linkTo: "/game-finished/" + gamingID
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -469,7 +476,8 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUser: opponentUsername,
                                                                 toUserID: userID,
                                                                 fromUserID: opponentId,
-                                                                linkTo: "/game-finished/" + gamingID
+                                                                linkTo: "/game-finished/" + gamingID,
+                                                                createdAt: new Date()
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
