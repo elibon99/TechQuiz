@@ -22,14 +22,19 @@ const mapStateToProps = (state, ownProps) => {
     const friendRequest = state.firestore.data.friendRequests ? state.firestore.data.friendRequests : null;
     if(friendRequest) {
         Object.entries(friendRequest).forEach((entry) => {
-            if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {
-                if (entry[1].gotRequest === uid && entry[1].sentRequest === myID) {
-                    isPending = true;
-                    requestID = entry[0];
-                }
-                if (entry[1].sentRequest === uid && entry[1].gotRequest === myID) {
-                    hasSentMeRequest = true;
-                    requestID = entry[0];
+            if(entry[1] === null){
+                console.log('entry 1 was null thats weird')
+            }
+            else{
+                if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {
+                    if (entry[1].gotRequest === uid && entry[1].sentRequest === myID) {
+                        isPending = true;
+                        requestID = entry[0];
+                    }
+                    if (entry[1].sentRequest === uid && entry[1].gotRequest === myID) {
+                        hasSentMeRequest = true;
+                        requestID = entry[0];
+                    }
                 }
             }
         });
