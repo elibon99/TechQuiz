@@ -35,6 +35,8 @@ export const addFriend = (userID, otherName) => {
         const self = getState().firebase.auth.uid;
         const selfName = getState().firebase.profile.userName;
         const otherPerson = userID;
+        const fromPhotoURL = getState().firestore.data.users[self].photoURL;
+        const gotReqPhotoUrl = getState().firestore.data.users[self].photoURL;
 
         firestore.collection('friendRequests').add({
             sentReqUserName: selfName,
@@ -42,7 +44,9 @@ export const addFriend = (userID, otherName) => {
             sentRequest: self,
             gotRequest: otherPerson,
             isAccepted: false,
-            isRejected: false
+            isRejected: false,
+            sentPhotoURL: fromPhotoURL,
+            gotReqPhotoURL: gotReqPhotoUrl
         }).then(() => {
             firestore.collection('notifications').add({
               notificationMessage: "You have received a new friend request",
@@ -51,7 +55,9 @@ export const addFriend = (userID, otherName) => {
               toUserID: otherPerson,
               fromUserID: self,
               createdAt: new Date(),
-              linkTo: "/profile-preview/" + self
+              linkTo: "/profile-preview/" + self,
+              notificationType: "incomingFriendRequest",
+              fromUserPhotoURL: fromPhotoURL
             })
                 .then(() => console.log('opened up a notification collection'))
                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
