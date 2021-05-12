@@ -3,7 +3,7 @@ import PlayerStats from "../dashboard/PlayerStats";
 import {Redirect} from "react-router-dom";
 
 
-const ProfilePreview = ({friendBiography, friendPicURL, auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending, removeFriend, friendEntryID, hasSentMeRequest, requestID, acceptFriendRequest, rejectFriendRequest}) => {
+const ProfilePreview = ({cancelFriendRequest, friendBiography, friendPicURL, auth, userStat, winLossRatio, userName, addFriend, userID, isFriend, isPending, removeFriend, friendEntryID, hasSentMeRequest, requestID, acceptFriendRequest, rejectFriendRequest}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -34,7 +34,10 @@ const ProfilePreview = ({friendBiography, friendPicURL, auth, userStat, winLossR
                                                 <h5>You are friends</h5>
                                                 <button className="btn waves-effect waves-light red lighten-2" onClick={() => {removeFriend(userID)}}>Remove friend</button>
                                             </div>: isPending ?
-                                                <h5>Pending request...</h5> :
+                                                <div>
+                                                    <h5>Pending request...</h5>
+                                                    <button onClick={() => {cancelFriendRequest(requestID)}} className="btn waves-effect waves-light red lighten-2 btn-full-height">Cancel request</button>
+                                                </div>:
                                                 hasSentMeRequest ?
                                                     <div className="profile-preview-friend-req-container">
                                                         <h6>{userName} has sent you a friend request</h6>
