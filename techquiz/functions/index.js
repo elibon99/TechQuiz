@@ -135,6 +135,7 @@ exports.friendAccepted = functions.firestore
             const sentReqUserName = change.after.data().sentReqUserName;
             const gotReqID = change.after.data().gotRequest;
             const gotReqUserName = change.after.data().gotReqUserName;
+            const gotReqPhotoURL = change.after.data().gotReqPhotoURL;
             return admin.firestore().collection('users').doc(sentReqID).get()
                 .then((docRef) => {
                     admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
@@ -164,7 +165,9 @@ exports.friendAccepted = functions.firestore
                         toUserID: sentReqID,
                         fromUserID: gotReqID,
                         linkTo: "/profile-preview/" + gotReqID,
-                        createdAt: new Date()
+                        createdAt: new Date(),
+                        notificationType: "acceptedFriendRequest",
+                        fromUserPhotoURL: gotReqPhotoURL
                     })
                         .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
                         .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
@@ -187,6 +190,7 @@ exports.gameInvitationResponse = functions.firestore
             const sentReqUserName = change.after.data().sentReqUserName;
             const gotReqID = change.after.data().gotRequestID;
             const gotReqUserName = change.after.data().gotReqUserName;
+            const theirPhotoURL = change.after.data().gotReqPhotoURL;
             return admin.firestore().collection('games').add({
                 userID1: sentReqID,
                 user1Name: sentReqUserName,
@@ -204,7 +208,24 @@ exports.gameInvitationResponse = functions.firestore
                 hasChosenCategory: false
             }).then(() => {
                 admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
-                    .then(() => console.log("Succesfully deleted gameInvitation and created game"))
+                    .then(() => {
+                        admin.firestore().collection('notifications').add({
+                            notificationMessage: "They accepted your game invitation",
+                            toUser: sentReqUserName,
+                            fromUser: gotReqUserName,
+                            toUserID: sentReqID,
+                            fromUserID: gotReqID,
+                            linkTo: "/profile-preview/" + gotReqID,
+                            createdAt: new Date(),
+                            notificationType: "acceptedGameInvitation",
+                            fromUserPhotoURL: theirPhotoURL
+                        })
+                            .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
+                            .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
+
+                        console.log("Succesfully deleted gameInvitation and created game")
+
+                    })
                     .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
             })
                 .catch((error) => console.log("Couldn't create game from invitation, ", error));
