@@ -58,13 +58,25 @@ export const addFriend = (userID, otherName) => {
               createdAt: new Date(),
               linkTo: "/profile-preview/" + self,
               notificationType: "incomingFriendRequest",
-              fromUserPhotoURL: sentReqPhotoUrl
+              fromUserPhotoURL: sentReqPhotoUrl,
+              requestID: null
             })
                 .then((doc) => {
                     firestore.collection('friendRequests').doc(docRef.id).update({
                         notificationID : doc.id
                     })
-                        .then(() => console.log('yay added notificationID to friendReqcollection'))
+                        .then(() => {
+                                    console.log('yay added notificationID to friendReqcollection');
+                                    firestore.collection('friendRequests').doc(docRef.id).get()
+                                        .then((docRef2) => {
+                                            firestore.collection('notifications').doc(doc.id).update({
+                                                requestID : docRef2.id
+                                            })
+                                                .then(() =>console.log('yay'))
+                                                .catch((err) => console.log(err, 'couldt update inide deep loop'));
+                                        })
+                                        .catch((err) => console.log(err, 'deep nest bro'));
+                                })
                         .catch((err) => console.log(err, 'damn no notificationID for you'));
                             })
                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
