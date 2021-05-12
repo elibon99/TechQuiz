@@ -23,7 +23,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
             isAccepted: false,
             isRejected: false,
             gotReqPhotoURL: theirPhotoURL
-        }).then(() => {console.log("Succesfully created a game invitation");
+        }).then((doc) => {console.log("Succesfully created a game invitation");
                         dispatch({type: "GAME_INVITATION_ADDED_SUCCESS"})
                         firestore.collection('notifications').add({
                             notificationMessage: "You got a game invitation",
@@ -34,7 +34,8 @@ export const createGameInvitation = (opponentID, opponentName) => {
                             linkTo: "/profile-preview/" + userID,
                             createdAt: new Date(),
                             notificationType: "incomingGameInvitation",
-                            fromUserPhotoURL: sentPhotoURL
+                            fromUserPhotoURL: sentPhotoURL,
+                            requestID: doc.id
                         })
                             .then(() => console.log('opened up a notification collection'))
                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
