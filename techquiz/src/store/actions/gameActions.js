@@ -189,6 +189,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         let User1ID = null;
         let yourUsername = "";
         let opponentUsername = "";
+        let myPhotoURL = getState().firestore.data.users[userID].photoURL;
 
         firestore.collection('games').doc(gamingID).get()
             .then((docRef) => {
@@ -329,7 +330,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             toUserID: doc.data().userID2,
                                                             fromUserID: doc.data().userID1,
                                                             linkTo: "/game-landing/" + gamingID,
-                                                            createdAt: new Date()
+                                                            createdAt: new Date(),
+                                                            notificationType: "gameSwitchYourTurn",
+                                                            fromUserPhotoURL: myPhotoURL
                                                         })
                                                             .then(() => console.log('opened up a notification collection'))
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -352,7 +355,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             toUserID: doc.data().userID1,
                                                             fromUserID: doc.data().userID2,
                                                             linkTo: "/game-landing/" + gamingID,
-                                                            createdAt: new Date()
+                                                            createdAt: new Date(),
+                                                            notificationType: "gameSwitchYourTurn",
+                                                            fromUserPhotoURL: myPhotoURL
                                                         })
                                                             .then(() => console.log('opened up a notification collection'))
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -398,7 +403,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                     toUserID: userID,
                                                                     fromUserID: opponentId,
                                                                     linkTo: "/game-finished/" + gamingID,
-                                                                    createdAt: new Date()
+                                                                    createdAt: new Date(),
+                                                                    notificationType: "gameOverYouWon",
+                                                                    fromUserPhotoURL: myPhotoURL
                                                                 })
                                                                     .then(() => console.log('opened up a notification collection'))
                                                                     .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -410,7 +417,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
                                                                 linkTo: "/game-finished/" + gamingID,
-                                                                createdAt: new Date()
+                                                                createdAt: new Date(),
+                                                                notificationType: "gameOverYouLost",
+                                                                fromUserPhotoURL: myPhotoURL
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -438,7 +447,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 toUserID: userID,
                                                                 fromUserID: opponentId,
                                                                 linkTo: "/game-finished/" + gamingID,
-                                                                createdAt: new Date()
+                                                                createdAt: new Date(),
+                                                                notificationType: "gameOverYouLost",
+                                                                fromUserPhotoURL: myPhotoURL
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -450,7 +461,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
                                                                 linkTo: "/game-finished/" + gamingID,
-                                                                createdAt: new Date()
+                                                                createdAt: new Date(),
+                                                                notificationType: "gameOverYouWon",
+                                                                fromUserPhotoURL: myPhotoURL
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -465,7 +478,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 toUserID: opponentId,
                                                                 fromUserID: userID,
                                                                 linkTo: "/game-finished/" + gamingID,
-                                                                createdAt: new Date()
+                                                                createdAt: new Date(),
+                                                                notificationType: "gameOverTie",
+                                                                fromUserPhotoURL: myPhotoURL
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
@@ -477,7 +492,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 toUserID: userID,
                                                                 fromUserID: opponentId,
                                                                 linkTo: "/game-finished/" + gamingID,
-                                                                createdAt: new Date()
+                                                                createdAt: new Date(),
+                                                                notificationType: "gameOverTie",
+                                                                fromUserPhotoURL: myPhotoURL
                                                             })
                                                                 .then(() => console.log('opened up a notification collection'))
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
