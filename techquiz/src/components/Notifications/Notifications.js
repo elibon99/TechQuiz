@@ -1,10 +1,11 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 const Notifications = ({notifications}) => {
     notifications ? console.log(notifications, "notifications") : console.log("no notifications");
 
     return (
-        <div id="nots" className="notification-dropdown">
+        <div id="nots" className="notification-dropdown z-depth-3">
             {/*{notifications ? Object.entries(notifications).map((notification) => {*/}
             {/*    return (*/}
             {/*        <li key={notification[0]}>*/}
@@ -19,11 +20,11 @@ const Notifications = ({notifications}) => {
             </div>
             {notifications ? Object.entries(notifications).map((notification) => {
                 return(
-                    <a href={notification[1].linkTo} key={notification[0]} className="notification-item">
-                        <li to={notification[1].linkTo}>
+                    <li id="nots-item" key={notification[0]} className="notification-item">
+                        <NavLink to={notification[1].linkTo}>
                             {notification[1].notificationMessage} from {notification[1].fromUser}
-                        </li>
-                    </a>
+                        </NavLink>
+                    </li>
                 )
             }): <h5>No current notification</h5>}
 
