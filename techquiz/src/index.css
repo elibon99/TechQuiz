@@ -397,6 +397,7 @@ nav .sidenav-trigger{
   color: red;
 }
 
+
 .thumbs-container{
   display: flex;
   flex-direction: row;
@@ -624,6 +625,43 @@ nav .sidenav-trigger{
   height: 130px;
   width: 130px;
   border-radius: 10px;
+}
+
+.notification-user-pic{
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.notification-item-container{
+  display: flex;
+  flex-direction: row;
+}
+
+.notification-item-logo{
+  display: flex;
+  align-items: center;
+}
+
+.notification-title{
+  font-weight: bold;
+  font-size: 17px;
+  color: black;
+  margin-bottom: 0px;
+  margin-top: 0px
+}
+.notification-info{
+  margin-left: 10px;
+}
+
+.notification-message{
+  font-size: 15px;
+  color: black;
+}
+
+.notification-date{
+  font-size: 13px;
+  margin-top: 0px;
 }
 
 .games-btn{
@@ -924,9 +962,16 @@ nav .sidenav-trigger{
   color: #42A5F5;
   width: 25vw;
 }
+.notification-title-request-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
 
 .notification-item:hover{
   background-color: #dddddd;
+  z-index: 1;
 }
 
 .notification-item a{
@@ -934,6 +979,7 @@ nav .sidenav-trigger{
   width: 25vw;
   color: #838383;
   padding: 10px 10px;
+  border-bottom: 1px solid #c4c4c4;
 }
 
 .SVGBadge-svgBackground{
