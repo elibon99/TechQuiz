@@ -57,13 +57,17 @@
       // });
       $(document).on("click", function (event){
         var $trigger = $(".notification-dropdown");
+        var $trigger2 = 'notification-bell';
+        var $trigger3 = 'notification-bell-path';
         var elem = document.querySelector('.notification-dropdown');
         var style = getComputedStyle(elem);
 
-        if($trigger !== event.target && style.width > "0px"){
-          document.getElementById("nots").style.width = "0";
-          document.getElementById("nots").style.padding = "0px 0px";
+        if($trigger2 === event.target.id || $trigger3 === event.target.id){
+          $('#nots').addClass('notification-width');
+        }
 
+        if($trigger !== event.target && style.width > "0px"){
+          $('#nots').removeClass('notification-width')
         }
       })
 

@@ -889,9 +889,15 @@ nav .sidenav-trigger{
   background-color: #ffffff;
   z-index: 60;
   right: 0px;
-  transition: width 0.1s;
+  transition: width 0.4s;
   overflow-x: hidden;
 }
+
+.notification-width{
+  width: 25vw;
+}
+
+
 
 
 .dropdown-header{
@@ -916,8 +922,7 @@ nav .sidenav-trigger{
   display: flex;
   align-items: center;
   color: #42A5F5;
-  width: 100%;
-  transition: width 0.1s;
+  width: 25vw;
 }
 
 .notification-item:hover{
@@ -926,11 +931,20 @@ nav .sidenav-trigger{
 
 .notification-item a{
   text-decoration: none!important;
-  width: 100%;
+  width: 25vw;
   color: #838383;
   padding: 10px 10px;
 }
 
+.SVGBadge-svgBackground{
+  fill: red;
+}
+
+.SVGBadge-number{
+  fill: white;
+  font-size: 12px;
+  letter-spacing: -1px;
+}
 
 
 
@@ -949,7 +963,6 @@ nav .sidenav-trigger{
   vertical-align: middle;
   height: 34px;
   width: 34px;
-  stroke: #42A5F5;
 }
 
 .notification-bell path{
