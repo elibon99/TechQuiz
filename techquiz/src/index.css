@@ -883,29 +883,32 @@ nav .sidenav-trigger{
 .notification-dropdown{
   position: absolute;
   list-style-type: none;
-  top: 0px;
+  top: 66px;
   width: 0;
-  max-height: 300px;
-  background-color: #424242;
-  border-radius: 6px;
+  height: 100vh;
+  background-color: #ffffff;
   z-index: 60;
   right: 0px;
-  transition: width 0.5s;
+  transition: width 0.1s;
   overflow-x: hidden;
 }
+
 
 .dropdown-header{
   background-color: white;
   height: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
 
 }
 .dropdown-header h6{
   margin: 0px 0px;
-  color: #42A5F5;
+  color: black;
+  font-size: 22px;
   font-weight: bold;
+  text-align: left;
+  padding-left: 10px;
+  padding-top: 10px;
 }
 
 .notification-item{
@@ -913,17 +916,18 @@ nav .sidenav-trigger{
   display: flex;
   align-items: center;
   color: #42A5F5;
-  transition: width 0.3s;
+  width: 100%;
+  transition: width 0.1s;
 }
 
 .notification-item:hover{
-  background-color: #5a5959;
+  background-color: #dddddd;
 }
 
-.notification-item li{
+.notification-item a{
   text-decoration: none!important;
   width: 100%;
-  color: #ffffff;
+  color: #838383;
   padding: 10px 10px;
 }
 
