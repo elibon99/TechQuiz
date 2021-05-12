@@ -34,19 +34,21 @@ const mapDispatchToProps = (dispatch) => {
 
 const NavBarPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect((props) =>
-    {
-        console.log(props.uid);
-
-        return [
-            {collection: 'notifications',
-                orderBy: ['createdAt', 'desc'],
-                where: [
-                    ['toUserID', '==', props.uid]
-                ],
-                storeAs: 'Notifications'
-            }
-        ]
+    firestoreConnect((props) => {
+        if (props.uid === undefined) {
+            return [];
+        } else {
+            return [
+                {
+                    collection: 'notifications',
+                    orderBy: ['createdAt', 'desc'],
+                    where: [
+                        ['toUserID', '==', props.uid]
+                    ],
+                    storeAs: 'Notifications'
+                }
+            ]
+        }
     }
 ))(Navbar);
 
