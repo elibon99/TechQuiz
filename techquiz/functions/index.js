@@ -167,7 +167,8 @@ exports.friendAccepted = functions.firestore
                         linkTo: "/profile-preview/" + gotReqID,
                         createdAt: new Date(),
                         notificationType: "acceptedFriendRequest",
-                        fromUserPhotoURL: gotReqPhotoURL
+                        fromUserPhotoURL: gotReqPhotoURL,
+                        requestID: null
                     })
                         .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
                         .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
@@ -206,7 +207,7 @@ exports.gameInvitationResponse = functions.firestore
                 gameIsFinished: false,
                 timeOfGameFinished: null,
                 hasChosenCategory: false
-            }).then(() => {
+            }).then((docRef) => {
                 admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
                     .then(() => {
                         admin.firestore().collection('notifications').add({
@@ -215,10 +216,11 @@ exports.gameInvitationResponse = functions.firestore
                             fromUser: gotReqUserName,
                             toUserID: sentReqID,
                             fromUserID: gotReqID,
-                            linkTo: "/profile-preview/" + gotReqID,
+                            linkTo: "/game-landing/" + docRef.id,
                             createdAt: new Date(),
                             notificationType: "acceptedGameInvitation",
-                            fromUserPhotoURL: theirPhotoURL
+                            fromUserPhotoURL: theirPhotoURL,
+                            requestID: null
                         })
                             .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
                             .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));

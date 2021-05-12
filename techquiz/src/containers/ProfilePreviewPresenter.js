@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import ProfilePreview from "../components/friends/ProfilePreview";
 import {firestoreConnect} from "react-redux-firebase";
 import {compose} from "redux";
-import {addFriend, removeFriend, acceptFriendRequest, rejectFriendRequest} from "../store/actions/friendActions";
+import {cancelFriendRequest, addFriend, removeFriend, acceptFriendRequest, rejectFriendRequest} from "../store/actions/friendActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -83,8 +83,8 @@ const mapDispatchToProps = (dispatch) => {
         addFriend: (userID, userName) => dispatch(addFriend(userID, userName)),
         removeFriend: (friendUserID) => dispatch(removeFriend(friendUserID)),
         acceptFriendRequest: (requestID) => dispatch(acceptFriendRequest(requestID)),
-        rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID))
-
+        rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID)),
+        cancelFriendRequest: (requestID) => dispatch(cancelFriendRequest(requestID))
     }
 }
 

@@ -35,8 +35,8 @@ export const addFriend = (userID, otherName) => {
         const self = getState().firebase.auth.uid;
         const selfName = getState().firebase.profile.userName;
         const otherPerson = userID;
-        const fromPhotoURL = getState().firestore.data.users[self].photoURL;
-        const gotReqPhotoUrl = getState().firestore.data.users[self].photoURL;
+        const gotPhotoURL = getState().firestore.data.users[otherPerson].photoURL;
+        const sentReqPhotoUrl = getState().firestore.data.users[self].photoURL;
 
         firestore.collection('friendRequests').add({
             sentReqUserName: selfName,
@@ -45,9 +45,10 @@ export const addFriend = (userID, otherName) => {
             gotRequest: otherPerson,
             isAccepted: false,
             isRejected: false,
-            sentPhotoURL: fromPhotoURL,
-            gotReqPhotoURL: gotReqPhotoUrl
-        }).then(() => {
+            sentReqPhotoURL: sentReqPhotoUrl,
+            gotReqPhotoURL: gotPhotoURL,
+            notificationID: null
+        }).then((docRef) => {
             firestore.collection('notifications').add({
               notificationMessage: "You have received a new friend request",
               toUser: otherName,
@@ -57,9 +58,27 @@ export const addFriend = (userID, otherName) => {
               createdAt: new Date(),
               linkTo: "/profile-preview/" + self,
               notificationType: "incomingFriendRequest",
-              fromUserPhotoURL: fromPhotoURL
+              fromUserPhotoURL: sentReqPhotoUrl,
+              requestID: null
             })
-                .then(() => console.log('opened up a notification collection'))
+                .then((doc) => {
+                    firestore.collection('friendRequests').doc(docRef.id).update({
+                        notificationID : doc.id
+                    })
+                        .then(() => {
+                                    console.log('yay added notificationID to friendReqcollection');
+                                    firestore.collection('friendRequests').doc(docRef.id).get()
+                                        .then((docRef2) => {
+                                            firestore.collection('notifications').doc(doc.id).update({
+                                                requestID : docRef2.id
+                                            })
+                                                .then(() =>console.log('yay'))
+                                                .catch((err) => console.log(err, 'couldt update inide deep loop'));
+                                        })
+                                        .catch((err) => console.log(err, 'deep nest bro'));
+                                })
+                        .catch((err) => console.log(err, 'damn no notificationID for you'));
+                            })
                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
             console.log('added a friend request entry');
             dispatch({type: 'ADD_FRIEND_SUCCESS'})
@@ -179,5 +198,33 @@ export const createFriendGame = (userID, otherName) => {
 export const restoreRedirectTo = () => {
     return(dispatch) => {
         dispatch({type: 'RESTORE_REDIRECT_TO'});
+    }
+}
+
+/**
+ * This function tries to remove the selected friendRequest.
+ * @param requestID - the friendrequest ID.
+ * @returns - dispatch of type success or failure depending on removeFriend state.
+ * */
+export const cancelFriendRequest = (requestID) => {
+    return(dispatch, getState, {getFirestore}) => {
+        const firestore = getFirestore();
+        console.log(requestID, 'requestID');
+        let notificationID = null;
+
+        firestore.collection('friendRequests').doc(requestID).get()
+            .then((docRef) => {
+                notificationID = docRef.data().notificationID;
+                console.log(notificationID, 'd9 something?');
+
+                firestore.collection('friendRequests').doc(requestID).delete()
+                    .then(() => {
+                        firestore.collection('notifications').doc(notificationID).delete()
+                            .then(() => console.log('deleted notification entry upon cancel friend req'))
+                            .catch((err) => console.log(err, 'couldnt delete notification entry on cancel friend req'));
+                    })
+                    .catch((err) => console.log(err,'couldnt cancel friend req :('));
+            })
+            .catch((err) => console.log(err, 'couldnt get notificationID'));
     }
 }
