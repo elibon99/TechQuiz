@@ -206,7 +206,7 @@ exports.gameInvitationResponse = functions.firestore
                 gameIsFinished: false,
                 timeOfGameFinished: null,
                 hasChosenCategory: false
-            }).then(() => {
+            }).then((docRef) => {
                 admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
                     .then(() => {
                         admin.firestore().collection('notifications').add({
@@ -215,7 +215,7 @@ exports.gameInvitationResponse = functions.firestore
                             fromUser: gotReqUserName,
                             toUserID: sentReqID,
                             fromUserID: gotReqID,
-                            linkTo: "/profile-preview/" + gotReqID,
+                            linkTo: "/game-landing/" + docRef.id,
                             createdAt: new Date(),
                             notificationType: "acceptedGameInvitation",
                             fromUserPhotoURL: theirPhotoURL
