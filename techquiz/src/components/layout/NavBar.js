@@ -8,7 +8,7 @@ import Notifications from "../Notifications/Notifications";
 
 
 const Navbar = (props) => {
-    const links = props.auth.uid ? <LoggedInLinks showNotifications={props.showNotifications} signOut={props.signOut} profile={props.profile} id={props.auth.uid}/> : <LoggedOutLinks />;
+    const links = props.auth.uid ? <LoggedInLinks showNotifications={props.showNotifications} signOut={props.signOut} profile={props.profile} id={props.auth.uid} ammountOfNotifications={props.ammountOfNotifications}/> : <LoggedOutLinks />;
     const brandlogo = props.auth.uid ?
         <Link to='/profile' className="brand-logo">TechQuiz</Link>:
         <Link to='/' className="brand-logo">TechQuiz</Link>
