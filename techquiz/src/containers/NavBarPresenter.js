@@ -12,11 +12,16 @@ import {firestoreConnect} from "react-redux-firebase";
 const mapStateToProps = (state) => {
     const uid = state.firebase.auth.uid;
     const notifications = state.firestore.data.Notifications;
+    var ammountOfNotifications = 0;
+    if(notifications){
+        Object.entries(notifications).forEach((entry) => {ammountOfNotifications++;})
+    }
     return {
         auth: state.firebase.auth,
         profile: state.firebase.profile,
         uid: uid,
-        notifications: notifications
+        notifications: notifications,
+        ammountOfNotifications: ammountOfNotifications
 
     }
 }
