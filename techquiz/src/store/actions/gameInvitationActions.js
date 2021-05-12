@@ -12,7 +12,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
         const username = getState().firebase.profile.userName;
         console.log(username, "The user name that wants to invite to game")
         const userID = getState().firebase.auth.uid;
-        const myPhotoURL = getState().firestore.data.users[userID].photoURL;
+        const sentPhotoURL = getState().firestore.data.users[userID].photoURL;
         const theirPhotoURL = getState().firestore.data.users[opponentID].photoURL;
 
         firestore.collection('gameInvitations').add({
@@ -34,7 +34,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
                             linkTo: "/game-landing/" + userID,
                             createdAt: new Date(),
                             notificationType: "incomingGameInvitation",
-                            fromUserPhotoURL: myPhotoURL
+                            fromUserPhotoURL: sentPhotoURL
                         })
                             .then(() => console.log('opened up a notification collection'))
                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
