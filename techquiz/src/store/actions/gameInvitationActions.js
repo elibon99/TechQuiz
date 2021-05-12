@@ -31,7 +31,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
                             fromUser: username,
                             toUserID: opponentID,
                             fromUserID: userID,
-                            linkTo: "/game-landing/" + userID,
+                            linkTo: "/profile-preview/" + userID,
                             createdAt: new Date(),
                             notificationType: "incomingGameInvitation",
                             fromUserPhotoURL: sentPhotoURL
