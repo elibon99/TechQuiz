@@ -12,6 +12,8 @@ export const createGameInvitation = (opponentID, opponentName) => {
         const username = getState().firebase.profile.userName;
         console.log(username, "The user name that wants to invite to game")
         const userID = getState().firebase.auth.uid;
+        const myPhotoURL = getState().firestore.data.users[userID].photoURL;
+        const theirPhotoURL = getState().firestore.data.users[opponentID].photoURL;
 
         firestore.collection('gameInvitations').add({
             sentReqUserName: username,
@@ -19,8 +21,24 @@ export const createGameInvitation = (opponentID, opponentName) => {
             sentRequestID: userID,
             gotRequestID: opponentID,
             isAccepted: false,
-            isRejected: false
-        }).then(() => {console.log("Succesfully created a game invitation");dispatch({type: "GAME_INVITATION_ADDED_SUCCESS"})})
+            isRejected: false,
+            gotReqPhotoURL: theirPhotoURL
+        }).then(() => {console.log("Succesfully created a game invitation");
+                        dispatch({type: "GAME_INVITATION_ADDED_SUCCESS"})
+                        firestore.collection('notifications').add({
+                            notificationMessage: "You got a game invitation",
+                            toUser: opponentName,
+                            fromUser: username,
+                            toUserID: opponentID,
+                            fromUserID: userID,
+                            linkTo: "/game-landing/" + userID,
+                            createdAt: new Date(),
+                            notificationType: "incomingGameInvitation",
+                            fromUserPhotoURL: myPhotoURL
+                        })
+                            .then(() => console.log('opened up a notification collection'))
+                            .catch((err) => console.log(err, 'something went wrong updating notification collection'));
+        })
             .catch((error) => {dispatch({type: "GAME_INVITATION_ERROR_FAILURE", error});});
     }
 }
