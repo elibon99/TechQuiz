@@ -19,14 +19,13 @@ const Notifications = ({notifications, acceptGameInvitation, rejectGameInvitatio
                                 <div className="notification-item-logo">
                                     {notification[1].fromUserPhotoURL ? <img className="notification-user-pic" src={notification[1].fromUserPhotoURL} alt="notification-logo"/> :
                                     <NotificationSenderImg className="notification-sender-img"/>}
-
                                 </div>
                                 <div className="notification-info">
                                     <div className='notification-title-request-container'>
                                         <h6 className="notification-title">
                                             {notification[1].notificationType === "incomingFriendRequest" ? "Friend Request" : notification[1].notificationType === "acceptedFriendRequest" ?
                                             "Accepted friend request" : notification[1].notificationType === "incomingGameInvitation" ? "Game Invitation" : notification[1].notificationType === "acceptedGameInvitation" ?
-                                            "Accepted game invitation" : ""}
+                                            "Accepted game invitation" : notification[1].notificationType === "gameSwitchYourTurn" ? "Your turn": (notification[1].notificationType === "gameOverYouWon" || notification[1].notificationType === "gameOverYouLost" || notification[1].notificationType === "gameOverTie") ? "Game Over" :""}
                                         </h6>
                                     </div>
                                     <h6 className="notification-date">{moment(notification[1].createdAt.toDate()).fromNow()}</h6>

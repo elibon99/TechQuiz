@@ -136,6 +136,9 @@ exports.friendAccepted = functions.firestore
             const gotReqID = change.after.data().gotRequest;
             const gotReqUserName = change.after.data().gotReqUserName;
             const gotReqPhotoURL = change.after.data().gotReqPhotoURL;
+            const sentReqPhotoURL = change.after.data().sentReqPhotoURL;
+            console.log(gotReqPhotoURL, 'gotreq photorul');
+            console.log(sentReqPhotoURL, 'sentreq photourl');
             return admin.firestore().collection('users').doc(sentReqID).get()
                 .then((docRef) => {
                     admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
@@ -192,6 +195,9 @@ exports.gameInvitationResponse = functions.firestore
             const gotReqID = change.after.data().gotRequestID;
             const gotReqUserName = change.after.data().gotReqUserName;
             const theirPhotoURL = change.after.data().gotReqPhotoURL;
+            const myPhotoURL = change.after.data().sentReqPhotoURL;
+            console.log(theirPhotoURL, 'their photo url is what exactly');
+            console.log(myPhotoURL, 'MY url is what exactly');
             return admin.firestore().collection('games').add({
                 userID1: sentReqID,
                 user1Name: sentReqUserName,
