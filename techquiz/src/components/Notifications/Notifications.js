@@ -26,15 +26,18 @@ const Notifications = ({notifications, acceptGameInvitation, rejectGameInvitatio
                     <li id="nots-item" key={notification[0]} className="notification-item">
                         <NavLink to={notification[1].linkTo}>
                             <div className="notification-item-container">
-                                <div className="notification-item-logo">
-                                    <img className="notification-user-pic" src={notification[1].fromUserPhotoURL} alt="notification-logo"/>
+                                <div className="notification-item-logo">{ notification[1].fromUserPhotoURL ?
+                                    <img className="notification-user-pic" src={notification[1].fromUserPhotoURL}
+                                         alt="notification-logo"/> :
+                                    <i className="large material-icons">account_circle</i>
+                                }
                                 </div>
                                 <div className="notification-info">
                                     <div className='notification-title-request-container'>
                                         <h6 className="notification-title">
                                             {notification[1].notificationType === "incomingFriendRequest" ? "Friend Request" : notification[1].notificationType === "acceptedFriendRequest" ?
                                             "Accepted friend request" : notification[1].notificationType === "incomingGameInvitation" ? "Game Invitation" : notification[1].notificationType === "acceptedGameInvitation" ?
-                                            "Accepted game invitation" : ""}
+                                            "Accepted game invitation" : notification[1].notificationType === "gameSwitchYourTurn" ? "Your turn": (notification[1].notificationType === "gameOverYouWon" || notification[1].notificationType === "gameOverYouLost" || notification[1].notificationType === "gameOverTie") ? "Game Over" :"hej"}
                                         </h6>
                                         {notification[1].notificationType === "incomingFriendRequest" || notification[1].notificationType === "incomingGameInvitation" ?
                                             <div className="thumbs-container">
