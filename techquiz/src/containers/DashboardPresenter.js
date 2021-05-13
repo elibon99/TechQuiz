@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
         profilePicURL = profilePicURL + new Date().getTime();
     }
 
-    let wasClicked = state.firestore.data.users ? state.firestore.data.users[uid].changedPicAtLeastOnce : null;
+    let wasClicked = (state.firestore.data.users && uid) ? state.firestore.data.users[uid].changedPicAtLeastOnce : null;
     if((profilePicURL === null) && (wasClicked === true)){
         window.location.reload();
     }
