@@ -11,7 +11,9 @@ const LoggedInLinks = (props) => {
             <li><NavLink to='/leaderboard'>Leaderboards</NavLink></li>
             <li><a href="/signin" onClick={props.signOut}>Log out</a></li>
             <li><NotificationBell ammountOfNotifications={props.ammountOfNotifications} className="notification-bell-div"/></li>
-            <li><NavLink to='/profile' className='btn btn-floating blue lighten-1'>{props.profile.initials}</NavLink></li>
+            <li><NavLink to='/profile' className='btn btn-floating blue lighten-1'>
+                <img className="profile-pic-navbar" src={props.profile.photoURL}/>
+            </NavLink></li>
         </>
     )
 }

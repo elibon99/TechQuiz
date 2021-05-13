@@ -1073,3 +1073,8 @@ nav .sidenav-trigger{
     text-align: center;
   }
 }
+
+.profile-pic-navbar{
+  width: 40px;
+  height: 40px;
+}
