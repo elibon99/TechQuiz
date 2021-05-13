@@ -20,6 +20,11 @@ const ProfileInfo = ({setProfilePicture, profile, profilePicURL, setUserBiograph
                         <input id="file-input" type='file'
                                onChange={(event) => setProfilePicture(event.target.files[0])}/>
                         <h5>{profile.userName}</h5>
+                        <div className="out overout">
+                            <span>move your mouse</span>
+                            <div className="in">
+                            </div>
+                        </div>
                     </div>
                     <div className="profile-info-bio-container">
                         <EdiText type="text" value={profile.biography} onSave={(val) => setUserBiography(val)}/>
