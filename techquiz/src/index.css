@@ -391,6 +391,7 @@ nav .sidenav-trigger{
   color: #42A5F5;
 }
 
+
 .thumbs-down{
   height: 28px;
   width: 28px;
@@ -971,7 +972,16 @@ nav .sidenav-trigger{
 
 .notification-item:hover{
   background-color: #dddddd;
-  z-index: 1;
+}
+
+.notification-sender-img{
+  height: 50px;
+  width: 50px;
+}
+
+.notification-sender-img path{
+  height: 60px;
+  width: 60px;
 }
 
 .notification-item a{
