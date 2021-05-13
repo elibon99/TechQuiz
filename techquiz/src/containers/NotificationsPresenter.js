@@ -32,7 +32,6 @@ const NotificationsPresenter = compose(
     connect(mapStateToProps),
     firestoreConnect((props) =>
     {
-        console.log(props.uid);
 
     return [
         {collection: 'notifications',

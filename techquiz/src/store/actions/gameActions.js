@@ -60,11 +60,7 @@ export const fetchQuestions = (gamingID, category) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
 
-        console.log(category, " choosen category")
         const params = {tags: category, limit: "3"};
-        const pp = new URLSearchParams(params);
-        const test = URL + pp;
-        console.log(test)
 
         /* Fetch from the api */
         fetch(URL + new URLSearchParams(params), {
@@ -94,9 +90,8 @@ export const fetchQuestions = (gamingID, category) => {
                                     currentSet: gameSetID,
                                     hasChosenCategory: true
                                 })
-                                    .then(() => console.log('added currentSet to games collection'))
+                                    .then()
                                     .catch((err) => console.log(err, 'something went wrong inside currentset add'));
-                                console.log("Updated games with gameSets questions")
                             })
                             .catch((error) => console.log("Error updating games: ", error));
 
@@ -262,11 +257,9 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                         if(userID === User1ID){
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1Score"] = scorePerQuestion;
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p1ChosenAnswer"] = answer;
-                            console.log('did this happen');
                         } else{
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2Score"] = scorePerQuestion;
                             questionsToBeUpdated.resp[docRef.data().activeQuestion]["p2ChosenAnswer"] = answer;
-                            console.log('did this happen2');
                         }
                         disableDivs(allAnswers);
                         docRef.ref.update({
@@ -310,7 +303,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                 docRef.ref.update({
                                                     score: 0,
                                                     activeQuestion: 0
-                                                }).then(() => console.log(""))
+                                                }).then()
                                                     .catch((error) => console.log("error, ", error));
                                             }, 3000)
 
@@ -321,7 +314,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                     turn: theTurn,
                                                     shouldCreateNewGameSet: playerShouldSelectCategory
                                                 }).then(() => {
-                                                    console.log("Updated player 1 score");
                                                     if(theTurn === doc.data().userID2){
                                                         firestore.collection('notifications').add({
                                                             notificationMessage: "It's your turn to play in this game",
@@ -335,7 +327,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             fromUserPhotoURL: myPhotoURL,
                                                             requestID: null
                                                         })
-                                                            .then(() => console.log('opened up a notification collection'))
+                                                            .then()
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
                                                     }
                                                 })
@@ -347,7 +339,6 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                     turn: theTurn,
                                                     shouldCreateNewGameSet: playerShouldSelectCategory
                                                 }).then(() => {
-                                                        console.log("Updated player 2 score");
                                                     if(theTurn === doc.data().userID1){
                                                         firestore.collection('notifications').add({
                                                             notificationMessage: "It's your turn to play in this game",
@@ -361,7 +352,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                             fromUserPhotoURL: myPhotoURL,
                                                             requestID: null
                                                         })
-                                                            .then(() => console.log('opened up a notification collection'))
+                                                            .then()
                                                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
                                                     }
 
@@ -388,14 +379,14 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 wins: firebase.firestore.FieldValue.increment(1),
                                                                 mlRating: firebase.firestore.FieldValue.increment(3)
                                                             })
-                                                                .then(() => console.log('updated player win count'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'couldnt update player win count'));
 
                                                             firestore.collection('userStats').doc(opponentId).update({
                                                                 losses: firebase.firestore.FieldValue.increment(1),
                                                                 mlRating: firebase.firestore.FieldValue.increment(-3)
                                                             })
-                                                                .then(() => console.log('updated player loss count'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'couldnt update player loss count'));
 
                                                                 firestore.collection('notifications').add({
@@ -410,7 +401,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                     fromUserPhotoURL: myPhotoURL,
                                                                     requestID: null
                                                                 })
-                                                                    .then(() => console.log('opened up a notification collection'))
+                                                                    .then()
                                                                     .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                             firestore.collection('notifications').add({
@@ -425,7 +416,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUserPhotoURL: myPhotoURL,
                                                                 requestID: null
                                                             })
-                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                         }
@@ -434,14 +425,14 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 losses: firebase.firestore.FieldValue.increment(1),
                                                                 mlRating: firebase.firestore.FieldValue.increment(-3)
                                                             })
-                                                                .then(() => console.log('updated player loss count'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'couldnt update player loss count'));
 
                                                             firestore.collection('userStats').doc(opponentId).update({
                                                                 wins: firebase.firestore.FieldValue.increment(1),
                                                                 mlRating: firebase.firestore.FieldValue.increment(3)
                                                             })
-                                                                .then(() => console.log('updated player win count'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'couldnt update player win count'));
 
                                                             firestore.collection('notifications').add({
@@ -456,7 +447,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUserPhotoURL: myPhotoURL,
                                                                 requestID: null
                                                             })
-                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                             firestore.collection('notifications').add({
@@ -471,12 +462,11 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUserPhotoURL: myPhotoURL,
                                                                 requestID: null
                                                             })
-                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                         }
                                                         else {
-                                                            console.log('its a tie in else statement');
                                                             firestore.collection('notifications').add({
                                                                 notificationMessage: "Game over against " + yourUsername + ". It's a tie! ",
                                                                 toUser: opponentUsername,
@@ -489,7 +479,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUserPhotoURL: myPhotoURL,
                                                                 requestID: null
                                                             })
-                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                             firestore.collection('notifications').add({
@@ -504,17 +494,16 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
                                                                 fromUserPhotoURL: myPhotoURL,
                                                                 requestID: null
                                                             })
-                                                                .then(() => console.log('opened up a notification collection'))
+                                                                .then()
                                                                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
 
                                                         }
-                                                        console.log("Want to change redirectTo in game collection");
                                                         firestore.collection('games').doc(gamingID).update({
                                                             redirectTo: `${'/game-finished/' + gamingID}`,
                                                             gameIsFinished: true,
                                                             timeOfGameFinished: new Date()
 
-                                                        }).then(() => console.log("Updated redirectTO"))
+                                                        }).then()
                                                             .catch((error) => console.log("SOmething went wrong updating redirecTo"));
 
 
@@ -552,34 +541,27 @@ function decideWinner(p1Score, p2Score, currentUserID, uid1){
     let p2Result = null;
 
     if(p1Score === p2Score){
-        console.log('its a tie');
         return 0;
     }
     if (currentUserID === uid1){
-        console.log('logged in user is uid1');
         p1Result = (p1Score - p2Score);
     }
     else {
-        console.log('logged in user is uid2');
         p2Result = (p2Score - p1Score);
     }
     if (p1Result){
         if(p1Result > 0) {
-            console.log('p1 won');
             return 1;
         }
         else {
-            console.log('p2 won');
             return -1
         }
     }
     else {
         if(p2Result > 0){
-            console.log('p2 won');
             return 1
         }
         else {
-            console.log('p1 won');
             return -1
         }
     }

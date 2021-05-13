@@ -43,14 +43,12 @@ export const addToMatchQueue = (rating) => {
                                     shouldSkip = true;
                                 }
                                 else{
-                                    console.log('Something wrong happenend when creating game');
                                 }
                             })
                         }
                         else{
                             gamingSetId = firestore.collection('games').doc().id;
                             shouldCreateNewGame = true;
-                            console.log("Else statement happened")
                         }
                         /* Creating new game either if matchqueue is empty or if entries in matchqueue are mapped to same user */
                         if(shouldCreateNewGame){
@@ -69,7 +67,7 @@ export const addToMatchQueue = (rating) => {
                                 gameIsFinished: false,
                                 timeOfGameFinished: null,
                                 hasChosenCategory: false
-                            }).then(() => console.log("Succesfully created game"))
+                            }).then()
                                 .catch((err) => console.log("Failed to create game :", err));
                         }
                         firestore.collection('matchqueue').add({
@@ -80,7 +78,6 @@ export const addToMatchQueue = (rating) => {
                         })
                             .then((docRef) => {
                                 dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
-                                console.log(gamingSetId, "gameID")
                                 dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingSetId}`});
                             })
                             .catch((err) => {

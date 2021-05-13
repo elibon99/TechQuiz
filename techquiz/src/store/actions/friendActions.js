@@ -66,13 +66,12 @@ export const addFriend = (userID, otherName) => {
                         notificationID : doc.id
                     })
                         .then(() => {
-                                    console.log('yay added notificationID to friendReqcollection');
                                     firestore.collection('friendRequests').doc(docRef.id).get()
                                         .then((docRef2) => {
                                             firestore.collection('notifications').doc(doc.id).update({
                                                 requestID : docRef2.id
                                             })
-                                                .then(() =>console.log('yay'))
+                                                .then()
                                                 .catch((err) => console.log(err, 'couldt update inide deep loop'));
                                         })
                                         .catch((err) => console.log(err, 'deep nest bro'));
@@ -80,7 +79,6 @@ export const addFriend = (userID, otherName) => {
                         .catch((err) => console.log(err, 'damn no notificationID for you'));
                             })
                 .catch((err) => console.log(err, 'something went wrong updating notification collection'));
-            console.log('added a friend request entry');
             dispatch({type: 'ADD_FRIEND_SUCCESS'})
         })
             .catch((err) => {
@@ -132,7 +130,6 @@ export const acceptFriendRequest = (requestID) => {
         firestore.collection('friendRequests').doc(requestID).update({
             isAccepted: true
         }).then(() =>{
-            console.log('accepted a friend request');
             dispatch({type: 'ACCEPTED_REQUEST_SUCCESS'})
         }).catch((err) => {
             console.log('hello is this happening', err);
@@ -153,7 +150,6 @@ export const rejectFriendRequest = (requestID) => {
         firestore.collection('friendRequests').doc(requestID).update({
             isRejected: true
         }).then(() =>{
-            console.log('rejected a friend request');
             dispatch({type: 'REJECTED_REQUEST_SUCCESS'})
         }).catch((err) => {
             console.log('hello is this happening', err);
@@ -209,18 +205,16 @@ export const restoreRedirectTo = () => {
 export const cancelFriendRequest = (requestID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
-        console.log(requestID, 'requestID');
         let notificationID = null;
 
         firestore.collection('friendRequests').doc(requestID).get()
             .then((docRef) => {
                 notificationID = docRef.data().notificationID;
-                console.log(notificationID, 'd9 something?');
 
                 firestore.collection('friendRequests').doc(requestID).delete()
                     .then(() => {
                         firestore.collection('notifications').doc(notificationID).delete()
-                            .then(() => console.log('deleted notification entry upon cancel friend req'))
+                            .then()
                             .catch((err) => console.log(err, 'couldnt delete notification entry on cancel friend req'));
                     })
                     .catch((err) => console.log(err,'couldnt cancel friend req :('));

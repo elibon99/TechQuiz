@@ -50,10 +50,8 @@ const mapStateToProps = (state) => {
     }) : null;
 
     const mySentInvitations = state.firestore.data.sentGameInvitations;
-   // console.log(mySentInvitations, 'my invites out');
 
     const myReceivedInvitations = state.firestore.data.receivedGameInvitations;
-    console.log(myReceivedInvitations, 'my received invitations');
 
     /* Get all recent players, i.e. unique non-friends that the user has played and finished games with */
     let recentPlayers = [];
@@ -102,8 +100,6 @@ const mapStateToProps = (state) => {
             }
         })
     }
-
-    console.log(recentPlayers, 'recentplayers');
 
 
     /* Go through all the users friends, see if they are in a game with each other */

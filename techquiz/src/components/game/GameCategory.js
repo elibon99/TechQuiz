@@ -8,8 +8,6 @@ const GameCategory = ({game, opponent, profile, userStat, score, isYourTurn, aut
         return <Redirect to="/signin"/>
     }
 
-    console.log(localGame.selectedCategories, "<- all 4 categories")
-
     return (
         (game && userStat && localGame.selectedCategories) ?
         <div className="container">

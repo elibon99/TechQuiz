@@ -20,7 +20,7 @@ import PlayerStats from "./PlayerStats";
  * @param acceptGameInvitation - a method accepting a game invitation
  * @param rejectGameInvitation - a method rejecting a game invitation.
  * */
-const Dashboard = ({setUserBiography, profilePicURL, setProfilePicture, auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
+const Dashboard = ({profileInfoKey, setUserBiography, profilePicURL, setProfilePicture, auth, userStat, profile, winLossRatio, currentGamesYourTurn, currentGamesTheirTurn, finishedGames, userName, gameInvitations, acceptGameInvitation, rejectGameInvitation}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -30,7 +30,7 @@ const Dashboard = ({setUserBiography, profilePicURL, setProfilePicture, auth, us
                 <h5 className="page-title">Your Profile</h5>
                 <div className="general-container container">
                     <div className="row">
-                        <ProfileInfo setUserBiography={setUserBiography} profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
+                        <ProfileInfo key={profileInfoKey} setUserBiography={setUserBiography} profilePicURL={profilePicURL} setProfilePicture={setProfilePicture} profile={profile} userStat={userStat} winLossRatio={winLossRatio}/>
                         <PlayerStats stats={userStat} winLossRatio={winLossRatio}/>
 
                         <div className="col s12 m12 l12 xl3 column-zero-left-padding padding profile-info-padding-small-screens">

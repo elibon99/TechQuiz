@@ -39,7 +39,7 @@ const mapStateToProps = (state) => {
  * @param dispatch - the dispatch method
  * @returns setUsername - a method that will a method that sets the username search to whatever is in the input.
  * @returns acceptFriendRequest - a method that will handle the logic for accepting a friend request.
- * @returns rejectFriendRequest - a method that will handle the logic for accepting a friend request.
+ * @returns rejectFriendRequest - a method that will handle the logic for rejecting a friend request.
  * */
 const mapDispatchToProps = (dispatch) => {
     return{

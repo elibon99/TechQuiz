@@ -14,7 +14,7 @@ function refactorMlRating() {
             querySnapshot.forEach((doc) => {
                 doc.ref.update({
                     ranking: i
-                }).then(r => console.log(r, "update successful")).catch(error => console.log(error, "wha wha wha"));
+                }).then().catch(error => console.log(error, "wha wha wha"));
                 i++;
             });
         }).catch((error) => {
@@ -35,7 +35,6 @@ function matchMakingFindOpponent(userID, entryID, username) {
                         return;
                     }
                     else if ((doc.data().uid !== userID) && (doc.data().gameID !== null)) {
-                        console.log('Different IDs, game is not null, MATCH THESE');
                         admin.firestore().collection('games').doc(doc.data().gameID).get()
                             .then((docRef) => {
                                 const turn = (docRef.data().turn === "") ? userID : docRef.data().turn;
@@ -45,17 +44,12 @@ function matchMakingFindOpponent(userID, entryID, username) {
                                     user2Name: username
                                 })
                                     .then(() => {
-                                        console.log('added a user to another game');
                                         admin.firestore().collection('matchqueue').doc(doc.id).delete()
-                                            .then(() => {
-                                                console.log("Matchqueue document deleted!");
-                                            }).catch((error) => {
+                                            .then().catch((error) => {
                                             console.log("Error removing matchqueue document: ", error)
                                         });
                                         admin.firestore().collection('matchqueue').doc(entryID).delete()
-                                            .then(() => {
-                                                console.log("Matchqueue document deleted!");
-                                            }).catch((error) => {
+                                            .then().catch((error) => {
                                             console.log("Error removing matchqueue document: ", error)
                                         });
 
@@ -69,7 +63,6 @@ function matchMakingFindOpponent(userID, entryID, username) {
                     }
 
                     else{
-                        console.log("Didn't do any of the if else statments");
                     }
 
 
@@ -111,7 +104,7 @@ exports.updateMLRating = functions.firestore
         return admin.firestore().collection('multiplayerRating').doc(context.params.id).update({
             rating: change.after.data().mlRating
         })
-            .then(() => console.log('updated mlrating'))
+            .then()
             .catch((error) => console.log("Error updating mlrating: ", error));
     });
 
@@ -119,10 +112,9 @@ exports.setUsername = functions.firestore
     .document('users/{userID}')
     .onCreate((snap,context) => {
         var userName = snap.data().userName.toLowerCase();
-        console.log("Username is ", userName);
         return admin.firestore().collection('usernames').doc(userName).update({
             userID: context.params.userID
-        }).then(() => console.log('Updated usernames collection'))
+        }).then()
             .catch((error) => console.log('Error updating usernames collection, :', error));
 
     });
@@ -137,8 +129,6 @@ exports.friendAccepted = functions.firestore
             const gotReqUserName = change.after.data().gotReqUserName;
             const gotReqPhotoURL = change.after.data().gotReqPhotoURL;
             const sentReqPhotoURL = change.after.data().sentReqPhotoURL;
-            console.log(gotReqPhotoURL, 'gotreq photorul');
-            console.log(sentReqPhotoURL, 'sentreq photourl');
             return admin.firestore().collection('users').doc(sentReqID).get()
                 .then((docRef) => {
                     admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
@@ -154,7 +144,7 @@ exports.friendAccepted = functions.firestore
                                     photoURL: docRef2.data().photoURL
                                 }).then(() => {
                                     admin.firestore().collection('friendRequests').doc(context.params.id).delete()
-                                        .then(() => console.log("Succesfully deleted friendRequest document"))
+                                        .then()
                                         .catch((error) => console.log("Failed to delete friendRequest document ", error));
                                 })
                                     .catch((error) => console.log("Something went wrong adding friend ", error));
@@ -173,7 +163,7 @@ exports.friendAccepted = functions.firestore
                         fromUserPhotoURL: gotReqPhotoURL,
                         requestID: null
                     })
-                        .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
+                        .then()
                         .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
                 })
                 .catch((error) => console.log("Failed to fetch users from ,", gotReqID, " with errror: ", error));
@@ -181,7 +171,7 @@ exports.friendAccepted = functions.firestore
         }
         if (change.after.data().isRejected){
             return admin.firestore().collection('friendRequests').doc(context.params.id).delete()
-                    .then(() => console.log('deleted friendreq entry after rejection'))
+                    .then()
                     .catch((err) => console.log(err, 'could not delete friend req'))
         }
     })
@@ -196,8 +186,6 @@ exports.gameInvitationResponse = functions.firestore
             const gotReqUserName = change.after.data().gotReqUserName;
             const theirPhotoURL = change.after.data().gotReqPhotoURL;
             const myPhotoURL = change.after.data().sentReqPhotoURL;
-            console.log(theirPhotoURL, 'their photo url is what exactly');
-            console.log(myPhotoURL, 'MY url is what exactly');
             return admin.firestore().collection('games').add({
                 userID1: sentReqID,
                 user1Name: sentReqUserName,
@@ -228,10 +216,8 @@ exports.gameInvitationResponse = functions.firestore
                             fromUserPhotoURL: theirPhotoURL,
                             requestID: null
                         })
-                            .then(() => console.log('opened up a notification collection in accepting friends cloud func'))
+                            .then()
                             .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
-
-                        console.log("Succesfully deleted gameInvitation and created game")
 
                     })
                     .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
@@ -240,7 +226,7 @@ exports.gameInvitationResponse = functions.firestore
         }
         if(change.after.data().isRejected){
             return admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
-                .then(() => console.log("Succesfully deleted gameInvitation and created game"))
+                .then()
                 .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
         }
     })
@@ -263,7 +249,7 @@ exports.updateSingleScore = functions.firestore
                                 admin.firestore().collection('singleplayerScores').doc(entry.data().category)
                                     .collection('scores').doc(change.after.data().userID2).update({
                                     score: fieldValue.increment(question[1].p2Score)
-                                }).then(() => console.log('yay updated scores'))
+                                }).then()
                                     .catch((err) => console.log(err, ' couldnt update p1&p2 singlescore'));
                             }).catch((err) => console.log(err, 'couldnt update p1 singlescore'));
                         })
@@ -274,7 +260,7 @@ exports.updateSingleScore = functions.firestore
                         .then(() => {
                             admin.firestore().collection('userStats').doc(change.after.data().userID2)
                                 .update({ slScore: fieldValue.increment(change.after.data().p2Score) })
-                                .then(() => {console.log('yay')})
+                                .then()
                                 .catch((err) => console.log(err, 'damnit'));
                         })
                         .catch((err) => console.log(err, 'damnit2'));
@@ -282,7 +268,6 @@ exports.updateSingleScore = functions.firestore
                 .catch((err) => console.log(err, 'wa wa'));
         }
         else{
-            console.log('gameisfinished is false, even though checking update');
             return Promise.resolve(null);
         }
     });

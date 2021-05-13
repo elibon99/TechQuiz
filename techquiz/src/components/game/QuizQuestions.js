@@ -9,7 +9,6 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
     }
     const mouseDownHandler = (event) => {
         if(event.button === 1 || event.button === 2 || event.button === 0){
-            console.log("Trying to click in middle with category, :", event.target.id)
             stopTimer();
             verifyQuestion(gameID, event.target.id, gameSetID);
         }

@@ -3,14 +3,14 @@ import {NavLink} from "react-router-dom";
 import moment from "moment";
 import NotificationSenderImg from "./NotificationSenderImg";
 
+
 const Notifications = ({notifications, clearNotifications, ammountOfNotifications}) => {
-    notifications ? console.log(notifications, "notifications") : console.log("no notifications");
 
     return (
         <div id="nots" className="notification-dropdown z-depth-3">
             <div className="dropdown-header">
                 <h6 id="notification-header" className="notification-header">Notifications</h6>
-                {notifications ? <button id="delete-btn" className="btn waves-effect waves-light blue #42A5F5 lighten-2 games-btn" onClick={() => clearNotifications()}>Clear all</button>:
+                {notifications ? <button id="delete-btn" className="btn waves-effect waves-light blue #42A5F5 lighten-2 clear-all-btn" onClick={() => clearNotifications()}>Clear all</button>:
                 <h5>No notifications available</h5>}
 
             </div>

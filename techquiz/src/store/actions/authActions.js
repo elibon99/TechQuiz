@@ -162,20 +162,17 @@ export const setProfilePicture = (imageFile) => {
                         })
                             .then(() => {
                                 firestore.collection('users').doc(uid).update({
-                                    photoURL: url
+                                    photoURL: url,
+                                    changedPicAtLeastOnce: true
                                 })
                                     .then(() =>
                                     {
-                                        console.log('yay updated in colleciton users')
-                                        window.location.reload();
-                                        console.log('did we reload the page?');
+                                        dispatch({type: 'CHANGED_PROFILE_SUCCESS'});
                                     })
                                     .catch((err) => console.log(err, 'fuck that didnt work'));
                             })
                             .catch((err) => console.log(err, 'fuck 2'));
                     }).catch((err) => console.log(err, 'damn it'));
-
-                console.log('uploaded pic');
             }).catch((err) => console.log(err, 'didnt work uploading pic'));
     }
 }
@@ -193,7 +190,7 @@ export const setUserBiography = (biography) => {
         firestore.collection('users').doc(uid).update({
             biography: biography
         })
-            .then(() => console.log('yay updated biography'))
+            .then()
             .catch((err) => console.log(err, 'dang couldnt upgrade biography'));
     }
 }

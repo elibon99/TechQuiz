@@ -1,7 +1,6 @@
 import React from 'react';
 
 const FriendItem = ({user}) => {
-    console.log(user, 'user inside friend');
     return (
         <div className="col s12 m3 player-content">
             <div className="card card-friend-item">
