@@ -136,6 +136,9 @@ exports.friendAccepted = functions.firestore
             const gotReqID = change.after.data().gotRequest;
             const gotReqUserName = change.after.data().gotReqUserName;
             const gotReqPhotoURL = change.after.data().gotReqPhotoURL;
+            const sentReqPhotoURL = change.after.data().sentReqPhotoURL;
+            console.log(gotReqPhotoURL, 'gotreq photorul');
+            console.log(sentReqPhotoURL, 'sentreq photourl');
             return admin.firestore().collection('users').doc(sentReqID).get()
                 .then((docRef) => {
                     admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
