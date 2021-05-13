@@ -1005,6 +1005,12 @@ nav .sidenav-trigger{
   background-color: #dddddd;
 }
 
+.clear-all-btn{
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin-right: 10px;
+}
 .notification-sender-img{
   height: 50px;
   width: 50px;
@@ -1072,12 +1078,18 @@ nav .sidenav-trigger{
   }
   .notification-item{
     width: 100vw;
+    margin-left: 12px;
   }
   .notification-item a{
     width: 100vw;
   }
   .dropdown-header{
     width: 100vw;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .clear-all-btn{
+    margin-right: 20px;
   }
 }
 
