@@ -35,8 +35,16 @@ const mapStateToProps = (state) => {
     let opponentScore = 0;
     let whoWon = null;
 
+
     let profilePicURL = state.firebase.auth.photoURL;
-    profilePicURL = profilePicURL + new Date().getTime();
+    if(profilePicURL !== null){
+        profilePicURL = profilePicURL + new Date().getTime();
+    }
+
+    let wasClicked = state.firestore.data.users ? state.firestore.data.users[uid].changedPicAtLeastOnce : null;
+    if((profilePicURL === null) && (wasClicked === true)){
+        window.location.reload();
+    }
 
     /* Get all games where its the current user's turn to play  */
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
@@ -142,7 +150,8 @@ const mapStateToProps = (state) => {
         finishedGames : finishedGames,
         gameInvitations: state.firestore.data.gameInvitations,
         profilePicURL: profilePicURL,
-        profileInfoKey: state.auth.profileInfoKey
+        profileInfoKey: state.auth.profileInfoKey,
+        wasClicked: wasClicked
     }
 }
 

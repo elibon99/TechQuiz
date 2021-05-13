@@ -61,8 +61,6 @@ export const fetchQuestions = (gamingID, category) => {
         const firestore = getFirestore();
 
         const params = {tags: category, limit: "3"};
-        const pp = new URLSearchParams(params);
-        const test = URL + pp;
 
         /* Fetch from the api */
         fetch(URL + new URLSearchParams(params), {

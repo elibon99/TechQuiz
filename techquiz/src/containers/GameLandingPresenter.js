@@ -11,7 +11,6 @@ import {generateCategories, restoreRedirectFirebase} from "../store/actions/game
  */
 const mapStateToProps = (state, ownProps) => {
 
-    console.log(state)
     /* Getting game data from firestore */
     const gameID = ownProps.match.params.id;
     const games = state.firestore.data.Games;
@@ -55,7 +54,6 @@ const mapStateToProps = (state, ownProps) => {
                 if(entry[1].hasBeenAnsweredBy > 0){
                     hasBeenAnsweredBy[j] = entry[1].hasBeenAnsweredBy;
                     categories[j] = entry[1].category;
-                    console.log(entry[1].questions.resp[0].p2Score, " p2 thing")
                     if(entry[1].questions.resp[0].p2Score !== undefined){
                         opponentResults[j] = {qScore0: 0, qScore1 : 0, qScore2: 0};
                     }

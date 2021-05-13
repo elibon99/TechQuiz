@@ -162,7 +162,8 @@ export const setProfilePicture = (imageFile) => {
                         })
                             .then(() => {
                                 firestore.collection('users').doc(uid).update({
-                                    photoURL: url
+                                    photoURL: url,
+                                    changedPicAtLeastOnce: true
                                 })
                                     .then(() =>
                                     {
