@@ -23,7 +23,6 @@ const mapStateToProps = (state, ownProps) => {
     if(friendRequest) {
         Object.entries(friendRequest).forEach((entry) => {
             if(entry[1] === null){
-                console.log('entry 1 was null thats weird')
             }
             else{
                 if(entry[1].gotRequest !== null && entry[1].sentRequest !== null) {

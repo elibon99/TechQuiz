@@ -10,7 +10,6 @@ export const createGameInvitation = (opponentID, opponentName) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
         const username = getState().firebase.profile.userName;
-        console.log(username, "The user name that wants to invite to game")
         const userID = getState().firebase.auth.uid;
         const sentPhotoURL = getState().firestore.data.users[userID].photoURL;
         const theirPhotoURL = getState().firestore.data.users[opponentID].photoURL;
@@ -23,7 +22,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
             isAccepted: false,
             isRejected: false,
             gotReqPhotoURL: theirPhotoURL
-        }).then((doc) => {console.log("Succesfully created a game invitation");
+        }).then((doc) => {
                         dispatch({type: "GAME_INVITATION_ADDED_SUCCESS"})
                         firestore.collection('notifications').add({
                             notificationMessage: "You got a game invitation",
@@ -37,7 +36,7 @@ export const createGameInvitation = (opponentID, opponentName) => {
                             fromUserPhotoURL: sentPhotoURL,
                             requestID: doc.id
                         })
-                            .then(() => console.log('opened up a notification collection'))
+                            .then()
                             .catch((err) => console.log(err, 'something went wrong updating notification collection'));
         })
             .catch((error) => {dispatch({type: "GAME_INVITATION_ERROR_FAILURE", error});});

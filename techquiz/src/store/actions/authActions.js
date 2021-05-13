@@ -189,7 +189,7 @@ export const setUserBiography = (biography) => {
         firestore.collection('users').doc(uid).update({
             biography: biography
         })
-            .then(() => console.log('yay updated biography'))
+            .then()
             .catch((err) => console.log(err, 'dang couldnt upgrade biography'));
     }
 }
