@@ -195,6 +195,9 @@ exports.gameInvitationResponse = functions.firestore
             const gotReqID = change.after.data().gotRequestID;
             const gotReqUserName = change.after.data().gotReqUserName;
             const theirPhotoURL = change.after.data().gotReqPhotoURL;
+            const myPhotoURL = change.after.data().sentReqPhotoURL;
+            console.log(theirPhotoURL, 'their photo url is what exactly');
+            console.log(myPhotoURL, 'MY url is what exactly');
             return admin.firestore().collection('games').add({
                 userID1: sentReqID,
                 user1Name: sentReqUserName,
