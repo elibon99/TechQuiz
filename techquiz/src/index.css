@@ -655,6 +655,16 @@ nav .sidenav-trigger{
   margin-left: 10px;
 }
 
+
+.notification-erase-svg{
+  display: flex;
+  align-items: center;
+}
+.notification-erase-svg svg{
+  height: 16px;
+  width: 16px;
+}
+
 .notification-message{
   font-size: 15px;
   color: black;
@@ -933,17 +943,34 @@ nav .sidenav-trigger{
 }
 
 .notification-width{
-  width: 25vw;
+  width: 470px;
 }
 
+.notification-clear-btn{
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  color: #42A5F5;
+  text-decoration: underline;
+  margin-right: 10px;
+  padding: 10px 20px;
+}
 
-
+.notification-clear-btn:hover{
+  background-color: #eee;
+}
 
 .dropdown-header{
   background-color: white;
   height: 40px;
+  width: 470px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  padding-left: 10px;
+  padding-top: 10px;
+  margin-bottom: 10px;
 
 }
 .dropdown-header h6{
@@ -952,8 +979,11 @@ nav .sidenav-trigger{
   font-size: 22px;
   font-weight: bold;
   text-align: left;
-  padding-left: 10px;
-  padding-top: 10px;
+}
+
+.dropdown-header h5{
+  font-size: 15px;
+  color: black;
 }
 
 .notification-item{
@@ -961,12 +991,13 @@ nav .sidenav-trigger{
   display: flex;
   align-items: center;
   color: #42A5F5;
-  width: 25vw;
+  width: 470px;
 }
 .notification-title-request-container{
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 
 }
 
@@ -974,6 +1005,12 @@ nav .sidenav-trigger{
   background-color: #dddddd;
 }
 
+.clear-all-btn{
+  display: flex;
+  align-items: center;
+  height: 28px;
+  margin-right: 10px;
+}
 .notification-sender-img{
   height: 50px;
   width: 50px;
@@ -986,7 +1023,7 @@ nav .sidenav-trigger{
 
 .notification-item a{
   text-decoration: none!important;
-  width: 25vw;
+  width: 470px;
   color: #838383;
   padding: 10px 10px;
   border-bottom: 1px solid #c4c4c4;
@@ -1035,12 +1072,24 @@ nav .sidenav-trigger{
   cursor: pointer;
 }
 
-@media screen and (max-width: 992px){
-  .friend-game-column-zero-left-padding{
-    padding-right: 0px!important;
+@media screen and (max-width: 540px){
+  .notification-width{
+    width: 100vw;
   }
-  .friend-game-column-zero-right-padding{
-    padding-left: 0px!important;
+  .notification-item{
+    width: 100vw;
+    margin-left: 12px;
+  }
+  .notification-item a{
+    width: 100vw;
+  }
+  .dropdown-header{
+    width: 100vw;
+    margin-left: 12px;
+    margin-right: 12px;
+  }
+  .clear-all-btn{
+    margin-right: 20px;
   }
 }
 
@@ -1050,6 +1099,17 @@ nav .sidenav-trigger{
     padding-left: 0px!important;
   }
 }
+
+@media screen and (max-width: 992px){
+  .friend-game-column-zero-left-padding{
+    padding-right: 0px!important;
+  }
+  .friend-game-column-zero-right-padding{
+    padding-left: 0px!important;
+  }
+}
+
+
 @media screen and (max-width: 600px) {
   .profile-info-container{
     flex-direction: column;

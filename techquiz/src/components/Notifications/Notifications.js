@@ -3,15 +3,20 @@ import {NavLink} from "react-router-dom";
 import moment from "moment";
 import NotificationSenderImg from "./NotificationSenderImg";
 
-const Notifications = ({notifications, acceptGameInvitation, rejectGameInvitation, acceptFriendRequest, rejectFriendRequest}) => {
+
+const Notifications = ({notifications, clearNotifications, ammountOfNotifications}) => {
 
     return (
         <div id="nots" className="notification-dropdown z-depth-3">
             <div className="dropdown-header">
-                <h6>Notifications</h6>
+                <h6 id="notification-header" className="notification-header">Notifications</h6>
+                {notifications ? <button id="delete-btn" className="btn waves-effect waves-light blue #42A5F5 lighten-2 clear-all-btn" onClick={() => clearNotifications()}>Clear all</button>:
+                <h5>No notifications available</h5>}
+
             </div>
             {notifications ? Object.entries(notifications).map((notification) => {
                 return(
+                    notification ?
                     <li id="nots-item" key={notification[0]} className="notification-item">
                         <NavLink to={notification[1].linkTo}>
                             <div className="notification-item-container">
@@ -32,7 +37,7 @@ const Notifications = ({notifications, acceptGameInvitation, rejectGameInvitatio
                                 </div>
                             </div>
                         </NavLink>
-                    </li>
+                    </li> : ""
                 )
             }): <h5>No current notification</h5>}
         </div>

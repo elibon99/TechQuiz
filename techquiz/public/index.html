@@ -51,20 +51,22 @@
 
     <script type="text/javascript">
       $(document).on("click", function (event){
-        var $trigger = $(".notification-dropdown");
+        var $trigger = 'nots';
+        var $triggerDeleteNotification = 'delete-btn';
+        var $triggerNotificationHeader = 'notification-header';
         var $trigger2 = 'notification-bell';
         var $trigger3 = 'notification-bell-path';
         var $trigger4 = 'notification-count-circle';
         var $trigger5 = 'notification-count-text';
+
         var elem = document.querySelector('.notification-dropdown');
         var style = getComputedStyle(elem);
-
 
         if($trigger2 === event.target.id || $trigger3 === event.target.id || $trigger4 === event.target.id || $trigger5 === event.target.id){
           $('#nots').addClass('notification-width');
         }
 
-        if($trigger !== event.target && style.width > "0px"){
+        if((($trigger !== event.target.id) && ($triggerNotificationHeader !== event.target.id) && ($triggerDeleteNotification !== event.target.id)) && style.width > "0px"){
           $('#nots').removeClass('notification-width')
         }
       })

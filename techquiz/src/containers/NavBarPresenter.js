@@ -5,6 +5,7 @@ import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
 import {acceptGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
 import {acceptFriendRequest, rejectFriendRequest} from "../store/actions/friendActions";
+import {clearNotifications} from "../store/actions/notificationActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -39,7 +40,8 @@ const mapDispatchToProps = (dispatch) => {
         acceptGameInvitation: (invitationID) => dispatch(acceptGameInvitation(invitationID)),
         rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID)),
         acceptFriendRequest: (requestID) => dispatch(acceptFriendRequest(requestID)),
-        rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID))
+        rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID)),
+        clearNotifications: () => dispatch(clearNotifications())
     }
 }
 

@@ -21,8 +21,7 @@ const Navbar = (props) => {
 
     return (
         <nav className="wrapper grey darken-3">
-            <Notifications notifications={props.notifications} acceptGameInvitation={props.acceptGameInvitation}
-                           rejectGameInvitation={props.rejectGameInvitation} acceptFriendRequest={props.acceptFriendRequest} rejectFriendRequest={props.rejectFriendRequest}/>
+            <Notifications notifications={props.notifications} clearNotifications={props.clearNotifications} ammountOfNotification={props.ammountOfNotifications}/>
             <div className="nav-wrapper container">
                 {brandlogo}
                 <a href="/" className="sidenav-trigger" data-target="mobile-demo">
