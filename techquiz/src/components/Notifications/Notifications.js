@@ -4,7 +4,6 @@ import moment from "moment";
 import NotificationSenderImg from "./NotificationSenderImg";
 
 const Notifications = ({notifications, acceptGameInvitation, rejectGameInvitation, acceptFriendRequest, rejectFriendRequest}) => {
-    notifications ? console.log(notifications, "notifications") : console.log("no notifications");
 
     return (
         <div id="nots" className="notification-dropdown z-depth-3">

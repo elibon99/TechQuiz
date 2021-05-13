@@ -19,7 +19,6 @@ import {setProfilePicture, setUserBiography} from "../store/actions/authActions"
  *  gameInvitations - all the game invitations of the current user.
  */
 const mapStateToProps = (state) => {
-    console.log(state, ' state:)');
     /* Getting user stats from firestore for the currently logged in user*/
     const uid = state.firebase.auth.uid;
     const userStat = state.firestore.data.userStats ? state.firestore.data.userStats[uid] : null;
@@ -36,10 +35,8 @@ const mapStateToProps = (state) => {
     let opponentScore = 0;
     let whoWon = null;
 
-    console.log(state.firebase.auth, 'state firebase');
-    const profilePicURL = state.firebase.auth.photoURL;
-    console.log(profilePicURL, 'inside prseenter');
-    //const profileImages = firebase.storage()
+    let profilePicURL = state.firebase.auth.photoURL;
+    profilePicURL = profilePicURL + new Date().getTime();
 
     /* Get all games where its the current user's turn to play  */
     let currentGamesYourTurn = (games && uid) ? gameEntries.filter((entry) => {
@@ -144,7 +141,8 @@ const mapStateToProps = (state) => {
         currentGamesTheirTurn: currentGamesTheirTurn,
         finishedGames : finishedGames,
         gameInvitations: state.firestore.data.gameInvitations,
-        profilePicURL: profilePicURL
+        profilePicURL: profilePicURL,
+        profileInfoKey: state.auth.profileInfoKey
     }
 }
 

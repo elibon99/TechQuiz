@@ -1,9 +1,15 @@
 const initState = {
-    authError: null
+    authError: null,
+    profileInfoKey: 0
 }
 
 const authReducer = (state = initState, action) => {
     switch (action.type){
+        case 'CHANGED_PROFILE_SUCCESS':
+            return{
+                ...state,
+                profileInfoKey: (state.profileInfoKey + 1)
+            }
         case 'LOGIN_SUCCESS':
             console.log('login success')
             return{

@@ -18,7 +18,6 @@ const mapStateToProps = (state) => {
     if(notifications){
         Object.entries(notifications).forEach((entry) => {ammountOfNotifications++;})
     }
-    console.log(ammountOfNotifications)
     return {
         auth: state.firebase.auth,
         profile: state.firebase.profile,

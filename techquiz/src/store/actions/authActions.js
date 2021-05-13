@@ -166,16 +166,12 @@ export const setProfilePicture = (imageFile) => {
                                 })
                                     .then(() =>
                                     {
-                                        console.log('yay updated in colleciton users')
-                                        window.location.reload();
-                                        console.log('did we reload the page?');
+                                        dispatch({type: 'CHANGED_PROFILE_SUCCESS'});
                                     })
                                     .catch((err) => console.log(err, 'fuck that didnt work'));
                             })
                             .catch((err) => console.log(err, 'fuck 2'));
                     }).catch((err) => console.log(err, 'damn it'));
-
-                console.log('uploaded pic');
             }).catch((err) => console.log(err, 'didnt work uploading pic'));
     }
 }
