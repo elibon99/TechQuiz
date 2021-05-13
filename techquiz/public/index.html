@@ -54,10 +54,13 @@
         var $trigger = $(".notification-dropdown");
         var $trigger2 = 'notification-bell';
         var $trigger3 = 'notification-bell-path';
+        var $trigger4 = 'notification-count-circle';
+        var $trigger5 = 'notification-count-text';
         var elem = document.querySelector('.notification-dropdown');
         var style = getComputedStyle(elem);
 
-        if($trigger2 === event.target.id || $trigger3 === event.target.id){
+
+        if($trigger2 === event.target.id || $trigger3 === event.target.id || $trigger4 === event.target.id || $trigger5 === event.target.id){
           $('#nots').addClass('notification-width');
         }
 
