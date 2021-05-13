@@ -164,7 +164,12 @@ export const setProfilePicture = (imageFile) => {
                                 firestore.collection('users').doc(uid).update({
                                     photoURL: url
                                 })
-                                    .then(() => console.log('yay updated in colleciton users'))
+                                    .then(() =>
+                                    {
+                                        console.log('yay updated in colleciton users')
+                                        window.location.reload();
+                                        console.log('did we reload the page?');
+                                    })
                                     .catch((err) => console.log(err, 'fuck that didnt work'));
                             })
                             .catch((err) => console.log(err, 'fuck 2'));
