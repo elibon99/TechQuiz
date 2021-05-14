@@ -177,7 +177,7 @@ export const createFriendGame = (userID, otherName) => {
             turn: myID,
             p1Score: 0,
             p2Score: 0,
-            currentSet: "",
+            currentSet: "1",
             shouldCreateNewGameSet : myID,
             amountOfPlayerLeft : 2,
             redirectTo: null,
