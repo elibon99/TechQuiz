@@ -58,8 +58,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                     <input type="text" id="userName" name="userName" placeholder="Search for users.." onChange={e => {setUsername(e.target.value)}}/>
                                 </div>
                             </form>
+                            <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
                             <div className="friends-container">
-                                <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
                                 <div className="row">
                                     {friends ? Object.entries(friends).map((friend) => {
                                         return(
@@ -71,8 +71,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                         You don't have any friends. Go friend someone on their profile!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
                             </div>
+                            <h6 className="grey-text text-darken-3 title-underline-users">All users</h6>
                             <div className="friends-container">
-                                <h6 className="grey-text text-darken-3 title-underline-users">All users</h6>
                                 <div className="row">
                                     {users ? Object.entries(users).map((user) => {
                                         return(

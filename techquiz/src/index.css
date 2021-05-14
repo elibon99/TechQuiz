@@ -157,6 +157,8 @@ ol{
 
 .friends-container{
   padding-left: 10px;
+  overflow: auto;
+  max-height: 440px;
 }
 
 .flex-col{
@@ -371,6 +373,7 @@ nav .sidenav-trigger{
 .title-underline-users{
   border-bottom: 1px solid;
   margin-bottom: 12px;
+  margin-left: 10px;
 }
 
 .col-padding-friend-landing{
@@ -474,6 +477,8 @@ nav .sidenav-trigger{
 
 .friend-req-margin{
   margin-top: 10px;
+  overflow: auto;
+  max-height: 200px;
 }
 
 .friend-request-title{
@@ -1141,11 +1146,10 @@ nav .sidenav-trigger{
 
 .footer-copyright-info{
   overflow: hidden;
-  padding: 1em 0em;
   background: #424242;
   text-align: center;
   color: white;
-  height: 65px;
+  height: 50px;
   width: 100%;
 }
 
@@ -1153,7 +1157,7 @@ nav .sidenav-trigger{
   position: absolute;
   width: 100%;
   bottom: 0;
-  height: 65px;
+  height: 50px;
 }
 
 html {
