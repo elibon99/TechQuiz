@@ -15,8 +15,8 @@ const QuickMatch = ({acceptGameInvitation, rejectGameInvitation, createGameInvit
             <div className="card card-quick-match">
                 <div className="card-content find-game-card-content">
                     <h5>Friends</h5>
-                    <div className="friend-game-item-container">
                     {friendsTemp ? <input placeholder ="Search for player" type="text" id="searchForPlayer" onChange={e => {setUsername(e.target.value)}}/> : null}
+                    <div className="friend-game-item-container">
                     {friends ?
                         Object.entries(friends).map((friend) => {
                             return <FriendGameItem key={friend[0]} friendInfo={friend[1]} createFriendGame={createFriendGame}/>

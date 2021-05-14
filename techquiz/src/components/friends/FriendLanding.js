@@ -9,6 +9,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
     if(!auth.uid){
         return <Redirect to="/signin"/>
     }
+    console.log(sentFriendRequests, 'sentfriend');
     return (
         <div>
         <h5 className="page-title">Friends</h5>
@@ -71,8 +72,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                         You don't have any friends. Go friend someone on their profile!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
                             </div>
-                            <h6 className="grey-text text-darken-3 title-underline-users">All users</h6>
-                            <div className="friends-container">
+                            <h6 className="grey-text text-darken-3 title-underline-users-all-users">All users</h6>
+                            <div className="friends-container-all-users">
                                 <div className="row">
                                     {users ? Object.entries(users).map((user) => {
                                         return(

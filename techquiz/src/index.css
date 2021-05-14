@@ -158,7 +158,13 @@ ol{
 .friends-container{
   padding-left: 10px;
   overflow: auto;
-  max-height: 440px;
+  max-height: 280px;
+}
+
+.friends-container-all-users{
+  padding-left: 10px;
+  overflow: auto;
+  max-height: 420px;
 }
 
 .flex-col{
@@ -376,6 +382,13 @@ nav .sidenav-trigger{
   margin-left: 10px;
 }
 
+.title-underline-users-all-users{
+  border-bottom: 1px solid;
+  margin-bottom: 12px;
+  margin-left: 10px;
+  margin-top: 40px;
+}
+
 .col-padding-friend-landing{
   padding-left: 0px!important;
 }
@@ -452,6 +465,7 @@ nav .sidenav-trigger{
 
 .card-quick-match{
   margin-top: 25px;
+  height: 300px;
 }
 
 .profile-current-games-col-your-turn{
@@ -892,7 +906,7 @@ nav .sidenav-trigger{
 .friend-game-item-container{
   display: flex;
   flex-direction: column;
-  max-height: 180px;
+  max-height: 130px;
   overflow: auto;
 }
 
