@@ -15,7 +15,11 @@ import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
+
 import LeaveGamePopUpPresenter from "./containers/LeaveGamePopUpPresenter";
+
+import Footer from "./components/layout/Footer";
+
 
 function App({store}) {
     const [confirm, setConfirm] = React.useState(false);
@@ -53,7 +57,11 @@ function App({store}) {
               <Route path = '/friends' component={FriendPresenter}></Route>
               <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
+
             {confirm && (<LeaveGamePopUpPresenter confirmCallback={confirmCallback} setConfirm={setConfirm}/>)}
+
+            <Footer/>
+
         </div>
       </BrowserRouter>
   );

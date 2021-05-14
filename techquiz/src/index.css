@@ -157,6 +157,14 @@ ol{
 
 .friends-container{
   padding-left: 10px;
+  overflow: auto;
+  max-height: 280px;
+}
+
+.friends-container-all-users{
+  padding-left: 10px;
+  overflow: auto;
+  max-height: 420px;
 }
 
 .flex-col{
@@ -371,6 +379,14 @@ nav .sidenav-trigger{
 .title-underline-users{
   border-bottom: 1px solid;
   margin-bottom: 12px;
+  margin-left: 10px;
+}
+
+.title-underline-users-all-users{
+  border-bottom: 1px solid;
+  margin-bottom: 12px;
+  margin-left: 10px;
+  margin-top: 40px;
 }
 
 .col-padding-friend-landing{
@@ -449,6 +465,7 @@ nav .sidenav-trigger{
 
 .card-quick-match{
   margin-top: 25px;
+  height: 300px;
 }
 
 .profile-current-games-col-your-turn{
@@ -474,6 +491,8 @@ nav .sidenav-trigger{
 
 .friend-req-margin{
   margin-top: 10px;
+  overflow: auto;
+  max-height: 200px;
 }
 
 .friend-request-title{
@@ -887,7 +906,7 @@ nav .sidenav-trigger{
 .friend-game-item-container{
   display: flex;
   flex-direction: column;
-  max-height: 180px;
+  max-height: 130px;
   overflow: auto;
 }
 
@@ -1208,4 +1227,35 @@ nav .sidenav-trigger{
   .profile-info-logo-title-container h5{
     text-align: center;
   }
+}
+
+.profile-pic-navbar{
+  width: 40px;
+  height: 40px;
+}
+
+.footer-copyright-info{
+  overflow: hidden;
+  background: #424242;
+  text-align: center;
+  color: white;
+  height: 50px;
+  width: 100%;
+}
+
+.footer{
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 50px;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  min-height: 100%;
 }
