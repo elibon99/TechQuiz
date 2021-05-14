@@ -2,6 +2,7 @@ import React from 'react';
 
 const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategory}) => {
     return(
+        (profile && opponent) ?
         <div className="card-content">
             <div className="container">
                 <div className="row category-selection-title">
@@ -10,7 +11,8 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
                 </div>
                 <div className="row flex">
                     <div className="col s12 m5 player-content">
-                        <i className="large material-icons">account_circle</i>
+                        {profile.photoURL? <img className="profile-info-pic" src={profile.photoURL} alt="profile-pic"/>:
+                            <i className="large material-icons profile-standard-pic">account_circle</i>}
                         <h5>
                             {profile.userName}
                         </h5>
@@ -22,7 +24,8 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
                         <span>VS</span>
                     </div>
                     <div className="col s12 m5 player-content">
-                        <i className="large material-icons">account_circle</i>
+                        {opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
+                            <i className="large material-icons profile-standard-pic">account_circle</i>}
                         {opponent ?
                         <div>
                             <h5>
@@ -35,7 +38,7 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
