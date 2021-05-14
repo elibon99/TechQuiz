@@ -1,7 +1,7 @@
 import React from 'react';
 import {Prompt, Redirect} from "react-router-dom";
 
-const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, timer, stopTimer}) => {
+const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, timer, stopTimer, isYourTurn}) => {
     if(game.redirectTo){
         const path = game.redirectTo;
         restoreRedirectTo();
@@ -17,6 +17,9 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
+    if(isYourTurn === false){
+        return <Redirect to={"/game-landing/" + gameID}/>
+    }
     return(
         <div className="container">
             <Prompt
@@ -24,7 +27,6 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                 message={(location, action) =>{
                     return `Are you sure you want to leave the game. You will receive 0 points for this gameset ${location.pathname}`}
                 }
-
             />
             <div className="card-content">
                 <div className="row answer-display-container">
