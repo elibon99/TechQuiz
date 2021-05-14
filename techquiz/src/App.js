@@ -14,6 +14,7 @@ import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
+import Footer from "./components/layout/Footer";
 
 function App({store}) {
   return (
@@ -37,6 +38,7 @@ function App({store}) {
               <Route path = '/friends' component={FriendPresenter}></Route>
               <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
+            <Footer/>
         </div>
       </BrowserRouter>
   );
