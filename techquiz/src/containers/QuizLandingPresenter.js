@@ -12,11 +12,14 @@ import {startTimer, resetHasChosenCategory} from "../store/actions/gameActions";
 const mapStateToProps = (state, ownProps) => {
     /* Get id of URL - i.e. gameID */
     const id = ownProps.match.params.id;
+    const uid = state.firebase.auth.uid;
 
     /* Get game info */
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
     const gameSetID = game ? game.currentSet : null;
+    const turn = game ? game.turn : null;
+    const isYourTurn = (turn && turn === uid) ? true : false;
 
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
@@ -42,7 +45,8 @@ const mapStateToProps = (state, ownProps) => {
         timer: state.game.questionTimer,
         localGame: state.game,
         selectedCategory: selectedCategory,
-        categoriesToImg: state.game.categoriesImgPath
+        categoriesToImg: state.game.categoriesImgPath,
+        isYourTurn: isYourTurn
     }
 }
 
