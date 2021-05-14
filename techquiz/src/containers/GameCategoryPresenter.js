@@ -22,11 +22,13 @@ const mapStateToProps = (state, ownProps) => {
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
     const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID2) : null;
+    const users = state.firestore.data.users;
+    const opponentProfile = (users && opponentID) ? users[opponentID] : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
     const userScore = game ? (game.userID1 === uid ? game.p1Score : game.p2Score) : null;
     const score = (opponentScore !== null && userScore !== null) ? {userScore: userScore, opponentScore: opponentScore} : null;
-    const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
+    const opponent = (opponentID && userStats && opponentName && opponentProfile) ? {username: opponentName, rating: userStats[opponentID].mlRating, photoURL: opponentProfile.photoURL} : null;
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
 
     return{
