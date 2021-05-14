@@ -1,3 +1,4 @@
+import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import SignUpPresenter from "./containers/SignUpPresenter";
 import FindGamePresenter from "./containers/FindGamePresenter";
@@ -14,10 +15,25 @@ import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
+import LeaveGamePopUpPresenter from "./containers/LeaveGamePopUpPresenter";
 
 function App({store}) {
+    const [confirm, setConfirm] = React.useState(false);
+    const [confirmCallback, setConfirmCallback] = React.useState(null);
+
+    function getConfirmationWithExtraParameters(whateverYouWantToPass) {
+        return function getUserConfirmation(message, callback){
+            setConfirmCallback(() => callback);
+            setConfirm(true);
+        };
+    }
+
+    function getConfirmation(message, callback){
+        setConfirmCallback(() => callback);
+        setConfirm(true);
+    }
   return (
-      <BrowserRouter>
+      <BrowserRouter getUserConfirmation={getConfirmation}>
         <div className="App">
           <NavBarPresenter/>
           <Switch>
@@ -37,6 +53,7 @@ function App({store}) {
               <Route path = '/friends' component={FriendPresenter}></Route>
               <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
+            {confirm && (<LeaveGamePopUpPresenter confirmCallback={confirmCallback} setConfirm={setConfirm}/>)}
         </div>
       </BrowserRouter>
   );
