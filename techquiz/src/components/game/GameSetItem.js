@@ -18,11 +18,11 @@ const GameSetItem = ({isYourTurn, myResults, opponentResults, category, currentS
     return(
         <div className="card-content game-set-container">
             <div className="container">
-                <h6 className={"game-set-item-title"}>{setNr}</h6>
+                <h6 className={"game-set-item-title"}>Set {setNr}</h6>
                 <div className="card game-set-card-container">
                 <div className="row flex game-item">
                       <div className="col s12 m5 game-set-item">
-                          {isYourTurn && myResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? "Your Turn":
+                          {isYourTurn && myResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? <div className="game-set-item-your-turn-container"><h6 className="game-set-item-your-turn-title">Your turn</h6></div>:
                                myResults && myResults["qScore2"] !== undefined ?
                                    <div className="set-results-container">
                                        {Object.entries(myResults).map((results, index) => {
@@ -35,7 +35,7 @@ const GameSetItem = ({isYourTurn, myResults, opponentResults, category, currentS
                           {category ? category : ""}
                       </div>
                       <div className="col s12 m5 game-set-item">
-                          {!isYourTurn && opponentResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? "Playing":
+                          {!isYourTurn && opponentResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? <div className="game-set-item-their-turn-container"><h6 className="game-set-item-your-turn-title">Playing</h6></div>:
                            opponentResults &&  opponentResults["qScore2"]!==undefined ?
                                <div className="set-results-container">
                                    {Object.entries(opponentResults).map((results, index) => {
