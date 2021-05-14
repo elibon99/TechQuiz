@@ -25,9 +25,11 @@ const mapStateToProps = (state, ownProps) => {
 
     /* Getting opponent data from game */
     const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID1) : null;
+    const users = state.firestore.data.users;
+    const opponentProfile = (users && opponentID) ? users[opponentID] : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
     const opponentScore = game ? (game.userID1 === uid ? game.p2Score : game.p1Score) : null;
-    const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating} : null;
+    const opponent = (opponentID && userStats && opponentName && opponentProfile) ? {username: opponentName, rating: userStats[opponentID].mlRating, photoURL: opponentProfile.photoURL } : null;
 
     /* Getting current game score */
     const gameScore = (opponentScore !== null && userScore !== null) ? {userScore: userScore, opponentScore: opponentScore} : null;
