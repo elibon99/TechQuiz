@@ -1,10 +1,18 @@
 import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
-const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory, resetHasChosenCategory, categoriesToImg}) => {
+
+const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn}) => {
+
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
+
+    if(isYourTurn === false){
+        return <Redirect to={"/game-landing/" + gameID}/>
+    }
+
+
     return(
         (gameSet && gameID && gameSetID) ?
         <div className="container">
@@ -23,7 +31,7 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, s
                         </div>
                         <div className="row">
                             <Link to={"/quiz-question/" + gameID}>
-                                <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => {startTimer(gameID, gameSetID); resetHasChosenCategory(gameID)}}>Click here to begin quiz</button>
+                                <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => {startTimer(gameID, gameSetID); resetHasChosenCategory(gameID);}}>Click here to begin quiz</button>
                             </Link>
                         </div>
                     </div>
