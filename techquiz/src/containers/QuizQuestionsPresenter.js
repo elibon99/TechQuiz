@@ -12,10 +12,13 @@ import {verifyQuestion, restoreRedirectTo, stopTimer} from "../store/actions/gam
 const mapStateToProps = (state, ownProps) => {
     /* Get id of URL - i.e. gameID */
     const id = ownProps.match.params.id;
+    const uid = state.firebase.auth.uid;
 
     /* Get game info */
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
+    const turn = game ? game.turn : null;
+    const isYourTurn = (turn && turn === uid) ? true : false;
     const gameSetID = game ? game.currentSet : null;
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = gameSetID ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
@@ -26,7 +29,8 @@ const mapStateToProps = (state, ownProps) => {
         gameID: id,
         gameSet: gameSet,
         game: state.game,
-        timer: state.game.questionTimer
+        timer: state.game.questionTimer,
+        isYourTurn: isYourTurn
     }
 }
 
