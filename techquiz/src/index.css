@@ -165,6 +165,12 @@ ol{
   margin-bottom: 50px;
 }
 
+.default-photo{
+  height: 120px;
+  width: 120px;
+}
+
+
 .choose-category-title{
   margin-top: 16px;
   margin-bottom: 0px;
