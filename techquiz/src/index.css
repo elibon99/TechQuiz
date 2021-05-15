@@ -82,8 +82,46 @@ code {
   width : 50%;
 }
 
+.search-icon{
+  position: absolute;
+  border-radius: 10px;
+}
+
 .btn-full-height {
   height: 100%;
+}
+.friend-search-container{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.friend-search-container input[type=text]{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  background-color: #F0F2F5;
+  margin-bottom: 0px;
+  height: 36px;
+  padding-left: 10px;
+  border-radius: 10px;
+}
+
+.friend-search-container input[type]:not([readonly]),
+.friend-search-container input[type]:focus:not([readonly]),
+.friend-search-container textarea:not([readonly]),
+.friend-search-container textarea:focus:not([readonly]) {
+  border-bottom: 0px solid #F0F2F5;
+  box-shadow: 0 0px 0 0 #F0F2F5;
+}
+
+.friend-search-container input[type=text]::placeholder{
+  color: #838383;
+}
+
+.user-search-form{
+  margin-left: 40px;
 }
 
 .dashboard-item-container {
@@ -119,7 +157,7 @@ ol{
 }
 
 .card-friend-item {
-  margin-top: 0px;
+  margin-top: 6px;
 }
 
 .game-landing-container{
@@ -158,6 +196,7 @@ ol{
 .friends-container{
   padding-left: 10px;
   overflow: auto;
+  overflow-x: hidden;
   max-height: 280px;
 }
 
@@ -165,6 +204,7 @@ ol{
   padding-left: 10px;
   overflow: auto;
   max-height: 420px;
+  overflow-x: hidden;
 }
 
 .flex-col{
@@ -357,15 +397,16 @@ nav .sidenav-trigger{
 }
 
 .friend-req-container{
-  margin: 10px 0px;
-  border-bottom: 1px solid #838383;
-  border-top: 1px solid #838383;
+  border-bottom: 1px solid #c4c4c4;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }
 
+.friend-request-container:first-child{
+  border-top: 1px solid #c4c4c4;
+}
 .friend-req-btn{
   margin-right: 12px;
 }
@@ -377,9 +418,12 @@ nav .sidenav-trigger{
 }
 
 .title-underline-users{
-  border-bottom: 1px solid;
-  margin-bottom: 12px;
   margin-left: 10px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  font-sizfe: 15px;
+  color: #27253E;
+  font-weight: bold;
 }
 
 .title-underline-users-all-users{
@@ -402,15 +446,15 @@ nav .sidenav-trigger{
 }
 
 .thumbs-up{
-  height: 28px;
-  width: 28px;
+  height: 23px;
+  width: 23px;
   color: #42A5F5;
 }
 
 
 .thumbs-down{
-  height: 28px;
-  width: 28px;
+  height: 23px;
+  width: 23px;
   color: red;
 }
 
@@ -496,13 +540,20 @@ nav .sidenav-trigger{
 }
 
 .friend-request-title{
+  font-size: 15px;
   font-weight: bold;
+  color: #27253E;
+}
+
+.no-friend-request-data-text{
+  font-size: 14px;
 }
 
 .friend-req-name-title{
-  font-weight: bold;
+  font-weight: normal;
   flex: 1;
   height: 100%;
+  font-size: 14px;
   display: flex;
   align-items: center;
   color: black;
@@ -825,7 +876,8 @@ nav .sidenav-trigger{
 
 .profile-info-card-title{
   padding-left: 10px;
-  font-weight: bold;
+  color: #5e5e69;
+  font-size: 18px;
   margin-top: 16px;
 }
 
@@ -1197,6 +1249,12 @@ nav .sidenav-trigger{
 .loading-wheel-general-view{
   height: 100px;
   width: 100px;
+}
+
+.nav-wrapper ul li a.active{
+  /*color: #42A5F5;*/
+  border-bottom: 3px solid white;
+  line-height: 61px;
 }
 
 @media screen and (max-width: 1200px) {
