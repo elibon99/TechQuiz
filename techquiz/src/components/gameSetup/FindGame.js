@@ -23,7 +23,7 @@ const FindGame = ({acceptGameInvitation, rejectGameInvitation, createGameInvitat
                     <QuickMatch acceptGameInvitation={acceptGameInvitation} rejectGameInvitation={rejectGameInvitation} createGameInvitation={createGameInvitation} friendsTemp={friendsTemp} setUsername={setUsername} recentPlayers={recentPlayers} friends={friends} createFriendGame={createFriendGame} friendGameStatus={friendGameStatus} restoreRedirectTo={restoreRedirectToFriendGame}/>
                 </div>
             </div>:
-                <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+                <img className="loading-wheel-general-view" src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 

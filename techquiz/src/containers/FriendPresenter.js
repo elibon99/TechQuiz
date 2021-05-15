@@ -4,6 +4,7 @@ import {firestoreConnect} from "react-redux-firebase";
 import FriendLanding from "../components/friends/FriendLanding";
 import {
     setUsernameFriends,
+    setUsernameUser,
     rejectFriendRequest,
     acceptFriendRequest,
 } from "../store/actions/friendActions";
@@ -13,11 +14,22 @@ import {
 * @param state
 * @returns auth - an object with auth information.
 */
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
     /* Get the current users info, their friendrequests and info about their friends */
     const users = state.firestore.data.UsersFriends;
+    const friendsNoSearch = state.firestore.data.friendsNoSearch;
+    var friendsUserNames = [];
+    if(friendsNoSearch){
+        Object.entries(friendsNoSearch).forEach((entry) => {
+            friendsUserNames.push(entry[1].userName);
+        })
+    }
+    console.log(friendsNoSearch)
     const profile = state.firebase.profile;
     const username = profile ? profile.userName : null;
+    if(username && friendsNoSearch){
+        friendsUserNames.push(username);
+    }
     const uid = state.firebase.auth.uid;
     const friendRequests = state.firestore.data.receivedFriendRequests;
     const sentFriendRequests = state.firestore.data.sentFriendRequests;
@@ -25,7 +37,10 @@ const mapStateToProps = (state) => {
     return{
         auth: state.firebase.auth,
         friendSearch: state.friends.usernameFriends,
+        usersSearch: state.friends.usernameUsers,
         users: users,
+        friendsNoSearch: friendsNoSearch,
+        friendsUserNames: friendsUserNames,
         uid: uid,
         friends: state.firestore.data.friends,
         friendRequests: friendRequests,
@@ -44,6 +59,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return{
         setUsername: (username) => dispatch(setUsernameFriends(username)),
+        setUsernameUser: (username) => dispatch(setUsernameUser(username)),
         acceptFriendRequest: (requestID) => dispatch(acceptFriendRequest(requestID)),
         rejectFriendRequest: (requestID) => dispatch(rejectFriendRequest(requestID))
     }
@@ -59,13 +75,34 @@ const FriendPresenter = compose(
     firestoreConnect((props) => {
     if(props.uid === undefined || props.username === undefined){
         return [];
-    } else {
+    }
+    else if (props.friendsNoSearch === undefined && props.uid !== undefined){
+        return [
+            {collection: 'users',
+                doc: props.uid,
+                subcollections : [
+                    {collection: 'friends'}
+
+                ],
+                storeAs: 'friendsNoSearch'
+            }
+        ]
+    }
+    else {
        return [
+         {collection: 'users',
+               doc: props.uid,
+               subcollections : [
+                   {collection: 'friends'}
+
+               ],
+               storeAs: 'friendsNoSearch'
+         },
         {collection: 'users',
         where: [
-            ['userName', '>=', props.friendSearch],
-            ['userName', '<=', props.friendSearch + '\uf8ff'],
-            ['userName', '!=', props.username]
+            ['userName', '>=', props.usersSearch],
+            ['userName', '<=', props.usersSearch + '\uf8ff'],
+            ['userName', 'not-in', props.friendsUserNames]
         ],
             storeAs: 'UsersFriends'
         },

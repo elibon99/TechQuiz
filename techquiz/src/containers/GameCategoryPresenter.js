@@ -3,6 +3,7 @@ import {compose} from "redux";
 import GameCategory from "../components/game/GameCategory";
 import {firestoreConnect} from "react-redux-firebase";
 import {fetchQuestions} from "../store/actions/gameActions";
+import {generateCategories} from "../store/actions/gameActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -18,6 +19,7 @@ const mapStateToProps = (state, ownProps) => {
     const uid = state.firebase.auth.uid;
     const games = state.firestore.data.games;
     const game = (id && games) ? games[id] : null;
+    const generatedCategories = game ? game.generatedCategories : null;
     const hasChosenCategory = game ? game.hasChosenCategory : null;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
@@ -34,6 +36,7 @@ const mapStateToProps = (state, ownProps) => {
     return{
         auth: state.firebase.auth,
         gamingID: id,
+        generatedCategories: generatedCategories,
         game: game,
         opponent: opponent,
         profile: state.firebase.profile,
@@ -52,7 +55,8 @@ const mapStateToProps = (state, ownProps) => {
  * */
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchQuestions: (gamingID, category) => dispatch(fetchQuestions(gamingID,category))
+        fetchQuestions: (gamingID, category) => dispatch(fetchQuestions(gamingID,category)),
+        generateCategories: () => dispatch(generateCategories())
     }
 }
 

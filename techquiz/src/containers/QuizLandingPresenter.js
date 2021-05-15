@@ -15,12 +15,11 @@ const mapStateToProps = (state, ownProps) => {
     const uid = state.firebase.auth.uid;
 
     /* Get game info */
-    const games = state.firestore.data.games;
+    const games = state.firestore.data.Games;
     const game = (id && games) ? games[id] : null;
     const gameSetID = game ? game.currentSet : null;
-    const turn = game ? game.turn : null;
+
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
-    console.log(isYourTurn, 'inside presenter urturn');
 
 
     const gameSets = state.firestore.data.Ggamesets;
@@ -38,6 +37,7 @@ const mapStateToProps = (state, ownProps) => {
             }
         }
     }
+
 
     return {
         auth: state.firebase.auth,
@@ -68,6 +68,7 @@ const mapDispatchToProps = (dispatch) => {
 const QuizLandingPresenter = compose(
     connect(mapStateToProps,mapDispatchToProps),
     firestoreConnect((props) => [
+        {collection: 'games', storeAs: 'Games'},
         {collection: 'games',
         doc: props.gameID,
         subcollections: [
@@ -75,7 +76,7 @@ const QuizLandingPresenter = compose(
         ],
             storeAs: 'Ggamesets'
         },
-        {collection: 'games'}
+
     ])
 )(QuizLanding);
 

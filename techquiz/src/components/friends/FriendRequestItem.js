@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 
 const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFriendRequest}) => {
     return(
-        <div>
+        <div className="friend-request-container">
             <div className="friend-req-container link-to-profile-friend-req">
                 <Link to={"/profile-preview/" + request.sentRequest}>
                     <div className="friend-req-name-title">

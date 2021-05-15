@@ -3,7 +3,7 @@ import React from 'react';
 const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
 
     return(
-        (profile && opponent) ?
+        (profile) ?
         <div className="card-content">
             <div className="container">
             <div className="row flex">
@@ -21,7 +21,7 @@ const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
                     <span>{score.userScore}-{score.opponentScore}</span>
                 </div>
                 <div className="col s12 m5 player-content">
-                    {opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
+                    {opponent && opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
                         <i className="large material-icons profile-standard-pic">account_circle</i>}
                     {opponent ?
                         <div>

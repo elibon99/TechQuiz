@@ -9,7 +9,7 @@ const PlayerStats = ({stats, winLossRatio, userName}) => {
     return(
         <div className="card profile-info-card">
             <div className="card-content">
-                <h5 className="profile-info-card-title">{userName ? userName + " stats" : "Your stats"}</h5>
+                <h5 className="profile-info-card-title">{userName ? userName + " stats" : "YOUR STATS"}</h5>
                 <div className="row">
                     <div className="col s6 m6 l3 column-bottom-padding">
                         <div className="profile-info-stats-card-container">

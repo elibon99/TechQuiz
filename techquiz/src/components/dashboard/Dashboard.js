@@ -47,7 +47,7 @@ const Dashboard = ({profileInfoKey, setUserBiography, profilePicURL, setProfileP
                     </div>
                 </div>
             </div>:
-            <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+            <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 

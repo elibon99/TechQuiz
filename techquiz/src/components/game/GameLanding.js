@@ -7,6 +7,7 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
+    console.log(isYourTurn, "isYourTurn")
     if(redirectTo){
         const path = redirectTo;
         restoreRedirectFirebase();
@@ -25,7 +26,7 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
                     <div className="container">
                         {(isYourTurn && shouldCreateNewGameSet) ?
                             <Link to={'/choose-category/' + gameID}>
-                                <button className="btn blue lighten-1 z-depth-0 play-button" onClick={generateCategories}>Play</button>
+                                <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => generateCategories(gameID)}>Play</button>
                             </Link> :
                         isYourTurn ?
                             <Link to={'/quiz-landing/' + gameID}>
@@ -38,7 +39,7 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
                 </div>
             </div>
         </div> :
-            <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+            <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
 
     )
 }

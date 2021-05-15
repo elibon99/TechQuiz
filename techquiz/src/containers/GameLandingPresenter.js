@@ -38,6 +38,7 @@ const mapStateToProps = (state, ownProps) => {
 
     /* isYourTurn is true if turn is equal to the userID of the currently logged in user, else false*/
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
+    //console.log(game.turn,  uid)
     /* shouldCreateNewGameSet is true if shouldCreateNewGameSet is equal to the userID of the currently logged in user, else false*/
     const shouldCreateNewGameSet = game ? (game.shouldCreateNewGameSet === uid ? true : false) : null;
 
@@ -133,7 +134,7 @@ const mapStateToProps = (state, ownProps) => {
  * */
 const mapDispatchToProps = (dispatch) => {
     return{
-        generateCategories: () => dispatch(generateCategories()),
+        generateCategories: (gameID) => dispatch(generateCategories(gameID)),
         restoreRedirectFirebase: (gameID) => dispatch(restoreRedirectFirebase(gameID))
     }
 }

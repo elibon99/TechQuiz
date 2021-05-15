@@ -11,7 +11,7 @@ const GameInvitations = ({gameInvitations, acceptGameInvitation, rejectGameInvit
     return (
         <div className="card profile-info-card">
             <div className="card-content profile-info-card-content">
-                <h5 className="profile-info-card-title">Game Invitations</h5>
+                <h5 className="profile-info-card-title">GAME INVITATIONS</h5>
                 <div className="profile-info-game-invitations-container">
                     <div>
                         {gameInvitations ? Object.entries(gameInvitations).map((entry) => {

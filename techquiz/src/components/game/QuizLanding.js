@@ -8,6 +8,12 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, s
         return <Redirect to="/signin"/>
     }
 
+    if(isYourTurn !== null){
+        if(isYourTurn === false){
+            return <Redirect to={"/game-landing/" + gameID}/>
+        }
+    }
+
     return(
         (gameSet && gameID && gameSetID) ?
         <div className="container">
@@ -32,7 +38,7 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, s
                     </div>
                 </div>
             </div>
-        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
+        </div> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
