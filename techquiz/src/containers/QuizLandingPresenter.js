@@ -19,7 +19,9 @@ const mapStateToProps = (state, ownProps) => {
     const game = (id && games) ? games[id] : null;
     const gameSetID = game ? game.currentSet : null;
     const turn = game ? game.turn : null;
-    const isYourTurn = (turn && turn === uid) ? true : false;
+    const isYourTurn = game ? (game.turn === uid ? true : false) : null;
+    console.log(isYourTurn, 'inside presenter urturn');
+
 
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
