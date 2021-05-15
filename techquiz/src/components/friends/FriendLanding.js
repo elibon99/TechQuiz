@@ -53,13 +53,8 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
                     <div className="card general-card">
                         <div className="card-content">
                             <h5 className="profile-info-card-title">FRIENDS & USERS</h5>
-                            {/*<form className="white" onChange={(e) => {e.preventDefault();}}>*/}
-                            {/*    <div className="input-field input-field-padding">*/}
-                            {/*        <input type="text" id="userName" name="userName" placeholder="Search for users.." onChange={e => {setUsername(e.target.value)}}/>*/}
-                            {/*    </div>*/}
-                            {/*</form>*/}
                             <div className="friend-search-container">
-                                <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
+                                <h6 className="grey-text text-darken-3 title-underline-users">Friends</h6>
                                 <form className="user-search-form" onChange={(e) => {e.preventDefault();}}>
                                     <input type="text" placeholder="Search for friends.." name="search" onChange={e => {setUsername(e.target.value)}}/>
                                 </form>
