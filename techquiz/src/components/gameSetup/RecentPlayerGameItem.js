@@ -17,7 +17,7 @@ const RecentPlayerGameItem = ({acceptGameInvitation, rejectGameInvitation, oppon
                     </button>
                         : opponentInfo.hasBeenInvited ?
                         <button disabled="true" className="btn waves-effect waves-light #64b5f6 blue lighten-2 games-btn"> Pending game invitation... </button>
-                            : opponentInfo.iGotInvited ? <div className="thumbs-container right">
+                            : opponentInfo.iGotInvited ? <div className="thumbs-container">
                                     <ThumbsUp className="thumbs-up" acceptAction={acceptGameInvitation} requestID={opponentInfo.invitationID}/>
                                     <ThumbsDown className="thumbs-down" rejectAction={rejectGameInvitation} requestID={opponentInfo.invitationID}/>
                                 </div>
