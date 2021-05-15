@@ -195,6 +195,7 @@ exports.gameInvitationResponse = functions.firestore
                 p1Score: 0,
                 p2Score: 0,
                 currentSet: "1",
+                generatedCategories: null,
                 shouldCreateNewGameSet : sentReqID,
                 amountOfPlayerLeft : 2,
                 redirectTo: null,
