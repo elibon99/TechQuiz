@@ -15,7 +15,7 @@ import SignInPresenter from "./containers/SignInPresenter";
 import LandingPresenter from "./containers/LandingPresenter";
 import FriendPresenter from "./containers/FriendPresenter";
 import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
-
+import LeaderboardCategoryPresenter from "./containers/LeaderboardCategoryPresenter";
 import LeaveGamePopUpPresenter from "./containers/LeaveGamePopUpPresenter";
 
 import Footer from "./components/layout/Footer";
@@ -46,7 +46,8 @@ function App({store}) {
               <Route path = '/signup' component={SignUpPresenter}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
               <Route path = '/findgame' component={FindGamePresenter}></Route>
-              <Route path = '/leaderboard' component={LeaderboardPresenter}></Route>
+              <Route exact path = '/leaderboard' component={LeaderboardPresenter}></Route>
+              <Route path = '/leaderboard/:id' component={LeaderboardCategoryPresenter}></Route>
               <Route path = '/game-landing/:id' component={GameLandingPresenter}></Route>
               <Route path = '/choose-category/:id' component={GameCategoryPresenter}></Route>
               <Route path = '/quiz-landing/:id' component={QuizLandingPresenter}></Route>
