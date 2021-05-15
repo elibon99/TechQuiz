@@ -5,11 +5,10 @@ import FriendRequestItem from "./FriendRequestItem";
 import SentFriendRequestItem from "./SentFriendRequestItem";
 import {Link} from "react-router-dom";
 
-const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests, sentFriendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
+const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendRequests, sentFriendRequests, acceptFriendRequest, rejectFriendRequest, users}) => {
     if(!auth.uid){
         return <Redirect to="/signin"/>
     }
-    console.log(sentFriendRequests, 'sentfriend');
     return (
         <div>
         <h5 className="page-title">Friends</h5>
@@ -18,7 +17,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                 <div className="col s12 m12 l12 xl4">
                     <div className="card general-card">
                         <div className="card-content">
-                            <h5 className="profile-info-card-title">Friend Requests</h5>
+                            <h5 className="profile-info-card-title">FRIEND REQUESTS</h5>
                             <div className="friend-request-container">
                                 <div className="incoming-friend-request-container">
                                     <h6 className="friend-request-title">Incoming friend requests</h6>
@@ -30,7 +29,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                                                        acceptFriendRequest={acceptFriendRequest}
                                                                        rejectFriendRequest={rejectFriendRequest}/>
                                                 )
-                                            }): <div>No current friend requests</div>}
+                                            }): <div className="no-friend-request-data-text">No current friend requests</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -42,7 +41,7 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                                     return (
                                                         <SentFriendRequestItem key={request[0]} request={request[1]}/>
                                                     )
-                                                }): <div>You have no pending friend requests</div>}
+                                                }): <div className="no-friend-request-data-text">You have no pending friend requests</div>}
                                         </div>
                                     </div>
                                 </div>
@@ -53,13 +52,19 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                 <div className="col s12 m12 l12 xl8">
                     <div className="card general-card">
                         <div className="card-content">
-                            <h5 className="profile-info-card-title">Friends & Users</h5>
-                            <form className="white" onChange={(e) => {e.preventDefault();}}>
-                                <div className="input-field input-field-padding">
-                                    <input type="text" id="userName" name="userName" placeholder="Search for users.." onChange={e => {setUsername(e.target.value)}}/>
-                                </div>
-                            </form>
-                            <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
+                            <h5 className="profile-info-card-title">FRIENDS & USERS</h5>
+                            {/*<form className="white" onChange={(e) => {e.preventDefault();}}>*/}
+                            {/*    <div className="input-field input-field-padding">*/}
+                            {/*        <input type="text" id="userName" name="userName" placeholder="Search for users.." onChange={e => {setUsername(e.target.value)}}/>*/}
+                            {/*    </div>*/}
+                            {/*</form>*/}
+                            <div className="friend-search-container">
+                                <h6 className="grey-text text-darken-3 title-underline-users">Your added friends</h6>
+                                <form className="user-search-form" onChange={(e) => {e.preventDefault();}}>
+                                    <input type="text" placeholder="Search for friends.." name="search" onChange={e => {setUsername(e.target.value)}}/>
+                                </form>
+                            </div>
+
                             <div className="friends-container">
                                 <div className="row">
                                     {friends ? Object.entries(friends).map((friend) => {
@@ -69,10 +74,15 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                             </Link>
                                         )
                                     }) : (friends === null) ? <div className="no-friends-title">
-                                        You don't have any friends. Go friend someone on their profile!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
+                                        Either you don't have any friends or the username you are searching for is not your friend!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
                             </div>
-                            <h6 className="grey-text text-darken-3 title-underline-users-all-users">All users</h6>
+                            <div className="friend-search-container">
+                                <h6 className="grey-text text-darken-3 title-underline-users">All users</h6>
+                                <form className="user-search-form" onChange={(e) => {e.preventDefault();}}>
+                                    <input type="text" placeholder="Search for users.." name="search" onChange={e => {setUsernameUser(e.target.value)}}/>
+                                </form>
+                            </div>
                             <div className="friends-container-all-users">
                                 <div className="row">
                                     {users ? Object.entries(users).map((user) => {
@@ -81,7 +91,8 @@ const FriendLanding = ({auth, friends, friendSearch, setUsername, friendRequests
                                                 <FriendItem user={user[1]}/>
                                             </Link>
                                         )
-                                    }): <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
+                                    }):  (users === null)  ? <div className="no-friends-title">
+                                        Couldn't find the user you are searching for!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
                             </div>
                         </div>
