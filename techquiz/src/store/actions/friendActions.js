@@ -11,6 +11,12 @@ export const setUsernameFriends = (userName) => {
     }
 }
 
+export const setUsernameUser = (userName) => {
+    return(dispatch) => {
+        dispatch({type: "CHANGE_USER_SEARCH_USERS", payload: userName})
+    }
+}
+
 /**
  * This function sets the search to whatever the input is.
  * Used by a component to get all users.
