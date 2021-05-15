@@ -16,7 +16,7 @@ const Notifications = ({notifications, clearNotifications, ammountOfNotification
             </div>
             {notifications ? Object.entries(notifications).map((notification) => {
                 return(
-                    notification ?
+                    notification && notification[1] ?
                     <li id="nots-item" key={notification[0]} className="notification-item">
                         <NavLink to={notification[1].linkTo}>
                             <div className="notification-item-container">
