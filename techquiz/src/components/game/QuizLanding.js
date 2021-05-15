@@ -8,11 +8,6 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, s
         return <Redirect to="/signin"/>
     }
 
-    if(isYourTurn === false){
-        return <Redirect to={"/game-landing/" + gameID}/>
-    }
-
-
     return(
         (gameSet && gameID && gameSetID) ?
         <div className="container">
