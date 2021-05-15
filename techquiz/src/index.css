@@ -1266,4 +1266,14 @@ nav .sidenav-trigger{
   flex: 1;
 }
 
+.leaderboard-category-card{
+  color: black;
+}
 
+.game-finished-accept-invitation{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  padding-left: 10px;
+}
