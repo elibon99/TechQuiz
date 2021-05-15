@@ -5,11 +5,10 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
     console.log(opponent, " opponent")
     return(
         profile ?
-        <div className="card-content">
             <div className="container">
                 <div className="row category-selection-title">
-                    <h3>Your turn</h3>
-                    <h5>{hasChosenCategory ? "Category is already chosen" : "Choose category"}</h5>
+                    <h3 className="choose-category-title">YOUR TURN</h3>
+                    <h5 className="category-has-chosen-or-not-title">{hasChosenCategory ? "Category is already chosen" : "Choose category"}</h5>
                 </div>
                 <div className="row flex">
                     <div className="col s12 m5 player-content">
@@ -39,7 +38,6 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
                         </div> : <h5>Random Player</h5>}
                     </div>
                 </div>
-            </div>
         </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
