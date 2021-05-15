@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 
 const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFriendRequest}) => {
     return(
+        request ?
         <div className="friend-request-container">
             <div className="friend-req-container link-to-profile-friend-req">
                 <Link to={"/profile-preview/" + request.sentRequest}>
@@ -17,7 +18,7 @@ const FriendRequestItem = ({request, requestID, rejectFriendRequest, acceptFrien
                         <ThumbsDown className="thumbs-down" rejectAction={rejectFriendRequest} requestID={requestID}/>
                 </div>
             </div>
-        </div>
+        </div> : ""
     )
 }
 
