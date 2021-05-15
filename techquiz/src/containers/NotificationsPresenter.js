@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
     /* Get id of URL - i.e. gameID */
     const uid = state.firebase.auth.uid;
 
-    const notifications = state.firestore.data.Notifications;
+    const notifications = state.firestore.ordered.Notifications;
 
     return {
         auth: state.firebase.auth,
