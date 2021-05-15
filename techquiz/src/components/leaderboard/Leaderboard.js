@@ -30,16 +30,16 @@ const Leaderboard = ({
                 <div className="col s12 m12 l9">
                     <div className="row">
                         <CategoryScore title={"PHP"} scores={phpScore}/>
-                        <CategoryScore title={"LINUX"} scores={linuxScore}/>
+                        <CategoryScore title={"Linux"} scores={linuxScore}/>
                         <CategoryScore title={"MySQL"} scores={mysqlScore}/>
                         <CategoryScore title={"BASH"} scores={bashScore}/>
                         <CategoryScore title={"DevOps"} scores={devopsScore}/>
-                        <CategoryScore title={"Dockers"} scores={dockerScore}/>
+                        <CategoryScore title={"Docker"} scores={dockerScore}/>
                         <CategoryScore title={"HTML"} scores={htmlScore}/>
                         <CategoryScore title={"JavaScript"} scores={javascriptScore}/>
                         <CategoryScore title={"Kubernetes"} scores={kubernetesScore}/>
                         <CategoryScore title={"Laravel"} scores={laravelScore}/>
-                        <CategoryScore title={"Wordpress"} scores={wordpressScore}/>
+                        <CategoryScore title={"WordPress"} scores={wordpressScore}/>
                     </div>
                 </div>
 
