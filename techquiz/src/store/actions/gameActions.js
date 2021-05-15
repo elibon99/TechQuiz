@@ -21,10 +21,17 @@ const categories = [
  * @returns - dispatch of type success or failure depending on createFriendGame state.
  * @returns - selectedCats - the 4 selected categories.
  * */
-export const generateCategories = () => {
-    return(dispatch) => {
+export const generateCategories = (gameID) => {
+    return(dispatch, getState, {getFirebase, getFirestore}) => {
         let selectedCats = getCategories();
-        dispatch({type: 'GENERATE_CATEGORIES_SUCCESS', payload: selectedCats});
+
+        const firestore = getFirestore();
+        firestore.collection('games').doc(gameID).update({
+            generatedCategories: selectedCats
+        }).then(() => console.log("Updated generated categories"))
+            .catch((error) => console.log("Failed to update generated categories"));
+
+        //dispatch({type: 'GENERATE_CATEGORIES_SUCCESS', payload: selectedCats});
     }
 }
 
