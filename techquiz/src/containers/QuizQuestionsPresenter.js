@@ -15,10 +15,9 @@ const mapStateToProps = (state, ownProps) => {
     const uid = state.firebase.auth.uid;
 
     /* Get game info */
-    const games = state.firestore.data.games;
+    const games = state.firestore.data.Games;
     const game = (id && games) ? games[id] : null;
-    const turn = game ? game.turn : null;
-    const isYourTurn = (turn && turn === uid) ? true : false;
+    const isYourTurn = game ? (game.turn === uid ? true : false) : null;
     const gameSetID = game ? game.currentSet : null;
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = gameSetID ? (gameSets[gameSetID] === undefined ? gameSets : null) : null;
@@ -59,6 +58,7 @@ const mapDispatchToProps = (dispatch) => {
 const QuizQuestionsPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect((props) => [
+        {collection: 'games', storeAs: 'Games'},
         {collection: 'games',
             doc: props.gameID,
             subcollections: [
@@ -66,7 +66,7 @@ const QuizQuestionsPresenter = compose(
             ],
             storeAs: 'Ggamesets'
         },
-        {collection: 'games'}
+
     ])
 )(QuizQuestions);
 export default QuizQuestionsPresenter;
