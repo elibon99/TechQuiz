@@ -193,6 +193,14 @@ ol{
   padding-left: 10px;
 }
 
+.game-invitation-text{
+  width: 80%;
+  padding-left: 10px;
+}
+.thumbs-container-game-invitation{
+  width: 20%;
+}
+
 .friends-container{
   padding-left: 10px;
   overflow: auto;
@@ -224,10 +232,22 @@ ol{
 
 .play-button{
   width: 100%;
-  font-size: 24px;
+  font-size: 20px!important;
   text-transform: none;
-  font-size: 24px;
   text-transform: none;
+}
+
+.game-finished-title{
+  font-size: 28px;
+  text-align: center;
+  margin-top: 0px;
+}
+
+.game-who-won-text{
+  font-size: 20px;
+  margin-bottom: 0px;
+  margin-top: 0px;
+  margin-right: 0px;
 }
 
 .category-title{
@@ -312,13 +332,30 @@ ol{
 }
 
 .game-finished-container{
-  margin-top: 20px;
-  padding-bottom: 40px;
-  border: 1px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .game-finished-btn{
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
+}
+
+.who-won-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.trophy{
+  margin-right: 4px;
+  height: 16px;
+  width: 16px;
 }
 
 .sticky-nav{
