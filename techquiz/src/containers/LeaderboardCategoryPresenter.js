@@ -12,12 +12,17 @@ const mapStateToProps = (state, ownProps) => {
     // TODO - check for redundancy
     /* Get all users */
     const category = ownProps.match.params.id;
-    console.log(category, 'category');
     const users = state.firestore.data.users;
     const usersResult = users ? users : null;
     let categoryScore = "";
     categoryScore = state.firestore.data.categoryLeaderboardResults;
-    console.log(categoryScore, 'inside presenter');
+    if(categoryScore === null){
+        categoryScore = state.firestore.data.multiplayerRating;
+    }
+
+    if(category === "Singleplayer score"){
+        categoryScore = state.firestore.data.userStats;
+    }
 
     return {
         auth: state.firebase.auth,
@@ -42,7 +47,9 @@ const LeaderboardCategoryPresenter = compose(
                 {collection: 'scores', orderBy: ['score', 'desc']}
                 ],
             storeAs: 'categoryLeaderboardResults'
-        }
+        },
+        {collection: 'multiplayerRating', orderBy: ['rating', 'desc']},
+        {collection: 'userStats', orderBy: ['slScore', 'desc']},
     ])
 )(LeaderboardPerCategory);
 
