@@ -17,9 +17,12 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    if(isYourTurn === false){
-        return <Redirect to={"/game-landing/" + gameID}/>
+    if(isYourTurn !== null){
+        if(isYourTurn === false){
+            return <Redirect to={"/game-landing/" + gameID}/>
+        }
     }
+
     return(
         <div className="container">
             <Prompt
