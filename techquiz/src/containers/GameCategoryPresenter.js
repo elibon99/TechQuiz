@@ -21,7 +21,7 @@ const mapStateToProps = (state, ownProps) => {
     const hasChosenCategory = game ? game.hasChosenCategory : null;
     const userStats = state.firestore.data.userStats;
     const userStat = userStats ? userStats[uid] : null;
-    const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID2) : null;
+    const opponentID = game ? (game.userID1 === uid ? game.userID2 : game.userID1) : null;
     const users = state.firestore.data.users;
     const opponentProfile = (users && opponentID) ? users[opponentID] : null;
     const opponentName = game ? (game.userID1 === uid ? game.user2Name : game.user1Name) : null;
