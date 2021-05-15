@@ -1,8 +1,10 @@
 import React from 'react';
 
 const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategory}) => {
+    console.log(profile, " Profile")
+    console.log(opponent, " opponent")
     return(
-        (profile && opponent) ?
+        profile ?
         <div className="card-content">
             <div className="container">
                 <div className="row category-selection-title">
@@ -24,7 +26,7 @@ const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategor
                         <span>VS</span>
                     </div>
                     <div className="col s12 m5 player-content">
-                        {opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
+                        {opponent && opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
                             <i className="large material-icons profile-standard-pic">account_circle</i>}
                         {opponent ?
                         <div>
