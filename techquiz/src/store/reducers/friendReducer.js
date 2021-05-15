@@ -1,6 +1,9 @@
+import {LOCATION_CHANGE} from 'react-router-redux';
+
 const initState = {
     usernameFriends: "",
     usernameFindGame: "",
+    usernameUsers: "",
     addFriendError: null,
     addFriendSuccess: null,
     friendRequestAnswerError : null,
@@ -18,6 +21,18 @@ const friendReducer = (state = initState, action) => {
             return{
                 ...state,
                 usernameFriends: action.payload
+            }
+        case LOCATION_CHANGE:
+            console.log("bla bal")
+            return{
+                ...state,
+                usernameFriends: "",
+                usernameUsers: ""
+            }
+        case 'CHANGE_USER_SEARCH_USERS':
+            return{
+                ...state,
+                usernameUsers: action.payload
             }
         case 'CHANGE_USER_SEARCH_FIND_GAME':
             return{
