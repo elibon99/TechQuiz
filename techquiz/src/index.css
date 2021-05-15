@@ -121,7 +121,7 @@ code {
 }
 
 .user-search-form{
-  margin-left: 40px;
+
 }
 
 .dashboard-item-container {
@@ -161,7 +161,8 @@ ol{
 }
 
 .game-landing-container{
-  padding: 20px 0px;
+  padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .quick-match-title {
@@ -456,6 +457,7 @@ nav .sidenav-trigger{
 
 .title-underline-users{
   margin-left: 10px;
+  width: 20%;
   margin-bottom: 0px;
   margin-top: 0px;
   font-sizfe: 15px;
