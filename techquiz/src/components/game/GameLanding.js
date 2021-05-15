@@ -15,7 +15,7 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
     }
     return(
         (game && userStat) ?
-        <div className="container general-container">
+        <div className="container game-landing-container">
             <div className="card game-landing-container">
                 <GameVsInfo game={game} opponent={opponent} profile={profile} userStat={userStat} score={score}/>
                 <GameSetItem isYourTurn={isYourTurn} myResults={mySetResults[0]} opponentResults={opponentSetResults[0]} category={gameSetCategories[0]} setNr={1} currentSet={currentSet} hasBeenAnsweredBy={hasBeenAnsweredBy}/>
