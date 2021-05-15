@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 import moment from "moment";
-import NotificationSenderImg from "./NotificationSenderImg";
+import NotificationSenderImg from "./AccountImg";
 
 
 const Notifications = ({notifications, clearNotifications, ammountOfNotifications}) => {
