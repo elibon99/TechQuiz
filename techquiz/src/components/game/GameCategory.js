@@ -12,9 +12,9 @@ const GameCategory = ({game, opponent, generatedCategories, profile, userStat, s
         (game && userStat && generatedCategories) ?
         <div className="container">
             <div className="card game-landing-container">
-                <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat} hasChosenCategory={hasChosenCategory}/>
                 <div className="card-content">
-                    <div className="container">
+                <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat} hasChosenCategory={hasChosenCategory}/>
+                <div className="container">
                         <div className="row flex">
                     {(generatedCategories && !hasChosenCategory) ? Object.entries(generatedCategories).map((category => {
                         return (
@@ -30,15 +30,12 @@ const GameCategory = ({game, opponent, generatedCategories, profile, userStat, s
                         </div>
                     </div>
                 </div>
-
-                <div className="card-content">
-                        <div className="container">
-                            <Link to={'/quiz-landing/' + gamingID}>
-                                {hasChosenCategory ? <button className="btn blue lighten-1 z-depth-0 play-button">Go to questions</button> :
-                                                    <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => {fetchQuestions(gamingID,selectedCategories)}}>Play</button>
-                                }
-                            </Link>
-                        </div>
+                <div className="container">
+                    <Link to={'/quiz-landing/' + gamingID}>
+                        {hasChosenCategory ? <button className="btn blue lighten-1 z-depth-0 play-button">Go to questions</button> :
+                            <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => {fetchQuestions(gamingID,selectedCategories)}}>Play</button>
+                        }
+                    </Link>
                 </div>
             </div>
         </div> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
