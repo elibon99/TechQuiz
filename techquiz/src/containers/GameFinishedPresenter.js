@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import GameFinished from "../components/game/GameFinished";
 import {compose} from "redux";
 import {firestoreConnect} from "react-redux-firebase";
-import {createGameInvitation} from "../store/actions/gameInvitationActions";
+import {acceptGameInvitation, createGameInvitation, rejectGameInvitation} from "../store/actions/gameInvitationActions";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -26,6 +26,52 @@ const mapStateToProps = (state, ownProps) => {
     const opponent = (opponentID && userStats && opponentName) ? {username: opponentName, rating: userStats[opponentID].mlRating, userID: opponentID} : null;
     const userScore = game ? (game.userID1 === uid ? game.p1Score : game.p2Score) : null;
 
+    let outGoingGameInvitaions = state.firestore.data.meInvitedOpponentInvitation;
+    let opponentHasBeenInvited = outGoingGameInvitaions ? true : false;
+
+    let incomingGameInvitaions = state.firestore.data.opponentInvitedMeInvitation;
+    let iGotInvitedByOpponent = incomingGameInvitaions ? true : false;
+
+    let reqID = null;
+    if(incomingGameInvitaions){
+        reqID = Object.entries(incomingGameInvitaions);
+    }
+
+    let weInSameGame1 = state.firestore.data.opponentAndMeInSameGame1;
+    let weInSameGame2 = state.firestore.data.opponentAndMeInSameGame2;
+
+    let weAreInAGame = null;
+    let weAreInGameID = null;
+    if(weInSameGame1 !== null || weInSameGame2 !== null){
+        weAreInAGame = true;
+        if(weInSameGame1){
+            weAreInGameID = Object.entries(weInSameGame1)[0][0];
+        }
+        if(weInSameGame2){
+            weAreInGameID = Object.entries(weInSameGame2)[0][0];
+        }
+    } else {
+        weAreInAGame = false;
+    }
+
+    let itsMyTurn = null;
+    if(weInSameGame1){
+        if(Object.entries(weInSameGame1)[0][1].turn === uid){
+            itsMyTurn = true;
+        }
+        else {
+            itsMyTurn = false;
+        }
+    }
+    if(weInSameGame2){
+        if(Object.entries(weInSameGame2)[0][1].turn === uid){
+            itsMyTurn = true;
+        }
+        else {
+            itsMyTurn = false;
+        }
+    }
+
     /* Decide whether the current user or the opponent won, change whoWon var accordingly. */
     var whoWon = null;
     if(opponentScore !== null && userScore !== null){
@@ -45,7 +91,15 @@ const mapStateToProps = (state, ownProps) => {
         whoWon: whoWon,
         username: username,
         userStats: userStat,
-        opponentCredentials: opponent
+        opponentCredentials: opponent,
+        opponentID: opponentID,
+        opponentHasBeenInvited : opponentHasBeenInvited,
+        iGotInvitedByOpponent: iGotInvitedByOpponent,
+        uid: uid,
+        reqID: reqID,
+        itsMyTurn: itsMyTurn,
+        weAreInAGame: weAreInAGame,
+        weAreInGameID: weAreInGameID
     }
 }
 
@@ -56,7 +110,9 @@ const mapStateToProps = (state, ownProps) => {
  * */
 const mapDispatchToProps = (dispatch) => {
     return{
-        createGameInvitation: (opponentID, opponentName) => dispatch(createGameInvitation(opponentID, opponentName))
+        createGameInvitation: (opponentID, opponentName) => dispatch(createGameInvitation(opponentID, opponentName)),
+        acceptGameInvitation: (invitationID) => dispatch(acceptGameInvitation(invitationID)),
+        rejectGameInvitation: (invitationID) => dispatch(rejectGameInvitation(invitationID))
     }
 }
 
@@ -68,10 +124,40 @@ const mapDispatchToProps = (dispatch) => {
 // TODO: FIX AUTH GUARD
 const GameFinishedPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
-    firestoreConnect([
+    firestoreConnect((props) => [
         {collection: 'users'},
         {collection: 'games'},
-        {collection: 'userStats'}
+        {collection: 'userStats'},
+        {collection: 'gameInvitations' ,
+            where: [
+                ['gotRequestID', '==', props.opponentID],
+                ['sentRequestID', '==', props.uid]
+            ],
+            storeAs: 'meInvitedOpponentInvitation'
+        },
+        {collection: 'gameInvitations' ,
+            where: [
+                ['sentRequestID', '==', props.opponentID],
+                ['gotRequestID', '==', props.uid]
+            ],
+            storeAs: 'opponentInvitedMeInvitation'
+        },
+        {collection: 'games' ,
+            where: [
+                ['userID1', '==', props.opponentID],
+                ['userID2', '==', props.uid],
+                ['gameIsFinished', '==', false],
+            ],
+            storeAs: 'opponentAndMeInSameGame1'
+        },
+        {collection: 'games' ,
+            where: [
+                ['userID1', '==', props.uid],
+                ['userID2', '==', props.opponentID],
+                ['gameIsFinished', '==', false],
+            ],
+            storeAs: 'opponentAndMeInSameGame2'
+        }
     ])
 )(GameFinished);
 
