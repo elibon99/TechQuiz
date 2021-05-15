@@ -61,6 +61,7 @@ export const addToMatchQueue = (rating) => {
                                 p1Score: 0,
                                 p2Score: 0,
                                 currentSet: "1",
+                                generateCategories: null,
                                 shouldCreateNewGameSet : uid,
                                 amountOfPlayerLeft : 2,
                                 redirectTo: null,
