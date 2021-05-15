@@ -43,7 +43,7 @@ function getCategories(){
     let selectedCategories = [];
     var cats = [...categories];
     for(let i = 0; i < 4; i += 1){
-        var randomIndex = Math.floor(Math.random() * (cats.length-1));
+        var randomIndex = Math.floor(Math.random() * (cats.length));
         selectedCategories.push(cats[randomIndex]);
         cats.splice(randomIndex, 1);
     }
