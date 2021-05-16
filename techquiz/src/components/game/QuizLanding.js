@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
 
-const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn}) => {
+const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
 
     if(!auth.uid) {
         return <Redirect to="/signin"/>
