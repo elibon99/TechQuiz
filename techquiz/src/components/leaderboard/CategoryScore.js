@@ -8,7 +8,7 @@ const CategoryScore = ({scores, title, users}) => {
         <div className="col s12 m12 l6 xl4">
             <div className="card leaderboard-card">
             <div className="leaderboard-small-category-container category-score-small-container">
-                <h6 className="leaderboard-small-title">{title}</h6>
+                <h6 className="leaderboard-small-title">{title.toUpperCase()}</h6>
                 <table>
                     <thead>
                     <tr>
