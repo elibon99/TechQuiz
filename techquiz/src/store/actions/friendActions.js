@@ -133,16 +133,66 @@ export const removeFriend = (friendUserID) => {
 export const acceptFriendRequest = (requestID) => {
     return(dispatch, getState, {getFirestore}) => {
         const firestore = getFirestore();
+
+        let sentReqID = null;
+        let sentReqUserName = null;
+        let gotReqID = null;
+        let gotReqUserName = null;
+        let gotReqPhotoURL = null;
+        let sentReqPhotoURL = null;
+
         firestore.collection('friendRequests').doc(requestID).update({
             isAccepted: true
-        }).then(() =>{
-            dispatch({type: 'ACCEPTED_REQUEST_SUCCESS'})
-        }).catch((err) => {
-            console.log('hello is this happening', err);
-            dispatch({type: 'ACCEPTED_REQUEST_FAILURE', err});
-        });
+        }).then(() => {
+            firestore.collection('friendRequests').doc(requestID).get()
+                .then((docRef) => {
+                    sentReqID = docRef.data().sentRequest;
+                    sentReqUserName = docRef.data().sentReqUserName;
+                    gotReqID = docRef.data().gotRequest;
+                    gotReqUserName = docRef.data().gotReqUserName;
+                    gotReqPhotoURL = docRef.data().gotReqPhotoURL;
+                    sentReqPhotoURL = docRef.data().sentReqPhotoURL;
+                })
+                .then(() => {
+                    firestore.collection('users').doc(gotReqID).collection('friends').add({
+                        userID: sentReqID,
+                        userName: sentReqUserName,
+                        photoURL: sentReqPhotoURL
+                    }).then(() => {
+                        firestore.collection('users').doc(gotReqID).get()
+                            .then((docRef2) => {
+                                firestore.collection('users').doc(sentReqID).collection('friends').add({
+                                    userID: gotReqID,
+                                    userName: gotReqUserName,
+                                    photoURL: docRef2.data().photoURL
+                                }).then(() => {
+                                    firestore.collection('friendRequests').doc(requestID).delete()
+                                        .then()
+                                        .catch((error) => console.log("Failed to delete friendRequest document ", error));
+                                })
+                                    .catch((error) => console.log("Something went wrong adding friend ", error));
+                            }).catch((error) => console.log("Something went wrong: ", error));
+                    }).catch((error) => console.log("Failed to fetch users from ", gotReqID, " with errror: ", error));
+                }).then(() => {
+                firestore.collection('notifications').add({
+                    notificationMessage: "They accepted your friend request",
+                    toUser: sentReqUserName,
+                    fromUser: gotReqUserName,
+                    toUserID: sentReqID,
+                    fromUserID: gotReqID,
+                    linkTo: "/profile-preview/" + gotReqID,
+                    createdAt: new Date(),
+                    notificationType: "acceptedFriendRequest",
+                    fromUserPhotoURL: gotReqPhotoURL,
+                    requestID: null
+                })
+                    .then()
+                    .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
+            })
+                })
+                .catch((err) => console.log(err, 'error'));
+        }
     }
-}
 
 /**
  * This function tries to reject the selected friend request. After rejecting,
@@ -155,7 +205,10 @@ export const rejectFriendRequest = (requestID) => {
         const firestore = getFirestore();
         firestore.collection('friendRequests').doc(requestID).update({
             isRejected: true
-        }).then(() =>{
+        }).then(() => {
+                firestore.collection('friendRequests').doc(requestID).delete()
+                    .then()
+                    .catch((err) => console.log(err, 'could not delete friend req'))
             dispatch({type: 'REJECTED_REQUEST_SUCCESS'})
         }).catch((err) => {
             console.log('hello is this happening', err);
