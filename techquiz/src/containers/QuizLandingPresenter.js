@@ -17,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
     /* Get game info */
     const games = state.firestore.data.Games;
     const game = (id && games) ? games[id] : null;
+    const hasChosenCategory = game ? game.hasChosenCategory : null;
     const gameSetID = game ? game.currentSet : null;
 
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
@@ -48,7 +49,8 @@ const mapStateToProps = (state, ownProps) => {
         localGame: state.game,
         selectedCategory: selectedCategory,
         categoriesToImg: state.game.categoriesImgPath,
-        isYourTurn: isYourTurn
+        isYourTurn: isYourTurn,
+        hasChosenCategory: hasChosenCategory
     }
 }
 
