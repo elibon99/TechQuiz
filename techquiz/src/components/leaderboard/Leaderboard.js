@@ -23,26 +23,28 @@ const Leaderboard = ({
         <h5 className="page-title">Leaderboard</h5>
         <div className="container general-container">
             <div className="row">
-                <div className="col s12 m12 l3">
+                <div className="col s12 m12 l6">
                     <Ranking title={"Multiplayer rating"} ratings={mlRating} type="mlRating" users={users}/>
+                </div>
+                <div className="col s12 m12 l6">
                     <Ranking title={"Singleplayer score"} ratings={slScores} type="slScore" users={users}/>
                 </div>
-                <div className="col s12 m12 l9">
+
+                <div className="col s12 m12">
                     <div className="row">
-                        <CategoryScore title={"PHP"} scores={phpScore}/>
-                        <CategoryScore title={"Linux"} scores={linuxScore}/>
-                        <CategoryScore title={"MySQL"} scores={mysqlScore}/>
-                        <CategoryScore title={"BASH"} scores={bashScore}/>
-                        <CategoryScore title={"DevOps"} scores={devopsScore}/>
-                        <CategoryScore title={"Docker"} scores={dockerScore}/>
-                        <CategoryScore title={"HTML"} scores={htmlScore}/>
-                        <CategoryScore title={"JavaScript"} scores={javascriptScore}/>
-                        <CategoryScore title={"Kubernetes"} scores={kubernetesScore}/>
-                        <CategoryScore title={"Laravel"} scores={laravelScore}/>
-                        <CategoryScore title={"WordPress"} scores={wordpressScore}/>
+                        <CategoryScore title={"PHP"} scores={phpScore} users={users}/>
+                        <CategoryScore title={"Linux"} scores={linuxScore} users={users}/>
+                        <CategoryScore title={"MySQL"} scores={mysqlScore} users={users}/>
+                        <CategoryScore title={"BASH"} scores={bashScore} users={users}/>
+                        <CategoryScore title={"DevOps"} scores={devopsScore} users={users}/>
+                        <CategoryScore title={"Docker"} scores={dockerScore} users={users}/>
+                        <CategoryScore title={"HTML"} scores={htmlScore} users={users}/>
+                        <CategoryScore title={"JavaScript"} scores={javascriptScore} users={users}/>
+                        <CategoryScore title={"Kubernetes"} scores={kubernetesScore} users={users}/>
+                        <CategoryScore title={"Laravel"} scores={laravelScore} users={users}/>
+                        <CategoryScore title={"WordPress"} scores={wordpressScore} users={users}/>
                     </div>
                 </div>
-
             </div>
         </div>
         </div>
