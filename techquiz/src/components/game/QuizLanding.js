@@ -2,17 +2,25 @@ import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
 
-const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
-
+const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, hasForfitted, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-
+    console.log(isYourTurn, "is your tunr")
     if(isYourTurn !== null){
+
         if(isYourTurn === false){
+            console.log("Is this happening")
             return <Redirect to={"/game-landing/" + gameID}/>
         }
     }
+
+
+    if(hasForfitted){
+        return <Redirect to={"/game-landing/" + gameID}/>
+    }
+
+
 
     return(
         (gameSet && gameID && gameSetID) ?
@@ -40,6 +48,7 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, s
             </div>
         </div> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
+
 }
 
 export default QuizLanding;
