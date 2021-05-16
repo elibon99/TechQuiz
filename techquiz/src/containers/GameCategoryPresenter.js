@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
     // TODO: gå igenom om man kan dela upp de snyggare men de ser dependent ut av varandra så vågar ej flytta
     const id = ownProps.match.params.id;
     const uid = state.firebase.auth.uid;
-    const games = state.firestore.data.games;
+    const games = state.firestore.data.Games;
     const game = (id && games) ? games[id] : null;
     const generatedCategories = game ? game.generatedCategories : null;
     const hasChosenCategory = game ? game.hasChosenCategory : null;
@@ -71,7 +71,7 @@ const GameCategoryPresenter = compose(
     connect(mapStateToProps, mapDispatchToProps),
     firestoreConnect([
         {collection: 'users'},
-        {collection: 'games'},
+        {collection: 'games', storeAs:'Games'},
         {collection: 'userStats'}
     ])
 )(GameCategory);
