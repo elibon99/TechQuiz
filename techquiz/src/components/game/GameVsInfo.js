@@ -1,4 +1,5 @@
 import React from 'react';
+import AccountImg from "../Notifications/AccountImg";
 
 const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
 
@@ -9,7 +10,7 @@ const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
             <div className="row flex">
                 <div className="col s12 m5 player-content">
                     {profile.photoURL? <img className="profile-info-pic" src={profile.photoURL} alt="profile-pic"/>:
-                        <i className="large material-icons profile-standard-pic">account_circle</i>}
+                        <AccountImg className="default-photo"/>}
                     <h5>
                         {profile.userName}
                     </h5>
@@ -22,7 +23,7 @@ const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
                 </div>
                 <div className="col s12 m5 player-content">
                     {opponent && opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
-                        <i className="large material-icons profile-standard-pic">account_circle</i>}
+                        <AccountImg className="default-photo"/>}
                     {opponent ?
                         <div>
                         <h5>
