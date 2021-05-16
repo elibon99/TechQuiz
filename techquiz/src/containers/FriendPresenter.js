@@ -21,7 +21,9 @@ const mapStateToProps = (state, ownProps) => {
     var friendsUserNames = [];
     if(friendsNoSearch){
         Object.entries(friendsNoSearch).forEach((entry) => {
-            friendsUserNames.push(entry[1].userName);
+            if(entry[1] !== null){
+                friendsUserNames.push(entry[1].userName);
+            }
         })
     }
 
