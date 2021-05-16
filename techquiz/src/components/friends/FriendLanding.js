@@ -63,11 +63,13 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
                             <div className="friends-container">
                                 <div className="row">
                                     {friends ? Object.entries(friends).map((friend) => {
-                                        return(
-                                            <Link to={'/profile-preview/' + friend[1].userID} key={friend[0]}>
-                                                <FriendItem user={friend[1]}/>
-                                            </Link>
-                                        )
+                                        if(friend[1] !== null) {
+                                            return (
+                                                <Link to={'/profile-preview/' + friend[1].userID} key={friend[0]}>
+                                                    <FriendItem user={friend[1]}/>
+                                                </Link>
+                                            )
+                                        }
                                     }) : (friends === null) ? <div className="no-friends-title">
                                         Either you don't have any friends or the username you are searching for is not your friend!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
