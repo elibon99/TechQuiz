@@ -1391,3 +1391,7 @@ nav .sidenav-trigger{
   border-radius: 3px;
   padding-left: 10px;
 }
+
+.game-invitation-link{
+  color: black;
+}

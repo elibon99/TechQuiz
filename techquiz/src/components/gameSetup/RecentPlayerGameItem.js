@@ -7,9 +7,11 @@ const RecentPlayerGameItem = ({acceptGameInvitation, rejectGameInvitation, oppon
     return(
         opponentInfo ?
             <div className="gameitem-container">
-                <div className="recent-player-item-opponent-title">
-                    {opponentInfo.opponentName}
-                </div>
+                <Link to={"/profile-preview/" + opponentInfo.opponentID} className="game-invitation-link">
+                    <div className="recent-player-item-opponent-title">
+                        {opponentInfo.opponentName}
+                    </div>
+                </Link>
                 <div className="recent-player-item-btn-container">
                     {(opponentInfo && !opponentInfo.inGameWith && !opponentInfo.hasBeenInvited && !opponentInfo.iGotInvited) ?
                     <button className="btn waves-effect waves-light #64b5f6 blue lighten-2 games-btn"

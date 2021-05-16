@@ -34,7 +34,8 @@ const GameFinished = ({weAreInGameID, weAreInAGame, itsMyTurn, auth, whoWon, use
                                 <button disabled={true} className="btn blue lighten-1 z-depth-0 play-button">Has already been invited</button>
                                 : iGotInvitedByOpponent ?
                                 <div className="gameitem-container">
-                                    <div className="game-invitation-text"> {opponentCredentials.username} invited you to a new game. Accept?</div>
+                                    <div className="game-invitation-text">
+                                        <Link className="game-invitation-link" to={"/profile-preview/" + opponentCredentials.userID}>{opponentCredentials.username}</Link> invited you to a new game. Accept?</div>
                                     <div className="thumbs-container thumbs-container-game-invitation">
                                         <ThumbsUp className="thumbs-up" acceptAction={acceptGameInvitation} requestID={reqID[0][0]}/>
                                         <ThumbsDown className="thumbs-down" rejectAction={rejectGameInvitation} requestID={reqID[0][0]}/>
