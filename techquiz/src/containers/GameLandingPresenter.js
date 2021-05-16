@@ -16,7 +16,6 @@ const mapStateToProps = (state, ownProps) => {
     const games = state.firestore.data.Games;
     const game = (gameID && games) ? games[gameID] : null;
     const currentSet = game ? game.currentSet : null;
-
     /* Getting user data from game and userstats */
     const uid = state.firebase.auth.uid;
     const userStats = state.firestore.data.userStats;
@@ -38,6 +37,7 @@ const mapStateToProps = (state, ownProps) => {
 
     /* isYourTurn is true if turn is equal to the userID of the currently logged in user, else false*/
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
+
     //console.log(game.turn,  uid)
     /* shouldCreateNewGameSet is true if shouldCreateNewGameSet is equal to the userID of the currently logged in user, else false*/
     const shouldCreateNewGameSet = game ? (game.shouldCreateNewGameSet === uid ? true : false) : null;
