@@ -8,6 +8,12 @@ const GameCategory = ({game, opponent, generatedCategories, profile, userStat, s
         return <Redirect to="/signin"/>
     }
 
+    if(isYourTurn !== null){
+        if(isYourTurn === false){
+            return <Redirect to={"/game-landing/" + gamingID}/>
+        }
+    }
+
     return (
         (game && userStat && generatedCategories) ?
         <div className="container">
