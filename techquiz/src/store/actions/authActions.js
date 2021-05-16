@@ -152,7 +152,6 @@ export const setProfilePicture = (imageFile) => {
         const firebase = getFirebase();
         const firestore = getFirestore();
         const uid = getState().firebase.auth.uid;
-
         firebase.storage().ref('users/' + uid + '/profile.jpg').put(imageFile)
             .then((snapshot) => {
                 snapshot.ref.getDownloadURL()
