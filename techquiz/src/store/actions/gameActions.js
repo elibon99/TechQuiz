@@ -90,6 +90,8 @@ export const fetchQuestions = (gamingID, category) => {
                             category: category,
                             activeQuestion: 0,
                             hasBeenAnsweredBy: 0,
+                            p1HasForfeited: false,
+                            p2HasForfeited: false,
                             createdAt: new Date()
                         })
                             .then((doc) => {
@@ -156,56 +158,78 @@ export const forfeitGameSet = (gameID) => {
     return (dispatch, getState, {getFirestore, getFirebase}) => {
         const firestore = getFirestore();
         const uid = getState().firebase.auth.uid;
-        const game = getState().firestore.data.games[gameID];
-        const currentGameSet = game.currentSet;
-        const opponentUsername = uid === game.userID1 ? game.user2Name : game.user1Name;
         var hasBeenAnsweredBy = 0;
-        if(uid === game.userID1){
-            firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
-                .then((docRef) => {
-                    hasBeenAnsweredBy = docRef.data().hasBeenAnsweredBy +1;
-                    let answersToBeUpdated = docRef.data().questions;
-                    answersToBeUpdated.resp[0]["p1Score"] = 0;
-                    answersToBeUpdated.resp[1]["p1Score"] = 0;
-                    answersToBeUpdated.resp[2]["p1Score"] = 0;
-                    docRef.ref.update({
-                        score: 0,
-                        activeQuestion: 0,
-                        questions: answersToBeUpdated,
-                        hasBeenAnsweredBy: docRef.data().hasBeenAnsweredBy +1
-                    }).then(() => {
-                        firestore.collection('games').doc(gameID).update({
-                            turn: game.userID2
-                        }).then(() => console.log("Updated turn"))
-                            .catch((error) => console.log("Failed to update turn"))
-                    })
-                        .catch((error) => console.log("Failed to update score for forfeit ", error));
-                }).catch((error) => console.log("Couldn't fetch gameSets"));
-        }
-        else{
-            firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
-                .then((docRef) => {
-                    hasBeenAnsweredBy = docRef.data().hasBeenAnsweredBy +1;
-                    let answersToBeUpdated = docRef.data().questions;
-                    answersToBeUpdated.resp[0]["p2Score"] = 0;
-                    answersToBeUpdated.resp[1]["p2Score"] = 0;
-                    answersToBeUpdated.resp[2]["p2Score"] = 0;
-                    docRef.ref.update({
-                        score: 0,
-                        activeQuestion: 0,
-                        questions: answersToBeUpdated,
-                        hasBeenAnsweredBy: docRef.data().hasBeenAnsweredBy +1
-                    }).then(() => {
-                        firestore.collection('games').doc(gameID).update({
-                            turn: game.userID1
-                        }).then(() => console.log("Updated turn"))
-                            .catch((error) => console.log("Failed to update turn"))
-                    })
-                        .catch((error) => console.log("Failed to update score for forfeit ", error));
-                }).catch((error) => console.log("Couldn't fetch gameSets"));
-        }
-        dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));
+        firestore.collection('games').doc(gameID).get()
+            .then((docRef) => {
+                const currentGameSet = docRef.data().currentSet;
+                const opponentUsername = uid === docRef.data().userID1 ? docRef.data().userID2 : docRef.data().userID1;
+                if(uid === docRef.data().userID1){
+                    firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
+                        .then((docRef1) => {
+                            console.log(docRef.data(), " the data in in game")
+                            hasBeenAnsweredBy = docRef1.data().hasBeenAnsweredBy +1;
+                            let playerShouldSelectCategory = uid;
+                            if (hasBeenAnsweredBy === 2) {
+                                playerShouldSelectCategory = uid;
+                            }
+                            else {
+                                playerShouldSelectCategory = docRef.data().shouldCreateNewGameSet;
+                            }
+                            const theTurn = (hasBeenAnsweredBy === 2) ? uid : docRef.data().userID2;
+                            let answersToBeUpdated = docRef1.data().questions;
+                            answersToBeUpdated.resp[0]["p1Score"] = 0;
+                            answersToBeUpdated.resp[1]["p1Score"] = 0;
+                            answersToBeUpdated.resp[2]["p1Score"] = 0;
+                            docRef1.ref.update({
+                                score: 0,
+                                activeQuestion: 0,
+                                p1HasForfeited: true,
+                                questions: answersToBeUpdated,
+                                hasBeenAnsweredBy: docRef1.data().hasBeenAnsweredBy +1
+                            }).then(() => {
+                                firestore.collection('games').doc(gameID).update({
+                                    turn: theTurn,
+                                    shouldCreateNewGameSet: playerShouldSelectCategory
+                                }).then(() => {dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));})
+                                    .catch((error) => console.log("Failed to update turn"))
+                            })
+                                .catch((error) => console.log("Failed to update score for forfeit ", error));
+                        }).catch((error) => console.log("Couldn't fetch gameSets"));
+                }
+                else{
+                    firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
+                        .then((docRef2) => {
+                            hasBeenAnsweredBy = docRef2.data().hasBeenAnsweredBy +1;
+                            let playerShouldSelectCategory = uid;
+                            if (hasBeenAnsweredBy === 2) {
+                                playerShouldSelectCategory = uid;
+                            }
+                            else {
+                                playerShouldSelectCategory = docRef.data().shouldCreateNewGameSet;
+                            }
+                            const theTurn = (hasBeenAnsweredBy === 2) ? uid : docRef.data().userID1;
+                            let answersToBeUpdated = docRef2.data().questions;
+                            answersToBeUpdated.resp[0]["p2Score"] = 0;
+                            answersToBeUpdated.resp[1]["p2Score"] = 0;
+                            answersToBeUpdated.resp[2]["p2Score"] = 0;
+                            docRef2.ref.update({
+                                score: 0,
+                                activeQuestion: 0,
+                                p2HasForfeited: true,
+                                questions: answersToBeUpdated,
+                                hasBeenAnsweredBy: docRef2.data().hasBeenAnsweredBy +1
+                            }).then(() => {
+                                firestore.collection('games').doc(gameID).update({
+                                    turn: theTurn,
+                                    shouldCreateNewGameSet: playerShouldSelectCategory
+                                }).then(() => {dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));})
+                                    .catch((error) => console.log("Failed to update turn"))
+                            })
+                                .catch((error) => console.log("Failed to update score for forfeit ", error));
+                        }).catch((error) => console.log("Couldn't fetch gameSets"));
+                }
 
+            }).catch((error) => console.log("Failed to fetch game"));
 
     }
 }
