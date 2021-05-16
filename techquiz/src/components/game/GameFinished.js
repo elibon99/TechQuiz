@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 import ThumbsUp from "../friends/ThumbsUp";
 import ThumbsDown from "../friends/ThumbsDown";
-import Trophy from "./Trophy";
+import Trophy from "../leaderboard/Trophy";
 
 const GameFinished = ({weAreInGameID, weAreInAGame, itsMyTurn, auth, whoWon, userStats, opponentCredentials, username, createGameInvitation, opponentHasBeenInvited, iGotInvitedByOpponent, acceptGameInvitation, rejectGameInvitation, reqID}) => {
     if(!auth.uid) {
