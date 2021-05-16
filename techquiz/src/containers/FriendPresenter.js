@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
             friendsUserNames.push(entry[1].userName);
         })
     }
-    console.log(friendsNoSearch)
+
     const profile = state.firebase.profile;
     const username = profile ? profile.userName : null;
     if(username && friendsNoSearch){
