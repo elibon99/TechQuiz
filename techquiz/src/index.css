@@ -1365,8 +1365,8 @@ nav .sidenav-trigger{
 }
 
 .default-pic-leaderboard{
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -1459,13 +1459,19 @@ table tbody a:nth-child(odd){
   overflow: hidden;
 }
 
-.leaderboard-small-category-container tbody tr{
-  height: 30px;
+.leaderboard-small-category-container tbody a tr th{
+  padding: 5px 16px;
+}
+
+.leaderboard-small-category-container thead tr th{
+  padding: 5px 16px;
 }
 
 
 .leaderboard-small-title{
   text-align: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
 }
 
 .leaderboard-small-category-container{
