@@ -28,7 +28,7 @@ export const generateCategories = (gameID) => {
         const firestore = getFirestore();
         firestore.collection('games').doc(gameID).update({
             generatedCategories: selectedCats
-        }).then(() => console.log("Updated generated categories"))
+        }).then()
             .catch((error) => console.log("Failed to update generated categories"));
 
         //dispatch({type: 'GENERATE_CATEGORIES_SUCCESS', payload: selectedCats});
