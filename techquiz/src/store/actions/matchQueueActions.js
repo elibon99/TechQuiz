@@ -23,6 +23,8 @@ export const addToMatchQueue = (rating) => {
         let shouldSkip = false;
         var gamingSetId = null;
         var shouldCreateNewGame = false;
+        var shouldConnectToGame = false;
+        var matchqueueID = null;
 
         firestore.collection('users').doc(uid).get()
             .then((doc) => {
@@ -35,6 +37,9 @@ export const addToMatchQueue = (rating) => {
                                 }
                                 else if(doc.data().uid !== uid && doc.data().gameID !== null){
                                     gamingSetId = doc.data().gameID;
+                                    shouldConnectToGame = true;
+                                    matchqueueID = doc.id;
+                                    console.log(matchqueueID);
                                     shouldSkip = true;
                                 }
                                 else if (doc.data().uid === uid){
@@ -71,19 +76,38 @@ export const addToMatchQueue = (rating) => {
                             }).then()
                                 .catch((err) => console.log("Failed to create game :", err));
                         }
-                        firestore.collection('matchqueue').add({
-                            uid: uid,
-                            rating: rating,
-                            username: doc.data().userName,
-                            gameID: gamingSetId
-                        })
-                            .then((docRef) => {
-                                dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
-                                dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingSetId}`});
+                        if(shouldConnectToGame) {
+                            firestore.collection('games').doc(gamingSetId).get()
+                                .then((docRef) => {
+                                    const turn = (docRef.data().turn === "") ? uid : docRef.data().turn;
+                                    docRef.ref.update({
+                                        userID2: uid,
+                                        turn: turn,
+                                        user2Name: username
+                                    }).then(() => {
+                                        dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
+                                        dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingSetId}`});
+                                        firestore.collection('matchqueue').doc(matchqueueID).delete().then().catch((error) => console.log("Failed to delete"));
+                                    })
+                                        .catch((error) => console.log("Failed to update game"));
+                                }).catch((error) => console.log("Failed to fetch game"));
+                        }
+                        else{
+                            firestore.collection('matchqueue').add({
+                                uid: uid,
+                                rating: rating,
+                                username: doc.data().userName,
+                                gameID: gamingSetId
                             })
-                            .catch((err) => {
-                                dispatch({type: 'ADDED_TO_MATCH_QUEUE_FAILURE', err});
-                            });
+                                .then((docRef) => {
+                                    dispatch({type: 'ADDED_TO_MATCH_QUEUE_SUCCESS'});
+                                    dispatch({type: 'REDIRECT', payload: `${'/game-landing/' + gamingSetId}`});
+                                })
+                                .catch((err) => {
+                                    dispatch({type: 'ADDED_TO_MATCH_QUEUE_FAILURE', err});
+                                });
+                        }
+
                     } )
                     .catch((error) => console.log("could not fetch matchqueue"))
             })
