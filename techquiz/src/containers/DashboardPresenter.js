@@ -40,10 +40,12 @@ const mapStateToProps = (state) => {
     if(profilePicURL !== null){
         profilePicURL = profilePicURL + new Date().getTime();
     }
-
-    let wasClicked = (state.firestore.data.users && uid) ? state.firestore.data.users[uid].changedPicAtLeastOnce : null;
-    if((profilePicURL === null) && (wasClicked === true)){
-        window.location.reload();
+    let wasClicked = null;
+    if(state.firestore.data.users !== undefined){
+        wasClicked = (state.firestore.data.users && uid && state.firestore.data.users[uid] !== undefined) ? state.firestore.data.users[uid].changedPicAtLeastOnce : null;
+        if((profilePicURL === null) && (wasClicked === true)){
+            window.location.reload();
+        }
     }
 
     /* Get all games where its the current user's turn to play  */

@@ -7,6 +7,9 @@ const ProfilePreview = ({cancelFriendRequest, friendBiography, friendPicURL, aut
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
+    if(auth.uid === userID) {
+        return <Redirect to="/profile"/>
+    }
     return (
         (userStat && userName) ?
             <div>

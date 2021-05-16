@@ -1,6 +1,7 @@
 import React from 'react';
 import ThumbsDown from "../friends/ThumbsDown";
 import ThumbsUp from "../friends/ThumbsUp";
+import {Link} from "react-router-dom";
 /**
  * This components main focus is displaying all game requests/invitations to the user.
  * @param invitation - the invitation,
@@ -11,9 +12,11 @@ import ThumbsUp from "../friends/ThumbsUp";
 const GameRequestItem = ({invitation, invitationID, acceptGameInvitation, rejectGameInvitation}) => {
     return(
         <div className="gameitem-container">
-            <div className="game-invitation-opponent-title">
-                {invitation.sentReqUserName}
-            </div>
+            <Link className="game-invitation-link" to={"/profile-preview/" + invitation.sentRequestID}>
+                <div className="game-invitation-opponent-title">
+                    {invitation.sentReqUserName}
+                </div>
+            </Link>
 
             <div className="thumbs-container">
               {/*  <button className="btn waves-effect waves-light #64b5f6 blue lighten-2 btn-full-height" onClick={() => acceptGameInvitation(invitationID)}>Accept</button>

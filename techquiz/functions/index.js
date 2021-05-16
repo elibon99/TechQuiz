@@ -119,63 +119,6 @@ exports.setUsername = functions.firestore
 
     });
 
-exports.friendAccepted = functions.firestore
-    .document('friendRequests/{id}')
-    .onUpdate((change, context) => {
-        if(change.after.data().isAccepted){
-            const sentReqID = change.after.data().sentRequest;
-            const sentReqUserName = change.after.data().sentReqUserName;
-            const gotReqID = change.after.data().gotRequest;
-            const gotReqUserName = change.after.data().gotReqUserName;
-            const gotReqPhotoURL = change.after.data().gotReqPhotoURL;
-            const sentReqPhotoURL = change.after.data().sentReqPhotoURL;
-            return admin.firestore().collection('users').doc(sentReqID).get()
-                .then((docRef) => {
-                    admin.firestore().collection('users').doc(gotReqID).collection('friends').add({
-                        userID: sentReqID,
-                        userName: sentReqUserName,
-                        photoURL: docRef.data().photoURL
-                    }).then(() => {
-                        admin.firestore().collection('users').doc(gotReqID).get()
-                            .then((docRef2) => {
-                                admin.firestore().collection('users').doc(sentReqID).collection('friends').add({
-                                    userID: gotReqID,
-                                    userName: gotReqUserName,
-                                    photoURL: docRef2.data().photoURL
-                                }).then(() => {
-                                    admin.firestore().collection('friendRequests').doc(context.params.id).delete()
-                                        .then()
-                                        .catch((error) => console.log("Failed to delete friendRequest document ", error));
-                                })
-                                    .catch((error) => console.log("Something went wrong adding friend ", error));
-                            }).catch((error) => console.log("Something went wrong: ", error));
-                    }).catch((error) => console.log("Failed to fetch users from ", gotReqID, " with errror: ", error));
-                }).then(() => {
-                    admin.firestore().collection('notifications').add({
-                        notificationMessage: "They accepted your friend request",
-                        toUser: sentReqUserName,
-                        fromUser: gotReqUserName,
-                        toUserID: sentReqID,
-                        fromUserID: gotReqID,
-                        linkTo: "/profile-preview/" + gotReqID,
-                        createdAt: new Date(),
-                        notificationType: "acceptedFriendRequest",
-                        fromUserPhotoURL: gotReqPhotoURL,
-                        requestID: null
-                    })
-                        .then()
-                        .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
-                })
-                .catch((error) => console.log("Failed to fetch users from ,", gotReqID, " with errror: ", error));
-
-        }
-        if (change.after.data().isRejected){
-            return admin.firestore().collection('friendRequests').doc(context.params.id).delete()
-                    .then()
-                    .catch((err) => console.log(err, 'could not delete friend req'))
-        }
-    })
-
 exports.gameInvitationResponse = functions.firestore
     .document('gameInvitations/{id}')
     .onUpdate((change, context) =>{

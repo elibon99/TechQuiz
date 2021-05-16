@@ -1589,3 +1589,16 @@ table tbody a:nth-child(odd){
 
 }
 
+
+.game-finished-accept-invitation{
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #c4c4c4;
+  border-radius: 3px;
+  padding-left: 10px;
+}
+
+.game-invitation-link{
+  color: black;
+}
+

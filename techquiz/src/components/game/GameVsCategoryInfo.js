@@ -2,8 +2,6 @@ import React from 'react';
 import AccountImg from "../Notifications/AccountImg";
 
 const GameVsCategoryInfo = ({game, opponent, profile, userStat, hasChosenCategory}) => {
-    console.log(profile, " Profile")
-    console.log(opponent, " opponent")
     return(
         profile ?
             <div className="container">

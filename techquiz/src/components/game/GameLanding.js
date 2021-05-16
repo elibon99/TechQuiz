@@ -7,7 +7,6 @@ const GameLanding = ({auth, game, opponent, profile, userStat, score, isYourTurn
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    console.log(isYourTurn, "isYourTurn")
     if(redirectTo){
         const path = redirectTo;
         restoreRedirectFirebase();
