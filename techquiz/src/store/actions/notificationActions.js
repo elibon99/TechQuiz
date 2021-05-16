@@ -8,7 +8,7 @@ export const clearNotifications = () => {
             .then((querySnapshot) => {
                 querySnapshot.forEach((doc) => {
                     doc.ref.delete()
-                        .then(() => console.log("Successfully deleted notification"))
+                        .then()
                         .catch((error) => console.log("Failed to delete notification"));
                 })
             }).catch((error) => console.log("failed to clear all notifications"));
