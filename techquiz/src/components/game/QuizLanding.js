@@ -1,25 +1,25 @@
 import React from 'react';
-import {Link, Redirect} from "react-router-dom";
+import {Link, Redirect, useHistory} from "react-router-dom";
 
 
 const QuizLanding = ({auth, gameSet, userShouldSelectCategory, gameID, startTimer ,gameSetID, localGame, hasForfitted, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
+    const history = useHistory();
+
+    React.useEffect(() =>{
+        if(gameSet){
+            if(gameSet.gameID === gameID && hasForfitted){
+                history.push('/game-landing/' + gameID);
+            }
+        }
+    },[gameSet, hasForfitted, history, gameID])
+
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
     if(isYourTurn !== null){
-
         if(isYourTurn === false){
-            return <Redirect to={"/game-landing/" + gameID}/>
+            return <Redirect to={'/game-landing/' + gameID}/>
         }
-    }
-
-    if(gameSet){
-        if(gameSet.gameID === gameID && gameSet.hasBeenAnsweredBy >= 1 && !userShouldSelectCategory){
-            if(hasForfitted){
-                return <Redirect to={"/game-landing/" + gameID}/>
-            }
-        }
-
     }
 
     return(
