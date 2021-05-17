@@ -168,7 +168,6 @@ export const forfeitGameSet = (gameID) => {
                 if(uid === docRef.data().userID1){
                     firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
                         .then((docRef1) => {
-                            console.log(docRef.data(), " the data in in game")
                             hasBeenAnsweredBy = docRef1.data().hasBeenAnsweredBy +1;
                             let playerShouldSelectCategory = uid;
                             if (hasBeenAnsweredBy === 2) {

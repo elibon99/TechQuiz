@@ -23,7 +23,6 @@ const friendReducer = (state = initState, action) => {
                 usernameFriends: action.payload
             }
         case LOCATION_CHANGE:
-            console.log("bla bal")
             return{
                 ...state,
                 usernameFriends: "",

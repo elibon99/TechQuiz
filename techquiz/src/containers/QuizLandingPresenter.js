@@ -26,24 +26,15 @@ const mapStateToProps = (state, ownProps) => {
 
     const isYourTurn = game ? (game.turn === uid ? true : false) : null;
 
-    console.log(game, " the game")
 
     const gameSets = state.firestore.data.Ggamesets;
     const gameSet = (gameSetID && gameSets) ? (gameSets[gameSetID] === undefined ? gameSets : gameSets[gameSetID]) : null;
-    console.log(isUser1ID, "user 1 ")
-    console.log(isUser2ID, " user 2")
-    console.log(gameSet, " game set")
-    console.log(gameSets, " game sets")
 
     const previousGameSet = (gameSetID !== 1 && gameSets) ? gameSets[gameSetID-1]  : null;
 
     const hasForfittedCurrentGameSet = (gameSet && isUser1ID && gameSet.p1HasForfeited) ? true : (gameSet && isUser2ID && gameSet.p2HasForfeited) ? true : false;
     const hasForfittedPreviousGameSet = (previousGameSet && isUser1ID && previousGameSet.p1HasForfeited) ? true : (previousGameSet && isUser2ID && previousGameSet.p2HasForfeited) ? true : false;
 
-    console.log(gameSetID, "current game set")
-    console.log(gameSetID-1, " previous game set")
-    console.log(hasForfittedCurrentGameSet, " has forfitted current game set")
-    console.log(hasForfittedPreviousGameSet, " has forfittet previous game set")
     const hasForfitted = hasForfittedCurrentGameSet;
 
 
@@ -91,7 +82,6 @@ const mapDispatchToProps = (dispatch) => {
 const QuizLandingPresenter = compose(
     connect(mapStateToProps,mapDispatchToProps),
     firestoreConnect((props) => {
-        console.log(props.gameSetID, " set id in firestore connect");
         return [
         {collection: 'games', storeAs: 'Games'},
         {collection: 'games',
