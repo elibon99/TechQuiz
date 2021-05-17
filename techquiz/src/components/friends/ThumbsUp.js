@@ -13,3 +13,5 @@ const ThumbsUp = ({className, acceptAction, requestID}) => {
 }
 
 export default ThumbsUp;
+
+
