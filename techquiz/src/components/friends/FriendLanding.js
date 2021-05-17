@@ -70,6 +70,7 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
                                                 </Link>
                                             )
                                         }
+                                        return  null
                                     }) : (friends === null) ? <div className="no-friends-title">
                                         Either you don't have any friends or the username you are searching for is not your friend!</div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
                                 </div>
