@@ -7,6 +7,7 @@ const FindGame = ({acceptGameInvitation, rejectGameInvitation, createGameInvitat
         return <Redirect to="/signin"/>
     }
 
+
     if(matchQueue.redirectTo){
         const path = matchQueue.redirectTo;
         restoreRedirectTo();
