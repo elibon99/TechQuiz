@@ -1470,8 +1470,8 @@ table tbody a:nth-child(odd){
 
 .leaderboard-small-title{
   text-align: center;
+  margin-bottom: 0px;
   margin-top: 0px;
-  margin-bottom: 10px;
 }
 
 .leaderboard-small-category-container{
@@ -1608,3 +1608,24 @@ table tbody a:nth-child(odd){
   color: black;
 }
 
+.leaderboard-small-title-and-link{
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  justify-content: center;
+  position: relative;
+}
+
+.link-to-leaderboard-all{
+  position: absolute;
+  right: 10px;
+  color: #42a5f5;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+
+.link-to-leaderboard-all:hover{
+  background-color: #ebebec;
+}

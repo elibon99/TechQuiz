@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import Trophy from "./Trophy";
 import AccountImg from "../Notifications/AccountImg";
 
@@ -7,7 +7,14 @@ const Ranking = ({ratings, title, type, users}) => {
     return(
         <div className="card profile-info-card">
             <div className="leaderboard-small-category-container">
-                <h6 className="leaderboard-small-title">{title.toUpperCase()}</h6>
+
+                <div className="leaderboard-small-title-and-link">
+                    <h6 className="leaderboard-small-title">{title.toUpperCase()}</h6>
+                    <Link to={"/leaderboard/" + title} className="link-to-leaderboard-all">
+                        <h6 className="leaderboard-small-title">View All</h6>
+                    </Link>
+                </div>
+
                 <table>
                     <thead>
                         <tr>
