@@ -1,18 +1,28 @@
 import React from 'react'
 import QuickMatch from "./QuickMatch";
-import {Redirect} from 'react-router-dom';
+import {Redirect, useHistory} from 'react-router-dom';
 
 const FindGame = ({acceptGameInvitation, rejectGameInvitation, createGameInvitation, auth, addToQueue, restoreRedirectTo, userStats, user, matchQueue, createFriendGame, friends, setUsername, restoreRedirectToFriendGame, friendGameStatus, recentPlayers, friendsTemp, friendSearch}) => {
+
+    const history = useHistory();
+
+    React.useEffect(() =>{
+        if(matchQueue.redirectTo){
+            const path = matchQueue.redirectTo;
+            restoreRedirectTo();
+            history.push(path);
+        }
+
+    }, [matchQueue, restoreRedirectTo, history])
+
+
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
 
 
-    if(matchQueue.redirectTo){
-        const path = matchQueue.redirectTo;
-        restoreRedirectTo();
-        return <Redirect to={path}/>
-    }
+
+
 
 
     return(
