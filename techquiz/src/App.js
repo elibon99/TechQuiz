@@ -25,12 +25,12 @@ function App({store}) {
     const [confirm, setConfirm] = React.useState(false);
     const [confirmCallback, setConfirmCallback] = React.useState(null);
 
-    function getConfirmationWithExtraParameters(whateverYouWantToPass) {
-        return function getUserConfirmation(message, callback){
-            setConfirmCallback(() => callback);
-            setConfirm(true);
-        };
-    }
+    // function getConfirmationWithExtraParameters(whateverYouWantToPass) {
+    //     return function getUserConfirmation(message, callback){
+    //         setConfirmCallback(() => callback);
+    //         setConfirm(true);
+    //     };
+    // }
 
     function getConfirmation(message, callback){
         setConfirmCallback(() => callback);
