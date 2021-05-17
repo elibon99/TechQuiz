@@ -6,11 +6,9 @@ const QuizLanding = ({auth, gameSet, userShouldSelectCategory, gameID, startTime
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
-    console.log(isYourTurn, "is your tunr")
     if(isYourTurn !== null){
 
         if(isYourTurn === false){
-            console.log("Is this happening")
             return <Redirect to={"/game-landing/" + gameID}/>
         }
     }
@@ -23,14 +21,6 @@ const QuizLanding = ({auth, gameSet, userShouldSelectCategory, gameID, startTime
         }
 
     }
-
-
-
-
-
-
-
-
 
     return(
         (gameSet && gameID && gameSetID) ?
