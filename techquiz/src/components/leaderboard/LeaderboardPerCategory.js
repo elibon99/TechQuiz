@@ -1,15 +1,22 @@
 import React from 'react';
 import Trophy from "./Trophy";
-import {NavLink} from "react-router-dom";
 import AccountImg from "../Notifications/AccountImg";
+import {useHistory} from 'react-router-dom';
 
-const leaderboardPerCategory = ({category, categoryScore, users}) => {
+
+const LeaderboardPerCategory = ({category, categoryScore, users}) => {
+
+    const history = useHistory();
+    function handleRowClick(id){
+        history.push('/profile-preview/' + id);
+    }
     return(
         <div className="container general-container">
         <div className="card profile-info-card">
             <div className="card-content leaderboard-card-content">
                 <div className="leaderboard-category-container">
                 <h5>{category.toUpperCase()}</h5>
+                    {categoryScore ?
                     <table className="z-depth-5">
                         <thead>
                         <tr>
@@ -18,12 +25,10 @@ const leaderboardPerCategory = ({category, categoryScore, users}) => {
                             <th className="width-col3" scope="col">{category === "Multiplayer rating" ? "Rating" : "Score"}</th>
                         </tr>
                         </thead>
-                        {categoryScore ?
-                            <tbody>
+                        <tbody>
                                 {category === "Singleplayer score" ? Object.entries(categoryScore).map((score, index) => {
                                     return(
-                                        <NavLink className="navlink-leaderboard" to={'/profile-preview/' + score[0]}>
-                                        <tr key={score[0]}>
+                                        <tr key={score[0]} onClick={() => handleRowClick(score[0])}>
                                             <th className="width-col1">
                                                 <div className="ranking-trohpy-container">
                                                     {index+1 === 1 ?
@@ -45,13 +50,11 @@ const leaderboardPerCategory = ({category, categoryScore, users}) => {
                                             </th>
                                             <th className="width-tbody-col3">{score[1].slScore}</th>
                                         </tr>
-                                        </NavLink>
                                     )
                                 }):
                                 category === "Multiplayer rating" ? Object.entries(categoryScore).map((score,index) => {
                                     return(
-                                        <NavLink className="navlink-leaderboard" to={'/profile-preview/' + score[0]}>
-                                        <tr key={score[0]}>
+                                        <tr key={score[0]} onClick={() => handleRowClick(score[0])}>
                                             <th className="width-col1"><div className="ranking-trohpy-container">{index+1 === 1 ?
                                             <span><Trophy className="trophy"/></span> : index+1 === 2 ?
                                             <span><Trophy className="trophy trophy-silver"/></span> : index+1 === 3 ?
@@ -67,13 +70,11 @@ const leaderboardPerCategory = ({category, categoryScore, users}) => {
                                             <th className="width-tbody-col3">{score[1].rating}</th>
 
                                         </tr>
-                                        </NavLink>
                                     )
                                 }):
                                     (categoryScore) && Object.entries(categoryScore).map((score,index) => {
                                         return(
-                                            <NavLink className="navlink-leaderboard" to={'/profile-preview/' + score[0]}>
-                                            <tr key={score[0]}>
+                                            <tr key={score[0]} onClick={() => handleRowClick(score[0])}>
                                                 <th className="width-col1"><div className="ranking-trohpy-container">{index+1 === 1 ?
                                                     <span><Trophy className="trophy"/></span> : index+1 === 2 ?
                                                      <span><Trophy className="trophy trophy-silver"/></span> : index+1 === 3 ?
@@ -89,13 +90,13 @@ const leaderboardPerCategory = ({category, categoryScore, users}) => {
                                                 <th className="width-tbody-col3">{score[1].score !== null ? score[1].score : ""}</th>
 
                                             </tr>
-                                            </NavLink>
                                         )
                                     })}
-                            </tbody> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
-                        }
 
-                    </table>
+
+                        </tbody>
+
+                    </table> :  <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
             </div>
             </div>
         </div>
@@ -103,4 +104,4 @@ const leaderboardPerCategory = ({category, categoryScore, users}) => {
     )
 }
 
-export default leaderboardPerCategory;
+export default LeaderboardPerCategory;
