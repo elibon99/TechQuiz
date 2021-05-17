@@ -16,9 +16,11 @@ import {
 */
 const mapStateToProps = (state, ownProps) => {
     /* Get the current users info, their friendrequests and info about their friends */
+    const userName = state.firebase.profile.userName;
     const users = state.firestore.data.UsersFriends;
     const friendsNoSearch = state.firestore.data.friendsNoSearch;
     var friendsUserNames = [];
+    if(userName) friendsUserNames.push(userName);
     if(friendsNoSearch){
         Object.entries(friendsNoSearch).forEach((entry) => {
             if(entry[1] !== null){
@@ -26,6 +28,11 @@ const mapStateToProps = (state, ownProps) => {
             }
         })
     }
+
+    const usersEntries = users ? Object.entries(users) : null;
+
+    const usersRes = usersEntries && friendsUserNames ? usersEntries.filter((item) => !friendsUserNames.includes(item[1].userName)) : null;
+
 
     const profile = state.firebase.profile;
     const username = profile ? profile.userName : null;
@@ -40,7 +47,7 @@ const mapStateToProps = (state, ownProps) => {
         auth: state.firebase.auth,
         friendSearch: state.friends.usernameFriends,
         usersSearch: state.friends.usernameUsers,
-        users: users,
+        users: usersRes,
         friendsNoSearch: friendsNoSearch,
         friendsUserNames: friendsUserNames,
         uid: uid,
@@ -103,8 +110,7 @@ const FriendPresenter = compose(
         {collection: 'users',
         where: [
             ['userName', '>=', props.usersSearch],
-            ['userName', '<=', props.usersSearch + '\uf8ff'],
-            ['userName', 'not-in', props.friendsUserNames]
+            ['userName', '<=', props.usersSearch + '\uf8ff']
         ],
             storeAs: 'UsersFriends'
         },
