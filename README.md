@@ -1,5 +1,25 @@
 # TechQuiz
 
+### Setting up the application
+To run the application you will need to have Node installed on your machine.
+
+To clone the app to your local machine, use the following command:
+```
+git clone git@gits-15.sys.kth.se:bonnici/Project.git
+```
+
+When repo is clowned run the following app to set up the right dependecies:
+```
+npm install
+```
+
+To run the application, execute the following command:
+```
+npm start
+```
+
+Note: Make sure you are in the techquiz folder before executing the above comands!
+
 ### Link to app: 
 https://techquiz-de162.web.app/findgame
 
@@ -69,22 +89,4 @@ as our model.
 * The *config* folder contians initialization information for our firebase web app
 
 
-### Setting up the application
-To run the application you will need to have Node installed on your machine.
 
-To clone the app to your local machine, use the following command:
-```
-git clone git@gits-15.sys.kth.se:bonnici/Project.git
-```
-
-When repo is clowned run the following app to set up the right dependecies:
-```
-npm install
-```
-
-To run the application, execute the following command:
-```
-npm start
-```
-
-Note: Make sure you are in the techquiz folder before executing the above comands!
