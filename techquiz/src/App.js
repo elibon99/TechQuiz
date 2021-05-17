@@ -7,7 +7,6 @@ import GameLandingPresenter from "./containers/GameLandingPresenter";
 import GameCategoryPresenter from "./containers/GameCategoryPresenter";
 import QuizLandingPresenter from "./containers/QuizLandingPresenter";
 import QuizQuestionsPresenter from "./containers/QuizQuestionsPresenter";
-import CurrentGameStatsPresenter from "./containers/CurrentGameStatsPresenter";
 import GameFinishedPresenter from "./containers/GameFinishedPresenter";
 import DashboardPresenter from "./containers/DashboardPresenter";
 import NavBarPresenter from "./containers/NavBarPresenter";
@@ -24,13 +23,6 @@ import Footer from "./components/layout/Footer";
 function App({store}) {
     const [confirm, setConfirm] = React.useState(false);
     const [confirmCallback, setConfirmCallback] = React.useState(null);
-
-    // function getConfirmationWithExtraParameters(whateverYouWantToPass) {
-    //     return function getUserConfirmation(message, callback){
-    //         setConfirmCallback(() => callback);
-    //         setConfirm(true);
-    //     };
-    // }
 
     function getConfirmation(message, callback){
         setConfirmCallback(() => callback);
@@ -52,7 +44,6 @@ function App({store}) {
               <Route path = '/choose-category/:id' component={GameCategoryPresenter}></Route>
               <Route path = '/quiz-landing/:id' component={QuizLandingPresenter}></Route>
               <Route path = '/quiz-question/:id' component={QuizQuestionsPresenter}></Route>
-              <Route path = '/current-game-stats' component={CurrentGameStatsPresenter}></Route>
               <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
               <Route path = '/home' component={LandingPresenter}></Route>
               <Route path = '/friends' component={FriendPresenter}></Route>
