@@ -2,7 +2,7 @@ import {connect} from "react-redux";
 import QuizLanding from "../components/game/QuizLanding";
 import {firestoreConnect} from "react-redux-firebase";
 import {startTimer, resetHasChosenCategory} from "../store/actions/gameActions";
-import {lifecycle, compose} from "recompose";
+import {compose} from "redux";
 
 /**
  * This function maps the state to props which will be sent to the relevant components.
@@ -19,6 +19,8 @@ const mapStateToProps = (state, ownProps) => {
     const game = (id && games) ? games[id] : null;
     const isUser1ID = (game && game.userID1 === uid) ? true : false;
     const isUser2ID = (game && game.userID2 === uid) ? true : false;
+    const shouldSelectCategory = game ? game.shouldSelectCategory : null;
+    const userShouldSelectCategory = (shouldSelectCategory && shouldSelectCategory === uid) ? true : false;
     const hasChosenCategory = game ? game.hasChosenCategory : null;
     const gameSetID = game ? game.currentSet : null;
 
@@ -68,7 +70,8 @@ const mapStateToProps = (state, ownProps) => {
         selectedCategory: selectedCategory,
         categoriesToImg: state.game.categoriesImgPath,
         isYourTurn: isYourTurn,
-        hasChosenCategory: hasChosenCategory
+        hasChosenCategory: hasChosenCategory,
+        userShouldSelectCategory: userShouldSelectCategory
     }
 }
 
@@ -98,13 +101,7 @@ const QuizLandingPresenter = compose(
         ],
             storeAs: 'Ggamesets'
         },
-
-    ]}),
-    lifecycle({
-        componentDidMount(prevProps){
-
-        }
-    })
+    ]})
 )(QuizLanding);
 
 export default QuizLandingPresenter;
