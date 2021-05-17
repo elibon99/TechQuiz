@@ -39,7 +39,6 @@ export const addToMatchQueue = (rating) => {
                                     gamingSetId = doc.data().gameID;
                                     shouldConnectToGame = true;
                                     matchqueueID = doc.id;
-                                    console.log(matchqueueID);
                                     shouldSkip = true;
                                 }
                                 else if (doc.data().uid === uid){

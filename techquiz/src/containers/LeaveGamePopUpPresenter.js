@@ -22,4 +22,7 @@ const mapDispatchToProps = (dispatch) => {
 const LeaveGamePopUpPresenter = connect(mapStateToProps, mapDispatchToProps)(LeaveGamePopUp);
 
 export default LeaveGamePopUpPresenter;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 17ced826e1b020c91ad8a6e02d0add9043243e07
