@@ -82,7 +82,7 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
                             </div>
                             <div className="friends-container-all-users">
                                 <div className="row">
-                                    {users ? Object.entries(users).map((user) => {
+                                    {users ? users.map((user) => {
                                         return(
                                             <Link to={'/profile-preview/' + user[0]} key={user[0]}>
                                                 <FriendItem user={user[1]}/>
