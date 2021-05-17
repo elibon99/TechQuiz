@@ -117,25 +117,25 @@ const mapStateToProps = (state) => {
             opponentScore = (entry[1].userID1 === uid) ? entry[1].p2Score : entry[1].p1Score;
             if(entry[1].userID1 === uid) {
                 if(userScore === opponentScore){
-                    whoWon = `${"It was a draw: " + userScore + "-" + opponentScore}`;
+                    whoWon = `${"DRAW: " + userScore + "-" + opponentScore}`;
                 }
                 else if(userScore > opponentScore){
-                    whoWon = `${"You won: " + userScore + "-" + opponentScore}`
+                    whoWon = `${"WIN: " + userScore + "-" + opponentScore}`
                 }
                 else {
-                    whoWon = `${"You lost: " + userScore + "-" + opponentScore}`
+                    whoWon = `${"LOSS: " + userScore + "-" + opponentScore}`
                 }
                 entry.push({opponentName : entry[1].user2Name, whoWon : whoWon});
             }
             else {
                 if(userScore === opponentScore){
-                    whoWon = `${"It was a draw: " + userScore + "-" + opponentScore}`;
+                    whoWon = `${"DRAW: " + userScore + "-" + opponentScore}`;
                 }
                 else if(userScore > opponentScore){
-                    whoWon = `${"You won: " + userScore + "-" + opponentScore}`
+                    whoWon = `${"WIN: " + userScore + "-" + opponentScore}`
                 }
                 else {
-                    whoWon = `${"You lost: " + userScore + "-" + opponentScore}`
+                    whoWon = `${"LOSS: " + userScore + "-" + opponentScore}`
                 }
                 entry.push({opponentName : entry[1].user1Name, whoWon : whoWon});
             }
