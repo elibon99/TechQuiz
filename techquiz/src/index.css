@@ -752,7 +752,9 @@ nav .sidenav-trigger{
   height: 120px;
   width: 120px;
   border-radius: 50%;
+  border: 2px solid #c4c4c4;
 }
+
 .profile-info-pic-div>input{
   display: none;
 }
