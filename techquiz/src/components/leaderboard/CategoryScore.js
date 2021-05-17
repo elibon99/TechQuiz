@@ -1,9 +1,13 @@
 import React from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Trophy from "./Trophy";
 import AccountImg from "../Notifications/AccountImg";
 
 const CategoryScore = ({scores, title, users}) => {
+    const history = useHistory();
+    function handleRowClick(id){
+        history.push('/profile-preview/' + id);
+    }
     return(
         <div className="col s12 m12 l6 xl4">
             <div className="card leaderboard-card">
@@ -14,6 +18,7 @@ const CategoryScore = ({scores, title, users}) => {
                         <h6 className="leaderboard-small-title">View All</h6>
                     </Link>
                 </div>
+                {scores && users ?
                 <table>
                     <thead>
                     <tr>
@@ -22,12 +27,11 @@ const CategoryScore = ({scores, title, users}) => {
                         <th className="width-col3" scope="col">{title === "Multiplayer rating" ? "Rating" : "Score"}</th>
                     </tr>
                     </thead>
-                    {scores && users ?
-                        <tbody className="tbody-small-leaderboard">
+
+                    <tbody className="tbody-small-leaderboard">
                         {scores.map((score, index) => {
                             return (
-                                <NavLink className="navlink-leaderboard" to={'/profile-preview/' + score.id}>
-                                    <tr key={score.id}>
+                                    <tr key={score.id} onClick={() => handleRowClick(score.id)}>
                                         <th className="width-col1">
                                             <div className="ranking-trohpy-container">
                                                 {index+1 === 1 ?
@@ -49,12 +53,10 @@ const CategoryScore = ({scores, title, users}) => {
                                         </th>
                                         <th className="width-tbody-col3">{score.score}</th>
                                     </tr>
-                                </NavLink>
                             )
-                        })
-                        }
-                        </tbody> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/> }
-                </table>
+                        })}
+                        </tbody>
+                </table> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/> }
             </div>
             </div>
         </div>
