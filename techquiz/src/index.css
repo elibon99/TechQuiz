@@ -1421,9 +1421,18 @@ thead, tbody tr{
   width: 100%;
   table-layout: fixed;
   border-bottom: none;
+  cursor: pointer;
 }
 
-table tbody a:nth-child(odd){
+table tbody tr:hover{
+  background-color: #dbd9d9;
+}
+
+table tbody tr:nth-child(odd):hover{
+  background-color: #dbd9d9;
+}
+
+table tbody tr:nth-child(odd){
   background-color: white;
 }
 
@@ -1459,7 +1468,7 @@ table tbody a:nth-child(odd){
   overflow: hidden;
 }
 
-.leaderboard-small-category-container tbody a tr th{
+.leaderboard-small-category-container tbody tr th{
   padding: 5px 16px;
 }
 
@@ -1592,6 +1601,19 @@ table tbody a:nth-child(odd){
   .leaderboard-category-container{
     width: 100%;
   }
+
+  .container{
+    width: 95%;
+  }
+
+}
+
+@media screen and (max-width: 360px){
+  .games-btn{
+    padding: 0px 6px;
+    line-height: 1;
+  }
+
 
 }
 
