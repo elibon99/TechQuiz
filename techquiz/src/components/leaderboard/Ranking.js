@@ -1,9 +1,13 @@
 import React from 'react';
-import {Link, NavLink} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 import Trophy from "./Trophy";
 import AccountImg from "../Notifications/AccountImg";
 
 const Ranking = ({ratings, title, type, users}) => {
+    const history = useHistory();
+    function handleRowClick(id){
+        history.push('/profile-preview/' + id);
+    }
     return(
         <div className="card profile-info-card">
             <div className="leaderboard-small-category-container">
@@ -14,7 +18,7 @@ const Ranking = ({ratings, title, type, users}) => {
                         <h6 className="leaderboard-small-title">View All</h6>
                     </Link>
                 </div>
-
+                {ratings && users ?
                 <table>
                     <thead>
                         <tr>
@@ -23,12 +27,10 @@ const Ranking = ({ratings, title, type, users}) => {
                             <th className="width-col3" scope="col">{title === "Multiplayer rating" ? "Rating" : "Score"}</th>
                         </tr>
                     </thead>
-                    {ratings && users ?
                      <tbody>
                         {title === "Singleplayer score" ? ratings.map((rating, index) => {
                             return (
-                                <NavLink className="navlink-leaderboard" to={'/profile-preview/' + rating.id}>
-                                    <tr key={rating.id}>
+                                    <tr key={rating.id} onClick={() => handleRowClick(rating.id)}>
                                         <th className="width-col1">
                                             <div className="ranking-trohpy-container">
                                                 {index+1 === 1 ?
@@ -50,12 +52,10 @@ const Ranking = ({ratings, title, type, users}) => {
                                         </th>
                                         <th className="width-tbody-col3">{rating.slScore}</th>
                                     </tr>
-                                </NavLink>
                             )
                         }) : ratings.map((rating,index) => {
                             return(
-                                <NavLink className="navlink-leaderboard" to={'/profile-preview/' + rating.id}>
-                                    <tr key={rating.id}>
+                                    <tr key={rating.id} onClick={() => handleRowClick(rating.id)}>
                                         <th className="width-col1"><div className="ranking-trohpy-container">{index+1 === 1 ?
                                             <span><Trophy className="trophy"/></span> : index+1 === 2 ?
                                                 <span><Trophy className="trophy trophy-silver"/></span> : index+1 === 3 ?
@@ -71,12 +71,11 @@ const Ranking = ({ratings, title, type, users}) => {
                                         <th className="width-tbody-col3">{rating.rating}</th>
 
                                     </tr>
-                                </NavLink>
                             )
                         })
                         }
-                     </tbody> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/> }
-                </table>
+                     </tbody>
+                </table> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>}
             </div>
         </div>
     )
