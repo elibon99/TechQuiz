@@ -140,7 +140,7 @@ export const startTimer = (gameID, gameSetID) => {
     return(dispatch, getState, {getFirestore, getFirebase}) => {
         //const firestore = getFirestore();
         //const uid = getState().firebase.auth.uid;
-        dispatch({type: "INITIALIZE_TIMER", payload: 1000});
+        dispatch({type: "INITIALIZE_TIMER", payload: 20});
         timerInterval = setInterval(() => {
             var currentTimerVal = getState().game.questionTimer;
             if(currentTimerVal === 0){
@@ -160,6 +160,7 @@ export const forfeitGameSet = (gameID) => {
     return (dispatch, getState, {getFirestore, getFirebase}) => {
         const firestore = getFirestore();
         const uid = getState().firebase.auth.uid;
+        const myPhotoURL = getState().firebase.profile.photoURL;
         var hasBeenAnsweredBy = 0;
         firestore.collection('games').doc(gameID).get()
             .then((docRef) => {
@@ -168,7 +169,6 @@ export const forfeitGameSet = (gameID) => {
                 if(uid === docRef.data().userID1){
                     firestore.collection('games').doc(gameID).collection('gameSets').doc(currentGameSet).get()
                         .then((docRef1) => {
-                            console.log(docRef.data(), " the data in in game")
                             hasBeenAnsweredBy = docRef1.data().hasBeenAnsweredBy +1;
                             let playerShouldSelectCategory = uid;
                             if (hasBeenAnsweredBy === 2) {
@@ -192,7 +192,27 @@ export const forfeitGameSet = (gameID) => {
                                 firestore.collection('games').doc(gameID).update({
                                     turn: theTurn,
                                     shouldCreateNewGameSet: playerShouldSelectCategory
-                                }).then(() => {dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));})
+                                }).then(() => {
+                                    if(theTurn === docRef.data().userID2){
+                                        firestore.collection('notifications').add({
+                                            notificationMessage: "It's your turn to play in this game",
+                                            toUser: docRef.data().user2Name,
+                                            fromUser: docRef.data().user1Name,
+                                            toUserID: docRef.data().userID2,
+                                            fromUserID: docRef.data().userID1,
+                                            linkTo: "/game-landing/" + gameID,
+                                            createdAt: new Date(),
+                                            notificationType: "gameSwitchYourTurn",
+                                            fromUserPhotoURL: myPhotoURL,
+                                            requestID: null
+                                        })
+                                            .then()
+                                            .catch((error) => console.log(error, 'something went wrong updating notification collection'));
+                                    }
+                                    dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));
+
+
+                                })
                                     .catch((error) => console.log("Failed to update turn"))
                             })
                                 .catch((error) => console.log("Failed to update score for forfeit ", error));
@@ -224,7 +244,24 @@ export const forfeitGameSet = (gameID) => {
                                 firestore.collection('games').doc(gameID).update({
                                     turn: theTurn,
                                     shouldCreateNewGameSet: playerShouldSelectCategory
-                                }).then(() => {dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));})
+                                }).then(() => {
+                                    if(theTurn === docRef.data().userID1){
+                                        firestore.collection('notifications').add({
+                                            notificationMessage: "It's your turn to play in this game",
+                                            toUser: docRef.data().user1Name,
+                                            fromUser: docRef.data().user2Name,
+                                            toUserID: docRef.data().userID1,
+                                            fromUserID: docRef.data().userID2,
+                                            linkTo: "/game-landing/" + gameID,
+                                            createdAt: new Date(),
+                                            notificationType: "gameSwitchYourTurn",
+                                            fromUserPhotoURL: myPhotoURL,
+                                            requestID: null
+                                        }).then()
+                                            .catch((error) => console.log(error, 'something went wrong updating notification collection'));
+                                        dispatch(gameFinishedVerification(gameID,hasBeenAnsweredBy, opponentUsername));
+                                    }
+                                })
                                     .catch((error) => console.log("Failed to update turn"))
                             })
                                 .catch((error) => console.log("Failed to update score for forfeit ", error));
@@ -434,7 +471,7 @@ export const verifyQuestion = (gamingID, answer, gameSetID) => {
         const userID = getState().firebase.auth.uid;
         let User1ID = null;
         let opponentUsername = "";
-        let myPhotoURL = getState().firestore.data.users[userID].photoURL;
+        let myPhotoURL = getState().firebase.profile.photoURL;
 
         firestore.collection('games').doc(gamingID).get()
             .then((docRef) => {
