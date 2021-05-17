@@ -22,10 +22,6 @@ const GameFinished = ({weAreInGameID, weAreInAGame, itsMyTurn, auth, whoWon, use
                     </div>
                     <br/>
                     <br/>
-
-                    <p className="center">{username ? username : ""} rating: {userStats ? userStats.mlRating : ""}</p>
-                    <p className="center">{opponentCredentials ? opponentCredentials.username : ""} rating: {opponentCredentials ? opponentCredentials.rating : ""}</p>
-
                     <div className="container game-finished-btn">
                         {(!opponentHasBeenInvited && !iGotInvitedByOpponent && !weAreInAGame) ?
                             <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => createGameInvitation(opponentCredentials.userID, opponentCredentials.username)}>Invite to a rematch</button>
