@@ -69,7 +69,7 @@ as our model.
 * The *config* folder contians initialization information for our firebase web app
 
 
-###Setting up the application
+### Setting up the application
 To run the application you will need to have Node installed on your machine.
 
 To clone the app to your local machine, use the following command:
