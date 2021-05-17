@@ -7,9 +7,6 @@ const Footer = () => {
                 <div>
                     © Elias Bonnici & Per Arn
                 </div>
-                <div>
-                    Contact: 1337
-                </div>
             </div>
         </footer>
     );
