@@ -119,61 +119,6 @@ exports.setUsername = functions.firestore
 
     });
 
-exports.gameInvitationResponse = functions.firestore
-    .document('gameInvitations/{id}')
-    .onUpdate((change, context) =>{
-        if(change.after.data().isAccepted){
-            const sentReqID = change.after.data().sentRequestID;
-            const sentReqUserName = change.after.data().sentReqUserName;
-            const gotReqID = change.after.data().gotRequestID;
-            const gotReqUserName = change.after.data().gotReqUserName;
-            const theirPhotoURL = change.after.data().gotReqPhotoURL;
-            const myPhotoURL = change.after.data().sentReqPhotoURL;
-            return admin.firestore().collection('games').add({
-                userID1: sentReqID,
-                user1Name: sentReqUserName,
-                userID2: gotReqID,
-                user2Name: gotReqUserName,
-                turn: sentReqID,
-                p1Score: 0,
-                p2Score: 0,
-                currentSet: "1",
-                generatedCategories: null,
-                shouldCreateNewGameSet : sentReqID,
-                amountOfPlayerLeft : 2,
-                redirectTo: null,
-                gameIsFinished: false,
-                timeOfGameFinished: null,
-                hasChosenCategory: false
-            }).then((docRef) => {
-                admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
-                    .then(() => {
-                        admin.firestore().collection('notifications').add({
-                            notificationMessage: "They accepted your game invitation",
-                            toUser: sentReqUserName,
-                            fromUser: gotReqUserName,
-                            toUserID: sentReqID,
-                            fromUserID: gotReqID,
-                            linkTo: "/game-landing/" + docRef.id,
-                            createdAt: new Date(),
-                            notificationType: "acceptedGameInvitation",
-                            fromUserPhotoURL: theirPhotoURL,
-                            requestID: null
-                        })
-                            .then()
-                            .catch((err) => console.log(err, 'something went wrong updating notification collection friend cloud func'));
-
-                    })
-                    .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
-            })
-                .catch((error) => console.log("Couldn't create game from invitation, ", error));
-        }
-        if(change.after.data().isRejected){
-            return admin.firestore().collection('gameInvitations').doc(context.params.id).delete()
-                .then()
-                .catch((error) => console.log("Coulndt delete gameInvitation, ", error));
-        }
-    })
 
 
 
