@@ -5,7 +5,6 @@ import {forfeitGameSet, stopTimer} from "../store/actions/gameActions";
 const mapStateToProps = (state, ownProps) => {
     const lengthOfPath = window.location.pathname.length;
     const gameID = window.location.pathname.substring(14, lengthOfPath);
-    console.log(gameID);
     return {
         gameID: gameID,
         uid: state.firebase.auth.uid
@@ -23,3 +22,4 @@ const mapDispatchToProps = (dispatch) => {
 const LeaveGamePopUpPresenter = connect(mapStateToProps, mapDispatchToProps)(LeaveGamePopUp);
 
 export default LeaveGamePopUpPresenter;
+
