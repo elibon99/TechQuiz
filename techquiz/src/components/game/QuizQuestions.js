@@ -2,11 +2,14 @@ import React from 'react';
 import {Prompt, Redirect} from "react-router-dom";
 
 const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, restoreRedirectTo, timer, stopTimer, isYourTurn}) => {
+
     if(game.redirectTo){
         const path = game.redirectTo;
         restoreRedirectTo();
         return <Redirect to={path}/>
     }
+
+
     const mouseDownHandler = (event) => {
         if(event.button === 1 || event.button === 2 || event.button === 0){
             stopTimer();
