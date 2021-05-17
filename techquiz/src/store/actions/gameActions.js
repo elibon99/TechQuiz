@@ -88,6 +88,8 @@ export const fetchQuestions = (gamingID, category) => {
                             questions: {resp},
                             score: 0,
                             category: category,
+                            gameSetID: gameSetID,
+                            gameID: gamingID,
                             activeQuestion: 0,
                             hasBeenAnsweredBy: 0,
                             p1HasForfeited: false,
