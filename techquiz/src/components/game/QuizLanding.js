@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, Redirect} from "react-router-dom";
 
 
-const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, hasForfitted, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
+const QuizLanding = ({auth, gameSet, userShouldSelectCategory, gameID, startTimer ,gameSetID, localGame, hasForfitted, selectedCategory, resetHasChosenCategory, categoriesToImg, isYourTurn, hasChosenCategory}) => {
     if(!auth.uid) {
         return <Redirect to="/signin"/>
     }
@@ -15,10 +15,20 @@ const QuizLanding = ({auth, gameSet, gameID, startTimer ,gameSetID, localGame, h
         }
     }
 
+    if(gameSet){
+        if(gameSet.gameID === gameID && gameSet.hasBeenAnsweredBy >= 1 && !userShouldSelectCategory){
+            if(hasForfitted){
+                return <Redirect to={"/game-landing/" + gameID}/>
+            }
+        }
 
-    if(hasForfitted){
-        return <Redirect to={"/game-landing/" + gameID}/>
     }
+
+
+
+
+
+
 
 
 
