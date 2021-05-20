@@ -460,6 +460,9 @@ nav .sidenav-trigger{
 .friends-card-padding{
   padding: 8px !important;
 }
+.friends-card-padding h6{
+  font-size: 12px;
+}
 
 .friend-req-container{
   border-bottom: 1px solid #c4c4c4;
@@ -1414,6 +1417,10 @@ table tbody{
   color: #8c8c8c;
 }
 
+table tbody th{
+  font-size: 12px;
+}
+
 .leaderboard-category-container table tbody tr{
   height: 50px;
 }
@@ -1916,7 +1923,21 @@ table tbody tr:nth-child(odd){
   }
 
 
+  .homepage-buttons-signup{
+    font-size: 10px;
+  }
 
+  .homepage-buttons-signin{
+    font-size: 10px;
+  }
+
+  .homepage-sign-up-button{
+    font-size: 10px;
+  }
+
+  .homepage-sign-in-button{
+    font-size: 10px;
+  }
 
 
 
