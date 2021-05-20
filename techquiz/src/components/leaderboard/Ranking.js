@@ -11,9 +11,8 @@ const Ranking = ({ratings, title, type, users}) => {
     return(
         <div className="card profile-info-card">
             <div className="leaderboard-small-category-container">
-
                 <div className="leaderboard-small-title-and-link">
-                    <h6 className="leaderboard-small-title">{title.toUpperCase()}</h6>
+                    <h6 className="leaderboard-small-title">{title === "Singleplayer score" ? "TOTAL CATEGORY SCORE" : title.toUpperCase()}</h6>
                     {title === "Multiplayer rating" ? <QuestionMark className="question-mark"/> : ""}
                     <Link to={"/leaderboard/" + title} className="link-to-leaderboard-all">
                         <h6 className="leaderboard-small-title">View All</h6>
