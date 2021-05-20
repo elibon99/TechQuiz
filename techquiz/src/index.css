@@ -1652,7 +1652,12 @@ table tbody tr:nth-child(odd){
     width: 80%;
   }
   .container{
-    width: 80%;
+    width: 95%;
+  }
+
+  .default-photo{
+    height: 70px;
+    width: 70px;
   }
 
   .profile-info-pic{
