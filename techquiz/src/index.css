@@ -461,7 +461,7 @@ nav .sidenav-trigger{
   padding: 8px !important;
 }
 .friends-card-padding h6{
-  font-size: 12px;
+  font-size: 14px;
 }
 
 .friend-req-container{
@@ -1431,6 +1431,10 @@ thead, tbody tr{
   table-layout: fixed;
   border-bottom: none;
   cursor: pointer;
+}
+
+table tbody tr th{
+  padding-left: 16px!important;
 }
 
 table tbody tr:hover{
