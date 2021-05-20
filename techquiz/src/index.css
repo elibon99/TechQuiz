@@ -1651,6 +1651,98 @@ table tbody tr:nth-child(odd){
   .leaderboard-category-container{
     width: 80%;
   }
+  .container{
+    width: 80%;
+  }
+
+  .profile-info-pic{
+    height: 70px;
+    width: 70px;
+  }
+
+  .player-content h5{
+    font-size: 14px;
+  }
+
+  .score-content span{
+    font-size: 15px;
+  }
+
+  .score-content{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .square-green{
+    height: 25px;
+    width: 25px;
+    margin: 0px 0px;
+    font-size: 12px;
+  }
+  .square-red{
+    height: 25px;
+    width: 25px;
+    margin: 0px 0px;
+    font-size: 12px;
+  }
+
+  .set-results-container{
+    width: 90%;
+    justify-content: space-between;
+  }
+
+  .game-set-item-your-turn-container{
+    width: 90%;
+    padding: 4px 10px;
+  }
+
+  .game-set-item-their-turn-container{
+    width: 90%;
+    padding: 4px 10px;
+  }
+  .game-set-item-your-turn-title{
+    font-size: 13px;
+  }
+  .category-title{
+    font-size: 13px;
+  }
+
+  .quiz-landing-card-title{
+    font-size: 13px;
+  }
+
+  .category-background-image{
+    height: 35px;
+    width: 35px;
+  }
+  .category-title-container{
+    min-height: 50px;
+  }
+
+  .category-display-container{
+    height: 150px;
+  }
+
+  .pop-up-alert-container{
+    width: 269px;
+    left: calc(50% - 134.5px);
+  }
+
+  .pop-up-alert-message-text{
+    font-size: 12px;
+  }
+
+
+  .game-set-container{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .game-set-item{
+    padding-left: 4px!important;
+    padding-right: 4px!important;
+    font-size: 12px;
+  }
 }
 
 
