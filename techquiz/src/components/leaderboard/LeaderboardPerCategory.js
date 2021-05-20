@@ -17,8 +17,10 @@ const LeaderboardPerCategory = ({category, categoryScore, users}) => {
             <div className="card-content leaderboard-card-content">
                 <div className="leaderboard-category-container">
                     <div className="leaderboard-title-question-mark-container">
-                        <h5>{category.toUpperCase()}</h5>
-                        <QuestionMark className="question-mark"/>
+                        <h5>{category === "Singleplayer score" ? "TOTAL CATEGORY SCORE":category.toUpperCase()}</h5>
+                        {category === "Multiplayer rating" ? <QuestionMark className="question-mark"/> :
+                            ""}
+
                     </div>
 
                     {categoryScore ?

@@ -461,7 +461,7 @@ nav .sidenav-trigger{
   padding: 8px !important;
 }
 .friends-card-padding h6{
-  font-size: 14px;
+  font-size: 13px;
 }
 
 .friend-req-container{
@@ -1417,24 +1417,27 @@ table tbody{
   color: #8c8c8c;
 }
 
-table tbody th{
+table tbody th:nth-child(even){
   font-size: 12px;
+  padding-left: 0px !important;
 }
 
 .leaderboard-category-container table tbody tr{
   height: 50px;
 }
 
-thead, tbody tr{
+tbody tr{
   display: table;
   width: 100%;
   table-layout: fixed;
   border-bottom: none;
   cursor: pointer;
 }
-
-table tbody tr th{
-  padding-left: 16px!important;
+thead tr{
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  border-bottom: none;
 }
 
 table tbody tr:hover{
@@ -1454,7 +1457,7 @@ table tbody tr:nth-child(odd){
 }
 
 .width-col2{
-  width: 50%;
+  width: 65%;
 }
 
 .width-col3{
@@ -1463,7 +1466,7 @@ table tbody tr:nth-child(odd){
 }
 
 .width-tbody-col3{
-  width: 30%;
+  width: 15%;
   text-align: right;
 
 }
@@ -1600,7 +1603,17 @@ table tbody tr:nth-child(odd){
   width: 60px;
 }
 
+@media screen and (max-width: 1280px) {
+  .friends-card-padding h6{
+    font-size: 12px;
+  }
+}
 
+@media screen and (min-width: 1190px) and (max-width: 1210px) {
+  .friends-card-padding h6{
+    font-size: 11px;
+  }
+}
 
 @media screen and (max-width: 1200px) {
   .profile-info-padding-small-screens{
