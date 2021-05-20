@@ -1448,6 +1448,10 @@ table tbody tr:nth-child(odd):hover{
   background-color: #dbd9d9;
 }
 
+.ranking-trohpy-container{
+  font-size: 14px;
+}
+
 table tbody tr:nth-child(odd){
   background-color: white;
 }
@@ -1463,11 +1467,13 @@ table tbody tr:nth-child(odd){
 .width-col3{
   width: 30%;
   text-align: right;
+
 }
 
 .width-tbody-col3{
   width: 15%;
   text-align: right;
+  font-size: 14px;
 
 }
 
