@@ -33,11 +33,11 @@ const ProfilePreview = ({cancelFriendRequest, friendBiography, friendPicURL, aut
                                             }
                                         </div>
                                         {isFriend ?
-                                            <div>
+                                            <div className="friend-status-container">
                                                 <h5>You are friends</h5>
                                                 <button className="btn waves-effect waves-light red lighten-2" onClick={() => {removeFriend(userID)}}>Remove friend</button>
                                             </div>: isPending ?
-                                                <div>
+                                                <div className="friend-status-container">
                                                     <h5>Pending request...</h5>
                                                     <button onClick={() => {cancelFriendRequest(requestID)}} className="btn waves-effect waves-light red lighten-2 btn-full-height">Cancel request</button>
                                                 </div>:
