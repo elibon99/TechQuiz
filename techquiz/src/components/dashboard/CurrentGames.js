@@ -12,7 +12,7 @@ const CurrentGames = ({currentGamesYourTurn, currentGamesTheirTurn}) => {
     return(
         <div className="card profile-info-card">
             <div className="card-content profile-info-card-content">
-                <h5 className="profile-info-card-title">ACTIVE GAMES</h5>
+                <h5 className="profile-info-card-title profile-info-card-title-small">ACTIVE GAMES</h5>
                 <div className="profile-info-active-games-container">
                     {currentGamesYourTurn ? currentGamesYourTurn.map((entry) => {
                         return (
