@@ -2,7 +2,7 @@ import React from 'react';
 import {Link, useHistory} from "react-router-dom";
 import Trophy from "./Trophy";
 import AccountImg from "../Notifications/AccountImg";
-
+import QuestionMark from "./QuestionMark";
 const Ranking = ({ratings, title, type, users}) => {
     const history = useHistory();
     function handleRowClick(id){
@@ -14,6 +14,7 @@ const Ranking = ({ratings, title, type, users}) => {
 
                 <div className="leaderboard-small-title-and-link">
                     <h6 className="leaderboard-small-title">{title.toUpperCase()}</h6>
+                    {title === "Multiplayer rating" ? <QuestionMark className="question-mark"/> : ""}
                     <Link to={"/leaderboard/" + title} className="link-to-leaderboard-all">
                         <h6 className="leaderboard-small-title">View All</h6>
                     </Link>
