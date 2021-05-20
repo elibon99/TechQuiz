@@ -2,6 +2,7 @@ import React from 'react';
 import Trophy from "./Trophy";
 import AccountImg from "../Notifications/AccountImg";
 import {useHistory} from 'react-router-dom';
+import QuestionMark from "./QuestionMark";
 
 
 const LeaderboardPerCategory = ({category, categoryScore, users}) => {
@@ -15,7 +16,11 @@ const LeaderboardPerCategory = ({category, categoryScore, users}) => {
         <div className="card profile-info-card">
             <div className="card-content leaderboard-card-content">
                 <div className="leaderboard-category-container">
-                <h5>{category.toUpperCase()}</h5>
+                    <div className="leaderboard-title-question-mark-container">
+                        <h5>{category.toUpperCase()}</h5>
+                        <QuestionMark className="question-mark"/>
+                    </div>
+
                     {categoryScore ?
                     <table className="z-depth-5">
                         <thead>
@@ -52,7 +57,7 @@ const LeaderboardPerCategory = ({category, categoryScore, users}) => {
                                         </tr>
                                     )
                                 }):
-                                category === "Multiplayer rating" ? Object.entries(categoryScore).map((score,index) => {
+                                category === "Multiplayer rating" ? categoryScore.map((score,index) => {
                                     return(
                                         <tr key={score[0]} onClick={() => handleRowClick(score[0])}>
                                             <th className="width-col1"><div className="ranking-trohpy-container">{index+1 === 1 ?
