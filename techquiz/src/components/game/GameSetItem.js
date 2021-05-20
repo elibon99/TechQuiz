@@ -21,7 +21,7 @@ const GameSetItem = ({isYourTurn, myResults, opponentResults, category, currentS
                 <h6 className={"game-set-item-title"}>Set {setNr}</h6>
                 <div className="card game-set-card-container">
                 <div className="row flex game-item">
-                      <div className="col s12 m5 game-set-item">
+                      <div className="col s4 m4 game-set-item">
                           {isYourTurn && myResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? <div className="game-set-item-your-turn-container"><h6 className="game-set-item-your-turn-title">Your turn</h6></div>:
                                myResults && myResults["qScore2"] !== undefined ?
                                    <div className="set-results-container">
@@ -31,10 +31,10 @@ const GameSetItem = ({isYourTurn, myResults, opponentResults, category, currentS
                                    </div> :
                                setNr > parseInt(currentSet) ? "TBD" : ""}
                       </div>
-                      <div className="col s12 m2 game-set-item">
+                      <div className="col s4 m4 game-set-item">
                           {category ? category : ""}
                       </div>
-                      <div className="col s12 m5 game-set-item">
+                      <div className="col s4 m4 game-set-item">
                           {!isYourTurn && opponentResults===undefined && (setNr === parseInt(currentSet) || hasBeenAnsweredBy[setNr-2] === 2) ? <div className="game-set-item-their-turn-container"><h6 className="game-set-item-your-turn-title">Playing</h6></div>:
                            opponentResults &&  opponentResults["qScore2"]!==undefined ?
                                <div className="set-results-container">
