@@ -16,9 +16,26 @@ const mapStateToProps = (state, ownProps) => {
     const usersResult = users ? users : null;
     let categoryScore = "";
     categoryScore = state.firestore.data.categoryLeaderboardResults;
+    const userStats = state.firestore.data.userStats;
+    var userIDsNotPlayed = [];
     if(categoryScore === null){
-        categoryScore = state.firestore.data.multiplayerRating;
+        if(userStats){
+            Object.entries(userStats).forEach((entry) => {
+                if(entry[1].losses === 0 && entry[1].wins === 0){
+                    userIDsNotPlayed.push(entry[0]);
+                }
+            })
+        }
+
+        if(userStats){
+            categoryScore = state.firestore.data.multiplayerRating;
+            categoryScore = Object.entries(categoryScore).filter((item) => !userIDsNotPlayed.includes(item[0]))
+        }
+
     }
+
+
+
 
     if(category === "Singleplayer score"){
         categoryScore = state.firestore.data.userStats;
