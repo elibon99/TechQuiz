@@ -220,6 +220,7 @@ ol{
 
 .friends-container{
   padding-left: 10px;
+  padding-right: 10px;
   overflow: auto;
   overflow-x: hidden;
   max-height: 280px;
@@ -227,6 +228,7 @@ ol{
 
 .friends-container-all-users{
   padding-left: 10px;
+  padding-right: 10px;
   overflow: auto;
   max-height: 420px;
   overflow-x: hidden;
@@ -817,12 +819,14 @@ nav .sidenav-trigger{
   display: flex;
   flex-direction: column;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .pending-friend-request-container{
   display: flex;
   flex-direction: column;
   padding-left: 10px;
+  padding-right: 10px;
 }
 
 .thumbs-up-container{
@@ -1536,6 +1540,55 @@ table tbody tr:nth-child(odd){
   padding-left: 10px;
 }
 
+.question-mark path{
+  fill: #42A5F5;
+}
+
+
+.leaderboard-title-question-mark-container{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.question-mark-container{
+  display: flex;
+  align-items: center;
+}
+
+.question-mark-text{
+  visibility: hidden;
+  position: absolute;
+  background-color: #c4c4c4;
+  border: 1px solid #c4c4c4;
+  color: white;
+  border-radius: 10px;
+  max-width: 200px;
+  margin-left: 25px;
+  z-index: 1000;
+}
+
+.question-mark:hover + .question-mark-text{
+  visibility: visible;
+}
+
+.question-mark:focus + .question-mark-text{
+  visibility: visible;
+}
+
+.question-mark:focus{
+  outline: none;
+}
+
+.question-text{
+  text-align: center;
+}
+
+.friend-default-photo{
+  height: 60px;
+  width: 60px;
+}
+
 
 
 @media screen and (max-width: 1200px) {
@@ -1603,6 +1656,271 @@ table tbody tr:nth-child(odd){
   .container{
     width: 95%;
   }
+
+  .profile-info-pic{
+    height: 70px;
+    width: 70px;
+  }
+
+  .player-content h5{
+    font-size: 14px;
+  }
+
+  .score-content span{
+    font-size: 15px;
+  }
+
+  .score-content{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .square-green{
+    height: 25px;
+    width: 25px;
+    margin: 0px 0px;
+    font-size: 12px;
+  }
+  .square-red{
+    height: 25px;
+    width: 25px;
+    margin: 0px 0px;
+    font-size: 12px;
+  }
+
+  .set-results-container{
+    width: 90%;
+    justify-content: space-between;
+  }
+
+  .game-set-item-your-turn-container{
+    width: 90%;
+    padding: 4px 10px;
+  }
+
+  .game-set-item-their-turn-container{
+    width: 90%;
+    padding: 4px 10px;
+  }
+  .game-set-item-your-turn-title{
+    font-size: 13px;
+  }
+  .category-title{
+    font-size: 13px;
+  }
+
+  .quiz-landing-card-title{
+    font-size: 13px;
+  }
+
+  .category-background-image{
+    height: 35px;
+    width: 35px;
+  }
+  .category-title-container{
+    min-height: 50px;
+  }
+
+  .category-display-container{
+    height: 150px;
+  }
+
+  .pop-up-alert-container{
+    width: 269px;
+    left: calc(50% - 134.5px);
+  }
+
+  .pop-up-alert-message-text{
+    font-size: 12px;
+  }
+
+
+  .game-set-container{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .game-set-item{
+    padding-left: 4px!important;
+    padding-right: 4px!important;
+    font-size: 12px;
+  }
+
+  .friend-request-card-content{
+    padding-left: 0px!important;
+    padding-right: 0px!important;
+  }
+
+  .title-underline-users{
+    width: 25%;
+    font-size: 13px;
+  }
+
+  .friend-search-container input[type=text]{
+    font-size: 12px;
+  }
+
+  .friend-req-name-title{
+    font-size: 12px;
+  }
+
+  .no-friend-request-data-text{
+    font-size: 12px;
+  }
+
+  .friends-card-padding h6{
+    font-size: 12px;
+  }
+
+  .profile-info-logo-title-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .profile-info-logo-title-container h5{
+    font-size: 17px;
+  }
+
+  .profile-bio-friend-status-container{
+    width: 100%;
+    margin-right: 0px;
+    align-items: center;
+  }
+
+  .friend-status-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .friend-status-container h5{
+    font-size: 14px;
+  }
+
+  .page-title{
+    font-size: 20px;
+  }
+
+
+  .leaderboard-small-title{
+    font-size: 12px;
+  }
+
+  .ranking-trohpy-container{
+    font-size: 10px;
+  }
+
+  .username-photo-container{
+    font-size: 10px;
+  }
+
+  .width-tbody-col3{
+    font-size: 10px;
+  }
+
+  .leaderboard-card-content{
+    padding-left: 10px!important;
+    padding-right: 10px!important;
+  }
+
+  .question-mark-text{
+    font-size: 10px;
+    text-align: center;
+    margin-left: -95px;
+    margin-top: 80px;
+  }
+
+  .friend-game-item-opponent-title{
+    font-size: 10px;
+    width: 34%;
+  }
+
+  .friend-game-item-status{
+    width: 30%;
+  }
+
+  .friend-game-item-title{
+    font-size: 10px;
+  }
+  .games-btn{
+    height: 20px;
+    font-size: 10px;
+  }
+
+  #searchForPlayer{
+    font-size: 10px;
+  }
+
+  .recent-player-item-container h6{
+    font-size: 12px;
+  }
+
+  .friend-request-title{
+    font-size: 13px;
+  }
+
+  table thead th{
+    padding: 5px 16px;
+  }
+
+  .profile-info-stats-number{
+    font-size: 16px;
+  }
+
+  .profile-info-stats-title{
+    font-size: 13px;
+  }
+
+  div.stats-container div:nth-child(odd){
+    padding-left: 0px!important;
+  }
+
+  div.stats-container div:nth-child(even){
+    padding-right: 0px!important;
+  }
+
+  .profile-info-card-title-small{
+    padding-left: 0px;
+  }
+
+
+  .profile-info-game-invitations-container{
+    padding-left: 0px;
+  }
+
+  .profile-info-no-data-title{
+    font-size: 14px;
+  }
+
+  .profile-info-active-games-container{
+    padding-left: 0px;
+  }
+
+  .active-game-opponent-title{
+    font-size: 12px;
+  }
+
+  .profile-info-finished-games-container{
+    padding-left: 0px;
+  }
+
+  .played-against-finished-games{
+    font-size: 12px;
+  }
+
+  .game-status-title{
+    font-size: 12px;
+  }
+
+
+
+
+
+
+
 
 }
 
