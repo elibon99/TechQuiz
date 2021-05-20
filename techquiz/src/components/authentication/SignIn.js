@@ -25,7 +25,7 @@ const SignIn = (props) => {
                           onSubmit={e => {e.preventDefault(); props.signIn(credentials)}}>
                         <h5 className="grey-text text-darken-3">Sign in</h5>
                         <div className="input-field">
-                            <label htmlFor="username">Username/Email</label>
+                            <label htmlFor="username">Email</label>
                             <input type="text" id="username" name="email"
                                    onChange={changeHandler}/>
                         </div>
