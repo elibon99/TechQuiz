@@ -11,7 +11,7 @@ const FinishedGames = ({finishedGames}) => {
     return (
         <div className="card profile-info-card">
             <div className="card-content profile-info-card-content">
-                <h5 className="profile-info-card-title">FINISHED GAMES</h5>
+                <h5 className="profile-info-card-title profile-info-card-title-small">FINISHED GAMES</h5>
                 <div className="profile-info-finished-games-container">
                     {finishedGames ? finishedGames.map((entry) => {
                         return (
