@@ -12,7 +12,25 @@ const mapStateToProps = (state) => {
     // TODO - check for redundancy
     /* Get the multiplayer ratings*/
     const mlRating = state.firestore.ordered.multiplayerRating;
-    const mlRatingResult = mlRating ? mlRating : null;
+    var mlRatingResult = mlRating ? mlRating : null;
+
+    const userStatsTemp = state.firestore.data.userStats;
+    var userIDsNotPlayed = [];
+    if (userStatsTemp) {
+            Object.entries(userStatsTemp).forEach((entry) => {
+                if (entry[1].losses === 0 && entry[1].wins === 0) {
+                    userIDsNotPlayed.push(entry[0]);
+                }
+            })
+        if(mlRatingResult){
+            mlRatingResult = mlRatingResult.filter((item) => !userIDsNotPlayed.includes(item.id))
+            mlRatingResult = mlRatingResult.slice(0,10)
+        }
+    }
+
+
+
+
 
     /* Get the score of each category */
     const bashScore = state.firestore.ordered["singleplayerScores/BASH/scores"];
@@ -39,7 +57,7 @@ const mapStateToProps = (state) => {
     const wordpressCoreResult = wordpressScore ? wordpressScore : null;
 
     /* Get the userstats */
-    const userStats = state.firestore.ordered.userStats;
+    const userStats = state.firestore.ordered.singlePlayerScores;
     const userStatsResult = userStats ? userStats : null;
 
     /* Get all users */
@@ -74,8 +92,9 @@ const mapStateToProps = (state) => {
 const LeaderboardPresenter = compose(
     connect(mapStateToProps),
     firestoreConnect([
-        {collection: 'multiplayerRating', limit: 10, orderBy: ['rating', 'desc']},
-        {collection: 'userStats', limit: 10, orderBy: ['slScore', 'desc']},
+        {collection: 'multiplayerRating',orderBy: ['rating', 'desc']},
+        {collection: 'userStats', storeAs: 'userStats'},
+        {collection: 'userStats', limit: 10, orderBy: ['slScore', 'desc'], storeAs: 'singlePlayerScores'},
         {collection: 'users'},
         {collection: 'singleplayerScores/BASH/scores', limit:10, orderBy: ['score', 'desc']},
         {collection: 'singleplayerScores/DevOps/scores', limit:10, orderBy: ['score', 'desc']},
