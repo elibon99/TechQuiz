@@ -13,10 +13,10 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
         <div>
         <h5 className="page-title">Friends</h5>
         <div className="container general-container">
-            <div className="row">
+            <div className="row column-padding">
                 <div className="col s12 m12 l12 xl4">
                     <div className="card general-card">
-                        <div className="card-content">
+                        <div className="card-content friend-request-card-content">
                             <h5 className="profile-info-card-title">FRIEND REQUESTS</h5>
                             <div className="friend-request-container">
                                 <div className="incoming-friend-request-container">
@@ -51,7 +51,7 @@ const FriendLanding = ({auth, friends, setUsername, setUsernameUser, friendReque
                 </div>
                 <div className="col s12 m12 l12 xl8">
                     <div className="card general-card">
-                        <div className="card-content">
+                        <div className="card-content friend-request-card-content">
                             <h5 className="profile-info-card-title">FRIENDS & USERS</h5>
                             <div className="friend-search-container">
                                 <h6 className="grey-text text-darken-3 title-underline-users">Friends</h6>
