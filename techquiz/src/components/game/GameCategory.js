@@ -24,7 +24,7 @@ const GameCategory = ({game, opponent, generatedCategories, profile, userStat, s
                         <div className="row flex">
                     {(generatedCategories && !hasChosenCategory) ? Object.entries(generatedCategories).map((category => {
                         return (
-                            <div key={category[1].tags}  className="col s12 m6 game-category-col">
+                            <div key={category[1].tags}  className="col s6 m6 game-category-col">
                                 <div id={category[1].tags} onClick={e => {setSelectedCategories(e.target.id)}} className="card category-title-container" tabIndex="1">
                                     <div id={category[1].tags} className="quiz-landing-card quiz-landing-card-title" onClick={e => {setSelectedCategories(e.target.id)}}>
                                         <img id={category[1].tags} className="category-background-image" onClick={e => {setSelectedCategories(e.target.id)}} src={category[1].iconSrc} alt={category[1].category}/>
