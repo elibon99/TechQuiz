@@ -39,7 +39,7 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                     <div className="col s6 m6"><h6 className="left">Current Score: {gameSet ? gameSet.score : ""}</h6></div>
                     <div className="col s6 m6"><h6 className="right">Question : {(gameSet && game.redirectTo === null) ? gameSet.activeQuestion +1 : ""}/3</h6></div>
                     <div className="col s12 m12">
-                        <p className="center">{(gameSet && game.redirectTo === null)? gameSet.questions.resp[gameSet.activeQuestion].question : ""}</p>
+                        <p className="question-text">{(gameSet && game.redirectTo === null)? gameSet.questions.resp[gameSet.activeQuestion].question : ""}</p>
                     </div>
                 </div>
                 <div className="row">
@@ -51,7 +51,7 @@ const QuizQuestions = ({auth, gameSet, verifyQuestion, gameSetID, gameID, game, 
                     }).map((entry => {
                         return (
                             entry[1] ?
-                            <div key={entry[0]} className="col s12 m6">
+                            <div key={entry[0]} className="col s6 m6">
                                 <div id={entry[0]} onClick={mouseDownHandler} className="card category-title-container" >
                                     <div id={entry[0]} className="category-title">
                                         {entry[1]}
