@@ -8,7 +8,7 @@ const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
         <div className="card-content">
             <div className="container">
             <div className="row flex">
-                <div className="col s12 m5 player-content">
+                <div className="col s4 m4 player-content">
                     {profile.photoURL? <img className="profile-info-pic" src={profile.photoURL} alt="profile-pic"/>:
                         <AccountImg className="default-photo"/>}
                     <h5>
@@ -18,10 +18,10 @@ const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
                         Rating: {userStat.mlRating}
                     </h5>
                 </div>
-                <div className="col s12 m2 score-content">
+                <div className="col s4 m4 score-content">
                     <span>{score.userScore}-{score.opponentScore}</span>
                 </div>
-                <div className="col s12 m5 player-content">
+                <div className="col  s4 m4 player-content">
                     {opponent && opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
                         <AccountImg className="default-photo"/>}
                     {opponent ?
