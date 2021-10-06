@@ -1,32 +1,42 @@
 import React from 'react';
+import AccountImg from "../Notifications/AccountImg";
 
-const GameVsInfo = () => {
+const GameVsInfo = ({game, opponent, profile, userStat,score}) => {
+
     return(
+        (profile) ?
         <div className="card-content">
+            <div className="container">
             <div className="row flex">
-                <div className="col s12 m5 player-content">
-                    <i className="large material-icons">account_circle</i>
+                <div className="col s4 m4 player-content">
+                    {profile.photoURL? <img className="profile-info-pic" src={profile.photoURL} alt="profile-pic"/>:
+                        <AccountImg className="default-photo"/>}
                     <h5>
-                        Elias
+                        {profile.userName}
                     </h5>
                     <h5>
-                        Rating: 102
+                        Rating: {userStat.mlRating}
                     </h5>
                 </div>
-                <div className="col s12 m2 score-content">
-                    <span>0-0</span>
+                <div className="col s4 m4 score-content">
+                    <span>{score.userScore}-{score.opponentScore}</span>
                 </div>
-                <div className="col s12 m5 player-content">
-                    <i className="large material-icons">account_circle</i>
-                    <h5>
-                        Pelle
-                    </h5>
-                    <h5>
-                        Rating: 120
-                    </h5>
+                <div className="col  s4 m4 player-content">
+                    {opponent && opponent.photoURL ? <img className="profile-info-pic" src={opponent.photoURL} alt="profile-pic"/>:
+                        <AccountImg className="default-photo"/>}
+                    {opponent ?
+                        <div>
+                        <h5>
+                            {opponent.username}
+                        </h5>
+                        <h5>
+                            Rating: {opponent.rating}
+                        </h5>
+                        </div> : <h5>Random player</h5>}
                 </div>
             </div>
-        </div>
+            </div>
+        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 

@@ -1,38 +1,59 @@
+import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import SignUp from "./components/authentication/SignUp";
-import FindGame from "./components/gameSetup/FindGame";
-import Leaderboard from "./components/leaderboard/Leaderboard";
-import GameLanding from "./components/game/GameLanding";
-import GameCategory from "./components/game/GameCategory";
-import QuizLanding from "./components/game/QuizLanding";
-import QuizQuestions from "./components/game/QuizQuestions";
-import CurrentGameStats from "./components/game/CurrentGameStats";
-import GameFinished from "./components/game/GameFinished";
-import Landing from "./components/home/Landing";
+import SignUpPresenter from "./containers/SignUpPresenter";
+import FindGamePresenter from "./containers/FindGamePresenter";
+import LeaderboardPresenter from "./containers/LeaderboardPresenter";
+import GameLandingPresenter from "./containers/GameLandingPresenter";
+import GameCategoryPresenter from "./containers/GameCategoryPresenter";
+import QuizLandingPresenter from "./containers/QuizLandingPresenter";
+import QuizQuestionsPresenter from "./containers/QuizQuestionsPresenter";
+import GameFinishedPresenter from "./containers/GameFinishedPresenter";
 import DashboardPresenter from "./containers/DashboardPresenter";
 import NavBarPresenter from "./containers/NavBarPresenter";
 import SignInPresenter from "./containers/SignInPresenter";
+import LandingPresenter from "./containers/LandingPresenter";
+import FriendPresenter from "./containers/FriendPresenter";
+import ProfilePreviewPresenter from "./containers/ProfilePreviewPresenter";
+import LeaderboardCategoryPresenter from "./containers/LeaderboardCategoryPresenter";
+import LeaveGamePopUpPresenter from "./containers/LeaveGamePopUpPresenter";
 
-function App() {
+import Footer from "./components/layout/Footer";
+
+
+function App({store}) {
+    const [confirm, setConfirm] = React.useState(false);
+    const [confirmCallback, setConfirmCallback] = React.useState(null);
+
+    function getConfirmation(message, callback){
+        setConfirmCallback(() => callback);
+        setConfirm(true);
+    }
   return (
-      <BrowserRouter>
+      <BrowserRouter getUserConfirmation={getConfirmation}>
         <div className="App">
           <NavBarPresenter/>
           <Switch>
-              <Route exact path = '/' component={DashboardPresenter}></Route>
-              <Route path = '/signup' component={SignUp}></Route>
+              <Route exact path = '/' component={LandingPresenter}></Route>
+              <Route path = '/profile' component={DashboardPresenter}></Route>
+              <Route path = '/signup' component={SignUpPresenter}></Route>
               <Route path = '/signin' component={SignInPresenter}></Route>
-              <Route path = '/findgame' component={FindGame}></Route>
-              <Route path = '/leaderboard' component={Leaderboard}></Route>
-              <Route path = '/game-landing' component={GameLanding}></Route>
-              <Route path = '/choose-category' component={GameCategory}></Route>
-              <Route path = '/quiz-landing' component={QuizLanding}></Route>
-              <Route path = '/quiz-question' component={QuizQuestions}></Route>
-              <Route path = '/current-game-stats' component={CurrentGameStats}></Route>
-              <Route path = '/game-finished' component={GameFinished}></Route>
-              <Route path = '/home' component={Landing}></Route>
-
+              <Route path = '/findgame' component={FindGamePresenter}></Route>
+              <Route exact path = '/leaderboard' component={LeaderboardPresenter}></Route>
+              <Route path = '/leaderboard/:id' component={LeaderboardCategoryPresenter}></Route>
+              <Route path = '/game-landing/:id' component={GameLandingPresenter}></Route>
+              <Route path = '/choose-category/:id' component={GameCategoryPresenter}></Route>
+              <Route path = '/quiz-landing/:id' component={QuizLandingPresenter}></Route>
+              <Route path = '/quiz-question/:id' component={QuizQuestionsPresenter}></Route>
+              <Route path = '/game-finished/:id' component={GameFinishedPresenter}></Route>
+              <Route path = '/home' component={LandingPresenter}></Route>
+              <Route path = '/friends' component={FriendPresenter}></Route>
+              <Route path = '/profile-preview/:id' component={ProfilePreviewPresenter}></Route>
           </Switch>
+
+            {confirm && (<LeaveGamePopUpPresenter confirmCallback={confirmCallback} setConfirm={setConfirm}/>)}
+
+            <Footer/>
+
         </div>
       </BrowserRouter>
   );

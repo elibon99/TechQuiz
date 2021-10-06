@@ -1,44 +1,50 @@
 import React from 'react';
 import GameVsCategoryInfo from "./GameVsCategoryInfo";
-import {Link} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 
-const categories = [
-    {name: "Linux", id: 1},
-    {name: "Java", id: 2},
-    {name: "MySQL", id: 3 },
-    {name: "PHP", id: 4}
-]
+const GameCategory = ({game, opponent, generatedCategories, profile, userStat, score, isYourTurn, auth, localGame, fetchQuestions, gamingID, hasChosenCategory}) =>  {
+    const [selectedCategories, setSelectedCategories]= React.useState("");
+    if(!auth.uid) {
+        return <Redirect to="/signin"/>
+    }
 
-
-
-const GameCategory = (props) =>  {
+    if(isYourTurn !== null){
+        if(isYourTurn === false){
+            return <Redirect to={"/game-landing/" + gamingID}/>
+        }
+    }
 
     return (
+        (game && userStat && generatedCategories) ?
         <div className="container">
             <div className="card game-landing-container">
-                <GameVsCategoryInfo/>
-                <div className="row">
-                    {categories.map((category => {
+                <div className="card-content">
+                <GameVsCategoryInfo game={game} opponent={opponent} profile={profile} userStat={userStat} hasChosenCategory={hasChosenCategory}/>
+                <div className="container">
+                        <div className="row flex">
+                    {(generatedCategories && !hasChosenCategory) ? Object.entries(generatedCategories).map((category => {
                         return (
-                            <div key={category.id} className="col s12 m6">
-                                <div className="card category-title-container">
-                                    <div className="category-title">
-                                        {category.name}
+                            <div key={category[1].tags}  className="col s6 m6 game-category-col">
+                                <div id={category[1].tags} onClick={e => {setSelectedCategories(e.target.id)}} className="card category-title-container" tabIndex="1">
+                                    <div id={category[1].tags} className="quiz-landing-card quiz-landing-card-title" onClick={e => {setSelectedCategories(e.target.id)}}>
+                                        <img id={category[1].tags} className="category-background-image" onClick={e => {setSelectedCategories(e.target.id)}} src={category[1].iconSrc} alt={category[1].category}/>
+                                            {category[1].category}
                                     </div>
                                 </div>
                             </div>)
-                    }))}
-                </div>
-
-                <div className="row">
-                        <div className="col s12 m12">
-                            <Link to='/quiz-landing'>
-                                <button className="btn blue lighten-1 z-depth-0 play-button">Play</button>
-                            </Link>
+                    })) : <div></div>}
                         </div>
+                    </div>
+                </div>
+                <div className="container">
+                    <Link to={'/quiz-landing/' + gamingID}>
+                        {hasChosenCategory ? <button className="btn blue lighten-1 z-depth-0 play-button">Go to questions</button> :
+                            <button className="btn blue lighten-1 z-depth-0 play-button" onClick={() => {fetchQuestions(gamingID,selectedCategories)}}>Play</button>
+                        }
+                    </Link>
                 </div>
             </div>
-        </div>
+        </div> : <img className='loading-wheel-general-view' src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 

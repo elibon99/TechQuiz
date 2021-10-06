@@ -1,15 +1,20 @@
 import React from 'react'
 
-const GameItemTheirTurn = () => {
+/**
+ * This components main focus is displaying all games where it's the opponents turn.
+ * @param game - the game.
+ * */
+const GameItemTheirTurn = ({game}) => {
     return(
+        game ?
         <div className="gameitem-container">
-            <div className="gameitem-col">
-                Elsa
+            <div className="active-game-opponent-title">
+                {game[2].opponentName !== "" ? game[2].opponentName : "Random Player"}
             </div>
-            <div className="gameitem-col">
-                <button disabled className="right btn waves-effect waves-light #64b5f6 blue lighten-2">Waiting...</button>
+            <div className="active-games-btn-container">
+                <button disabled className="btn waves-effect waves-light #64b5f6 lighten-2 games-btn">Waiting...</button>
             </div>
-        </div>
+        </div> : <img src={"http://www.csc.kth.se/~cristi/loading.gif"} alt={"waiting for data"}/>
     )
 }
 
