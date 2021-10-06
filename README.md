@@ -21,7 +21,7 @@ npm start
 Note: Make sure you are in the techquiz folder before executing the above comands!
 
 ### Link to app: 
-https://techquiz-de162.web.app/findgame
+https://techquiz-de162.web.app/
 
 
 ### Link to component-ui diagram
